@@ -1,0 +1,18 @@
+/echo -pw % Loading statler state-file.
+/set tnlthreshold=2106
+/set brandish=typhus
+/set unbrandish=leman seal
+/set branLeft=7
+/set rechargeContainer=managear
+/set levelGoal=250
+/set myTnl=1052
+/set myrace=liz
+/set myclass=sor
+/set mytier=hero
+/set mylevel=304
+/set wield=oni
+/set offhand=hero shield
+/set lootContainer=loot
+/set lvlon=1
+/set self_buffs=concentrate#savvy#death shroud#mystical barrier#protection good
+/set action=kill %1

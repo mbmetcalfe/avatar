@@ -1,0 +1,19 @@
+/echo -pw % Loading kromlee state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=doom
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=hum
+/set myclass=war
+/set mytier=lord
+/set mylevel=201
+/set wield=claw
+/set offhand=dagger
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=barkskin#confidence#saving grace#concentrate
+/set action=kill %1
+/set allegItem=an Ice Bow

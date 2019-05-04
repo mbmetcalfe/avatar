@@ -1,0 +1,19 @@
+/echo -pw % Loading tiati state-file.
+/set tnlthreshold=120
+/set brandish=
+/set unbrandish=friggin stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1333
+/set myrace=trl
+/set myclass=war
+/set mytier=lord
+/set mylevel=404
+/set wield=ethereal
+/set offhand=normal
+/set lootContainer=icesphere
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1
+/set allegItem=Crumpled Note

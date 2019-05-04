@@ -1,0 +1,18 @@
+/echo -pw % Loading someon state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=wicked
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=hie
+/set myclass=sor
+/set mytier=lowmort
+/set mylevel=2
+/set wield=oni
+/set offhand=oni
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#death shroud#mystical barrier#protection good#summon necrit
+/set action=c brim %1

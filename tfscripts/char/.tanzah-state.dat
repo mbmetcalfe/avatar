@@ -1,0 +1,21 @@
+/echo -pw % Loading tanzah state-file.
+/set tnlthreshold=110
+/set brandish=typhus
+/set unbrandish=leman
+/set branLeft=0
+/set rechargeContainer=Kiah skin bag loot
+/set levelGoal=999
+/set myTnl=1111
+/set myrace=orc
+/set myclass=rog
+/set mytier=lowmort
+/set mylevel=50
+/set wield=bladed
+/set offhand=shield
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=c torm %1
+/set poisonkit=
+/set lockpick_chest=silver lockpick
+/set lockpick_door=mechanical lock-pick contraption

@@ -1,0 +1,19 @@
+/echo -pw % Loading purohitah state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=piercing arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=tua
+/set myclass=prs
+/set mytier=lowmort
+/set mylevel=50
+/set wield=blade
+/set offhand=baron
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#acumen#farsight
+/set action=kill %1
+/set maxheal=

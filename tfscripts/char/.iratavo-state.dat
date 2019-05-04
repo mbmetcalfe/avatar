@@ -1,0 +1,18 @@
+/echo -pw % Loading iratavo state-file.
+/set tnlthreshold=120
+/set brandish=typhus
+/set unbrandish=amorphous
+/set branLeft=2
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=10000
+/set myrace=drg
+/set myclass=ran
+/set mytier=hero
+/set mylevel=164
+/set wield=battleblade
+/set offhand=baron
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#acumen#savvy#farsight#endurance
+/set action=kill %1

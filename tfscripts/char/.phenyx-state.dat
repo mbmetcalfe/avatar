@@ -1,0 +1,19 @@
+/echo -pw % Loading phenyx state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=piercing arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=gar
+/set myclass=ran
+/set mytier=lord
+/set mylevel=1
+/set wield=blade
+/set offhand=baron
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#acumen#farsight
+/set action=kill %1
+/set allegItem=Panthrodrine-Skin Leggings

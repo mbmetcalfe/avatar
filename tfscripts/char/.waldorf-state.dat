@@ -1,0 +1,19 @@
+/echo -pw % Loading waldorf state-file.
+/set tnlthreshold=1
+/set brandish=
+/set unbrandish=leman seal
+/set branLeft=0
+/set rechargeContainer=managear!
+/set levelGoal=999
+/set myTnl=3225
+/set myrace=fdk
+/set myclass=psi
+/set mytier=lord
+/set mylevel=2
+/set wield=bladed shield
+/set offhand=hero shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=savvy#concentrate#stunning weapon#illusory shield
+/set action=kill %1
+/set allegItem=Aura Of Domination

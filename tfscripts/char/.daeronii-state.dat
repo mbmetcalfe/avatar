@@ -1,0 +1,13 @@
+/echo -pw % Loading daeronii state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=hand
+/set levelGoal=999
+/set myTnl=1538
+/set myrace=tua
+/set myclass=psi
+/set wield=sword githyanki gith silver lordgear pain
+/set offhand=psi-blade energy pure pain
+/set lootContainer=loot
+/set lvlon=0
+/set action=kill %1

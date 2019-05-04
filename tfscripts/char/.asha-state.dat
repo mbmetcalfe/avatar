@@ -1,0 +1,19 @@
+/echo -pw % Loading asha state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=hand
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1538
+/set myrace=tua
+/set myclass=psi
+/set mytier=lord
+/set mylevel=339
+/set wield=sword githyanki gith silver lordgear pain
+/set offhand=ant wing chakram boss2
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#steel skeleton#illusory shield#stunning weapon#frenzy
+/set action=kill %1
+/set allegItem=a rock hammer

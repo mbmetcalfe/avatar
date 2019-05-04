@@ -1,0 +1,22 @@
+/echo -pw % Loading keiko state-file.
+/set tnlthreshold=150
+/set brandish=
+/set unbrandish=doom
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1333
+/set myrace=trl
+/set myclass=shf
+/set mytier=lord
+/set mylevel=9
+/set wield=saber
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#protection good#Consummation
+/set action=kill %1
+/set allegItem=Flaming Phoenix Feather
+/set poisonkit=
+/set lockpick_chest=silver lockpick
+/set lockpick_door=mechanical lock-pick contraption

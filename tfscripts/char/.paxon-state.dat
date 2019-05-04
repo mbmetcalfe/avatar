@@ -1,0 +1,19 @@
+/echo -pw % Loading paxon state-file.
+/set tnlthreshold=1
+/set brandish=bronze
+/set unbrandish=leman seal
+/set branLeft=9
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=2000
+/set myrace=hie
+/set myclass=wzd
+/set mytier=lord
+/set mylevel=12
+/set wield=oni
+/set offhand=shield lords
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#acumen#mystical barrier#astral shield
+/set action=raceki %1
+/set allegItem=an Aurora Bow

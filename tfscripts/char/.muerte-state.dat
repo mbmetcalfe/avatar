@@ -1,0 +1,21 @@
+/echo -pw % Loading muerte state-file.
+/set tnlthreshold=1
+/set brandish=
+/set unbrandish=piercing arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1176
+/set myrace=orc
+/set myclass=asn
+/set mytier=hero
+/set mylevel=999
+/set wield=moonlight
+/set offhand=
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy
+/set action=surprise %1
+/set poisonkit=
+/set lockpick_chest=silver lockpick
+/set lockpick_door=mechanical lock-pick contraption

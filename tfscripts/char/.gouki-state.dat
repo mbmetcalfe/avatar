@@ -1,0 +1,18 @@
+/echo -pw % Loading gouki state-file.
+/set tnlthreshold=170
+/set brandish=typhus
+/set unbrandish=essence amorphous orb
+/set branLeft=1
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=10000
+/set myrace=drg
+/set myclass=mon
+/set mytier=hero
+/set mylevel=100
+/set wield=
+/set offhand=
+/set lootContainer=gird
+/set lvlon=0
+/set self_buffs=concentrate#acumen
+/set action=kill %1

@@ -1,0 +1,22 @@
+/echo -pw % Loading granuja state-file.
+/set tnlthreshold=110
+/set brandish=
+/set unbrandish=lodestone chunk rock
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1538
+/set myrace=tua
+/set myclass=bld
+/set mytier=lord
+/set mylevel=235
+/set wield=uno
+/set offhand=dos
+/set lootContainer=loot
+/set lvlon=1
+/set self_buffs=concentrate
+/set action=surprise %1
+/set allegItem=an Ice Collar^Airscape
+/set poisonkit=poisoning
+/set lockpick_chest=sneak
+/set lockpick_door=set

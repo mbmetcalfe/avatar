@@ -1,0 +1,19 @@
+/echo -pw % Loading kaboo state-file.
+/set tnlthreshold=120
+/set brandish=
+/set unbrandish=mithril arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=2000
+/set myrace=hie
+/set myclass=arc
+/set mytier=lord
+/set mylevel=78
+/set wield=crossbow
+/set offhand=hero heroes shield fire
+/set lootContainer=float
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1
+/set allegItem=Crumpled Note

@@ -1,0 +1,21 @@
+/echo -pw % Loading helfyre state-file.
+/set tnlthreshold=120
+/set brandish=
+/set unbrandish=doom marble shard hitt
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=500
+/set myTnl=10000
+/set myrace=bkd
+/set myclass=bci
+/set mytier=hero
+/set mylevel=370
+/set wield=gash
+/set offhand=nephilim blade ethereal
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#nightcloak
+/set action=surprise %1
+/set poisonkit=box
+/set lockpick_chest=lockpick
+/set lockpick_door=lockpick

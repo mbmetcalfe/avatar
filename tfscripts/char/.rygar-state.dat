@@ -1,0 +1,21 @@
+/echo -pw % Loading rygar state-file.
+/set tnlthreshold=100
+/set brandish=typhus
+/set unbrandish=doom
+/set branLeft=0
+/set rechargeContainer=Kiah skin bag loot
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=trl
+/set myclass=rog
+/set mytier=hero
+/set mylevel=999
+/set wield=mayhem
+/set offhand=shaped
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1
+/set poisonkit=poisoning
+/set lockpick_chest=lockpick
+/set lockpick_door=lockpick

@@ -1,0 +1,22 @@
+; hero.hit3.ava.tf
+
+/set hit_bag "urn black hitgear!"
+
+/set hit_light "torch flames"
+/set hit_finger1 "signet ring Orkenfyr"
+/set hit_finger2 "signet ring Orkenfyr"
+/set hit_neck1 "medallion justice"
+/set hit_neck2 "medallion justice"
+/set hit_body "darklinscale lamellar pile scales"
+/set hit_head "diadem snake"
+/set hit_legs "crimsonscale skirt dragon scales"
+/set hit_feet "heroic dragonscale slippers"
+/set hit_hands "killing gloves"
+/set hit_arms "elemental armband strength aura"
+/set hit_offhand ""
+/set hit_about "lizardskin jerkin"
+/set hit_waist "collar steel chained"
+/set hit_wrist1 "scorpion tattoo picture"
+/set hit_wrist2 "scorpion tattoo picture"
+/set hit_wield ""
+/set hit_held "essence amorphous orb"

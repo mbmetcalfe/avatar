@@ -1,0 +1,19 @@
+/echo -pw % Loading feir state-file.
+/set tnlthreshold=160
+/set brandish=
+/set unbrandish=mystical desert stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1052
+/set myrace=spr
+/set myclass=mag
+/set mytier=lord
+/set mylevel=808
+/set wield=antenna
+/set offhand=oni
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#mystical barrier#astral shield
+/set action=racekill %1
+/set allegItem=Flaming Phoenix Feather

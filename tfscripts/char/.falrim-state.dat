@@ -1,0 +1,18 @@
+/echo -pw % Loading falrim state-file.
+/set tnlthreshold=120
+/set brandish=typhus
+/set unbrandish=mystical desert stone
+/set branLeft=2
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=dwf
+/set myclass=cle
+/set mytier=hero
+/set mylevel=486
+/set wield=longsword
+/set offhand=maelstrom
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=acumen#concentrate#endurance
+/set action=kill %1

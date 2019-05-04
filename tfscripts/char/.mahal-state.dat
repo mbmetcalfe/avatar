@@ -1,0 +1,19 @@
+/echo -pw % Loading mahal state-file.
+/set tnlthreshold=100
+/set brandish=typhus
+/set unbrandish=mithril stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1111
+/set myrace=dwf
+/set myclass=fus
+/set mytier=lord
+/set mylevel=16
+/set wield=troublemaker
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1
+/set allegItem=Amulet With A Small Silver Sword Inscribed On It

@@ -1,0 +1,19 @@
+/echo -pw % Loading duskrta state-file.
+/set tnlthreshold=240
+/set brandish=
+/set unbrandish=lodestone chunk rock
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=hie
+/set myclass=sor
+/set mytier=lord
+/set mylevel=720
+/set wield=gray staff
+/set offhand=shield tyranny
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#death shroud#mystical barrier#protection good#summon necrit#vile philosophy
+/set action=c brim %1
+/set allegItem=Mark Of Madness

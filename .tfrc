@@ -1,0 +1,80 @@
+; tfrc
+; startup definition file
+
+; please do not remove the next line, it enables the additional
+; Windows Specific Functionality for the GUI tools (only installed
+; by the Windows Enhanced Build installer)
+#/require winlib.tf
+
+; general
+/redef on
+
+; Please make all of your manual edit changes  below this line as tf-config
+; will overwrite any changes above here.
+; ----------------------------------------------------------------------------
+/set refreshtime=100
+;/set prompt_usec=100
+/set wrapsize=110
+/set wrapspace=2
+/histsize -l 100000
+/histsize 100000
+/set histsize=100000
+/set isize 2
+/set status_height=2
+/cleardone on
+/clearfull on
+/lcd ~/avatar/tfscripts
+
+;; allow space bar to continue page mode
+;/require space-page.tf
+
+;; keybindings like those in bash
+/require -q kb-bash.tf
+;; let ctrl-D delete word to the right
+/bind ^D = /dokey DWORD
+/bind ^L = /dokey clear
+
+;; DBMODE = on - mysql access
+;; DBMODE = off - mysql access turned off
+/set DBMODE=on
+/load -q alias.tf
+/load -q tools.tf
+/load -q speedwalk.tf
+/speedwalk
+/load -q tick.tf
+/ticksize 28
+
+/set script_path=/home/mike/avatar/tfscripts/
+
+/load -q ava-world.tf
+
+/load -q ava-hook.tf
+/load -q ava-macro.tf
+/load -q ava-trig.tf
+;; has list of completion words and commands to add/remove
+/load -q more_complete.tf
+
+/load -q avatar.tf
+
+;; Set the tf startup time in .tfrc, only once.
+/test tf_start_time := (tf_start_time | time())
+
+/def tftime = \
+    /let echochan=/echo %; \
+    /let currentTime=$[time()]%;\
+    /let seconds=$[currentTime - tf_start_time]%;\
+    /if ({#} > 0) /let echochan=%*%; /endif %; \
+    /let tfmsg=TF has been running for \
+        |br|$[trunc(seconds/86400)] |w|days |br|$[mod(seconds/3600,24)] |w|hours \
+        |br|$[mod(seconds/60,60)] |w|mins |br|$[mod(seconds,60)] |w|secs.%; \
+    /if ({echochan} =~ "/echo") \
+        /let newmsg=$[replace("|br|", "@{hCred}", {tfmsg})] %; \
+        /let newmsg=$[replace("|w|", "@{xCwhite}", {newmsg})] %; \
+        /echo -p %%% %newmsg %; \
+    /else \
+        /eval %echochan %tfmsg %; \
+    /endif
+
+; visual mode off
+/visual on
+

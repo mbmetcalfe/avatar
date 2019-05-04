@@ -1,0 +1,21 @@
+/echo -pw % Loading sombra state-file.
+/set tnlthreshold=110
+/set brandish=typhus
+/set unbrandish=necrostaff necro staff health
+/set branLeft=20
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=spr
+/set myclass=bld
+/set mytier=hero
+/set mylevel=224
+/set wield=unodagger
+/set offhand=dosdagger
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#endurance
+/set action=surprise %1
+/set poisonkit=
+/set lockpick_chest=silver lockpick
+/set lockpick_door=mechanical lock-pick contraption
