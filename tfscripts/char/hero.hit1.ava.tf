@@ -1,0 +1,22 @@
+; hero.hit1.ava.tf
+
+/set hit_bag "urn black"
+
+/set hit_light "eria sceptre"
+/set hit_finger1 "ice ring"
+/set hit_finger2 "ice ring"
+/set hit_neck1 "necklace teeth"
+/set hit_neck2 "necklace teeth"
+/set hit_body "death armor"
+/set hit_head "helm cherubims"
+/set hit_legs "pants flaming"
+/set hit_feet "magic boot"
+/set hit_hands "killing gloves"
+/set hit_arms "dwarven brand"
+/set hit_offhand "baron sword"
+/set hit_about "robe greatness"
+/set hit_waist "steel collar"
+/set hit_wrist1 "scorpion tattoo picture"
+/set hit_wrist2 "scorpion tattoo picture"
+/set hit_wield "blade"
+/set hit_held "essence amorphous orb"

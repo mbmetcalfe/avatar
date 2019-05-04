@@ -1,0 +1,19 @@
+/echo -pw % Loading torvald state-file.
+/set tnlthreshold=120
+/set brandish=
+/set unbrandish=leman seal
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=hie
+/set myclass=stm
+/set mytier=lord
+/set mylevel=65
+/set wield=sabre
+/set offhand=hero
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=c thunderhead %1
+/set allegItem=Shaleskin Arm Guard

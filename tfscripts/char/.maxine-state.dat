@@ -1,0 +1,19 @@
+/echo -pw % Loading maxine state-file.
+/set tnlthreshold=110
+/set brandish=
+/set unbrandish=thundercrack arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1538
+/set myrace=kzn
+/set myclass=dru
+/set mytier=lord
+/set mylevel=7
+/set wield=bow
+/set offhand=
+/set lootContainer=loot
+/set lvlon=1
+/set self_buffs=concentrate#acumen#farsight
+/set action=kill %1
+/set allegItem=Devilish Talisman

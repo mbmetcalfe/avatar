@@ -1,0 +1,21 @@
+/echo -pw % Loading dusta state-file.
+/set tnlthreshold=110
+/set brandish=typhus
+/set unbrandish=leman
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1111
+/set myrace=lsi
+/set myclass=rog
+/set mytier=hero
+/set mylevel=178
+/set wield=bladed
+/set offhand=shield
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#savvy#death shroud#mystical barrier#protection good#summon necrit#vile philosophy
+/set action=c brim %1
+/set poisonkit=
+/set lockpick_chest=lockpick
+/set lockpick_door=lockpick

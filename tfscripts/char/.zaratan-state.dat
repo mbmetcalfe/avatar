@@ -1,0 +1,18 @@
+/echo -pw % Loading zaratan state-file.
+/set tnlthreshold=1539
+/set brandish=typh
+/set unbrandish=lemans family seal talisman
+/set branLeft=1
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1538
+/set myrace=tua
+/set myclass=wzd
+/set mytier=hero
+/set mylevel=809
+/set wield=blade
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=1
+/set self_buffs=astral shield#mystical barrier#savvy#acumen#concentrate#protection evil
+/set action=raceki %1

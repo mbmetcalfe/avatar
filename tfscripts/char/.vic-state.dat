@@ -1,0 +1,19 @@
+/echo -pw % Loading vic state-file.
+/set tnlthreshold=1
+/set brandish=bone
+/set unbrandish=shard black doom marble
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1111
+/set myrace=dwf
+/set myclass=pal
+/set mytier=lord
+/set mylevel=21
+/set wield=verlegenheit
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#acumen#saving grace
+/set action=kill %1
+/set allegItem=Amulet With A Small Silver Sword Inscribed On It

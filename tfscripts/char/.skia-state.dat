@@ -1,0 +1,22 @@
+/echo -pw % Loading skia state-file.
+/set tnlthreshold=60
+/set brandish=typhus
+/set unbrandish=oo arrow
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=125
+/set myTnl=1052
+/set myrace=liz
+/set myclass=bci
+/set mytier=lord
+/set mylevel=49
+/set wield=simple
+/set offhand=ruby
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#nightcloak
+/set action=kill %1
+/set allegItem=the earthen mace of might
+/set poisonkit=box
+/set lockpick_chest=silver lockpick
+/set lockpick_door=mechanical lock-pick contraption

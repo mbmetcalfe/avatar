@@ -1,0 +1,22 @@
+; hero.hit4.ava.tf
+
+/set hit_bag "urn black"
+
+/set hit_light "rod neutrality"
+/set hit_finger1 "ethereal ring"
+/set hit_finger2 "ice ring"
+/set hit_neck1 "medallion justice"
+/set hit_neck2 "medallion justice"
+/set hit_body "death armor"
+/set hit_head "helm cherubims"
+/set hit_legs "pants flaming"
+/set hit_feet "fatewalkers"
+/set hit_hands "killing gloves"
+/set hit_arms "dwarven brand"
+/set hit_offhand "sword red giant Conquest"
+/set hit_about "deathshroud"
+/set hit_waist "steel collar"
+/set hit_wrist1 "white bracer"
+/set hit_wrist2 "white bracer"
+/set hit_wield "killl'gher claw razor claws waldorf"
+/set hit_held "doom shard"

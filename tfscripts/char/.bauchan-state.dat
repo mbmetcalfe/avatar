@@ -1,0 +1,18 @@
+/echo -pw % Loading bauchan state-file.
+/set tnlthreshold=1
+/set brandish=
+/set unbrandish=piercing stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1052
+/set myrace=spr
+/set myclass=fus
+/set mytier=hero
+/set mylevel=999
+/set wield=david
+/set offhand=
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1

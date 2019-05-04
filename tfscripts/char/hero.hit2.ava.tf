@@ -1,0 +1,22 @@
+; hero.hit2.ava.tf
+
+/set hit_bag "urn black"
+
+/set hit_light "torch flames"
+/set hit_finger1 "purity ring"
+/set hit_finger2 "sapphire ring"
+/set hit_neck1 "medallion justice"
+/set hit_neck2 "medallion justice"
+/set hit_body "silver breast plate"
+/set hit_head "helm cherubims"
+/set hit_legs "pants flaming"
+/set hit_feet "seven league boot"
+/set hit_hands "killing gloves"
+/set hit_arms "dwarven brand"
+/set hit_offhand ""
+/set hit_about "robe greatness"
+/set hit_waist "planar belt"
+/set hit_wrist1 "scorpion tattoo picture"
+/set hit_wrist2 "scorpion tattoo picture"
+/set hit_wield "white great battle axe"
+/set hit_held "doom shard"

@@ -1,0 +1,18 @@
+/echo -pw % Loading odium state-file.
+/set tnlthreshold=1
+/set brandish=
+/set unbrandish=piercing arrow
+/set branLeft=0
+/set rechargeContainer=Kiah skin bag loot
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=ogr
+/set myclass=bzk
+/set mytier=hero
+/set mylevel=999
+/set wield=igecsoz
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=rally
+/set action=kill %1

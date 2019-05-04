@@ -1,0 +1,18 @@
+/echo -pw % Loading dhaatu state-file.
+/set tnlthreshold=1053
+/set brandish=typhus
+/set unbrandish=doom
+/set branLeft=8
+/set rechargeContainer=kiah
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=trl
+/set myclass=pal
+/set mytier=hero
+/set mylevel=480
+/set wield=mayhem
+/set offhand=shaped
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=acumen#holy zeal#endurance#fervor#prayer precision
+/set action=kill %1

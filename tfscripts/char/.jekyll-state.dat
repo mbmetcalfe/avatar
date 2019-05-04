@@ -1,0 +1,19 @@
+/echo -pw % Loading jekyll state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=doom
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=hel
+/set myclass=cle
+/set mytier=lord
+/set mylevel=74
+/set wield=blade
+/set offhand=baron
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate
+/set action=kill %1
+/set allegItem=Panthrodrine-Skin Leggings

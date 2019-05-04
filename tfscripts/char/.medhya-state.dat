@@ -1,0 +1,18 @@
+/echo -pw % Loading medhya state-file.
+/set tnlthreshold=120
+/set brandish=typhus
+/set unbrandish=mystical desert stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1515
+/set myrace=drc
+/set myclass=mnd
+/set mytier=hero
+/set mylevel=12
+/set wield=saber
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=illusory shield#concentrate#savvy
+/set action=c ultra %1

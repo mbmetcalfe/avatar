@@ -1,0 +1,22 @@
+; hero.evilmana1.ava.tf
+/set mana_bag "urn managear"
+
+/set mana_light "beholder eye"
+/set mana_finger1 "random ring"
+/set mana_finger2 "random ring"
+/set mana_neck1 "talisman blood"
+/set mana_neck2 "talisman blood"
+/set mana_body "white leather dress"
+/set mana_head "leather patch"
+/set mana_legs "waterlace leggings"
+/set mana_feet "toe ring"
+/set mana_hands "gauntlets ornate"
+/set mana_arms "black bracer"
+/set mana_offhand "swirl fumes"
+/set mana_about "red velvet cape"
+/set mana_waist "belt sorcery"
+/set mana_wrist1 "sprite ribcage"
+/set mana_wrist2 "sprite ribcage"
+/set mana_wield "swirl fumes"
+/set mana_held "mystical desert stone"
+

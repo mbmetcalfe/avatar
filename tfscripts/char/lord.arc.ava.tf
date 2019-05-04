@@ -1,0 +1,25 @@
+/set arc_bag "Mekrith skin bag"
+/set quiver_bag="Collosus skin bag quiver"
+
+/set arc_light "eye illusion chimeric"
+/set arc_finger1 "strand haghair hair"
+/set arc_finger2 "strand haghair hair"
+/set arc_neck1 "amulet guiding wind lordgear"
+/set arc_neck2 "amulet guiding wind lordgear"
+/set arc_body "crecy leather hauberk"
+/set arc_head "kzintium circlet"
+/set arc_legs "tuatar battle pants pair"
+/set arc_feet "slagwalkers"
+/set arc_hands "gauntlet icicles"
+/set arc_arms "shaleskin skin arm guard patch"
+/set arc_offhand ""
+/set arc_about "cloud dancing shards glass"
+/set arc_waist "belt souls strap lordgear"
+/set arc_wrist1 "wrist guard demogorgon rotting demonic flesh"
+/set arc_wrist2 "wrist guard demogorgon rotting demonic flesh"
+/set arc_wield "lacquered bow ambush"
+/set arc_held "brace ice arrows"
+
+/set arc_xbow "lightning crossbow"
+/set boltType mithril
+

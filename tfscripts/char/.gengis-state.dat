@@ -1,0 +1,20 @@
+/echo -pw % Loading gengis state-file.
+/set tnlthreshold=110
+/set brandish=
+/set unbrandish=mystical desert stone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=2000
+/set myrace=spr
+/set myclass=prs
+/set mytier=lord
+/set mylevel=236
+/set wield=scepter silver githyanki
+/set offhand=hero heroes shield fire
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#acumen#saving grace#purity
+/set action=kill %1
+/set allegItem=seething ball of blue flame
+/set maxheal=14

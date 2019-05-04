@@ -1,0 +1,14 @@
+/echo -pw % Loading daeron state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=
+/set myclass=
+/set wield=
+/set offhand=
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=
+/set action=kill %1

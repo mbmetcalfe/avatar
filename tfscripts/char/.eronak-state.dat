@@ -1,0 +1,19 @@
+/echo -pw % Loading eronak state-file.
+/set tnlthreshold=100
+/set brandish=
+/set unbrandish=lodestone
+/set branLeft=0
+/set rechargeContainer=
+/set levelGoal=999
+/set myTnl=1000
+/set myrace=orc
+/set myclass=mon
+/set mytier=lord
+/set mylevel=82
+/set wield=
+/set offhand=
+/set lootContainer=loot
+/set lvlon=0
+/set self_buffs=concentrate#acumen#consummation#blind devotion
+/set action=kill %1
+/set allegItem=Crumpled Note
