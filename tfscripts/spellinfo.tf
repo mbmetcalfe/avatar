@@ -345,7 +345,7 @@
     /set sanctleft=-1%;/set ticktoggle=1%; \
     /if ({resanc} == 1) \
         /refreshSkill /sanc%;\
-    /else /send emote 's |bw|Sanctuary|n| is gone.%;\
+    /else /send say sanctuary is down.%;\
     /endif
 
 /def -mregexp -aCcyan -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears." prayer_drop = \
@@ -356,7 +356,7 @@
 /def -mregexp -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s fanatical blessing fades away." fervor_drop2 = \
     /set fervorleft=-1%;/set ticktoggle=1%;\
     /if ({refren} = 1) /refreshSpell fervor%;\
-    /else /send emote 's |bc|Fervor|n| is gone.%;/endif
+    /else /send say fervor is down.%;/endif
 
 /def -mglob -ahCred -t'You slowly come out of your rage\.' frenzydrop = \
     /set frenleft=-1%;/set ticktoggle=1 %; \
@@ -364,20 +364,20 @@
         /refreshSpell fervor%;\
     /elseif ({refren} = 1) \
         /refreshSkill /fren%;\
-    /else /send emote 's |br|Frenzy|n| is gone.%;\
+    /else /send say frenzy is down.%;\
     /endif
 
 /def -mglob -ahCwhite -t'Your Iron Monk style fades\.' monkgone = \
     /set sancteft=-1%;/set ticktoggle=1 %; \
     /if ({resanc} = 1) \
         /refreshSkill /im%;\
-    /else /send emote 's |bw|Iron Monk|n| is gone.%;\
+    /else /send say iron monk is down.%;\
     /endif 
 
 /def -mregexp -ahCMagenta -t'^The pink aura around you fades away.' pinkfade = /set ticktoggle=1
 /def -mregexp -ahCblue -t'^Your lungs adapt to oxygen once again.' waterfade = /set waterleft=-1%;/set ticktoggle=1
-/def -mregexp -ah -t'^You feel less sick.' feellesssick = /send emote 's |y|sickness |n|has been cleared.
-/def -mregexp -ah -t'^Your sores vanish.' plaguedrop = /send emote 's |br|plague |n|has been cured.
+/def -mregexp -ah -t'^You feel less sick.' feellesssick = /send say Poison gone.
+/def -mregexp -ah -t'^Your sores vanish.' plaguedrop = /send say Disease gone.
 
 ;;; ---------------------------------------------------------------------------
 ;;; Spell Refresh
@@ -1112,7 +1112,7 @@
     /let _numPoison=%{2}%;\
     /let _cureType=%{3}%;\
     /if ({echoPoison}=1) \
-        say |bg|%1 |y|has |br|%4 |y|and needs |br|%2 |y|'cure |br|%3|y|'.%; \
+        say %1 needs %2 cure %3.%; \
     /else \
         /echo -pw @{Cred}[GROUP INFO]: @{hCgreen}%1 @{nCyellow}has @{hCred}%4 @{nCyellow}and needs @{hCred}%2 @{nCyellow}'cure @{hCred}%3@{nCyellow}'.%; \
     /endif%;\

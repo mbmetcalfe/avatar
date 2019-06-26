@@ -8,4 +8,4 @@
 /test addworld("testport", "diku", "avatar.outland.org", "5005")
 
 ;;; Load in server-specific worlds
-/load -q char/ava-world.tf
+/load -q ava-world.tf

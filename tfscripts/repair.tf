@@ -9,8 +9,7 @@
     /echo -pw %%% Don't forget to get|put gear from container.
 
 /def repstatus = \
-    /let totrepair=$[numRepaired + numNoRepair]%; \
-    /send say |w|Attempted to repair |bc|%totrepair |w|Items\;  |bc|%numRepaired |w|items needed repairing.
+    /let totrepair=$[numRepaired + numNoRepair]
 
 /def -mglob -p0 -t'But you don\'t have that item on you\!' repair_item_nothaveon = \
     /if ({repairMode}=1) repair 1. %; /endif

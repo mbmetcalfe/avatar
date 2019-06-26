@@ -44,19 +44,6 @@
     /endif%;\
     /droneconfig
 
-/def -wgengis gengisspells = gtell |bc|marv|W|->|c|Invincibility|w|. |bp|sworship|w|->|p|SpellUp|w|.%; \
-    gtell |bg|admire|w|->|g|Aegis|w|.
-/def -washa ashaspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-/def -wtahn tahnspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-/def -wjekyll jekyllspells = \
-    gtell |bc|marv|w|->|c|Invincibility|w|. |bg|chop|w|->|g|Confidence|w|. |br|bark|w|->|r|Barkskin|w|.%; \
-    gtell |bp|sworship|w|->|p|SpellUp|w|.  |by|boogie|w|->|y|Sep|r|Awen|y|SpellUp|w|.
-/def -wpaxon maxinespells = gtell |bc|marv|w|->|c|Invincibility|n|. |br|bark|w|->|r|Barkskin|n|.
-/def -wkaboo kaboospells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wbauchan bauchanspells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wmahal mahalspells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wskia skiaspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-
 /def spells = \
     /if ({drone} = 1) \
         /if /ismacro %{myname}spells%; /then /eval /%{myname}spells%; /endif%; \
@@ -139,7 +126,8 @@
 /def -mregexp -p6 -F -t"^([a-zA-Z]+) beckons for you to follow (him|her|it)\." drone_beckon = \
     /if ({drone}=1 & {running}=0) \
         /if ({P1} !~ {leader} & {leader}!~"Self") \
-            /send gtell |c|So long, |bw|%{leader}|c|.  My services are required elsewhere.|n|%;/endif%;\
+            /send gtell Done.%;\
+        /endif%;\
         /if ({position}!~"standing") /send stand%; /endif%;\
         /send follow self=follow %{P1}%;\
         /if ({position}!~"standing" & {running}=0) /send sleep%; /endif%;\
@@ -210,7 +198,7 @@
     /if ({drone} = 1 | {autoheal} = 1) \
         /if ({_command} =~ "cc") c 'cure crit' %_commandParam %; \
         /elseif ({_command} =~ "touch" & {myclass} =~ "prs") c 'pure touch' %_commandParam %; \
-        /elseif ({_command} =~ "pp" | {_command} =~ "por[tal]*") c portal %_commandParam%;/send nod%;\
+        /elseif ({_command} =~ "pp" | {_command} =~ "por[tal]*") c portal %_commandParam%;\
         /elseif ({_command} =~ "nex[us]*") c nexus %_commandParam%;/send nod%;\
         /else c %_command %_commandParam %; \
         /endif%; \
@@ -223,12 +211,11 @@
     /if ({drone} = 1 & {_commander} =~ {leader} & {running}=0) \
         /send stand%;\
         /if ({_command} =~ "all" | {_command} =~ "up") \
-            /send gtell |bw|%{leader}|c| has requested the group get spells.|n|%;\
+            /send gtell Preaching spells.%;\
             /gsup%;\
-            /send gtell |c|Ok. There you go.  If you weren't ready, blame |bw|%{leader}|c|.|n|=follow self%;\
+            /send gtell Done.=follow self%;\
         /else \
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment %_commandParam%; /endif%;\
-            /send gtell And, |bw|%{leader} |n|came forth and they said, grant them "|g|%{_command}|n|"!!%;\
             preach %{_command}%;\
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment off%; /endif%;\
         /endif%;\
@@ -369,7 +356,7 @@
         /set droneToSend=$[tolower(strip_attr({P2}))]%;\
         /set droneSendPlane=$[tolower(strip_attr({P3}))]%;\
 ;        /echo -pw @{Cyellow}Commander: %{P1}, Command: send, Argument: %{droneToSend} %{droneSendPlane}%;\
-        /send gtell |y|%{P1} |c|has requested that I send |y|%{droneToSend} |c|to |y|%{droneSendPlane}|c|.|n|%;\
+        /send gtell %{P1} asked to send %{droneToSend} to %{droneSendPlane}%;\
         /send group%;\
     /endif
 
@@ -377,7 +364,7 @@
     /let lcgroupiename=$[tolower(replace(" ", "", strip_attr({P1})))]%;\
 ;    /echo -pw @{Cyellow}Groupie: %{lcgroupiename}, Command: send, Argument: %{droneToSend} %{droneSendPlane}%;\
     /if ({drone} = 1 & {running}=0 & {currentplane} =~ "thorngate" & {droneToSend} !~ "" & {droneSendPlane} !~ "" & regmatch({droneToSend}, {lcgroupiename})) \
-        /send gtell |c|Ok, sending |y|%{droneToSend} |c|to |y|%{droneSendPlane}|c|. Safe Travels.|n|%;\
+        /send gtell sending %{droneToSend} to %{droneSendPlane}%;\
         /send stand=cast 'send' %{droneToSend} %{droneSendPlane}=follow self=sleep%;\
         /unset droneToSend%;/unset droneSendPlane%;\
     /endif
@@ -409,12 +396,11 @@
     /if ({drone} = 1 & {_commander} =~ {leader} & {running}=0) \
         /send stand%;\
         /if ({_command} =~ "all") \
-            /send gtell |bw|%{leader}|c| has requested the group get spells.|n|%;\
+            /send gtell Preaching.%;\
             /gsup%;\
-            /send gtell |c|Ok. There you go.  If you weren't ready, blame |bw|%{leader}|c|.|n|=follow self%;\
+            /send gtell Done.=follow self%;\
         /else \
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment %_commandParam%; /endif%;\
-            /send gtell And, |bw|%{leader} |n|came forth and they said, grant them "|g|%{_command}|n|"!!%;\
             preach %{_command}%;\
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment off%; /endif%;\
         /endif%;\
@@ -432,7 +418,7 @@
         /if ({P2} =/ "por*") /let transType=portal%;\
         /else /let transType=nexus%;\
         /endif%;\
-        /send say |w|Sealing |g|%{transType} |w|for |bg|%{P1}|w|"|n|=c seal %{P2}%;\
+;        /send say |w|Sealing |g|%{transType} |w|for |bg|%{P1}|w|"|n|=c seal %{P2}%;\
         /send sleep%;\
     /endif
 
@@ -446,7 +432,7 @@
         /if ({P2} =/ "p*") /let transType=portal%;\
         /else /let transType=nexus%;\
         /endif%;\
-        /send say |w|Opening up a %{transType} for |bg|%{P1} |w|to "|g|%{P3}|w|"|n|=c %{transType} %{P3}%;\
+;        /send say |w|Opening up a %{transType} for |bg|%{P1} |w|to "|g|%{P3}|w|"|n|=c %{transType} %{P3}%;\
 ;        /if ({priorPosition} =~ "sleeping") /send sleep%;/endif%;\
         /send sleep%;\
     /endif%;\

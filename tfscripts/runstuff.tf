@@ -18,7 +18,7 @@
 /def  tbra = \
     /if ({autobrandish}=1) \
         /bra%;\
-        /repeat -0:00:31 1 /tbra%; \
+        /repeat -0:00:41 1 /tbra%; \
     /else /echo -pw %%% Autobrandish is @{hCred}OFF@{n}!%;\
     /endif
 

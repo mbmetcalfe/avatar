@@ -618,7 +618,13 @@
         /echo -pw @{hCred}No brandish currently configured.@{n}%;\
     /endif
 
-/def idbran = /setBranLeft 0%;get %brandish %{main_bag}%;c ident %brandish%;put %brandish %{main_bag}
+/def idbran = \
+    /if ({brandish} =~ "") \
+        /echo -pw %% @{hCwhite}No brandish currently set.%;\
+    /else \
+        /setBranLeft 0%;\
+        /send get %brandish %{main_bag}=c ident %brandish=put %brandish %{main_bag}%;\
+    /endif
 
 ; Spell mods: surge/quicken/augment
 /alias surg surge %1%;%2 %3%;surge off
