@@ -9,14 +9,14 @@
 /set myrace=lse
 /set myclass=rog
 /set mytier=lord
-/set mylevel=336
+/set mylevel=338
 /set wield=elemdagger
 /set offhand=plain
 /set lootContainer=loot
-/set lvlon=0
+/set lvlon=1
 /set self_buffs=concentrate#frenzy
 /set action=kill %1
-/set allegItem=Amulet With A Small Silver Sword Inscribed On It
+/set allegItem=Green Psi-Blade
 /set poisonkit=black box kit
 /set lockpick_chest=lockpick
 /set lockpick_door=lockpick

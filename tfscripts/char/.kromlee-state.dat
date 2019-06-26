@@ -16,4 +16,4 @@
 /set lvlon=0
 /set self_buffs=barkskin#confidence#saving grace#concentrate
 /set action=kill %1
-/set allegItem=an Ice Bow
+/set allegItem=Pair Of Wind-Ravaged Boots

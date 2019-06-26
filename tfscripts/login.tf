@@ -33,6 +33,7 @@
 /def -mregexp -t'^When you have read this, please press \<RETURN\> to continue \-\-\-\-\>' readthiscr = %;
 /def -mregexp -t'\<\<\(Please Press \<enter\>  continue\)\>\>' continuecr2 = /send =
 ;/def -mglob -t"Time to get to work..." immlogin = \
+/def -mregexp -t"\<\<\(Please Press \<enter\>  continue\)\>\>" continue_cr = /send =
     
 /def -mregexp -t'^Ah, the Immortal ([a-zA-Z]+) has returned\! Addicted, eh\?' char_immlogin = \
     /hook_resize%;\

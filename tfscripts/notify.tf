@@ -5,8 +5,8 @@
 ;;; can be found here: http://tips.slaw.ca/2011/technology/send-a-text-message-to-a-mobile-phone-via-email/
 ;;; usage: sendemail.py [-h] -m MESSAGE -r RECIPIENT [-s SENDER]
 ;;; ----------------------------------------------------------------------------
-/set mySMSEmail=9029402843@vmobile.ca
-;/set mySMSEmail=michael.metcalfe@gmail.com
+;/set mySMSEmail=9029402843@vmobile.ca
+/set mySMSEmail=michael.metcalfe@gmail.com
 
 /set notify=1
 /def notify = \
@@ -46,7 +46,7 @@
 ;;; Specific channel logging.
 ;;; ----------------------------------------------------------------------------
 ;;; Buddy chat
-/set buddy_to_slack=1
+/set buddy_to_slack=0
 /def slackbuddy = \
 	/toggle buddy_to_slack%;\
 	/echoflag %buddy_to_slack Sending buddychan messages to Slack@{n}
@@ -75,9 +75,9 @@
     /let message=$[ftime("%H:%M:%S")]: *%{chatter}*: %{message}%;\
     /let message=$[replace("'","",{message})]%;\
     /let message=$[replace('"','',{message})]%;\
-	/if ({groupchat_to_slack} == 1 & {notify} == 1) \
+    /if ({groupchat_to_slack} == 1 & {notify} == 1) \
         /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#group-chat","username":"GroupchatNotifier", "mrkdwn": "true","text":"%message", "icon_emoji": ":speech_balloon:", "unfurl_links": true}' https:///hooks.slack.com/services/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%;\
-	/endif
+    /endif
 
 /def -p10 -mregexp -t"^The winner of the Lotto is:  ([a-zA-Z]+)\!" lottowinner_to_slack = \
 	/let message=$[ftime("%H:%M:%S")]: Lotto winner: *%{P1}*.%;\
@@ -117,8 +117,8 @@
 ;;; ----------------------------------------------------------------------------
 ;; Send notification on beep, but turn it off for 30 seconds to avoid spam.
 /def -mregexp -p1 -ah -t"^You are being BEEPED by ([\w]+)!" email_beep = \
-    /sendEmail %{P1} is trying to get your attention.%;\
-	/sendSlackPersonalMsg ${world_name} is getting BEEPED by %{P1}.%;\
+    ;/sendEmail %{P1} is trying to get your attention.%;\
+    /sendSlackPersonalMsg ${world_name} is getting BEEPED by %{P1}.%;\
     /edit -c0 email_beep%;\
     /repeat -0:0:30 1 /edit -c100 email_beep
 

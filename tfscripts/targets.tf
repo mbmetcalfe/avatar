@@ -191,12 +191,17 @@
             /send c 'astral prison' %{*}%;\
         /endif%;\
     /endif
+
+/def -mregexp -au -t"A tiny form dances amid the glowing embers." arcadia_immolate_ember = /sacrificeMob ember
     
 /def -mregexp -au -t"A dark cloud of diminishing hate struggles to keep itself together." outland_immolate_mob = /sacrificeMob gith
 /def -mregexp -au -t"Back from the dead, this Githzerai stumbles to his feet." outland_immolate_mob2 = /sacrificeMob gith
 /def -mregexp -au -t"Red particles swirl together in a fierce cluster." outland_immolate_dust = /sacrificeMob dust
 /def -mregexp -au -t"This Githyanki coughs, blood bubbling up through his open mouth." outland_immolate_mob3 = /sacrificeMob gith
 /def -mregexp -au -t"Unsure on his feet, this young Githzerai tries to stay out of the way." outland_immolate_mob3 = /sacrificeMob gith
+/def -mregexp -au -t"The shadows reveal a Githyanki hidden behind the outhouse." outland_immolate_shadow = /sacrificeMob shadow
+
+;/def -mregexp -au -t"The soulless one wanders mindlessly." astral_immolate_soulless = /sacrificeMob soulless
 
 /def -mregexp -au -t"A tiny ball of psionic energy undulates before your eyes." astral_immolate_ball = /sacrificeMob ball
 
