@@ -12,11 +12,16 @@
 /def divme2 = \
     /let augLevel=2%;\
     /if ({#} == 1) /let augLevel=%{1}%;/endif%;\
-    /send tell teacup %{augLevel}=tell kaliver d%{augLevel}=tell styrr %{augLevel}=tell duckstar div%{augLevel}=tell tarlock div%{augLevel}=tell idle div%{augLevel}%;\
+    /def -mglob -ag -t"They aren't here." bot_heal_not_here%;\
+    /repeat -0:0:15 1 /undef bot_heal_not_here%;\
+    /send tell teacup %{augLevel}=tell kaliver d%{augLevel}=tell styrr %{augLevel}=tell duckstar div%{augLevel}=tell tarlock div%{augLevel}=tell idle div%{augLevel}=tell Croninburg div%{augLevel}%;\
     /send tell armathus div%{augLevel}=tell quempel div%{augLevel}=tell stahp div%{augLevel}=tell gobo div%{augLevel}%;\
     /send tell Aerniil div%{augLevel}=tell textual div%{augLevel}%=tell barkhound %{augLevel}
 /def divme = /divme2 %{1}%;tel izar heal
-/def invigme = /send tell aset invig=tell teacup invig=tell izar invig=tell duckstar invig=tell styrr invig=tell armathus invig=tell quempel invig=tell kaliver rejuv=tell idle invig=tell barkhound rejuvenate=tell textual invig=tell Aerniil INVIG
+/def invigme = \
+    /def -mglob -ag -t"They aren't here." bot_invig_not_here%;\
+    /repeat -0:0:15 1 /undef bot_invig_not_here%;\
+    /send tell aset invig=tell teacup invig=tell izar invig=tell duckstar invig=tell styrr invig=tell armathus invig=tell quempel invig=tell kaliver rejuv=tell idle invig=tell barkhound rejuvenate=tell textual invig=tell Aerniil INVIG
 
 ;;; ----------------------------------------------------------------------------
 ;;; Aliases to view some history
@@ -565,7 +570,7 @@
                 /send c homeshift=recall=e=e=sleep%%;\
             /endif%;\
         /def -p99 -F -mregexp -t"^%{followShifter} utters the words, 'planeshift'" folleadplaneshift = \
-            /if ({folshift} = 1) \
+            /if ({folshift} = 1 && {currentplane} !~ "thorngate") \
                 /send c planeshift thorngate=recall=e=e=sleep%%;\
             /endif%;\
         /echo -pw %%% @{Cred}Will Homeshift after @{hCYellow}%{followShifter}.@{n}%;\
@@ -618,7 +623,13 @@
         /echo -pw @{hCred}No brandish currently configured.@{n}%;\
     /endif
 
-/def idbran = /setBranLeft 0%;get %brandish %{main_bag}%;c ident %brandish%;put %brandish %{main_bag}
+/def idbran = \
+    /if ({brandish} =~ "") \
+        /echo -pw %% @{hCwhite}No brandish currently set.%;\
+    /else \
+        /setBranLeft 0%;\
+        /send get %brandish %{main_bag}=c ident %brandish=put %brandish %{main_bag}%;\
+    /endif
 
 ; Spell mods: surge/quicken/augment
 /alias surg surge %1%;%2 %3%;surge off

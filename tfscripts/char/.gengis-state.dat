@@ -16,5 +16,5 @@
 /set lvlon=0
 /set self_buffs=concentrate#acumen#saving grace#purity
 /set action=kill %1
-/set allegItem=seething ball of blue flame
+/set allegItem=Stone Platemail
 /set maxheal=14

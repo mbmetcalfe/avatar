@@ -13,11 +13,11 @@
 /set mana_feet "toe ring"
 /set mana_hands "silver astral gauntlets ethereal"
 /set mana_arms "black bracer"
-/set mana_offhand "hand buddha"
+/set mana_offhand "Hand of buddha"
 /set mana_about "unholy robe pile cloth"
 /set mana_waist "belt sorcery"
 /set mana_wrist1 "sprite ribcage"
 /set mana_wrist2 "sprite ribcage"
-/set mana_wield "hand buddha"
+/set mana_wield "swirl fumes"
 /set mana_held "mystical desert stone"
 

@@ -13,7 +13,7 @@
 /set wield=blade
 /set offhand=baron
 /set lootContainer=loot
-/set lvlon=0
+/set lvlon=1
 /set self_buffs=concentrate
 /set action=kill %1
-/set allegItem=Panthrodrine-Skin Leggings
+/set allegItem=Assassins Armband

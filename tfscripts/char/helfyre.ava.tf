@@ -10,8 +10,8 @@
 /require rogue.tf
 /require psionic.tf
 
-;/def -whelfyre wa = /send wake%;/mana2hit
-/def -whelfyre wa = /send wake%;/mana2ac
+/def -whelfyre wa = /send wake%;/mana2hit
+;/def -whelfyre wa = /send wake%;/mana2ac
 /def helfyresanc = /send mysanc
 /def helfyremidround = /send -whelfyre c ultrablast
 

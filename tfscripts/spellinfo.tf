@@ -4,7 +4,7 @@
 ;;; ---------------------------------------------------------------------------
 ;; Class types
 /set arcType=arc asn dru fus
-/set cleType=cle dru pal prs
+/set cleType=cle dru pal prs viz
 /set magType=mag stm sor wzd
 /set monType=mon shf
 /set psiType=mnd psi
@@ -100,7 +100,7 @@
              {myclass} =~ "wzd" | regmatch({myclass},{cleType}))) \
         /echo -pw % @{hCblue}Acumen @{nCwhite}missing.@{n}%; \
     /endif%; \
-    /if ({savinggraceleft} < 0 & regmatch({myclass}, "cle pal prs")) \
+    /if ({savinggraceleft} < 0 & regmatch({myclass}, "cle pal prs viz")) \
         /echo -pw % @{hCRed}Saving Grace @{nCwhite}missing.@{n}%;\
     /endif%;\
     /if ({nightcloakleft} < 0 & {myclass} =~ "bci") \
@@ -1255,7 +1255,7 @@
     /stnl $[tnlthreshold*2]%;\
     /set taintleft=999
 
-/def -p5 -mglob -t"Your mind drifts closer to sanity." tainted_genius_down = \
+/def -p5 -mregexp -t"^Your mind drifts closer to sanity\.$" tainted_genius_down = \
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1
 

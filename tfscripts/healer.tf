@@ -178,3 +178,9 @@
 
 
 ;Kra surrounds you with a malevolent blessing.
+
+;;; ----------------------------------------------------------------------------
+;;; Vizier Final Rites Handling
+;;; ----------------------------------------------------------------------------
+/def -mglob -aCwhite -p99 -t'has been marked with final rites.' final_rites_up 
+

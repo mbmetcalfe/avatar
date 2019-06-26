@@ -2,14 +2,14 @@
 /set tnlthreshold=120
 /set brandish=typhus
 /set unbrandish=mystical desert stone
-/set branLeft=2
-/set rechargeContainer=
+/set branLeft=9
+/set rechargeContainer=jumpsuit white managear4
 /set levelGoal=999
 /set myTnl=1000
 /set myrace=dwf
 /set myclass=cle
 /set mytier=hero
-/set mylevel=486
+/set mylevel=526
 /set wield=longsword
 /set offhand=maelstrom
 /set lootContainer=loot

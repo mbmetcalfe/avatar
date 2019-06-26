@@ -1,5 +1,5 @@
 /echo -pw % Loading duskrta state-file.
-/set tnlthreshold=240
+/set tnlthreshold=200
 /set brandish=
 /set unbrandish=lodestone chunk rock
 /set branLeft=0
@@ -9,7 +9,7 @@
 /set myrace=hie
 /set myclass=sor
 /set mytier=lord
-/set mylevel=720
+/set mylevel=746
 /set wield=gray staff
 /set offhand=shield tyranny
 /set lootContainer=loot

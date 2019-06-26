@@ -1,9 +1,8 @@
-create table alt_list
+CREATE TABLE alt_list
 (
-        alt_list_id INT NOT NULL auto_increment,
-        name VARCHAR(13) NOT NULL COMMENT 'Character name.',
-        main_alt VARCHAR(13) NOT NULL COMMENT 'Main character name.',
-  PRIMARY KEY (alt_list_id),
-  KEY (name), KEY (main_alt)
-)
+        alt_list_id INTEGER PRIMARY KEY ASC AUTOINCREMENT,
+        name TEXT NOT NULL,
+        main_alt TEXT NOT NULL
+, imm integer);
+
         COMMENT = 'Table to hold known characters and their alternates.'

@@ -18,5 +18,5 @@
 /set ac_waist "collar steel chained"
 /set ac_wrist1 "dark rune kra"
 /set ac_wrist2 "dark rune kra"
-/set ac_wield "bladed shield silver"
+/set ac_wield "longsword emerald sword"
 /set ac_held "lemans family seal talisman"

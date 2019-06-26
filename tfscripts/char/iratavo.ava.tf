@@ -4,7 +4,7 @@
 ;;; read in Iratavo's gear file
 /load -q char/iratavo.gear.ava.tf
 
-/def iratavosanc = get wafer %{main_bag}%;eat wafer
+;/def iratavosanc = get wafer %{main_bag}%;eat wafer
 /def iratavomidround = /send -wiratavo c 'ice lance'
 
 ;; Temp trigger until he gets more mvs

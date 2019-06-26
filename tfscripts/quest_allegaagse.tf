@@ -37,6 +37,8 @@
         /elseif ({1} =~ "ready")\
             /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(character,1,1)) || substr(character,2) || '@{Cred}: ' || status || '. ' || ' @{Cwhite}Date@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where (status = 'Complete' and updated < date()) or (status = 'Gave Up' and updated <= date('now', '-2 day')) order by character"%;\
             /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}Total@{Cred}: ' || count(0) || '.' from char_alleg where (status = 'Complete' and updated < date()) or (status = 'Gave Up' and updated <= date('now', '-2 day'))"%;\
+        /elseif ({1} =~ "inline")\
+            /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}!%{script_path}alleg_inline.sh @{n}%;\
         /endif%;\
     /else \
         /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}!sqlite3 avatar.db "select status || '. ' || IFNULL(item, '') || ' @{Cwhite}Date:@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where lower(character) = '${world_name}'"%;\
