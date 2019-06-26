@@ -1,5 +1,6 @@
 /set psi_abiku=boarquest
 /set psi_aelaviirei=damage relief
+/set psi_aff=dancing
 /set psi_amn=amnwield amnoff
 /set psi_annika=gator life
 /set psi_arale=terror terror
@@ -27,12 +28,14 @@
 /set psi_diabolus=vermistra yxunomei
 /set psi_dino=dino
 /set psi_drakki=nyxx
+/set psi_ebonkeir=ebonkeir
 /set psi_elan=elanwield elanoffhand
 /set psi_elowen=mace mace
 /set psi_enaros=dingo laven
 /set psi_eric=eric
 /set psi_eshin=eshinsmight eshinoffhand
 /set psi_essel=jorah1 jorah2
+/set psi_fili=mungewield mungewield
 /set psi_fnask=ormswield
 /set psi_forseti=fleshslicer fleshrender
 /set psi_freedman=maiming drooling
@@ -51,6 +54,7 @@
 /set psi_huntley=roll ruin
 /set psi_hydrosis=vinspi mommajebus
 /set psi_image=bored remorse
+/set psi_imamu=cuddles
 /set psi_impending=terror impending2
 /set psi_incarnado=hsword riviak
 /set psi_interactive=erics
@@ -89,7 +93,7 @@
 /set psi_mithr=psiw rogo
 /set psi_mosh=wield
 /set psi_muaddib=spirit
-/set psi_nit=conquest
+/set psi_nit=waldorf
 /set psi_nonaloth=nonawield nonaoffhand
 /set psi_outcast=vanpsimain vanpsioff
 /set psi_owari=ragn ragn
@@ -119,7 +123,6 @@
 /set psi_stan=boomerang
 /set psi_starry=twinkling sparking
 /set psi_sticks=pepper stix
-/set psi_talrasha=mungewield mungewield
 /set psi_tavoli=tavclaw tavclaw
 /set psi_terazen=terazen terazen
 /set psi_tida=finger stiletto

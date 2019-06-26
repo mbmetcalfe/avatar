@@ -16,4 +16,4 @@
 /set lvlon=0
 /set self_buffs=concentrate#savvy#steel skeleton#illusory shield#stunning weapon#frenzy
 /set action=kill %1
-/set allegItem=a rock hammer
+/set allegItem=Whirl Of Elusive Feathers
