@@ -11,13 +11,13 @@
 
 ;;; read in Keiko's gear file
 /load -q char/keiko.gear.ava.tf
-/load -q char/hero.ac1.ava.tf
+/load -q char/lord.ac1.ava.tf
 
 /require rogue.tf
 /require monk.tf
 
 /def -wkeiko keikolvl = wear levelgearac
-/def -wkeiko keikounlvl = wear "doom shard"
+/def -wkeiko keikounlvl = wear lodestone
 
 /def keikomidround = \
     /if ({mudLag} <3) \

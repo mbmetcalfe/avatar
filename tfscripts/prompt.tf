@@ -211,7 +211,7 @@
 ;;; Extra prompt
 ;;; ----------------------------------------------------------------------------
 ;;You do not have enough mana to cast heal.
-/def -mregexp -F -ag -p5 -t"\<Pos: (STUN!|DROWN|Busy|Fight|Sleep|Stand|Rest|Dying) Lag: (\d+) S:(off|[1-5]) Q:(off|[1-9]) A:(off|[1-5])\>" extra_prompt_hook = \
+/def -mregexp -F -ag -p5 -t"\<Pos: (STUN!|DROWN|Busy|Fight|Sleep|Stand|Rest|DYING) Lag: (\d+) S:(off|[1-5]) Q:(off|[1-9]) A:(off|[1-5])\>" extra_prompt_hook = \
     /set currentPosition=$[tolower(strip_attr({P1}))]%;\
     /set mudLag=$[strip_attr({P2})]%;\
     /let _surgeLevel=$[strip_attr({P3})]%;/if ({_surgeLevel} =~ "off") /let _surgeLevel=0%;/endif%;\
