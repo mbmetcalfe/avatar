@@ -9,6 +9,7 @@
 /set monType=mon shf
 /set psiType=mnd psi
 /set rogType=asn bci rog shf bld
+/set noWorshipType=mnd viz
 
 ;; Perform any necessary checks.
 /def chk = /toggle dochecks%;/echoflag %dochecks Perform Checks
@@ -81,7 +82,8 @@
     /endif %; \
     /if ({concleft} < 0) /echo -pw % @{Cwhite}Concentrate @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({prayerleft} < 0) /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
+    /if ({prayerleft} < 0 & regmatch({myclass}, {noWorshipType}) == 0) \
+        /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if ({mysticalleft} < 0 & regmatch({myclass},{magType}) & {myclass} !~ "stm") \
         /echo -pw % @{Cmagenta}Mystical Barrier @{nCwhite}missing.@{n} %; \
@@ -399,7 +401,7 @@
 	/set fervorleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?fervor
-/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are already in sanctuary)" self_sancted = \
+/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted = \
     /set sanctleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?sanctuary

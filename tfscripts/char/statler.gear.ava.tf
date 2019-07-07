@@ -11,8 +11,9 @@
 /def -wstatler ac_post_on =  \
     /set unbrandish=%{ac_held}%;\
     /set offhand=%{ac_offhand}%;\
-    /send wear %{ac_offhand}%;\
+    /send wear fire%;\
     /send get fingerbone %{main_bag}=wear fingerbone%;\
+    /send wear displacer%;\
     /def -wstatler sle = /ac2mana%%;/send sleep
 
 /def -wstatler ac_pre_off = /send remove fingerbone=put fingerbone %{main_bag}
