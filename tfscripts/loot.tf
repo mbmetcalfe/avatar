@@ -157,6 +157,7 @@
 ;; Eragora gear
 /def -mglob -t"A strange force overpowers your senses as it comes nearer!" gear_eragora_toggle_autoloot = /send config +autoloot%;/aq config -autoloot
 /def -mglob -t"An earth elemental is DEAD!!" gear_eragora_elemantal = /lootcor elemental
+/def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /send get pearl cor
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose

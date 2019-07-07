@@ -16,7 +16,7 @@
 /set lvlon=0
 /set self_buffs=concentrate#protection good#Consummation
 /set action=kill %1
-/set allegItem=Flaming Phoenix Feather
+/set allegItem=Radiance Of Wickedness
 /set poisonkit=
 /set lockpick_chest=silver lockpick
 /set lockpick_door=mechanical lock-pick contraption

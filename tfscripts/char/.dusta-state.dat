@@ -14,8 +14,8 @@
 /set offhand=shield
 /set lootContainer=loot
 /set lvlon=0
-/set self_buffs=concentrate#savvy#death shroud#mystical barrier#protection good#summon necrit#vile philosophy
-/set action=c brim %1
-/set poisonkit=
+/set self_buffs=concentrate#acumen#consummation#blind devotion
+/set action=kill %1
+/set poisonkit=black box kit
 /set lockpick_chest=lockpick
 /set lockpick_door=lockpick

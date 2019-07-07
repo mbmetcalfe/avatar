@@ -4,11 +4,12 @@
 ;;; ---------------------------------------------------------------------------
 ;; Class types
 /set arcType=arc asn dru fus
-/set cleType=cle dru pal prs
+/set cleType=cle dru pal prs viz
 /set magType=mag stm sor wzd
 /set monType=mon shf
 /set psiType=mnd psi
 /set rogType=asn bci rog shf bld
+/set noWorshipType=mnd viz
 
 ;; Perform any necessary checks.
 /def chk = /toggle dochecks%;/echoflag %dochecks Perform Checks
@@ -81,7 +82,8 @@
     /endif %; \
     /if ({concleft} < 0) /echo -pw % @{Cwhite}Concentrate @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({prayerleft} < 0) /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
+    /if ({prayerleft} < 0 & regmatch({myclass}, {noWorshipType}) == 0) \
+        /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if ({mysticalleft} < 0 & regmatch({myclass},{magType}) & {myclass} !~ "stm") \
         /echo -pw % @{Cmagenta}Mystical Barrier @{nCwhite}missing.@{n} %; \
@@ -100,7 +102,7 @@
              {myclass} =~ "wzd" | regmatch({myclass},{cleType}))) \
         /echo -pw % @{hCblue}Acumen @{nCwhite}missing.@{n}%; \
     /endif%; \
-    /if ({savinggraceleft} < 0 & regmatch({myclass}, "cle pal prs")) \
+    /if ({savinggraceleft} < 0 & regmatch({myclass}, "cle pal prs viz")) \
         /echo -pw % @{hCRed}Saving Grace @{nCwhite}missing.@{n}%;\
     /endif%;\
     /if ({nightcloakleft} < 0 & {myclass} =~ "bci") \
@@ -399,7 +401,7 @@
 	/set fervorleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?fervor
-/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are already in sanctuary)" self_sancted = \
+/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted = \
     /set sanctleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?sanctuary
@@ -1255,7 +1257,7 @@
     /stnl $[tnlthreshold*2]%;\
     /set taintleft=999
 
-/def -p5 -mglob -t"Your mind drifts closer to sanity." tainted_genius_down = \
+/def -p5 -mregexp -t"^Your mind drifts closer to sanity\.$" tainted_genius_down = \
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1
 
