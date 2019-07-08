@@ -59,3 +59,14 @@
     /if ({LOG_GEAR} == 1) \
         /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
     /endif
+
+/def -Ph -F -t'a (fully intact|partially burnt) grimoire' highlight_grimoire = \
+    /let _pl=%{PL}%;\
+    /let _item=%{P1} grimoire%;\
+    /let _type=quest%;\
+    /let numItems=1%;\
+    /if (regmatch("\( ?([0-9]+)\) .*", {_pl})) /let numItems=%{P1}%;/endif%;\
+    /if ({LOG_GEAR} == 1) \
+        /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
+    /endif
+
