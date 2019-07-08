@@ -1,3 +1,5 @@
 *.dat
 *.log
 *.gz
+
+settings.tf
