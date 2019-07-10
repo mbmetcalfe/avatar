@@ -128,7 +128,8 @@
 /def -mregexp -t"The game is currently wizlocked\." wizlocked = \
     /edit -c0 reloghook%;\
     /sendEmail Game is currently wizlocked%;\
-    /sendSlackNotificationMsg Game is currently wizlocked.
+    /sendSlackNotificationMsg Game is currently wizlocked.%;\
+    /sendDiscordNotifyMsg :lock: Game is currently wizlocked.
 
 ;;; Stuff to be fixed, but should work
 /def autorelog = /toggle arelog%;/echoflag %arelog Auto-Relog

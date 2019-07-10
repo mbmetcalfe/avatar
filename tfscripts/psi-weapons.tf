@@ -16,7 +16,7 @@
 /set psi_bored=malice remorse
 /set psi_brahma=fierc ragin
 /set psi_brock=nightblade nine
-/set psi_calp=jorah1 jorah2
+/set psi_calp=calpchak32 calpchak2
 /set psi_capulet=capuletwie capuletoff
 /set psi_chiles=brock skillet 
 /set psi_chloro=wildwood
