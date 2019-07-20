@@ -570,7 +570,7 @@
                 /send c homeshift=recall=e=e=sleep%%;\
             /endif%;\
         /def -p99 -F -mregexp -t"^%{followShifter} utters the words, 'planeshift'" folleadplaneshift = \
-            /if ({folshift} = 1 && {currentplane} !~ "thorngate") \
+            /if ({folshift} = 1 & {currentplane} !~ "thorngate") \
                 /send c planeshift thorngate=recall=e=e=sleep%%;\
             /endif%;\
         /echo -pw %%% @{Cred}Will Homeshift after @{hCYellow}%{followShifter}.@{n}%;\
@@ -842,7 +842,7 @@
     /echo -pw %outmsg
 
 ;; macro to set up avatar config defaults
-/def avadef = /send config +brief=config -battleself=config -battlenone=config -battleother=config -autosplit
+/def avadef = /send config +brief=config -battleself=config -battlenone=config -battleother=config -autosplit=config +blind
 
 ;;; ----------------------------------------------------------------------------
 ;;; /togo - will display # of levels and experience until levelGoal is reached.
