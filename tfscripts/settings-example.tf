@@ -15,4 +15,4 @@
 ;;; Discord Settings
 /set DISCORD_GENERAL_HOOK=https://discordapp.com/api/webhooks/discord_general_url_here
 /set DISCORD_NOTIFY_HOOK=https://discordapp.com/api/webhooks/discord_notification_url_here
-
+/set DISCORD_PRIVATE_HOOK=https://discordapp.com/api/webhooks/discord_notification_url_here
