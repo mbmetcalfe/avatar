@@ -79,8 +79,9 @@
 ;;; Auto charge
 /load -q autocharge.tf
 
-;;; 
+;;;  Logging stuff
 /load -q gear-logging.tf
+/load -q log-channels.tf
 
 ;;; Quest-related scripts
 /load -q quest_allegaagse.tf

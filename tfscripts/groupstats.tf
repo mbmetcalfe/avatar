@@ -600,11 +600,6 @@
         /send group%;\
     /endif
 
-;/def -i nothing = 
-;/def sendSlackNotificationMsg = \
-;    /let message=$[replace("'","",{*})]%;\
-;    /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#game-notifications","username":"AvatarNotifier","text":"%message", "icon_emoji": ":mega:", "unfurl_links": true}' https:///hooks.slack.com/services/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
-
 /def -i nothingStat = 
 ;; /recordCharStat [Name Tier] [Level] [hp/maxHp] [mana/maxMana] [mv/maxMv]
 /def recordCharStat = \
