@@ -1,5 +1,5 @@
 # AVATAR Scripts and Goodies
-Contained in this project is [Tiny Fugue](https://github.com/kruton/tinyfugue) (Tiny Fugue Rebirth](https://github.com/ingwarsw/tinyfugue)) scripts and support scripts/files.
+Contained in this project is [Tiny Fugue](https://github.com/kruton/tinyfugue) [Tiny Fugue Rebirth](https://github.com/ingwarsw/tinyfugue)) scripts and support scripts/files.
 
 
 ## Requirements
