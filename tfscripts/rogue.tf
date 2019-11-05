@@ -238,6 +238,8 @@
     /else /echo -pw %%% @{hCred} /slip [north|east|south|west|up|down] [mob]%;\
     /endif
 
+;; Assassin's can bow stab, but need to remove bow: rem bow, slip dir mob, wield bow, assass mob
+;; Suggested alias: a slip remove bow:slip %1 %2:wield bow
 ; Walk to a adjacent room instead of disengaging
 /def slop = \
     /if ({#} = 2) \

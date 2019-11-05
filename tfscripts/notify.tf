@@ -17,7 +17,7 @@
     	/echo -p %msg @{Cred}OFF@{Ccyan}.@{n} %; \
     /endif
 
-/def sendEmail = \
+/def -i sendEmail = \
     /if ({notify} == 1) \
         /if ({#} > 0) \
             /quote -S /echo -pw !%{script_path}sendemail.py --recipient "%{NOTIFY_EMAIL}" --message "%{*}"%;\
@@ -28,28 +28,36 @@
 
 ;;; Slack Notifications
 /def -i nothing = 
-/def sendSlackNotificationMsg = \
+/def -i sendSlackNotificationMsg = \
     /if ({notify} == 1) \
         /let message=$[replace("'","",{*})]%;\
-        /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#game-notifications","username":"AvatarNotifier","text":"%message", "icon_emoji": ":mega:", "unfurl_links": true}' %{SLACK_NOTIFICATION_HOOK}%;\
+        /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#game-notifications","username":"AvNotifier","text":"%message", "icon_emoji": ":mega:", "unfurl_links": true}' %{SLACK_NOTIFICATION_HOOK}%;\
     /endif
     
-/def sendSlackGeneralMsg = \
-    /let message=$[replace("'","",{*})]%;\
-    /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#general","username":"AvatarNotifier","text":"%message", "icon_emoji": ":loudspeaker:", "unfurl_links": true}' %{SLACK_GENERAL_HOOK}
+/def -i sendSlackGeneralMsg = \
+    /if ({notify} == 1) \
+        /let message=$[replace("'","",{*})]%;\
+        /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#general","username":"AvNotifier","text":"%message", "icon_emoji": ":loudspeaker:", "unfurl_links": true}' %{SLACK_GENERAL_HOOK}%;\
+    /endif
 
-/def sendSlackPersonalMsg = \
-    /let message=$[replace("'","",{*})]%;\
-    /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"@jekyll","username":"AvatarNotifier","text":"%message", "icon_emoji": ":squirrel:", "unfurl_links": true}' %{SLACK_GENERAL_HOOK}
+/def -i sendSlackPersonalMsg = \
+    /if ({notify} == 1) \
+        /let message=$[replace("'","",{*})]%;\
+        /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"@jekyll","username":"AvNotifier","text":"%message", "icon_emoji": ":squirrel:", "unfurl_links": true}' %{SLACK_GENERAL_HOOK}%;\
+    /endif
 
 ;;; Discord Notifications
-/def sendDiscordGeneralMsg = \
-    /let message=$[replace("'","",{*})]%;\
-    /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvatarNotifier", "content": "%message"}' %{DISCORD_GENERAL_HOOK}
+/def -i sendDiscordGeneralMsg = \
+    /if ({notify} == 1) \
+        /let message=$[replace("'","",{*})]%;\
+        /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvNotifier", "content": "%message"}' %{DISCORD_GENERAL_HOOK}%;\
+    /endif
 
-/def sendDiscordNotifyMsg = \
-    /let message=$[replace("'","",{*})]%;\
-    /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvatarNotifier", "content": "%message"}' %{DISCORD_NOTIFY_HOOK}
+/def -i sendDiscordNotifyMsg = \
+    /if ({notify} == 1) \
+        /let message=$[replace("'","",{*})]%;\
+        /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvNotifier", "content": "%message"}' %{DISCORD_NOTIFY_HOOK}%;\
+    /endif
 
 
 ;;; ----------------------------------------------------------------------------
@@ -61,7 +69,7 @@
     /toggle buddy_to_slack%;\
     /echoflag %buddy_to_slack Sending buddychan messages to Slack@{n}
 /def -p10 -F -mregexp -t"^\{([a-zA-Z]+)} (.*)" buddychat_to_slack = /sendSlackBuddyChanMsg %{*}
-/def sendSlackBuddyChanMsg = \
+/def -i sendSlackBuddyChanMsg = \
 ;    /let message=$[ftime("%H:%M:%S %Z")]: %{message}%;\
     /let message=$[replace("'","",{*})]%;\
     /let message=$[replace('"','',{message})]%;\
@@ -95,19 +103,37 @@
         /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#group-chat","username":"GroupchatNotifier", "mrkdwn": "true","text":"%message", "icon_emoji": ":tada:", "unfurl_links": true}' %{SLACK_GENERAL_HOOK}%;\
     /endif
     
+;;; Triggers to notify of.
 /def -mregexp -p1 -ah -t"^A HOGathon has just BEGUN!!!" hogathon_begun = \
-    /sendEmail A HoG just started!%;\
+    ;/sendEmail A HoG just started!%;\
     /sendSlackNotificationMsg :piggy: A HoG just started! :piggy:%;\
-    /sendDiscordNotifyMsg :pig: A HoG just started! :pig2:
+    /sendDiscordNotifyMsg :pig: @here A HoG just started! :pig2:
 
 /def -mregexp -p1 -ah -t"^The HOGathon has ENDED\. HOG is no longer a valid command\." hogathon_ended = \
-    /sendEmail The HoG is now over.%;\
+    ;/sendEmail The HoG is now over.%;\
     /sendSlackNotificationMsg :piggy: The HoG is now over. :piggy:%;\
-    /sendDiscordNotifyMsg :pig: The HoG is now over. :pig2:
+    /sendDiscordNotifyMsg :pig: @here The HoG is now over. :pig2:
 
-/def -mregexp -p1 -ah -t"^The Mail Fairy chats '([a-zA-Z]+) just sent an immortal note \(\#([0-9]+)\) to everyone.'" notify_new_imm_note = \
+/def -mregexp -p5 -F -ah -t"^The Mail Fairy chats '([a-zA-Z]+) just sent an immortal note \(\#([0-9]+)\) to everyone.'" notify_new_imm_note = \
     /sendSlackNotificationMsg %{P1} just posted an immortal note.%;\
-    /sendDiscordNotifyMsg :incoming_envelope: %{P1} just posted an immortal note. 
+    /sendDiscordNotifyMsg :incoming_envelope: %{P1} just posted an immortal note.
+;;; TBD:    /logNote 7 %{P1}
+
+/def logNote = \
+    /toggle log_note%;\
+    /if ({log_note} == 1) \
+        /def -ag -n1 -mregexp -t"Your current board has been switched to the '.+' board\." gag_board_switch = /send note read %2%%;/repeat -00:00:01 1 /log -w note_%2.log%;\
+        /def generalPromptHookCheck=/logNote %2%%;/undef generalPromptHookCheck%%;/log OFF%;\
+        /send board %1%;\
+    /else \
+        /noteNotify %1%;\
+    /endif
+
+/def -i noteNotify = \
+    /if ({#} == 1) \
+        /quote -S /nothing !%{script_path}note_to_discord.sh %{1}%;\
+    /else /echo -pw Something went wrong.%;\
+    /endif
 
 /def -mregexp -p1 -ah -t"^A message from Thorngate: Thank ([a-zA-Z]+) for their generous contribution. There is (.+) on for (.+)\.$" notify_boon = \
     /sendSlackNotificationMsg :speaking_head_in_silhouette: %{P1} has started %{P2}, active %{P3}.%;\
@@ -124,6 +150,11 @@
 /def -mregexp -p1 -ah -t"^We are preparing to reboot!$" notify_rebooting = \
     /sendSlackNotificationMsg Reboot, incoming.%;\
     /sendDiscordNotifyMsg :exclamation: Reboot incoming! :exclamation: 
+
+/def -mglob -p1 -t"      ! MULTIDAY HAS STARTED !" notify_multiday_start = \
+    /sendDiscordNotifyMsg :mega: @here MULTIDAY HAS BEGUN! :busts_in_silhouette:
+/def -mglob -p1 -t"      ! MULTIDAY HAS ENDED !" notify_multiday_end = \
+    /sendDiscordNotifyMsg :mega: @here MULTIDAY IS OVER! :busts_in_silhouette:
 
 ;;; ----------------------------------------------------------------------------
 ;;; Personal notifications
@@ -147,7 +178,6 @@
 ;;; ----------------------------------------------------------------------------
 ;;; General interest items
 ;;; ----------------------------------------------------------------------------
-/def -mregexp -p9 -t"\[LORD INFO\]\: [a-zA-Z]+ transports the Planar Anchor to (.*)\." notify_planar_anchor = \
-    /sendSlackNotificationMsg :anchor: The Planar Anchor has been set to _%{P1}_.%;\
-    /sendDiscordNotifyMsg :anchor: The Planar Anchor has been set to **%{P1}**.
-
+/def -mregexp -p9 -t"\[LORD INFO\]\: ([a-zA-Z]+) transports the Planar Anchor to (.*)\." notify_planar_anchor = \
+    /sendSlackNotificationMsg :anchor: The Planar Anchor has been set to _%{P2}_.%;\
+    /sendDiscordNotifyMsg :anchor: The Planar Anchor has been set to **%{P2}**.

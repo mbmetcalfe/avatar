@@ -182,5 +182,5 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Vizier Final Rites Handling
 ;;; ----------------------------------------------------------------------------
-/def -mglob -aCwhite -p99 -t'has been marked with final rites.' final_rites_up 
+/def -mregexp -ahCwhite -p99 -t'has been marked with final rites\.$' final_rites_up 
 

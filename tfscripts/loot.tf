@@ -157,7 +157,7 @@
 ;; Eragora gear
 /def -mglob -t"A strange force overpowers your senses as it comes nearer!" gear_eragora_toggle_autoloot = /send config +autoloot%;/aq config -autoloot
 /def -mglob -t"An earth elemental is DEAD!!" gear_eragora_elemantal = /lootcor elemental
-/def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /send get pearl cor
+/def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /lootcor pearl cor
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose
@@ -179,6 +179,10 @@
 
 ;;; Necropolis
 /def -mglob -t"The General Commander for Veyah L'Aturii is DEAD!!" necropolis_loot_general_command = /lootcor ashe
+/def -mglob -t"Golem guardian is DEAD!!" necropolis_loot_golem_guardian = /lootcor blade
+
+/def -mglob -t"Groundskeeper Chalmers is DEAD!!" Aculeata_loot_chalmers = /lootcor talisman
+
 
 ;;; Poisons
 /def -mglob -t"A trapdoor spider is DEAD!!" gear_poison_trapspider = /lootcor venom

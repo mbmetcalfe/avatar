@@ -78,6 +78,7 @@
 /alias res  rescue %1
 /alias qua /send get %1 %lootContainer=quaff %1
 /alias cross /send get marble %lootContainer=wear marble=brandish=wear %unbrandish=put marble %lootContainer
+/alias lily /send get lily %{main_bag}=wear lily=brandish=wear %{unbrandish}=put lily %{main_bag}
 /alias crum /send get crumple %lootContainer=recite crumple %1
 /alias frag /send get fragment %lootContainer=recite fragment %1
 /alias setoffhand  /set offhand %1%;/echo -w -aB -p Ok.  Offhand weapon set to %1.

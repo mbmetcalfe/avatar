@@ -20,7 +20,7 @@
         /edit -c100 x_fg_hook%;\
         /edit -c100 reloghook2%;\
         /set atitle=1%;\
-        /atitle (%mylevel)%;\
+        /atitle (%mytier %mylevel)%;\
 	/else \
         /edit -c0 x_fg_hook%;\
         /edit -c0 reloghook2%;\
@@ -48,20 +48,20 @@
 
 /def -mregexp -t'^[a-zA-Z]+ removes you from [a-zA-Z]+ group.' rmgroup1 = /setlead Self
 /def -mregexp -t'^You stop following [a-zA-Z]+.' rmgroup2 = \
-    /if ({running} = 0) /setlead Self%; /endif
+    /if ({running} = 0) /setlead Self%;/send group%; /endif
 /def -mregexp -t'^[\w]+ disbands the group.' rmgroup3 = \
-    /if ({running} = 0) /setlead Self%; /endif
+    /if ({running} = 0) /setlead Self%;/send group%;/endif
 
 /def -p0 -mregexp -t"([A-Za-z]+) now follows you." groupfollower = \
-	/let _name=%P1 %; \
-	/if ({leader} !~ "Self") \
-            /if ({running} = 0) /setlead Self%; /endif%; \
-        /endif%; \
-	/if ( regmatch(tolower({_name}),"me") ) \
-		/echo -aB -p % Good job! You avoided a group me trigger. %; \
-	/else \
-		/if ({autogroup}=1) group %_name %; \ /endif %; \
-	/endif
+    /let _name=%P1 %; \
+    /if ({leader} !~ "Self") \
+        /if ({running} = 0) /setlead Self%; /endif%; \
+    /endif%; \
+    /if ( regmatch(tolower({_name}),"me") ) \
+        /echo -aB -p % Good job! You avoided a group me trigger. %; \
+    /else \
+        /if ({autogroup}=1) group %_name %; \ /endif %; \
+    /endif
 
 /def -mregexp -p5 -F -t"^([a-zA-Z]+) enters [a|an|the]+ ([a-z]+)." leader_ported = \
     /let _porter=$[tolower(strip_attr({P1}))]%;\
@@ -70,12 +70,19 @@
         /beep%;\
     /endif
 
-/def -mregexp -t'^You lose ([0-9]*) hero levels\!' fail_morph = \
-    /eval /sys echo $[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}: You lose %P1 hero levels! >> char/%{myname}.%{gains_suffix}.dat%;\
-    /atitle - Lost %P1 levels.
-/def -mglob -t"^With confidence you meld with the continuum briefly and become a new Lord\!" success_morph = \
+;/def -mregexp -t'^You lose ([0-9]*) hero levels\!' fail_morph = \
+;    /eval /sys echo $[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}: You lose %P1 hero levels! >> char/%{myname}.%{gains_suffix}.dat%;\
+;    /atitle - Lost %P1 levels.
+;[HERO INFO]: Vulko failed morph at level 478.
+/def -mregexp -t'^\[HERO INFO\]\: ([a-zA-Z]+) failed morph at level ([0-9]+)\.$' fail_morph = \
+    /let _lc_name=$[tolower({P1})]%;\
+    /if ({_lc_name} =~ {myname}) \
+        /eval /sys echo $[ftime("%m%d", time())] - %{mylevel} %{mytier}: Failed morph. >> char/%{myname}.%{gains_suffix}.dat%;\
+    /endif
+
+/def -mglob -t"With confidence you meld with the continuum briefly and become a new Lord!" success_morph = \
     /eval /sys echo $[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}: Morphed. >> char/%{myname}.%{gains_suffix}.dat%;\
-    /atitle (1)
+    /atitle (Lord 1)
 
 ; Gain/lose stats
 ;;; Aug 29, 2005 - Changed gains triggers to calculate the gain b/c of the bug.
@@ -84,7 +91,7 @@
     /set max_prac=%P8%;\
     /let hpgain=%P1%;/let managain=%P3%;/let mvgain=%P5%;/let pracgain=%P7%; \
     /set levels=$[++levels]%;/set mylevel=$[++mylevel]%; \
-    /atitle (%mylevel)%;\
+    /atitle (%mytier %mylevel)%;\
     /set hpgains=$[hpgains+hpgain]%;/set managains=$[managains+managain]%; \
     /set mvgains=$[mvgains+mvgain]%;/set pracgains=$[pracgains+pracgain]%; \
     /let bhp=%P2%;/let bmana=%P4%;/let bmv=%P6%;/let bprac=%P8%; \
@@ -101,7 +108,7 @@
     /set max_prac=%P8%;\
     /let hpgain=%P1%;/let managain=%P3%;/let mvgain=%P5%;/let pracgain=%P7%; \
     /set levels=$[++levels]%;/set mylevel=$[++mylevel]%; \
-    /atitle (%mylevel)%;\
+    /atitle (%mytier %mylevel)%;\
     /set hpgains=$[hpgains+hpgain]%;/set managains=$[managains+managain]%; \
     /set mvgains=$[mvgains+mvgain]%;/set pracgains=$[pracgains+pracgain]%; \
     /let bhp=%P2%;/let bmana=%P4%;/let bmv=%P6%;/let bprac=%P8%; \
@@ -253,7 +260,8 @@
 ;        /send board 1=note to all=note subject Boons%;\
 ;        /send note + %{*}%;\
 ;    /endif
-/def -i sendBoonNote = /sendSlackNotificationMsg :gift: %{*} :gift: 
+/def -i sendBoonNoteToSlack = /sendSlackNotificationMsg :gift: %{*} :gift: 
+/def -i sendBoonNote = /sendDiscordNotifyMsg :gift: %{*} :gift:
 
 /def -mglob -ah -p1 -t"Tul-Sith smiles, and amplifies your healing prowess!" misc_avatar_boon_healing = \
     /sendBoonNote Tul-Sith is amplifying healing prowess.

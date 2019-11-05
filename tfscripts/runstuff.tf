@@ -35,8 +35,9 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Experience related triggers
 ;;; ----------------------------------------------------------------------------
-/def -p0 -mregexp -t'^You receive ([0-9]+) experience points.$' rcvexp = \
+/def -p5 -mregexp -t'^You receive ([0-9]+) experience points.$' rcvexp = \
     /setXp $[xp+{P1}]%;\
+    /set lastXp=%{P1}%;\
     /set kills=$[++kills]%;\
     /if (regmatch({myclass},{arcType})) get all.brace corpse%;/endif%;\
     /if ({autosac} = 1) sacrifice corpse%;/endif%;\
@@ -48,7 +49,9 @@
 /def -p0 -mregexp -t'^You have received an award of ([0-9]+) experience points\!$' rcvexp2 = /setXp $[xp+{P1}]
 
 ;; Morph failers get reduced exp
-/def -p0 -mregexp -t'^Your failed morph penalty reduces the experience gain to ([0-9]+).$' morphfail_rcvexp = /set failXP=$[failXP+{P1}]
+/def -p0 -mregexp -t'^Your failed morph penalty reduces the experience gain to ([0-9]+).$' morphfail_rcvexp = \
+    ;/setXp $[xp + lastXp*-1 + {P1}]%;\
+    /set failXp=$[failXp+{P1}]
 
 /def -p0 -mregexp -t'^Tul-Sith grants you ([0-9]+) exp!$' rcvhealexp = \
     /setXp $[xp+{P1}] %; \
@@ -188,10 +191,18 @@
     /if ({pgems} !~ "") \
         /let rpgemmsg=|w|We received the following perfect gem(s): |g|%{pgems}|w|.%;\
     /endif%;\
+    /if ({failXp} > 0) \
+        /let rFailXpMsg=|w|Since I failed morph, I really only got |g|%{failXp}|w| exp|w|.%;\
+    /endif%;\
     /if ({echochan} =~ "/echo") \
         /let newmsg=$[replace("|g|", "@{Cgreen}", {rgainmsg})] %; \
         /let newmsg=$[replace("|w|", "@{Cwhite}", {newmsg})] %; \
         /echo -pw %%% %newmsg %; \
+        /if ({failXp} > 0) \
+            /let rFailXpMsg=$[replace("|w|", "@{Cwhite}", {rFailXpMsg})]%;\
+            /let rFailXpMsg=$[replace("|g|", "@{Cgreen}", {rFailXpMsg})]%;\
+            /echo -pw %%% %rFailXpMsg%;\
+        /endif%;\
         /if ({myclass} =~ "prs") \
             /let newmsg=$[replace("|bw|", "@{hCwhite}", {rhealmsg})] %; \
             /let newmsg=$[replace("|br|", "@{hCred}", {newmsg})] %; \
@@ -208,6 +219,9 @@
         /xtitle ${world_character}: %xgainmsg %; \
     /else \
         /eval %echochan %rgainmsg %; \
+        /if ({failXp} > 0) \
+            /eval %echochan %rFailXpMsg%;\
+        /endif%;\
         /if ({myclass} =~ "prs") \
             /eval %echochan %rhealmsg %; \
         /endif %; \
@@ -246,6 +260,7 @@
 
 /def runreset = \
     /set totxp=$[totxp+xp]%;/unset pgems%; \
+    /set totFailXp=$[totFailXp + failXp]%;\
     /set totkills=$[totkills+kills]%;/set totgolden=$[totgolden+golden] %; \
     /set totdeaths=$[totdeaths+deaths]%;/set totdeathxp=$[totdeathxp+deathxp]%; \
     /set totdfbhysscount=$[totdfbhysscount+dfbhysscount]%; \
@@ -257,7 +272,7 @@
     /set totlevels=$[totlevels+levels] %;/set totruntime=$[totruntime+runTime]%; \
     /set totnumflee=$[totnumflee+numflee]%;/set totfleexp=$[totfleexp+fleexp]%; \
     /setXp 0%;/set kills=0%;/set critical=0%;/set levels=0%; \
-    /set deaths=0%;/set deathxp=0%;/set failXP=0%; \
+    /set deaths=0%;/set deathxp=0%;/set failXp=0%; \
     /set dfbhysscount=0%;/set dfcaughtcount=0%; \
     /set golden=0%;/set resc=0%;/set sucresc=0 %; \
     /set hpgains=0%;/set managains=0%;/set mvgains=0%;/set pracgains=0%; \
@@ -273,7 +288,7 @@
 ;;; By running /runreset twice, we clear all variables
 /def totreset = \
     /damreset%;/runend%;/runreset%;\
-    /set totxp=0%;/set totkills=0%;/set runs=0 %; \
+    /set totxp=0%;/set totFailXp=0%;/set totkills=0%;/set runs=0 %; \
     /set tothpgains=0%;/set totmanagains=0%;/set totmvgains=0%; \
     /set totpracgains=0%;/set totlevels=0 %; \
     /set totnumflee=0%;/set totfleexp=0%; \
@@ -289,6 +304,7 @@
     /echo -p %%% @{hCyellow}All counters reset.@{n}
 
 /def runstart = \
+;;    /send affect%;\
     /set runs=$[++runs]%;\
     /runreset%;\
     /damreset%;\
@@ -304,7 +320,7 @@
     /endif%;\
     /if ({refreshmisc} == 0) /refreshmisc%;/endif%;\
     /if ({mytier} !~ "lord" & {resanc} = 0 & ({myclass} !~ "sor" | {myclass} !~ "bci" | {myclass} !~ "bzk")) /resanc %; /endif%;\
-;;      /if ({repray} = 0) /repray %; /endif%;\
+      /if ({myclass} =~ "pal" & {repray} = 0) /repray %; /endif%;\
     /if ({refren} = 0 & {leader} !~ "Self" & {myclass} !~ "bzk") /refren %; /endif%;\
     /if ({autokill} = 0 & {leader} !~ "Self" & {mytier} !~ "lord" & {myclass} !~ "prs") /assist %; /endif%;\
     /def -n1 -mregexp -ag -p2 -t"You need [0-9]+ experience to level and have ([0-9]+) practices\." runstart_worth_pracs = /set max_prac=%%P1%;\
