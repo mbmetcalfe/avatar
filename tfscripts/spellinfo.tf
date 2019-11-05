@@ -308,6 +308,9 @@
     /if ({refreshmisc} == 1) \
         /refreshSpell 'death shroud'%;\
     /endif
+/def -mglob -ahCred -t"Your flesh heals of its defilement." defiled_flesh_drop = \
+    /set defiledfleshleft=-1%;/set ticktoggle=1%;\
+    /if ({refreshmisc} == 1) /refreshSpell 'defiled flesh'%;/endif
 
 /def -mglob -ahCmagenta -t"You feel less zealous." holy_zeal_drop = \
     /set holyzealleft=-1%;/set ticktoggle=1%;\
@@ -1257,7 +1260,8 @@
     /stnl $[tnlthreshold*2]%;\
     /set taintleft=999
 
-/def -p5 -mregexp -t"^Your mind drifts closer to sanity\.$" tainted_genius_down = \
+/def -p5 -mglob -t"Your mind drifts closer to sanity." tainted_genius_down = \
+    /eval /echo -pw @{hCgreen}Set tnl to $[tnlthreshold/2]@{n}%;\
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1
 

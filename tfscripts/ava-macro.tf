@@ -78,6 +78,7 @@
 /alias res  rescue %1
 /alias qua /send get %1 %lootContainer=quaff %1
 /alias cross /send get marble %lootContainer=wear marble=brandish=wear %unbrandish=put marble %lootContainer
+/alias lily /send get lily %{main_bag}=wear lily=brandish=wear %{unbrandish}=put lily %{main_bag}
 /alias crum /send get crumple %lootContainer=recite crumple %1
 /alias frag /send get fragment %lootContainer=recite fragment %1
 /alias setoffhand  /set offhand %1%;/echo -w -aB -p Ok.  Offhand weapon set to %1.
@@ -570,7 +571,7 @@
                 /send c homeshift=recall=e=e=sleep%%;\
             /endif%;\
         /def -p99 -F -mregexp -t"^%{followShifter} utters the words, 'planeshift'" folleadplaneshift = \
-            /if ({folshift} = 1 && {currentplane} !~ "thorngate") \
+            /if ({folshift} = 1 & {currentplane} !~ "thorngate") \
                 /send c planeshift thorngate=recall=e=e=sleep%%;\
             /endif%;\
         /echo -pw %%% @{Cred}Will Homeshift after @{hCYellow}%{followShifter}.@{n}%;\
@@ -842,7 +843,7 @@
     /echo -pw %outmsg
 
 ;; macro to set up avatar config defaults
-/def avadef = /send config +brief=config -battleself=config -battlenone=config -battleother=config -autosplit
+/def avadef = /send config +brief=config -battleself=config -battlenone=config -battleother=config -autosplit=config +blind
 
 ;;; ----------------------------------------------------------------------------
 ;;; /togo - will display # of levels and experience until levelGoal is reached.

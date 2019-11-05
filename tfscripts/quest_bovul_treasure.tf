@@ -3,7 +3,6 @@
 ;;; Lord, Treasure quest helper macroes and triggers.
 ;;; http://avatar.melanarchy.info/index.php/Vault_Treasure_Hunt
 ;;; Available mods: http://avatar.melanarchy.info/index.php/Demonic_Lapis_Lazuli
-
 ;;; ---------------------------------------------------------------------------
 ;;; Mark this file as already loaded, for /require.
 /loaded __TFSCRIPTS__/quest_bovul_treasure.tf
@@ -50,4 +49,51 @@
 ;and east.
 ;(Demonic) (Black Aura) A demon chisels obscenities about Bo'vul onto the wall.
 
+/def checklistTreasure = \
+    /echo -pw @{Cwhite}-----------------------------------------------------------------------------%;\
+    /echo -pw @{Cred}Bo'Vul's Vault Treasure Hunt:%;\
+    /echo -pw @{Cyellow}  1. Orb Of Bravery X 5%;\
+    /echo -pw @{Cyellow}  2. Astral Powder X 5%;\
+    /echo -pw @{Cyellow}  3. Crown of Crystal X 2%;\
+    /echo -pw @{Cyellow}  4. Treaty Of Purity Of Faith X 3%;\
+    /echo -pw @{Cyellow}  5. Amulet of the Cat's Eye X 3%;\
+    /echo -pw @{Cyellow}  6. Green Silken Sarong X 3%;\
+    /echo -pw @{Cyellow}  7. Jade Bracer X 1%;\
+    /echo -pw @{Cyellow}  8. Rod Of The Wicked Rulers X 2%;\
+    /echo -pw @{Cyellow}  9. Necklace Of Severed Fae Ears X 2%;\
+    /echo -pw @{Cyellow}  10. Silver Iguana X 1%;\
+    /echo -pw @{Cyellow}  11. Floating Circle of Books X 2%;\
+    /echo -pw @{Cyellow}  12. Amulet of Guiding Wind X 1%;\
+    /echo -pw @{Cyellow}  13. Orb Of Gith X 3%;\
+    /echo -pw @{Cyellow}  14. Armband Of The Unseen X 1%;\
+    /echo -pw @{Cyellow}  15. Exaltra's Mirror X 1%;\
+    /echo -pw @{Cyellow}  16. Naeadonna's Choker X 1%;\
+    /echo -pw @{Cyellow}  17. Yorimandil's Blindfold X 1%;\
+    /echo -pw @{Cyellow}  18. Sandblasted Emerald X 2%;\
+    /echo -pw @{Cyellow}  19. Majestre's Crop X 1%;\
+    /echo -pw @{Cwhite}-----------------------------------------------------------------------------%@{n}
+
+/def findlistTreasure = \
+    /echo -pw @{Cwhite}-----------------------------------------------------------------------------%;\
+    /echo -pw @{Cred}[QUEST INFO]: Searching for Bo'Vul's Vault Treasure Hunt Items@{n}%;\
+    /findgear Orb Of Bravery%;\
+    /findgear Astral Powder%;\
+    /findgear Crown of Crystal%;\
+    /findgear Treaty Of Purity Of Faith%;\
+    /findgear Amulet of the Cat%;\
+    /findgear Green Silken Sarong%;\
+    /findgear Jade Bracer%;\
+    /findgear Rod Of The Wicked Rulers%;\
+    /findgear Necklace Of Severed Fae Ears%;\
+    /findgear Silver Iguana%;\
+    /findgear Floating Circle of Books%;\
+    /findgear Amulet of Guiding Wind%;\
+    /findgear Orb Of Gith%;\
+    /findgear Armband Of The Unseen%;\
+    /findgear Exaltra%;\
+    /findgear Naeadonna%;\
+    /findgear Yorimandil%;\
+    /findgear Sandblasted Emerald%;\
+    /findgear Majestre%;\
+    /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 

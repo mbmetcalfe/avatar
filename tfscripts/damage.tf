@@ -108,6 +108,11 @@
 /def cast=/auto cast %1
 /def aoe=/autoall aoe %1
 
+/def setCastTarget = \
+    /set castTargetMob=%{*}%;\
+    /echo -pw @{Cwhite}Cast target set to: @{hCred}%{castTargetMob}@{n}%;\
+    /aq /unset castTargetMob
+
 /def castdmg = \
     /let this $[world_info()]%;\
     /if /test auto_aoe == 1%;/then /send -w%{this} 2 %{castTargetMob}%;/else /send -w%{this} 1 %{castTargetMob}%;/endif

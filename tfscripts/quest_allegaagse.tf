@@ -31,7 +31,7 @@
 /def alleg = \
     /if ({#} == 1) \
         /if ({1} =~ "all") \
-            /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(character,1,1)) || substr(character,2) || '@{Cred}: ' || status || '. ' || case(IFNULL(item, 'none')) when 'none' then '' else 'Item: ' || item end || ' @{Cwhite}Date@{Cred}: ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg order by status, character"%;\
+            /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(character,1,1)) || substr(character,2) || '@{Cred}: ' || status || '. ' || case(IFNULL(item, 'none')) when 'none' then '' else '@{Cwhite}Item@{Cred}: ' || item end || ' @{Cwhite}Date@{Cred}: ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg order by status, character"%;\
         /elseif ({1} =~ "needs")\
             /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(character,1,1)) || substr(character,2) || '@{Cred} needs: ' || IFNULL(item, '') || ' @{Cwhite}Date@{Cred}: ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where status = 'Active' order by character"%;\
         /elseif ({1} =~ "ready")\

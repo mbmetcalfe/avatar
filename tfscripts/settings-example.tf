@@ -11,3 +11,8 @@
 /set NOTIFY_EMAIL=email@domain.com
 /set SLACK_NOTIFICATION_HOOK=https:///hooks.slack.com/services/slack_url1_here
 /set SLACK_GENERAL_HOOK=https:///hooks.slack.com/services/slack_url2_here
+
+;;; Discord Settings
+/set DISCORD_GENERAL_HOOK=https://discordapp.com/api/webhooks/discord_general_url_here
+/set DISCORD_NOTIFY_HOOK=https://discordapp.com/api/webhooks/discord_notification_url_here
+/set DISCORD_PRIVATE_HOOK=https://discordapp.com/api/webhooks/discord_notification_url_here

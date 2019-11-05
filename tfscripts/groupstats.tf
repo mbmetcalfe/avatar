@@ -600,11 +600,6 @@
         /send group%;\
     /endif
 
-;/def -i nothing = 
-;/def sendSlackNotificationMsg = \
-;    /let message=$[replace("'","",{*})]%;\
-;    /quote -S /nothing !curl -X POST --data-urlencode 'payload={"channel":"#game-notifications","username":"AvatarNotifier","text":"%message", "icon_emoji": ":mega:", "unfurl_links": true}' https:///hooks.slack.com/services/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
-
 /def -i nothingStat = 
 ;; /recordCharStat [Name Tier] [Level] [hp/maxHp] [mana/maxMana] [mv/maxMv]
 /def recordCharStat = \
@@ -623,7 +618,12 @@
         /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{_name}", "%{_tier}", "%{2}", "%{_hp}", "%{_mana}", "%{_mv}", "$[ftime("%Y%m%d", time())]")'%;\
     /endif
 
-/def charstat = /quote -S /echo -pw %%% @{Cred}[CHAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || '@' || level || ' ' || tier || ': ' || hp || ' hp ' || mana || ' mana ' || mv || ' mv.' from char_stat where lower(character) = lower('%{*}')"
+/def charstat = \
+    /if ({#} == 1) \
+        /quote -S /echo -pw %%% @{Cred}[CHAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || '@' || level || ' ' || tier || ': ' || hp || ' hp ' || mana || ' mana ' || mv || ' mv.' from char_stat where lower(character) = lower('%{1}')"%;\
+    /else \
+        /quote -S %{-1} !sqlite3 avatar.db "select '|w|' || upper(substr(character,1,1)) || substr(character,2) || '|n|@|y|' || level || ' ' || tier || ': |c|' || hp || '|n| hp |y|' || mana || '|n| mana |g|' || mv || '|n| mv.' from char_stat where lower(character) = lower('%{1}')"%;\
+    /endif
 
 ;;; Output format: Tier,Name,Race,Level,Class
 ;;; Hero/Lord Params: 1 - Name, 2 - Race, 3 - Level, 5 - Hero/Lord, 6 - Class

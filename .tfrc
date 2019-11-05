@@ -16,9 +16,9 @@
 ;/set prompt_usec=100
 /set wrapsize=110
 /set wrapspace=2
-/histsize -l 100000
-/histsize 100000
-/set histsize=100000
+/histsize -l 10000
+/histsize 10000
+/set histsize=10000
 /set isize 2
 /set status_height=2
 /cleardone on

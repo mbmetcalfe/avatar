@@ -184,6 +184,6 @@
 
 /def clrres = \
     /let this=$[world_info()]%;\
-    /if /ismacro %{thisresc} %; /then /undef %{this}resc%;/undef %{this}resc1%;/undef %{this}resc2%;/endif%;\
+    /if /ismacro %{this}resc %; /then /undef %{this}resc%;/undef %{this}resc1%;/undef %{this}resc2%;/endif%;\
     /unset %{this}_resclist=%;\
     /echo -p @{Ccyan}%{this} rescuing none.@{n}
