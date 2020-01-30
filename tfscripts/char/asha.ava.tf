@@ -46,7 +46,7 @@
     /if ({refreshmisc} == 1) /q 5 c 'illusory shield'%;/endif    
 
 ;/def -mregexp -ag -F -p6 -t"^Your (attack|attacks) (strikes|strike) (.*) ([0-9]*) (time|times), with (.*) ([a-zA-Z]*)[\!\.]+" dmg_auto_midround
-/def -mregexp -p7 -t"^Your (attack|attacks) (strikes|strike) (.*) 9 (time|times), with (.*) ([a-zA-Z]*)[\!\.]+" asha_dmg_auto_midround
+;/def -mregexp -p7 -t"^Your (attack|attacks) (strikes|strike) (.*) 9 (time|times), with (.*) ([a-zA-Z]*)[\!\.]+" dmg_auto_fandago
 
 ;;; ---------------------------------------------------------------------------
 ;;; Weapon fiddling

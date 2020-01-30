@@ -6,10 +6,12 @@
 
 /def autoquest = /toggle autoquest%;/echoflag %autoquest Auto-@{hCred}Questing@{n}
 
-;; Hide quest
+;; Vault Thief's Bane (aka Hide quest)
+;; https://avatar.melanarchy.info/index.php/Vault_Thief%27s_Bane
 /def -ag -Ph -F -t'an embossed hide' highlight_hide_quest_001 = /test $[echoGearItem(%{PL}, "an embossed hide", "quest", %{P1})]
 /def -ag -Ph -F -t'the whole hide of a merman' highlight_hide_quest_002 = /test $[echoGearItem(%{PL}, "the whole hide of a merman", "quest", %{P1})]
 /def -ag -Ph -F -t'a glazed gith hide' highlight_hide_quest_003= /test $[echoGearItem(%{PL}, "a glazed gith hide", "quest", %{P1})]
+/def -ag -Ph -F -t'a soft nubuc hide' highlight_hide_quest_004 = /test $[echoGearItem(%{PL}, "a soft nubuc hide", "quest", %{P1})]
 
 /def -ag -Ph -F -t'a mindflayer scalp' highlight_gith_remort_quest = /test $[echoGearItem(%{PL}, "a mindflayer scalp", "quest", %{P1})]
 
@@ -35,3 +37,28 @@
         /def -p99 -F -mregexp -t"^%{followShadowRunQuester} is pulled through the barrier\." folshadow_die2 = /if ({folshadow} = 1) /send die%%;/endif%;\
         /echo -pw %%% @{Cred}Will follow after @{hCYellow}%{followShadowRunQuester} @{Cred}on Shadow Run.@{n}%;\
     /endif
+
+
+;;
+;;; Faerie Script Quest
+;;
+/def -p5 -mglob -t"A seamstress from the Kzin home plane offers to trade her wares." quest_faerie_script_ashara = \
+  /if ({autoquest} == 1) /send give "tablet scroll black" ashara%;\
+  /else /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}give "tablet scroll black" ashara%;\
+  /endif
+
+/def -p5 -mglob -t"Ashara gives you a silken scarf." quest_faerie_script_scarf = \
+  /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}Give a silken scarf to Ceilican on Midgaard, he will give you a strand of golden hair.
+
+/def -p5 -mglob -t"A withered old Gypsy is here, playing an enchanting melody." quest_faerie_script_ceilican = \
+  /if ({autoquest} == 1) /send give "silken scarf" ceilican%;\
+  /else /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}give "silken scarf" ceilican%;\
+  /endif
+
+/def -p5 -mglob -t"Ceilican the Gypsy gives you a strand of golden hair!" quest_faerie_script_strand = \
+  /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}Give a strand of golden hair to Laz on Thorngate, he will give you a Faerie script.
+
+/def -p5 -mglob -t"A Fae wanderer from Arcadia is here." quest_faerie_script_laz = \
+  /if ({autoquest} == 1) /send give "strand golden hair" laz%;\
+  /else /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}give "strand golden hair" ceilican%;\
+  /endif

@@ -3,22 +3,21 @@
 
 /set main_bag "jumpsuit white loot"
 
-;;; load hitgear set
 /load -q char/hero.roghit2.ava.tf
+/set hit_wield="paladinwield greatsword Dhaatu"
 
-;/def -wdhaatu ac_pre_on = \
-;    /send get all.dhaatu! %{main_bag}
+/load -q char/hero.ac2.ava.tf
+;/eval /set ac_wield=%{hit_wield}
 
-;/def -wdhaatu ac_pre_off = \
-;    /send remove all.dhaatu!=put all.dhaatu! %{main_bag}
+/def -wdhaatu ac_pre_on = get all.fingerbone %{main_bag}=get seven %{main_bag}
+;/def -wdhaatu ac_pre_on = /send get %{ac_wield} %{main_bag}=get all.fingerbone %{main_bag}
 
-;/def -wdhaatu hit_pre_on = /ac_pre_on
-;/def -wdhaatu hit_pre_off = /ac_pre_off
+/def -wdhaatu ac_pre_off = remove all.fingerbone=put all.fingerbone %{main_bag}=remove seven=put seven %{main_bag}
+;/def -wdhaatu ac_pre_off = /send remove %{ac_wield}=put %{ac_wield} %{main_bag}=remove all.fingerbone=put all.fingerbone %{main_bag}=remove seven=put seven %{main_bag}
 
-;/def -wdhaatu hit_post_on = /send wear %{hit_offhand}
+/def -wdhaatu hit_pre_on = /ac_pre_on
+/def -wdhaatu hit_pre_off = /ac_pre_off
 
-;;; load hitgear set
-;/load -q char/lord.hit3.ava.tf
-;;; load lord ac gearset
-;/load -q char/lord.ac1.ava.tf
+/def -wdhaatu hit_post_on = /send remove all.medallion=wear all.fingerbone=wield %{hit_wield}
+/def -wdhaatu ac_post_on = /send remove all.carved=wear all.fingerbone=wield %{ac_wield}
 

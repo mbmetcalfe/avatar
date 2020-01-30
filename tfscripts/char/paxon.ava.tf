@@ -21,8 +21,6 @@
 ; Misc other triggers/aliases
 ;/def -wpaxon paxonlvl = get all.levelgear %lootContainer%;rem %{ac_head}%;rem %{ac_neck1}%;wear all.levelgear
 ;/def -wpaxon paxonunlvl = rem all.levelgear%;put all.levelgear %lootContainer%;wear %{ac_head}%;wear %{ac_neck1} 
-/def paxonmidround = /send -wpaxon c fireball
-
 /def -wpaxon paxonSetMySpell = \
     /let newSpell=='%{*}'%;\
     /if ({newSpell} !/ {paxonMidSpell}) \
@@ -52,21 +50,6 @@
 /alias airgear c 'air armor'%;c 'air hammer'%;c 'air shield'%;c 'magic light'
 /def wa = stand%;/mana2ac
 
-/alias fb \
-    /if ({#} > 1 | {1} > 0) surge %1%;/endif%;\
-    c 'fireball' %2%;\
-    /if ({#} > 1 | {1} > 0) surge off%;/endif
-
-/alias afb \
-;    /def -wpaxon -n1 -mregexp -t'^You already are amplifying your spells\!$' gag_already_amplifying%;\
-    /clrq%;\
-    wear fire%;\
-    amplify on%;\
-    fb %{*}%;\
-    /set autocast=0%;\
-    /acast%;\
-    /addq /acast
-
 ;/def -wpaxon -p9 -ag -mregexp -F -t"\'s attac.* strikes? you [0-9]* (time|times), with .* [a-zA-Z]*(\.|\!)$" paxon_aggie_swap_flash = \
 ;    /if ({running}==1) /q 6 c flash%;/endif
 ;/def -wpaxon -p9 -ag -mregexp -F -t"\'s attacks haven\'t hurt you\!$" paxon_nil_aggie_flash = \
@@ -88,19 +71,6 @@
     c 'firestorm'%;\
     /if ({#} > 1 | {1} > 0) surge off%;/endif
 
-/alias adi \
-    /clrq%;\
-    wear fire%;\
-    di %{*}%;\
-    /set autocast=0%;\
-    /acast%;\
-    /addq /acast
-
-/alias arain \
-    /clrq%;\
-    wear lighting%;\
-    rain %{*}
-
 ;;; ----------------------------------------------------------------------------
 ;;; Lord spell aliases
 ;;; ----------------------------------------------------------------------------
@@ -113,6 +83,8 @@
     /endif
 
 /def -wpaxon -mregexp -t"^Your innate mental strength defeats ([a-zA-Z]+)'s frenzy spell\!" paxon_tranquil_frenzy = /send emote is filled with rage!
+
+/def chargeit = charge fire flametongue%;/def full_mana_action = wake%%;charge light arc
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState paxon

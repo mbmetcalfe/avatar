@@ -11,6 +11,18 @@
 ;/def -wzaratan zaratanlvl = get all.levelgear %lootContainer%;rem %{ac_head}%;rem %{ac_neck1}%;wear all.levelgear
 ;/def -wzaratan zaratanunlvl = rem all.levelgear%;put all.levelgear %lootContainer%;wear %{ac_head}%;wear %{ac_neck1} 
 
+;/alias aoe /cast on%;/aoe on%;wear light
+;/alias noaoe /cast on%;/aoe off%;wear fire
+/alias aoe \
+  /aoe %{1}%;\
+  /set zaratan_auto_cast 1%;\
+  /if ({auto_aoe} == 1) /send wear light%;\
+  /else /send wear fire%;\
+  /endif
+
+/def -wzaratan -au -p9 -F -mglob -t'Your force shield shimmers then fades away.' zaratan_focidrop = \
+    /if ({running} == 1) /send racial fly%;/endif
+
 /test zaratanMidSpell := (zaratanMidSpell | 'disintegrate')
 /test zaratanAOESpell := (zaratanAOESpell | 'acid rain')
 /def zaratanmidround = /send -wzaratan c %{zaratanMidSpell}
@@ -19,7 +31,7 @@
 /def -wzaratan zaratanSetMySpell = \
     /let newSpell=='%{*}'%;\
     /if ({newSpell} !/ {zaratanMidSpell}) \
-        /send a 1=a 1 c '%{*}'%;\
+        /send a 1=a 1 c '%{*}' \%1%;\
     /endif
 /def -wzaratan zaratanSetMyAOESpell = \
     /let newSpell=='%{*}'%;\
@@ -79,21 +91,6 @@
     c 'firestorm'%;\
     /if ({#} > 1 | {1} > 0) surge off%;/endif
 
-/alias adi \
-    /clrq%;\
-    wear fire%;\
-    /setMySpell disintegrate%;\
-    /set automidround=0%;\
-    /amid %{*}%;\
-    di %{*}%;\
-    /addq /amid
-
-/alias arain \
-    /clrq%;\
-    /setMyAOESpell acid rain%;\
-    wear light%;\
-    rain %{*}
-
 /def -wzaratan -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" zaratan_highlight_acid_rain
 
 /def -p4 -mglob -t"Paxon calls forth acid to scour away its foes!" paxon_acid_rain =\
@@ -106,7 +103,7 @@
 
 /def -wzaratan -mglob -p1 -t"Mayflower, Explorer and Trailblazer says 'All aboard! Last call for Ocean Transport! If you aren't coming, go back to the geyser.'" mayflower_setup = \
     /send cast invis%;\
-    /if ({leader} =~ "Self") /send west=fol self=linkrefresh group%;/endif
+    /if ({leader} =~ "Self") /send west=fol self=linkrefresh group=sleep%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState zaratan

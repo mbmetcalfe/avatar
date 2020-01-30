@@ -23,6 +23,14 @@
     /statusflag %drone Drone%;\
     /droneconfig
 
+/def mydrone = \
+    /let this=$[tolower(world_info())]%;\
+    /auto drone %{1}%;\
+    /if /ismacro %{this}drone%; /then /%{this}drone %{1}%; /else /echo -pw @{Cred}[CHAR INFO]: @{hCred}/%{this}drone not defined.@{n}%;/endif%;\
+    /let auto_tr_v %{this}_auto_drone%;\
+    /let auto_tr $[expr({auto_tr_v})]%;\
+    /statusflag %{auto_tr} myDrone
+
 /def dronereset = \
     /if ({drone} = 1) \
         /unset droneToSend%;/unset droneSendPlane%;\
@@ -182,7 +190,8 @@
     /endif
 
 /def -mregexp -t"([a-zA-Z]+) says '(heal|div|cc|cl|fren[zy]*|sanc|touch|rejuv|pp|por[tal]*|nex[us]*|invig) ([a-zA-Z]+)'" auto_heal_other_say = \
-    /if ({drone} = 1 | {autoheal} = 1) \
+    /let this=$[tolower(world_info())]%;\
+    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
         /if ({P2} =~ "cc") c 'cure crit' %P3 %; \
         /elseif ({P2} =~ "cl") c 'cure light' %P3 %; \
         /elseif ({P2} =~ "pp" | {P2} =~ "por[tal]*") c portal %P3 %; \
@@ -197,7 +206,8 @@
 /def -mregexp -t"\*?([a-zA-Z]+)\*? tells the group '(heal|div|cc|fren[zy]*|sanc|touch|invig)'" auto_heal_gt = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
-    /if ({drone} = 1 | {autoheal} = 1) \
+    /let this=$[tolower(world_info())]%;\
+    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
         /if ({_command} =~ "cc") c 'cure crit' %_commander %; \
         /elseif ({_command} =~ "touch" & {myclass} =~ "prs") c 'pure touch' %_commander %; \
         /else c %_command %_commander %; \
@@ -207,7 +217,8 @@
 /def -mregexp -t"([\*a-zA-Z]+) tells the group '(heal|div|cc|fren[zy]*|sanc|touch|rejuv|pp|por[tal]*|nex[us]*|invig) ([0-9a-zA-Z\ \!\.]+)'" auto_heal_other_gt = \
     /let _command=$[strip_attr({P2})]%;\
     /let _commandParam=$[strip_attr({P3})]%;\
-    /if ({drone} = 1 | {autoheal} = 1) \
+    /let this=$[tolower(world_info())]%;\
+    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
         /if ({_command} =~ "cc") c 'cure crit' %_commandParam %; \
         /elseif ({_command} =~ "touch" & {myclass} =~ "prs") c 'pure touch' %_commandParam %; \
         /elseif ({_command} =~ "pp" | {_command} =~ "por[tal]*") c portal %_commandParam%;/send nod%;\

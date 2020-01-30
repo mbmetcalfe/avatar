@@ -68,7 +68,7 @@
 /def -p0 -ag -mglob -t'-------------------------------------------------------------------------------' group_list_headerline
 /def -p0 -ag -mglob -t'\#\#\| Level   Name         Pos   HitPoints   ManaPoints  MovePoints  TNL    Align' group_list_header
 
-/def -p1 -F -mregexp -t'^You receive [0-9]+ experience points.$' gspam_get_group = \
+/def -p99 -F -mregexp -t'^You receive [0-9]+ experience points.$' gspam_get_group = \
     /if ({gspam} = 0 & {myclass} !~ "stm") \
         /send group%;\
     /endif
@@ -513,6 +513,9 @@
         /endif%; \
     /else /echo -pw %%% No missing groupies.%; \
     /endif
+
+;;; Perform an action for every character in the group
+/def graction = /mapcar %1 %grouplist
 
 ;;; List alts adding/listing
 ;;; /insalt            - Used to insert main char and any alts.

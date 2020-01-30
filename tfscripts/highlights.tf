@@ -110,7 +110,6 @@
 /def -mregexp -ag -F -p8 -t"^You see your quarry's trail head (north|south|east|west|up|down) from here!$" highlight_tracktrig = \
     /echo -pw @{hCgreen}You see your quarry's trail head @{nCyellow}%P1 @{hCGreen}from here!@{n}
 /def -ag -mglob -t"No one with that name is playing." character_notonline
-/def -aufhCwhite -P -mregexp -t"You are blinded\!" self_blinded
 /def -abufhCred -P -mregexp -t"You are zapped by" self_zapped = /if ({running} == 1) get 1.%;/endif
 /def -abufhCcyan -P -mregexp -t"disarms you and sends your weapon flying\!" self_disarmed = get %wield%;wield %wield
 /def -abufCyellow -P -mregexp -t"You frantically attempt to remove" high_decepted

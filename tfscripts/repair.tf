@@ -5,8 +5,11 @@
 /set numRepaired 0
 /set numNoRepair 0
 /def repmode = \
-    /toggle repairMode%;/echoflag %repairMode Repair-Mode%; \
-    /echo -pw %%% Don't forget to get|put gear from container.
+    /if (regmatch({myrace},"dwf due"))\
+        /toggle repairMode%;/echoflag %repairMode Repair-Mode%; \
+        /echo -pw %%% Don't forget to get|put gear from container.%;\
+    /else /echo -pw @{hCred}You are neither a Dwarf or Duergar. Maybe you should not repair.%;\
+    /endif
 
 /def repstatus = \
     /let totrepair=$[numRepaired + numNoRepair]%; \
@@ -42,11 +45,14 @@
     /endif
 
 /def repself = \
-    /set repairMode=0%; \
-    wake%;rem all%; \
-    /for i 1 20 repair %%{i}.%; \
-    /send wield %wield=wear %offhand%; \
-    wear all
+    /if (regmatch({myrace},"dwf due"))\
+        /set repairMode=0%; \
+        wake%;rem all%; \
+        /for i 1 20 repair %%{i}.%; \
+        /send wield %wield=wear %offhand%; \
+        wear all%;\
+    /else /echo -pw @{hCred}You are neither a Dwarf or Duergar. Maybe you should not repair.%;\
+    /endif
 
 /def repcont = \
     /if ({#} = 0) \
@@ -54,8 +60,11 @@
     /else \
         /set repairMode=0%; \
         /let repaircont=%*%; \
-        wake%;close %{main_bag}%; \
-        /for i 1 20 get %%{i}. %%repaircont%%;repair 1.%%;put 1. %%repaircont%; \
-        open %{main_bag}%; \
+        /if (regmatch({myrace},"dwf due"))\
+            wake%;close %{main_bag}%; \
+            /for i 1 20 get %%{i}. %%repaircont%%;repair 1.%%;put 1. %%repaircont%; \
+            open %{main_bag}%; \
+        /else /echo -pw @{hCred}You are neither a Dwarf or Duergar. Maybe you should not repair.%;\
+        /endif%;\
     /endif
 

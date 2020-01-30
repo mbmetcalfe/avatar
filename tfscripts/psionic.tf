@@ -83,9 +83,11 @@
 ;;  intelligent weapon, conscious weapon and felling weapon up
 ;; Can have one of fell/stun/disabling
 ;;; ----------------------------------------------------------------------------
-/def -mregexp -aCyellow -t"^You imbue your weapons with the ability to (stun|disable)\." kinetic_enhancement_up = \
+;You imbue your weapons with the ability to distract.
+/def -mregexp -aCyellow -t"^You imbue your weapons with the ability to (stun|disable|distract)\." kinetic_enhancement_up = \
     /if ({P1} =~ "stun") /set stunningweaponleft=999%;\
     /elseif ({P1} =~ "disable") /set disablingweaponleft=999%;\
+    /elseif ({P1} =~ "distract") /set distractingweaponleft=999%;\
     /endif
 /def -mregexp -aCyellow -t"^Your weapons lose the ability to (stun|disable)\." kinetic_enhancement_down = \
     /if ({P1} =~ "stun") \
@@ -98,10 +100,16 @@
         /if ({refreshmisc} == 1) \
             /aq c 'disabling weapon'%;\
         /endif%;\
+    /elseif ({P1} =~ "distract") \
+        /set distractingweaponleft=-1%;\
+        /if ({refreshmisc} == 1) \
+            /aq c 'distracting weapon'%;\
+        /endif%;\
     /endif
 /def -mregexp -aCyellow -t"^Your weapons already possess the ability to (stun|disable)\." kinetic_enhancement_up2 = \
     /if ({P1} =~ "stun") /set stunningweaponleft=999%;\
     /elseif ({P1} =~ "disable") /set disablingweaponleft=999%;\
+    /elseif ({P1} =~ "distract") /set distractingweaponleft=999%;\
     /endif
 
 /def -mregexp -aCyellow -t"^You can no longer support your kinetic chain and it snaps." kinetic_chain_down = /set kineticchainleft=-1

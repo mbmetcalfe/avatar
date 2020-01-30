@@ -523,7 +523,7 @@
         /def -mregexp -p3 -t"^%{followPorter} enters a silver pentagram." folleadpentagram = \
             /if ({folport} == 1) /send enter pentagram%%;/endif%;\
         /def -mglob -t"%{followPorter} utters the word \'Sanctum\' and slowly fades from view\." folleadsanct = \
-            /if ({folport} == 1 & {running}==1) /send recall set=sanctum=down=west%%;/endif%;\
+            /if ({folport} == 1 & {running}==1) /send recall set=sanctum=down=west%%;/invigme%%;/divme%%;/endif%;\
         /def -mregexp -t"^%{followPorter} recalls\!" folleadrecall = \
             /if ({folport} == 1) /send recall%%;/endif%;\
         /def -p3 -mregexp -p0 -t"^%{followPorter} drinks ([a-zA-Z\ ]+) from (a fountain of the fates|a fountain of escape)\." folleaddrinkfountain = \

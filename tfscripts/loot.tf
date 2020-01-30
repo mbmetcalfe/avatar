@@ -134,7 +134,7 @@
 /def -mglob -t"*A pile of gold coins." gear_misc_coins = /if ({autoloot} = 1) /send get all.coins%; /endif
 ;/def -mglob -t"Cyskadella is DEAD!!" gear_misc_cysk = /if ({autoloot} = 1) /send get key cor%;/endif
 /def -mglob -t'The master thief is DEAD!!' gear_misc_intruder = /lootcor lockpick
-/def -mglob -t"The demon lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
+/def -mglob -t"The Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
 /def -mglob -t"The Lord Typhus' shadow is DEAD!!" gear_misc_typhus = /lootcor staff
 /def -mglob -t"The grand templar is DEAD!!" gear_misc_templar = /lootcor flask
 /def -mglob -t"Tryystania the DracoLich is DEAD!!" gear_misc_tryys = /if ({autoloot} = 1) /send get skull corpse%;/endif
@@ -152,6 +152,7 @@
 	/if ({autoloot} = 1) vis%;give book von%;put herbal %lootContainer%; /endif
 /def -mglob -t"     A crumpled scroll lies tossed in a corner." gear_misc_crumpscro = \
 	/if ({autoloot} = 1) get crumple%;put crumple %lootContainer%; /endif
+/def -mglob -p2 -t"*A silver altar pulses with a slow blue glow." gear_misc_crumbscro = /if ({autoloot} = 1) /send get all altar%;/endif
 /def -mglob -t"A dark ring of ice-blue fire is DEAD!!" gear_misc_sulfurous_ashes = /lootcor all.ash
 
 ;; Eragora gear

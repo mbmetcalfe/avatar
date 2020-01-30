@@ -15,7 +15,6 @@
 ;;; Misc other triggers/aliases
 ;;; ---------------------------------------------------------------------------
 
-/def waldorfss = /def full_mana_action = wake%%;c tele gino%%;sleep
 /alias danc c 'dancing weapon'
 /def kiwait = \
     /send kill %1%;\

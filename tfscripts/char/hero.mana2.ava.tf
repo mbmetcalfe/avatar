@@ -18,6 +18,6 @@
 /set mana_waist "belt sorcery"
 /set mana_wrist1 "sprite ribcage"
 /set mana_wrist2 "sprite ribcage"
-/set mana_wield "hand buddha"
+/set mana_wield "kzinti holy scythe"
 /set mana_held "mystical desert stone"
 

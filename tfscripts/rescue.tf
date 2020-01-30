@@ -76,7 +76,7 @@
 /def addflashres = /while ({#}) /addsingleflashres %{1}%;/shift%;/done
 
 ;; /showres [channel] -- echo rescue list to [channel] if blank /echo.
-/def showres = \
+/def showresOld = \
     /let echochan=/echo %; \
     /if ({#} > 0) /let echochan=%*%; /endif %; \
     /let rescmsg=|c|Rescue list: |w|%rescueList%; \
@@ -159,6 +159,13 @@
 ;;; /rmres char -- remove "char" from rescue list.
 ;;; /addres char -- add "char" to rescue list
 ;;; ----------------------------------------------------------------------------
+/def showres = \
+    /let this=$[world_info()]%;\
+    /let rlv=%{this}_resclist%;\
+    /let resclist=$[expr(%rlv)]%;\
+    /let resclist=$[substr(resclist, 0, $[resclen-1])]%;\
+    /echo -p @{Ccyan}%{this} Rescuing: @{Cwhite}%resclist@{n}
+
 /def addres = \
     /let this=$[world_info()]%;\
     /let rlv=%{this}_resclist%;\
@@ -169,7 +176,7 @@
     /set %{this}_resclist=%resclist%;\
     /let resclist=$[replace(" ","|",%resclist)]%;\
     /echo -p @{Ccyan}%{this} Rescuing: @{Cwhite}%resclist@{n}%;\
-    /def -w%{this} -mregexp -p7 -t"attack(s?) (strike|strikes|haven't hurt) ((?i)%resclist)" %{this}resc = /eval resc %%P3%%;/edit -c0 %{this}resc%%;/repeat -00:00:01 1 /edit -c100 %{this}resc%;\
+    /def -w%{this} -mregexp -p7 -F -t"attack(s?) (strike|strikes|haven't hurt) ((?i)%resclist)" %{this}resc = /eval resc %%P3%%;/edit -c0 %{this}resc%%;/repeat -00:00:01 1 /edit -c100 %{this}resc%;\
     /def -w%{this} -mregexp -p7 -F -t" (turns to shoot|stands up and faces) ((?i)%resclist)" %{this}resc1 = /eval resc %%P2%;\
     /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s pierce" %{this}resc2 = /eval resc %%P1
  
@@ -185,5 +192,6 @@
 /def clrres = \
     /let this=$[world_info()]%;\
     /if /ismacro %{this}resc %; /then /undef %{this}resc%;/undef %{this}resc1%;/undef %{this}resc2%;/endif%;\
-    /unset %{this}_resclist=%;\
+    /set %{this}_resclist=%;\
+;    /unset %{this}_resclist%;\
     /echo -p @{Ccyan}%{this} rescuing none.@{n}

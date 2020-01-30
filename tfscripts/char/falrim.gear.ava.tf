@@ -6,7 +6,8 @@
 
 /load -q char/hero.ac2.ava.tf
 /load -q char/hero.mana4.ava.tf
-/load -q char/hero.roghit2.ava.tf
+/load -q char/hero.hit3.ava.tf
+/set hit_bag="bodybag body bag hitgear!"
 
 ;/def -wfalrim mana_post_on = \
 ;    /def -wfalrim falrimlvl = /send get all.levelgear %{main_bag}=rem all.talisman=rem %{mana_head}=wear all.levelgear%; \
