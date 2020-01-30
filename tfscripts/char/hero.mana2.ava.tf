@@ -1,6 +1,6 @@
 ; hero.mana2.gear.ava.tf
 
-/set mana_bag "bodybag body bag managear"
+/set mana_bag "girdle many pouches"
 
 /set mana_light "hand grasping orb"
 /set mana_finger1 "random ring"

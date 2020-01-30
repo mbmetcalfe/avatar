@@ -44,7 +44,7 @@
 /load -q tick.tf
 /ticksize 28
 
-/set script_path=/home/mike/avatar/tfscripts/
+/set script_path=~/avatar/tfscripts/
 
 /load -q ava-world.tf
 

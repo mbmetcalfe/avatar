@@ -31,6 +31,7 @@
 ;;; ---------------------------------------------------------------------------
 /def -mregexp -t'( *)Please press <enter> to continue' contiuecr = %;
 /def -mregexp -t'^When you have read this, please press \<RETURN\> to continue \-\-\-\-\>' readthiscr = %;
+/def -mregexp -t'\<\<\(Please Press \<enter\>  continue\)\>\>' continuecr2 = /send =
 ;/def -mglob -t"Time to get to work..." immlogin = \
 /def -mregexp -t"\<\<\(Please Press \<enter\>  continue\)\>\>" continue_cr = /send =
 /def -p1 -mglob -t'***** Please Press Enter to Continue *****' continue_cr2 = /send =
