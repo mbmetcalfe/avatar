@@ -152,8 +152,8 @@
                 /echo -pw % @{hCyellow}Kinetic Chain Exhausts in @{nCwhite}%{exhaust_kineticchain} @{hCyellow}hours.@{n}%;\
             /endif%;\
         /endif%;\
-        /if ({stunningweaponleft} < 0 & {disablingweaponleft} < 0) \
-            /echo -pw % @{Cyellow}Missing Kinetic Enhancer (@{Cwhite}disabling@{Cyellow}|@{Cwhite}stunning@{Cyellow})@{n}%;\
+        /if ({stunningweaponleft} < 0 & {disablingweaponleft} < 0 & {distractingweaponleft} < 0) \
+            /echo -pw % @{Cyellow}Missing Kinetic Enhancer (@{Cwhite}disabling@{Cyellow}|@{Cwhite}stunning@{Cyellow}|@{Cwhite}distracting@{Cyellow})@{n}%;\
         /endif%;\
     /elseif ({myclass} =~ "prs") \
         /if ({interventionleft} < 0) \
@@ -210,10 +210,10 @@
         /set enduranceleft=-1%;/set enduranceaff=nothing%;\
         /set solitudeleft=-999%;/set holyzealleft=-1%;\
         /set racialprowl=-1%;/set canProwl=0%;\
-        /set disablingweaponleft=-1%;/set stunningweaponleft=-1%;\
+        /set disablingweaponleft=-1%;/set stunningweaponleft=-1%;/set distractingweaponleft=-1%;\
         /set astralprisonleft=-1%;/set vilephilosophyleft=-1%;\
         /set sick_poison=0%;/set sick_disease=0%;/set sick_deathsdoor=0%;/set sick_web=0%;\
-        /set sick_rupture=0%;/unset sick_other%;\
+        /set sick_rupture=0%;/set sick_blind=0%;/unset sick_other%;\
         /set daggerhandleft=-1%;/set stonefistleft=-1%;\
     /else \
         /def generalPromptHookCheck = /set checkSpecific=0%;\
@@ -224,6 +224,7 @@
   /if (mytier!~"lord") /send config +savespell%;/endif
 
 /def -p1 -mglob -t"Teacup shoos you away, what a jerk!" check_affects = /send affect
+/def -p1 -mglob -t"Yagharek tells the group 'And we're done!'" check_affects2 = /send affect
 /def -p1 -mglob -t"Kaliver tells the group 'Last chance to config your savespell (if needed) before I cast sanc!'" check_affects2 = /send affect
 
 ;;; ---------------------------------------------------------------------------
@@ -308,6 +309,9 @@
     /if ({refreshmisc} == 1) \
         /refreshSpell 'death shroud'%;\
     /endif
+/def -mglob -ahCred -t"Your flesh heals of its defilement." defiled_flesh_drop = \
+    /set defiledfleshleft=-1%;/set ticktoggle=1%;\
+    /if ({refreshmisc} == 1) /refreshSpell 'defiled flesh'%;/endif
 
 /def -mglob -ahCmagenta -t"You feel less zealous." holy_zeal_drop = \
     /set holyzealleft=-1%;/set ticktoggle=1%;\
@@ -427,7 +431,7 @@
         /set interventionleft=999%;\
         /set exhaust_intervention=3%;\
     /endif
-/def -mglob -t"You are consumed by holy zeal." holy_zeal_up = \
+/def -mglob -ahCmagenta -t"You are consumed by holy zeal." holy_zeal_up = \
 	/set holyzealleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?zeal
@@ -602,6 +606,9 @@
     /elseif ({P1} =~ "disabling weapon") \
         /let color=@{Cyellow}%;\
         /set disablingweaponleft=%P2%;\
+    /elseif ({P1} =~ "distract weapon") \
+        /let color=@{Cyellow}%;\
+        /set distractingweaponleft=%P2%;\
     /endif%;\
     /if ({qryspell} =~ substr({P1},0,strlen({qryspell}))) \
         /echo -pw @{hCwhite}Spell: '%{color}%{P1}@{hCwhite}' for %{color}%{P2} @{hCwhite} hours.@{n}%; \
@@ -1012,6 +1019,11 @@
     ;/let _otherLength=$[strlen(sic_other)]%;\
     /let _sick_message=%{_sick_message} %{sick_other}%;\
     /echo -pw @{Cred}[CHAR INFO]: Sickness: %{_sick_message}
+/def cure = \
+    /sick%;\
+    /if ({sick_poison} > 0) /repeat -00:00:01 %{sick_poison} c 'cure poison'%;/endif%;\
+    /if ({sick_disease} > 0) /repeat -00:00:01 %{sick_disease} c 'cure disease'%;/endif%;\
+    /if ({sick_blind} == 1) c 'cure blindness'%;/endif
 
 /def sick2 = \
     /let paramCount=%# %; \
@@ -1182,9 +1194,13 @@
         /saypoison %poisoned 1  poison venom%; \
     /endif
 
-/def -mglob -t'You feel sick.' poison_self_poison = /saypoison I 2 poison poison
+/def -mglob -t'You feel sick.' poison_self_poison = \
+    /set sick_poison=2%;\
+    /saypoison I 2 poison poison
 
-/def -mglob -t'You feel slightly sick.' poison_self_doomtoxin = /saypoison I 2 poison "doom toxin"
+/def -mglob -t'You feel slightly sick.' poison_self_doomtoxin = \
+    /set sick_poison=2%;\
+    /saypoison I 2 poison "doom toxin"
 
 /def -mglob -ahCred -t'You feel very sick.' poison_self_venom_virus = \
     /echo -pw @{hCgreen}Virused (3 cure disease) or Venomed (1 cure poison)
@@ -1228,6 +1244,11 @@
         /sayother %blinded 1 PureTouch blind%; \
     /endif
 
+/def -aufhCwhite -P -mregexp -t"You are blinded\!" self_blinded = \
+    /set sick_blind=1%;\
+    /sayother I 1 "cure blindness" "blindness"
+
+
 /def -mregexp -ag -t"^([a-zA-Z]+) holds (his|her|its) breath for as long as (he|she|it) can\!" groupie_drowning = \
     /echo -pw @{hCcyan}%{P1} @{hCblue}holds their breath for as long as they can!@{n}
 
@@ -1257,7 +1278,8 @@
     /stnl $[tnlthreshold*2]%;\
     /set taintleft=999
 
-/def -p5 -mregexp -t"^Your mind drifts closer to sanity\.$" tainted_genius_down = \
+/def -p5 -mglob -t"Your mind drifts closer to sanity." tainted_genius_down = \
+    /eval /echo -pw @{hCgreen}Set tnl to $[tnlthreshold/2]@{n}%;\
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1
 

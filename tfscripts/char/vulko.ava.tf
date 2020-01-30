@@ -17,30 +17,53 @@
 /set cureSeriousGain=45
 /set cureLightGain=26
 
-/def -wvulko falrimsleep = /sle
-/def -wvulko falrimwake = /wa
-
-/def -mregexp -p5 -wvulko -F -t'^You failed your (phlebotomize|flamestrike) due to lack of concentration!' vulk_failspell = \
-    /if ({automidround} == 1) /send cast '%{P1}'%;/endif
-
 /test vulkoMidSpell := (vulkoMidSpell | 'phlebotomize')
 /test vulkoAOESpell := (vulkoAOESpell | 'pillar of flame')
 /def vulkomidround = /send -wvulko c %{vulkoMidSpell}
 /def vulkoaoespell = /send -wvulko c %{vulkoAOESpell}
 
 /alias fin c 'final rites' %1
-/alias sang c 'sanguen pax' pool
-/alias nova c 'blood nova' pool
+; Heroic aliases
+/alias sang \
+    /if ({#} = 1) augment %1%;/endif%;\
+    c 'sanguen pax' pool%;\
+    /if ({#} = 1) augment off%;/endif
+/alias nova \
+    /if ({#} = 1) surge %1%;/endif%;\
+    c 'blood nova' pool%;\
+    /if ({#} = 1) surge off%;/endif
 
-;A ulexite-shelled turtle has been marked with final rites.
+/alias fins \
+    c 'final rite' %1%;\
+    /aq sang %2
+
+; Lordly aliases
+/alias vit \
+    /if ({#} = 1) augment %1%;/endif%;\
+    c 'vitae flux' pool%;\
+    /if ({#} = 1) augment off%;/endif
+/alias fine \
+    c 'final rite' %1%;\
+    /aq vit %2
+/alias fines \
+    /send stance soul=c 'soul shackle' %1%;\
+    fine %1 %2
+/alias shack /send stance soul=c 'soul shackle' %1
+
+/alias mm /if ({#} > 1 | {1} > 0) surge %1%;/endif%;c 'memento mori' pool%;/if ({#} > 1 | {1} > 0) surge off%;/endif
+
 /def -wvulko -mglob -p9 -ah -t" has been marked with final rites." vulko_final_rites
+
+; Start auto-casting when mob is at hurt|awful
+;[22:26] {Jorah} i shackl at big nasty, so every heal i do after fills me back up
+;/def -wvulko -mglob -F -p999 -t"* has some big nasty wounds and scratches." vulko_big_nasty_mob = /echo here. 
+/def -wvulko -mglob -F -p999 -t"* looks pretty hurt." vulko_hurt_mob = /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
+/def -wvulko -mglob -F -p999 -t"* is in awful condition." vulko_awful_mob = /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
 
 /def -mglob -p1 -ag -wvulko -t"Punch whom?" autoheal_toggle = \
     /if ({autoheal}=1) /set healToggle=1%;\
     /else /echo -pw @{Cgreen}Punch whom?@{n}%;/endif
 
-; Temp trigger to swap to ac when Nit does
-/def -wvulko -mglob -t"Nit smoothes out its clothes." vulko_smooth_to_ac = /mana2ac
 
 ;;; ----------------------------------------------------------------------------
 ;;; scripts to bipass migraine effects if stuff is stacked

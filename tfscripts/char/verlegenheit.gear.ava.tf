@@ -5,8 +5,8 @@
 
 /load -q char/lord.hit1.ava.tf
 /set hit_bag="floating watersphere hitgear!"
-/load -q char/lord.ac1.ava.tf
-/set ac_bag="floating icesphere tankgear!"
+/load -q char/lord.ac6.ava.tf
+/set ac_bag="floating icesphere acgear!"
 
 /def -wverlegenheit hit_pre_off = \
     /send remove "once-sundered"=put "once-sundered" %{main_bag}%;\

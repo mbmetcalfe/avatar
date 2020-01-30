@@ -106,6 +106,7 @@
 /def -ag -P -F -t'black etched tablet(.*)' highlight_allegaagse_098 =/test $[echoGearItem({PL}, "black etched tablet", "alleg", strcat(" Trade for: Faerie Script", {P1}))]
 /def -ag -P -F -t'a red bracer(.*)' highlight_allegaagse_099 = /test $[echoGearItem({PL}, "a red bracer",  "alleg", {P1})]
 /def -ag -P -F -t'an iron web shield(.*)' highlight_allegaagse_100 =/test $[echoGearItem({PL}, "an iron web shield", "alleg", strcat(" Trade for: Coarse Leather Boots", {P1}))]
+/def -ag -P -F -t'corpse of A githyanki lookout(.*)' highlight_allegaagse_101 = /test $[echoGearItem({PL}, "corpse of A githyanki lookout", "alleg", {P1})]
 
 ;/def -mregexp -F -t"the staff of prophecy" alleg_test = /substitute the staff of prophecy (alleg)
 ;/def -mregexp -F -t"coarse leather boots" alleg_test2 = /test substitute(replace("coarse leather boots", "coarse leather boots(alleg)", {P0}))

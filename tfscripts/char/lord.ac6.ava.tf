@@ -1,0 +1,22 @@
+; Insured to: Verlegenheit
+
+/set ac_bag "floating icesphere acgear!"
+
+/set ac_light "glimmering shard starshard starshine"
+/set ac_finger1 "ring ruby silver jeans lordgear"
+/set ac_finger2 "ring ruby silver jeans lordgear"
+/set ac_neck1 "ruling glyph fae"
+/set ac_neck2 "ruling glyph fae"
+/set ac_body "coral scale"
+/set ac_head "jeweled crown aziz-ra"
+/set ac_legs "living dark mystical daemonstone"
+/set ac_feet "boots conquerer lordgear"
+/set ac_hands "zarradyn's gauntlets"
+/set ac_arms "black armband"
+/set ac_offhand "great shield tyranny lordgear"
+/set ac_about "stone wings"
+/set ac_waist "crimson bloodsash"
+/set ac_wrist1 "kzinti kzintium blade bracer"
+/set ac_wrist2 "kzinti kzintium blade bracer"
+/set ac_wield "public approval"
+/set ac_held "odestone chunk! rock!"

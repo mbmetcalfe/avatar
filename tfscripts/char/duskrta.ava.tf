@@ -7,6 +7,16 @@
 ;;  After UD died: Duskrta     : 1570/2813 hp (55%) 922/4995 mana (18%)
 ;; Aug 29, 2014 - Automorphed (4 levels): 5601 hp 36275 mana 6280 mv
 ;-------------------------------------------------------------------------------
+/def -F -wduskrta -mglob -t"Welcome to the AVATAR System, Lord Duskrta." duskrta_lord999_login = \
+    /hook_resize%;\
+;    /set mylevel=999%;\
+    /let logincharname=${world_character}%;\
+    /let logincharname=$[tolower({logincharname})]%;\
+    /set myname=%{logincharname}%;\
+    /def -hload -ag ~gagload%;\
+    /undef ~gagload%;\
+    /atitle (%mytier %mylevel)%;\
+    /send worth
 
 ;;; ----------------------------------------------------------------------------
 ;;; Gear stuff

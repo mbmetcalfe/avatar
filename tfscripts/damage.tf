@@ -108,6 +108,11 @@
 /def cast=/auto cast %1
 /def aoe=/autoall aoe %1
 
+/def setCastTarget = \
+    /set castTargetMob=%{*}%;\
+    /echo -pw @{Cwhite}Cast target set to: @{hCred}%{castTargetMob}@{n}%;\
+    /aq /unset castTargetMob
+
 /def castdmg = \
     /let this $[world_info()]%;\
     /if /test auto_aoe == 1%;/then /send -w%{this} 2 %{castTargetMob}%;/else /send -w%{this} 1 %{castTargetMob}%;/endif
@@ -174,6 +179,20 @@
     /if ({autohold}=1 & regmatch({myclass},{arcType})) held%; /endif%;\
     /if ({autoaim}=1 & {myclass} =~ "asn") aim %avs_spot%;/endif%;\
     /performmidround
+
+/def -mregexp -ag -p7 -t"^Your (attack|attacks) (strikes|strike) (.*) 9 (time|times), with (.*) ([a-zA-Z]*)([\!\.]+)" dmg_auto_fandango = \
+    /if ({P5} =~ "terminal") \
+        /set dval=blank%;\
+        /set hits=$[hits+1]%;\
+        /set totdmg=$[totdmg + trunc(totdmg/hits)]%;\
+    /else \
+        /quote -S /set dval=!php readfile.php "%P5" %; \
+    /endif%;\
+    /if ({dval} !~ 'blank') \
+        /set hits=$[hits+1]%;\
+        /set totdmg=$[totdmg + {dval}] %;  \
+    /endif%; \
+    /echodam @{Cyellow}Your %P1 %P2 %P3 9 %P4, with @{hCcyan}%{P5}@{nCyellow} %{P6}%{P7}@{n}
 
 ;;; ----------------------------------------------------------------------------
 ;;; Melee-type trigger.  Picks up kicks, counters, bashes, etc.

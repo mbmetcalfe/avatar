@@ -134,7 +134,7 @@
 /def -mglob -t"*A pile of gold coins." gear_misc_coins = /if ({autoloot} = 1) /send get all.coins%; /endif
 ;/def -mglob -t"Cyskadella is DEAD!!" gear_misc_cysk = /if ({autoloot} = 1) /send get key cor%;/endif
 /def -mglob -t'The master thief is DEAD!!' gear_misc_intruder = /lootcor lockpick
-/def -mglob -t"The demon lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
+/def -mglob -t"The Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
 /def -mglob -t"The Lord Typhus' shadow is DEAD!!" gear_misc_typhus = /lootcor staff
 /def -mglob -t"The grand templar is DEAD!!" gear_misc_templar = /lootcor flask
 /def -mglob -t"Tryystania the DracoLich is DEAD!!" gear_misc_tryys = /if ({autoloot} = 1) /send get skull corpse%;/endif
@@ -152,12 +152,13 @@
 	/if ({autoloot} = 1) vis%;give book von%;put herbal %lootContainer%; /endif
 /def -mglob -t"     A crumpled scroll lies tossed in a corner." gear_misc_crumpscro = \
 	/if ({autoloot} = 1) get crumple%;put crumple %lootContainer%; /endif
+/def -mglob -p2 -t"*A silver altar pulses with a slow blue glow." gear_misc_crumbscro = /if ({autoloot} = 1) /send get all altar%;/endif
 /def -mglob -t"A dark ring of ice-blue fire is DEAD!!" gear_misc_sulfurous_ashes = /lootcor all.ash
 
 ;; Eragora gear
 /def -mglob -t"A strange force overpowers your senses as it comes nearer!" gear_eragora_toggle_autoloot = /send config +autoloot%;/aq config -autoloot
 /def -mglob -t"An earth elemental is DEAD!!" gear_eragora_elemantal = /lootcor elemental
-/def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /send get pearl cor
+/def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /lootcor pearl cor
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose
@@ -179,6 +180,10 @@
 
 ;;; Necropolis
 /def -mglob -t"The General Commander for Veyah L'Aturii is DEAD!!" necropolis_loot_general_command = /lootcor ashe
+/def -mglob -t"Golem guardian is DEAD!!" necropolis_loot_golem_guardian = /lootcor blade
+
+/def -mglob -t"Groundskeeper Chalmers is DEAD!!" Aculeata_loot_chalmers = /lootcor talisman
+
 
 ;;; Poisons
 /def -mglob -t"A trapdoor spider is DEAD!!" gear_poison_trapspider = /lootcor venom

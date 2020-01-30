@@ -19,7 +19,11 @@
 
 /def -i sendDiscordPrivateMsg = \
     /let message=$[replace("'","",{*})]%;\
-    /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvatarNotifier", "content": "%message"}' %{DISCORD_PRIVATE_HOOK}
+    /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvNotifier", "content": "%message"}' %{DISCORD_PRIVATE_HOOK}
+
+/def -i sendNewDiscordPrivateMsg = \
+    /let message=$[replace("'","",{2})]%;\
+    /quote -S /nothing !curl -H "Content-Type: application/json" -X POST -d '{"username": "AvNotifier", "embeds": [{"title": "%{1}", "description": "%{message}"}]}' %{DISCORD_PRIVATE_HOOK}
 
 ;/def -p1 -t -mregexp -t'^([a-zA-Z\ \-\,\.]+)\> (.*)$' log_hero_channel = /logChannel **%{P1}**> %{P2}
 ;/def -p1 -t -mregexp -t'^\(([a-zA-Z\ \-\,\.]+)\) (.*)$' log_lord_channel = /logChannel (**%{P1}**) %{P2}
@@ -55,3 +59,6 @@
 
 ; Need config +blind for this macro to work. Changes channel output to be the long versions.
 /def -ag -p1 -t -mregexp -t"^([a-zA-Z\ \-\,\.]+) (buddychat|lordchat|herochat)s? '(.*)'$" log_channels = /test $[logGenericChannel({P1}, {P2}, {P3})] 
+
+;/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats \'altlist ([a-zA-Z]+)\'$" buddylist_altlist = /altlist %{P1} buddy
+/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats 'No alt listing for ([a-zA-Z]+) found.'$" buddylist_altlist = /altlist %{P1} buddy

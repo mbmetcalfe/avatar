@@ -68,7 +68,7 @@
 /def -p0 -ag -mglob -t'-------------------------------------------------------------------------------' group_list_headerline
 /def -p0 -ag -mglob -t'\#\#\| Level   Name         Pos   HitPoints   ManaPoints  MovePoints  TNL    Align' group_list_header
 
-/def -p1 -F -mregexp -t'^You receive [0-9]+ experience points.$' gspam_get_group = \
+/def -p99 -F -mregexp -t'^You receive [0-9]+ experience points.$' gspam_get_group = \
     /if ({gspam} = 0 & {myclass} !~ "stm") \
         /send group%;\
     /endif
@@ -514,6 +514,9 @@
     /else /echo -pw %%% No missing groupies.%; \
     /endif
 
+;;; Perform an action for every character in the group
+/def graction = /mapcar %1 %grouplist
+
 ;;; List alts adding/listing
 ;;; /insalt            - Used to insert main char and any alts.
 ;;; /altlist [channel] - List any (known) alts to channel (/echo -w is default if not given).
@@ -618,7 +621,12 @@
         /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{_name}", "%{_tier}", "%{2}", "%{_hp}", "%{_mana}", "%{_mv}", "$[ftime("%Y%m%d", time())]")'%;\
     /endif
 
-/def charstat = /quote -S /echo -pw %%% @{Cred}[CHAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || '@' || level || ' ' || tier || ': ' || hp || ' hp ' || mana || ' mana ' || mv || ' mv.' from char_stat where lower(character) = lower('%{*}')"
+/def charstat = \
+    /if ({#} == 1) \
+        /quote -S /echo -pw %%% @{Cred}[CHAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || '@' || level || ' ' || tier || ': ' || hp || ' hp ' || mana || ' mana ' || mv || ' mv.' from char_stat where lower(character) = lower('%{1}')"%;\
+    /else \
+        /quote -S %{-1} !sqlite3 avatar.db "select '|w|' || upper(substr(character,1,1)) || substr(character,2) || '|n|@|y|' || level || ' ' || tier || ': |c|' || hp || '|n| hp |y|' || mana || '|n| mana |g|' || mv || '|n| mv.' from char_stat where lower(character) = lower('%{1}')"%;\
+    /endif
 
 ;;; Output format: Tier,Name,Race,Level,Class
 ;;; Hero/Lord Params: 1 - Name, 2 - Race, 3 - Level, 5 - Hero/Lord, 6 - Class

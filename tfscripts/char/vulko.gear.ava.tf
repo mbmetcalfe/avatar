@@ -4,16 +4,13 @@
 
 /set main_bag "jumpsuit white loot"
 
-/load -q char/hero.ac2.ava.tf
-/load -q char/hero.mana4.ava.tf
-/load -q char/hero.roghit2.ava.tf
+/load -q char/lord.mana2.ava.tf
+/set mana_bag="urn black managearz"
+/load -q char/lord.ac4.ava.tf
 
 ;/def -wvulko mana_post_on = \
 ;    /def -wvulko vulkolvl = /send get all.levelgear %{main_bag}=rem all.talisman=rem %{mana_head}=wear all.levelgear%; \
 ;    /def -wvulko vulkounlvl = /send rem all.levelgear=put all.levelgear %{main_bag}=wear %{mana_head}=wear all.talisman
-
-/def -wvulko ac_pre_off = /send remove fingerbone=put fingerbone %{main_bag}
-/def -wvulko hit_pre_off = /ac_pre_off
 
 /def -wvulko hit_on_cleanup = /send get %{hit_bag} %{main_bag}=put %{hit_neck1} %{hit_bag}=put all.hero %{hit_bag}=put %{hit_wield} %{hit_bag}=put %{hit_offhand} %{hit_bag}=put %{hit_bag} %{main_bag}
 /def -wvulko hit_post_on = \

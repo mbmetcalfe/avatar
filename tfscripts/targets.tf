@@ -19,6 +19,9 @@
 ;;; Load in Psion variables for weapons
 /load -q psi-weapons.tf
 
+;;; Load area-specific targets
+/load -q targets-deepways.tf
+
 ;;; ----------------------------------------------------------------------------
 ;;; Auto-targetting triggers
 ;;; ----------------------------------------------------------------------------
@@ -82,9 +85,6 @@
 /def -p0 -ah -mglob -t"* A halfling spirit looks for something to eat in vain." autotarget_semvida_halfling_spirit = /autotarget spirit
 
 /def -p0 -ah -mglob -t"A {ghost|spectre} drifts into the room." autotarget_semvida_drifters = /autotarget %{P1}
-
-
-
 
 ;;; The Great Divide
 /def -p0 -ah -mglob -t"* A desert bandit tries to take your gold and your life!" autotarget_divide_bandit = /autotarget bandit
@@ -172,6 +172,7 @@
 /def -ah -mregexp -t"An older man, this guard finds reasons not to search for the invaders." atarg_necropolis_protector = /autotarget protector!
 /def -ah -mregexp -t"A pale image of a long dead High Drow drifts past." atarg_necropolis_wraith = /autotarget wraith!
 /def -ah -mregexp -t"Masquerading as a guard, this sorcerer slips further into the Necropolis." atarg_necropolis_sorcerer = /autotarget sorcerer!
+/def -ah -p50 -F -t"A High Drow child is DEAD!!" atarg_necropolis_assassin_spawn = /autotarget spy
 
 ;;; Greeds Gallows
 /def -p0 -ah -mglob -t"* Frantically fleeing encounters, this pirate runs straight for you." autotarget_greeds_gallows_pirate = /autotarget 2.pirate pirate
@@ -209,6 +210,8 @@
 /def -mregexp -au -t"A crispy critter is here being burned to death." airscape_immolate_mob2 = /sacrificeMob critter
 
 /def -mregexp -au -t"A former Lord of Midgaardia serves the Fae." noctopia_immolate_mob = /sacrificeMob lord
+/def -mregexp -au -t"A small fiend crawls through the blood\." noctopia_immolate_mob2 = /sacrificeMob field
+
 /def -mregexp -au -t"A mound of topaz starts to move listlessly." repository_immolate_mob = /sacrificeMob topaz
 
 /def -mregexp -au -t"A mole meekly makes its way through the shifting earth." earth_immolate_mob = /sacrificeMob mole

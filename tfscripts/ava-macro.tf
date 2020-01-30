@@ -78,6 +78,7 @@
 /alias res  rescue %1
 /alias qua /send get %1 %lootContainer=quaff %1
 /alias cross /send get marble %lootContainer=wear marble=brandish=wear %unbrandish=put marble %lootContainer
+/alias lily /send get lily %{main_bag}=wear lily=brandish=wear %{unbrandish}=put lily %{main_bag}
 /alias crum /send get crumple %lootContainer=recite crumple %1
 /alias frag /send get fragment %lootContainer=recite fragment %1
 /alias setoffhand  /set offhand %1%;/echo -w -aB -p Ok.  Offhand weapon set to %1.
@@ -522,7 +523,7 @@
         /def -mregexp -p3 -t"^%{followPorter} enters a silver pentagram." folleadpentagram = \
             /if ({folport} == 1) /send enter pentagram%%;/endif%;\
         /def -mglob -t"%{followPorter} utters the word \'Sanctum\' and slowly fades from view\." folleadsanct = \
-            /if ({folport} == 1 & {running}==1) /send recall set=sanctum=down=west%%;/endif%;\
+            /if ({folport} == 1 & {running}==1) /send recall set=sanctum=down=west%%;/invigme%%;/divme%%;/endif%;\
         /def -mregexp -t"^%{followPorter} recalls\!" folleadrecall = \
             /if ({folport} == 1) /send recall%%;/endif%;\
         /def -p3 -mregexp -p0 -t"^%{followPorter} drinks ([a-zA-Z\ ]+) from (a fountain of the fates|a fountain of escape)\." folleaddrinkfountain = \

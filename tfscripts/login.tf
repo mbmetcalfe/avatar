@@ -34,6 +34,8 @@
 /def -mregexp -t'\<\<\(Please Press \<enter\>  continue\)\>\>' continuecr2 = /send =
 ;/def -mglob -t"Time to get to work..." immlogin = \
 /def -mregexp -t"\<\<\(Please Press \<enter\>  continue\)\>\>" continue_cr = /send =
+/def -p1 -mglob -t'***** Please Press Enter to Continue *****' continue_cr2 = /send =
+
     
 /def -mregexp -t'^Ah, the Immortal ([a-zA-Z]+) has returned\! Addicted, eh\?' char_immlogin = \
     /hook_resize%;\
@@ -54,16 +56,16 @@
     /undef ~gagload%;\
     /send worth
 
-/def -mregexp -t'Good luck getting (Hero|Lord) level ([0-9]*) today!' set_level = \
+/def -mregexp -t'Good luck getting (Hero|Lord|Legend) level ([0-9]*) today!' set_level = \
     /let tier=%P1%;/let level=%P2%;\
     /set mylevel=$[{level}-1]%;\
     /set mytier=$[tolower({tier})]%;\
-    /atitle (%mylevel)%;\
+    /atitle (%mytier %mylevel)%;\
     /send worth
 
 /def -mregexp -t'Welcome to the AVATAR System, (Hero|Lord) [a-zA-Z]+\.' set_tier = \
     /set mytier=$[tolower({P1})]
-/def -mglob -t"Why haven't you morphed yet?" set_level999 = \
+/def -mregexp -t"^Why haven\'t you morphed yet\?$" set_level999 = \
     /hook_resize%;\
 ;    /set mylevel=999%;\
     /let logincharname=${world_character}%;\
@@ -71,12 +73,13 @@
     /set myname=%{logincharname}%;\
     /def -hload -ag ~gagload%;\
     /undef ~gagload%;\
+    /atitle (%mytier %mylevel)%;\
     /send worth
 
 
-/def -mregexp -t'-------\'---,--\{\@ \( Please press \<enter\> to continue \) \@\}--,---\'-------' continue_cr2 = %;
-/def -mregexp -t'\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*' continue_cr3 = /send =
-/def -mglob -t"*+*+O+b+i+t+u+m+*+*+*+  ( Press <enter> to continue )  +*+*+*+*+*+*+*+" temp_obitum = /send =
+/def -mregexp -t'-------\'---,--\{\@ \( Please press \<enter\> to continue \) \@\}--,---\'-------' continue_cr3 = %;
+/def -mregexp -t'\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*' continue_cr4 = /send =
+/def -mglob -t"*+*+O+b+i+t+u+m+*+*+*+  ( Press <enter> to continue )  +*+*+*+*+*+*+*+" continue_cr5 = /send =
 
 
 /def -mregexp -t'^Welcome back to the AVATAR System, ([a-zA-Z]+) ([a-zA-Z]+).' welcomeback2 = \

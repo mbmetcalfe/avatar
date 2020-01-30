@@ -20,19 +20,6 @@
     c 'death field'%;\
     /if ({#} = 1) surge off%; /endif
 
-/alias ault \
-    /clrq%;\
-    wear fire%;wear woe%;\
-    ult %{*}%;\
-    /set autocast=0%;\
-    /acast%;\
-    /addq /acast
-
-/alias adf \
-    /clrq%;\
-    wear lighting%;wear lightning%;\
-    df %{*}
-
 /def ultcost = \
     /mcost Ultrablast 37%;\
     /mcost Ultrablast-S@{hCmagenta}2 111%;\
@@ -72,6 +59,10 @@
 /def -whelfyre -mglob -p1 -t"Mayflower, Explorer and Trailblazer says 'All aboard! Last call for Ocean Transport! If you aren't coming, go back to the geyser.'" mayflower_setup = \
     /send vis=move=move=sneak=sneak%;\
     /if ({leader} =~ "Self") /send west=fol self=linkrefresh group%;/endif
+
+
+/def -whelfyre -au -p9 -F -mglob -t'Your force shield shimmers then fades away.' helfyre_focidrop = \
+    /if ({running} == 1) /send racial fly%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState helfyre
