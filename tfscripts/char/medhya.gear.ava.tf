@@ -4,9 +4,9 @@
 
 /set main_bag "jumpsuit white loot"
 
-/load -q char/hero.ac2.ava.tf
-/load -q char/hero.mana3.ava.tf
-/load -q char/hero.hit1.ava.tf
+;/load -q char/hero.ac2.ava.tf
+/load -q char/hero.mana5.ava.tf
+;/load -q char/hero.hit1.ava.tf
 
 ;/def -wmedhya mana_post_on = \
 ;    /def -wmedhya medhyalvl = /send get all.levelgear %{main_bag}=rem all.talisman=rem %{mana_head}=wear all.levelgear%; \

@@ -27,12 +27,14 @@
     wear %{hit_held}%;put "%{poisonkit}" %{main_bag}
 
 /def autopick=/toggle autopick%;/echoflag %autopick Automatically @{hCyellow}Lock-Picking@{n}
+/set lockbox=lockbox
+/def setlockboxtype = /set lockbox=%{*}%;/echo -pw Lockbox item set to: %{lockbox}
 
 /def apick = \
     /autopick%;\
     /if ({autopick} == 1) \
         /setup_autopick%;\
-        /send config -prompt=get "%{lockpick_chest}" %{main_bag}=wear "%{lockpick_chest}"=inspect lockbox%;\
+        /send config -prompt=get "%{lockpick_chest}" %{main_bag}=wear "%{lockpick_chest}"=inspect %lockbox%;\
     /else \
         /send config +prompt=remove "%{lockpick_chest}"=put "%{lockpick_chest}" %{main_bag}=wear %{unbrandish}%; \
         /cleanup_autopick%;\
@@ -68,34 +70,39 @@
         pickdoor %{pickdir}%;\
     /endif
 
-/def -mregexp -t'^The a small wooden lockbox looks like it is armed with a ([a-zA-Z ]+) trap\.$' traptype = \
+;/def -mregexp -t'^The a small wooden lockbox looks like it is armed with a ([a-zA-Z ]+) trap\.$' traptype = \
+/def -mregexp -t'^The .* looks like it is armed with a ([a-zA-Z ]+) trap\.$' traptype = \
     /let traptype=%P1 %; \
     /if ({autopick} == 1) \
-        /send get disarming %{main_bag}=wear disarming=dismantle %traptype lockbox %; \
-        /send rem disarming=put disarming %{main_bag}=wear lockpick=pick lockbox%;\
+        /send get disarming %{main_bag}=wear disarming=dismantle %traptype %lockbox %; \
+        /send rem disarming=put disarming %{main_bag}=wear lockpick=pick %lockbox%;\
     /endif
 
-/def -mglob -t'The a small wooden lockbox is not trapped.' lockpick_notrap = \
-    /if ({autopick}=1) /send pick lockbox%; /endif
+;/def -mglob -t'The a small wooden lockbox is not trapped.' lockpick_notrap = \
+/def -mglob -t'The * is not trapped.' lockpick_notrap = \
+    /if ({autopick}=1) /send pick %lockbox%; /endif
 
-/def -mglob -t"You couldn't make the lock turn on a small wooden lockbox\." lockpick_nounlock = \
+;/def -mglob -t"You couldn't make the lock turn on a small wooden lockbox\." lockpick_nounlock = \
+/def -mglob -t"You couldn't make the lock turn on *\." lockpick_nounlock = \
     /if ({autopick} == 1) \
-        /send pick lockbox%;\
+        /send pick %lockbox%;\
     /endif
 
-/def -mglob -t"You pick the lock on a small wooden lockbox\." lockpick_picked = \
-    /send open lockbox=get all lockbox=put all.red-brown %{main_bag}=drop all.vial=close lockb=drop lockbox%; \
+;/def -mglob -t"You pick the lock on a small wooden lockbox\." lockpick_picked = \
+/def -mglob -t"You pick the lock on *." lockpick_picked = \
+    /send open %lockbox=get all %lockbox=put all.red-brown %{main_bag}=drop all.vial=close %lockbox=drop %lockbox%; \
     /if ({autopick} == 1) \
-        /if (regmatch({myclass},{rogType})) /send inspect lockbox%; \
-        /else /send pick lockbox%; \
+        /if (regmatch({myclass},{rogType})) /send inspect %lockbox%; \
+        /else /send pick %lockbox%; \
         /endif%;\
     /endif
 
-/def -mglob -t"A small wooden lockbox is not locked." lockpick_not_locked = \
-    /send open lockbox=get all lockbox=put all.red-brown %{main_bag}=drop all.vial=close lockb=drop lockbox%; \
+;/def -mglob -t"A small wooden lockbox is not locked." lockpick_not_locked = \
+/def -mglob -t"* is not locked." lockpick_not_locked = \
+    /send open %lockbox=get all %lockbox=put all.red-brown %{main_bag}=drop all.vial=close %lockbox=drop %lockbox%; \
     /if ({autopick} == 1) \
-        /if (regmatch({myclass},{rogType})) /send inspect lockbox%; \
-        /else /send pick lockbox%; \
+        /if (regmatch({myclass},{rogType})) /send inspect %lockbox%; \
+        /else /send pick %lockbox%; \
         /endif%;\
     /endif
 
@@ -106,10 +113,10 @@
 
 /def -mregexp -t'You set off a trap\!' lockpick_set_off_trap = \
     /if ({autopick} == 1) \
-        /send inspect lockbox%;\
+        /send inspect %lockbox%;\
     /endif
 
-/def -mglob -t"You are not carrying a lockbox!" lockpick_not_carrying = \
+/def -mglob -t"You are not carrying *!" lockpick_not_carrying = \
     /if ({autopick} == 1) /apick%;/endif
 
 ;;; ----------------------------------------------------------------------------

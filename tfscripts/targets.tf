@@ -172,6 +172,7 @@
 /def -ah -mregexp -t"An older man, this guard finds reasons not to search for the invaders." atarg_necropolis_protector = /autotarget protector!
 /def -ah -mregexp -t"A pale image of a long dead High Drow drifts past." atarg_necropolis_wraith = /autotarget wraith!
 /def -ah -mregexp -t"Masquerading as a guard, this sorcerer slips further into the Necropolis." atarg_necropolis_sorcerer = /autotarget sorcerer!
+/def -ah -p50 -F -t"A High Drow child is DEAD!!" atarg_necropolis_assassin_spawn = /autotarget spy
 
 ;;; Greeds Gallows
 /def -p0 -ah -mglob -t"* Frantically fleeing encounters, this pirate runs straight for you." autotarget_greeds_gallows_pirate = /autotarget 2.pirate pirate

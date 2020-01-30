@@ -25,6 +25,8 @@
     /eval /sys echo /set offhand=%{offhand}>> char/.%{myname}-state.dat%;\
     /eval /sys echo /set lootContainer=%{lootContainer}>> char/.%{myname}-state.dat%;\
     /eval /sys echo /set lvlon=%{lvlon}>> char/.%{myname}-state.dat%;\
+;    /set tBuff=$[replace("'", "\\\\'", {self_buffs})]%;\
+;    /echo -pw buffs: %{tBuff}%;\
     /eval /sys echo /set self_buffs=%{self_buffs}>> char/.%{myname}-state.dat%;\
     /sys echo /set action=%{action}>> char/.%{myname}-state.dat%;\
     /if ({mytier} =~ "lord") \

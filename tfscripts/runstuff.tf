@@ -42,7 +42,7 @@
     /if (regmatch({myclass},{arcType})) get all.brace corpse%;/endif%;\
     /if ({autosac} = 1) sacrifice corpse%;/endif%;\
     /if ({psichk} = 1) /chkpsis %; /endif%;\
-    /if ({autolkb} = 1) get lockbox corpse%;/endif%;\
+    /if ({autolkb} = 1) get %lockbox corpse%;/endif%;\
     /performQ %; \
     /dochk
 
@@ -503,6 +503,7 @@
 
 /def -mregexp -t"(You sleep\.|You are already sleeping\.)" position_sleep = /set position=sleeping
 /def -mregexp -t"(You stand up and face your attacker.|You wake and stand up.|You are already standing.)" position_standing = /set position=standing
+/def -mregexp -t"^([a-zA-Z]+) wakes you\." position_woken = /set position=standing
 
 /def -mregexp -t"^\*([a-zA-Z]+)\* tells the group '(Wake|wake|WAKE|WAKIE)([\.\!]*)'" leader_wake = \
     /if ({P1} =~ {leader} & {position} !~ "standing" & {asleep} = 1) \

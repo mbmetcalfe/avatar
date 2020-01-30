@@ -58,7 +58,7 @@
 /def -wstatler statlerSetMyAOESpell = \
     /let newSpell=='%{*}'%;\
     /if ({newSpell} !/ {statlerAOESpell}) \
-        /send a 2=a 2 c '%{*}'%;\
+        /send a 2=a 2 c '%{*}' \%1%;\
     /endif
 
 /def -wstatler -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" statler_highlight_acid_rain

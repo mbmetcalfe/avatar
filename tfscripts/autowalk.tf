@@ -562,7 +562,7 @@
         /echo -p %%% @{Ccyan}%destination@{n} From@{Ccyan} %source@{n}:@{Ccyan} %directions %; \
         /if ({autowalk} = 1) /eval %directions %; /endif%;\
     /endif
-    
+
 ;;; Guild directions
 /set dirs=Githzerai Tower (@{Ccyan}/githtower@{Cwhite}), Guilds (@{Ccyan}/classguild@{Cwhite}), Statue of Utami (@{Ccyan}/utami@{Cwhite}), Doom (@{Ccyan}/admin2doom@{Cwhite}), Recall Dirs (@{Ccyan}/recalldirs@{Cwhite})
 /def recalldirs = /echo -p %%% @{Cwhite}@{Cwhite}Recall Paths: Aelmon To Sol (@{Ccyan}ael2sol@{Cwhite}), Aelmon to Zin (@{Ccyan}ael2zin@{Cwhite}), @{Cwhite}Sol To Aelmon (@{Ccyan}sol2ael@{Cwhite}), Zin To Aelmon (@{Ccyan}zin2ael@{Cwhite})
@@ -840,6 +840,9 @@
     /if ({autowalk} = 1) w3se4suw%; /endif
 /def tys2sum = /echo -p %%% @{Cwhite}@{Ccyan} The Summoning@{Cwhite} From@{Ccyan} Tysiln San@{Cwhite}:@{Ccyan} 2sunus4u %; \
     /if ({autowalk} = 1) 2sunus4u%;/echo %%% All up to The Summoning.%; /endif
+
+/def bigfis2alpha = /echo -p %%% @{Cwhite}@{Ccyan} Alpha Thule@{Cwhite} From@{Ccyan} Big Fish@{Cwhite}:@{Ccyan} n5w12n %; \
+    /if ({autowalk} = 1) n5w12n%; /endif
 
 ;;; /def ANAME = /echo -p %%% @{Cwhite}@{Ccyan} PLACE@{Cwhite} From@{Ccyan} PPTARGET@{Cwhite}:@{Ccyan} DIRS %; \
 ;;;    /if ({autowalk} = 1) DIRS%; /endif

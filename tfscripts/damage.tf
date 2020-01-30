@@ -180,6 +180,20 @@
     /if ({autoaim}=1 & {myclass} =~ "asn") aim %avs_spot%;/endif%;\
     /performmidround
 
+/def -mregexp -ag -p7 -t"^Your (attack|attacks) (strikes|strike) (.*) 9 (time|times), with (.*) ([a-zA-Z]*)([\!\.]+)" dmg_auto_fandango = \
+    /if ({P5} =~ "terminal") \
+        /set dval=blank%;\
+        /set hits=$[hits+1]%;\
+        /set totdmg=$[totdmg + trunc(totdmg/hits)]%;\
+    /else \
+        /quote -S /set dval=!php readfile.php "%P5" %; \
+    /endif%;\
+    /if ({dval} !~ 'blank') \
+        /set hits=$[hits+1]%;\
+        /set totdmg=$[totdmg + {dval}] %;  \
+    /endif%; \
+    /echodam @{Cyellow}Your %P1 %P2 %P3 9 %P4, with @{hCcyan}%{P5}@{nCyellow} %{P6}%{P7}@{n}
+
 ;;; ----------------------------------------------------------------------------
 ;;; Melee-type trigger.  Picks up kicks, counters, bashes, etc.
 ;;; It has a lower priority than the spell damage trigger so that the spells

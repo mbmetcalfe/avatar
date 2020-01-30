@@ -37,12 +37,13 @@
         /elseif ({1} =~ "ready")\
             /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(character,1,1)) || substr(character,2) || '@{Cred}: ' || status || '. ' || ' @{Cwhite}Date@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where (status = 'Complete' and updated < date()) or (status = 'Gave Up' and updated <= date('now', '-2 day')) order by character"%;\
             /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}Total@{Cred}: ' || count(0) || '.' from char_alleg where (status = 'Complete' and updated < date()) or (status = 'Gave Up' and updated <= date('now', '-2 day'))"%;\
-        /elseif ({1} =~ "inline")\
-            /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}!%{script_path}alleg_inline.sh @{n}%;\
+        /elseif ({1} =~ "inline") /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}!%{script_path}alleg_inline.sh @{n}%;\
+        /elseif ({1} =~ "have") /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || upper(substr(ca.character,1,1)) || substr(ca.character,2) || ' @{Cred}needs @{Cyellow}' || gi.item || ' @{Cred}that @{hCwhite}' || upper(substr(gi.character,1,1)) || substr(gi.character,2) || ' @{xCred}has.' from gear_inventory gi join char_alleg ca on lower(gi.item) = lower(ca.item) where gi.type = 'alleg' and ca.item is not null order by ca.character, gi.character"%;\
         /endif%;\
     /else \
         /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}!sqlite3 avatar.db "select status || '. ' || IFNULL(item, '') || ' @{Cwhite}Date:@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where lower(character) = '${world_name}'"%;\
     /endif
+
 
 /def alleggear = \
     /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || item || '@{Cred} on @{Cwhite} ' || plane || '@{Cred}. Difficulty: @{Cwhite}' || difficulty || '@{Cred} Instructions: @{Cwhite}' || instructions || '@{n}' from alleg_gear where item like '\%%{*}\%'"
@@ -184,7 +185,7 @@
     /elseif ({P2} =~ 'You don\'t have to learn the actual ritual, just get an implement used in dark rites.') /setAllegItem a dagger of dark rites%;\
     /elseif ({P2} =~ 'You don\'t look to be all that skilled at basket weaving but perhaps you could make something nice from some gith hair.') /setAllegItem Assassins Armband%;\
     /elseif ({P2} =~ 'You might have to bleed a bit to get the red just right on the robe I would like you to gather for me.') /setAllegItem Blood Red Robe%;\
-    /elseif ({P2} =~ 'You will have to jump through a few hurdles but I know you have it in you to find a faeriex script for my collection.') \
+    /elseif ({P2} =~ 'You will have to jump through a few hurdles but I know you have it in you to find a faerie script for my collection.') \
         /setAllegItem a Faerie script%;\
         /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}To get @{Cred}%{allegItem} @{Cwhite}retrieve @{Cred}a black etched tablet@{Cwhite} from @{Cgreen}Lich Queen in Astral@{Cwhite}.@{n}%;\
         /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Give @{Cred}a black etched tablet @{Cwhite}to @{Cgreen}Ashara@{Cwhite} on Thorngate, she will give you @{Cred}a silken scarf@{Cwhite}.@{n}%;\

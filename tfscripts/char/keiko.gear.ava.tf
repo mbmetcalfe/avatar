@@ -3,10 +3,6 @@
 
 /set main_bag "jumpsuit white loot"
 
-/load -q char/hero.mana2.ava.tf
-;/load -q char/hero.ac2.ava.tf
-/load -q char/hero.ac1.ava.tf
-
 ;/def -wkeiko hit_post_on = \
 ;	wield %{hit_wield}%;wear %{hit_offhand}%; \
 ;	/set unbrandish=%{hit_held}%; \

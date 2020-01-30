@@ -64,7 +64,7 @@
 /set psi_jinx=githyanki hitgear
 /set psi_jorah=jorah1 jorah2
 /set psi_juvenia=acuity novaculite
-/set psi_kali=wrath whispers
+/set psi_kali=apple
 /set psi_kessler=hypera misoph
 /set psi_kef=swirl
 /set psi_kiron=purepain purepain
@@ -103,6 +103,7 @@
 /set psi_psychotia=psycho schizo
 /set psi_pyriame=all.dreams
 /set psi_ragnaros=lam psi
+/set psi_rancor=malevolence extirpation
 /set psi_raskaloth=reslae lizard
 /set psi_riven=zzzz damage
 /set psi_rol=rock roll
