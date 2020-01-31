@@ -207,7 +207,7 @@
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let this=$[tolower(world_info())]%;\
-    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
+    /if /test ({drone} = 1 | {autoheal} = 1 | (%{this}_auto_drone == 1))%;/then \
         /if ({_command} =~ "cc") c 'cure crit' %_commander %; \
         /elseif ({_command} =~ "touch" & {myclass} =~ "prs") c 'pure touch' %_commander %; \
         /else c %_command %_commander %; \
@@ -218,7 +218,7 @@
     /let _command=$[strip_attr({P2})]%;\
     /let _commandParam=$[strip_attr({P3})]%;\
     /let this=$[tolower(world_info())]%;\
-    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
+    /if /test ({drone} = 1 | {autoheal} = 1 | (%{this}_auto_drone == 1))%;/then \
         /if ({_command} =~ "cc") c 'cure crit' %_commandParam %; \
         /elseif ({_command} =~ "touch" & {myclass} =~ "prs") c 'pure touch' %_commandParam %; \
         /elseif ({_command} =~ "pp" | {_command} =~ "por[tal]*") c portal %_commandParam%;/send nod%;\
