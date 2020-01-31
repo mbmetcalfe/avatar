@@ -48,9 +48,15 @@
 ;;; Wiki: http://avatar.melanarchy.info/index.php/Category:Deepways
 ;; -----------------------------------------------------------------------------
 ;; Lizard kspawn chain
-/def -mregexp -t"A mated pair of cave lizards creep along the ceiling." deepways_mated_lizard_info = /test skinInfo("mated pair cave lizards", "a pair of cave lizard skins", "Jon (lizardskin belt)")
-/def -mregexp -t"A pack of cave lizards are out hunting." deepways_pack_lizard_info = /test skinInfo("pack of lizards", "a stack of cave lizard skins", "Rojer (lizardskin jerkin)")
-/def -mregexp -t"A solitary cave lizard tastes the air for danger." deepways_solitary_lizard_info = /test skinInfo("solitary cave lizard", "a cave lizard skin", "Alain (alain's papers)")
+/def -mregexp -t"A mated pair of cave lizards creep along the ceiling." deepways_mated_lizard_info = \
+    /test skinInfo("mated pair cave lizards", "a pair of cave lizard skins", "Jon (lizardskin belt)")%;\
+    /if ({autoquest} == 1 & regmatch({myclass},"arc fus")) skco%;/endif
+/def -mregexp -t"A pack of cave lizards are out hunting." deepways_pack_lizard_info = \
+    /test skinInfo("pack of lizards", "a stack of cave lizard skins", "Rojer (lizardskin jerkin)")%;\
+    /if ({autoquest} == 1 & regmatch({myclass},"arc fus")) skco%;/endif
+/def -mregexp -t"A solitary cave lizard tastes the air for danger." deepways_solitary_lizard_info = \
+    /test skinInfo("solitary cave lizard", "a cave lizard skin", "Alain (alain's papers)")%;\
+    /if ({autoquest} == 1 & regmatch({myclass},"arc fus")) skco%;/endif
 
 /def -mglob -t"A lizard hunter is hunting lizards." deepways_alain_info = \
     /questinfo Alain: Give him a cave lizard skin to get alain's papers.  Kill him to spawn Jon.%;\
