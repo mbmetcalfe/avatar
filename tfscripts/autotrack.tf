@@ -84,10 +84,9 @@
 
 /def echotrack = \
     /if (tolower({1}) =~ "on") \
-        /def -p99 -F -mregexp -t"^You see your quarry's trail head (north|south|east|west|up|down) from here!$$" echo_tracking_trigger = /send gtell check for %%{tracktarget} |bg|%%{P1}|n|%;\
+        /def -p99 -F -mregexp -t"^You see your quarry's trail head (north|south|east|west|up|down) from here!$$" echo_tracking_trigger = /send gtell %%{tracktarget}: %%{P1}%;\
         /def -p1 -ag -mregexp -h"SEND ^track (.*)$$" hook_tracktarget = /send track %%{P1}%%;/set tracktarget=%%{P1}%;\
         /def -t"You have found your quarry!!" echo_tracking_unfind1 = /echotrack off%;\
-        /def -t"You have lost your quarry's trail!!" echo_tracking_unfind2 = /send gtell can't find %%{tracktarget}%;\
         /echo -p %%% @{Cgreen}Echo Tracking @{Cwhite}is @{Cgreen}ON@{n}.%;\
         /if ({#} >= 2) track %{2}%;/endif%;\
     /elseif (tolower({1}) =~ "off") \
@@ -104,7 +103,7 @@
     /let _leader=$[strip_attr({P1})]%;\
     /let tTarget=$[strip_attr({P2})]%;\
     /if ((regmatch({myclass},{bloodhounders})) & {_leader} =~ {leader}) \
-        /echotrack on %{tTarget}%;\
+        /echo @{Cred}[TRACK INFO:] @{Cyello}To track and gtell: /echotrack on %{tTarget}%;\
     /endif
 
 /def addpath = \

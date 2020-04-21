@@ -13,7 +13,6 @@
 ;;; Misc other triggers/aliases
 ;;; ---------------------------------------------------------------------------
 
-/def nitss = /def full_mana_action = wake%%;c tele gino%%;sleep
 /alias danc c 'dancing weapon'
 /def kiwait = \
     /send kill %1%;\
@@ -21,20 +20,6 @@
 /def kiwaitdw = \
     /send kill %1%;\
     /repeat -0:0:04 1 /nitmidround
-
-;/test nitMidSpell := (nitfMidSpell | 'fandango')
-;/def nitmidround = /send =
-/def nitmidround = \
-    /if ({nitMidSpell} =~ "fandango") \
-        /if ({weapon_inhand} == 1) \
-            c %{nitMidSpell}%;\
-        /else \
-;            /send get %{hit_wield}=wield %{hit_wield}%;\
-            /echo -pw @{Cwhite}Weapons possibly missing/down.@{n}%;\
-        /endif%;\
-    /else \
-        c %{nitMidSpell}%;\
-    /endif
 
 ; * only named it _fromprompt since without it is automatically checked elsewhere.
 /def nitmidround_fromprompt = \
@@ -102,10 +87,12 @@
     /send vis=move=move=sneak=sneak%;\
     /if ({leader} =~ "Self") /send west=fol self=linkrefresh group%;/endif
 
-;;; ---------------------------------------------------------------------------
-;;; Random quotes
-;. The question is, who cares?
-;. Just when you think this run is terrible something wonderful happens. It ends.
+
+;; Regular leader triggers
+/def -wnit -p5 -au -mglob -t"Zaratan looks around and says, 'Damn I'm smooth!!'" nit_swap_to_ac = /if ({running} == 1) /mana2ac%;/endif 
+/def -wnit -p4 -au -mglob -t"Zaratan steps into a shimmering portal." nit_follow_zaratan = /if ({running} == 1) /send c teleport zaratan%;/endif
+/def -wnit -p5 -au -mglob -t"*Zaratan* tells the group 'aoe'" nit_leader_aoe_on = /if ({running} == 1) /aoe on%;/send wear lightning%;/endif
+/def -wnit -p5 -au -mglob -t"*Zaratan* tells the group 'noaoe'" nit_leader_aoe_off= /if ({running} == 1) /aoe off%;/send wear fire%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState nit

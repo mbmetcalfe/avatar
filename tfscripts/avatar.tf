@@ -21,8 +21,7 @@
 ;    /echo %% TICK
 /def -i tick_action = \
     /echo %% TICK%;\
-    /send =
-;    /if ({running} == 1) /send =%;/endif
+    /if ({running} == 1) /send =%;/endif
 
 ;;; Damage display/counter
 /load -q damage.tf

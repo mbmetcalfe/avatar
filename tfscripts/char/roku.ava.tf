@@ -79,27 +79,26 @@
     c 'firestorm'%;\
     /if ({#} > 1 | {1} > 0) surge off%;/endif
 
-/alias adi \
-    /clrq%;\
-    wear fire%;\
-    /setMySpell disintegrate%;\
-    /set automidround=0%;\
-    /amid %{*}%;\
-    di %{*}%;\
-    /addq /amid
-
-/alias arain \
-    /clrq%;\
-    /setMyAOESpell acid rain%;\
-    wear light%;\
-    rain %{*}
-
-/def -wroku -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" roku_highlight_acid_rain
-
-/def -p4 -mglob -t"Paxon calls forth acid to scour away its foes!" paxon_acid_rain =\
-    /if ({multi} == 1) \
-        /send cast firestorm%;\
+/def -wroku rokuSetMySpell = \
+    /let newSpell=='%{*}'%;\
+    /if ({newSpell} !/ {rokuMidSpell}) \
+        /send a 1=a 1 c '%{*}' \%1%;\
     /endif
+/def -wroku rokuSetMyAOESpell = \
+    /let newSpell=='%{*}'%;\
+    /if ({newSpell} !/ {rokuAOESpell}) \
+        /send a 2=a 2 c '%{*}'%;\
+    /endif
+
+;; Regular leader triggers
+/def -wroku -p5 -au -mglob -t"Zaratan looks around and says, 'Damn I'm smooth!!'" roku_swap_to_ac =\
+    /if ({running} == 1) /mana2ac%;/endif 
+/def -wroku -p4 -au -mglob -t"Zaratan steps into a shimmering portal." roku_follow_zaratan =\
+    /if ({running} == 1) /send c teleport zaratan%;/endif
+/def -wroku -p5 -au -mglob -t"*Zaratan* tells the group 'aoe'" roku_leader_aoe_on =\
+    /if ({running} == 1) /aoe on%;/send wear lightning%;/endif
+/def -wroku -p5 -au -mglob -t"*Zaratan* tells the group 'noaoe'" roku_leader_aoe_off=\
+    /if ({running} == 1) /aoe off%;/send wear fire%;/endif
 
 /def -wroku -mglob -p1 -t"Mayflower, Explorer and Trailblazer exclaims 'Follow me for Ocean Transport!'" mayflower_timed_follow = \
     /if ({leader} =~ "Self") /repeat -0:0:04 1 /send follow mayflower%;/endif

@@ -133,9 +133,6 @@
 
 /def -mregexp -p6 -F -t"^([a-zA-Z]+) beckons for you to follow (him|her|it)\." drone_beckon = \
     /if ({drone}=1 & {running}=0) \
-        /if ({P1} !~ {leader} & {leader}!~"Self") \
-            /send gtell Done.%;\
-        /endif%;\
         /if ({position}!~"standing") /send stand%; /endif%;\
         /send follow self=follow %{P1}%;\
         /if ({position}!~"standing" & {running}=0) /send sleep%; /endif%;\
@@ -222,9 +219,8 @@
     /if ({drone} = 1 & {_commander} =~ {leader} & {running}=0) \
         /send stand%;\
         /if ({_command} =~ "all" | {_command} =~ "up") \
-            /send gtell Preaching spells.%;\
+            /send gtell preaching spellup%;\
             /gsup%;\
-            /send gtell Done.=follow self%;\
         /else \
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment %_commandParam%; /endif%;\
             preach %{_command}%;\
@@ -367,7 +363,7 @@
         /set droneToSend=$[tolower(strip_attr({P2}))]%;\
         /set droneSendPlane=$[tolower(strip_attr({P3}))]%;\
 ;        /echo -pw @{Cyellow}Commander: %{P1}, Command: send, Argument: %{droneToSend} %{droneSendPlane}%;\
-        /send gtell %{P1} asked to send %{droneToSend} to %{droneSendPlane}%;\
+        /send gtell sending %{droneToSend} to %{droneSendPlane}%;\
         /send group%;\
     /endif
 
@@ -407,9 +403,8 @@
     /if ({drone} = 1 & {_commander} =~ {leader} & {running}=0) \
         /send stand%;\
         /if ({_command} =~ "all") \
-            /send gtell Preaching.%;\
+            /send gtell preaching%;\
             /gsup%;\
-            /send gtell Done.=follow self%;\
         /else \
             /if ({_commandParam} > 0 & {_commandParam} < 6) /send augment %_commandParam%; /endif%;\
             preach %{_command}%;\

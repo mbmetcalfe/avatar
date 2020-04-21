@@ -405,11 +405,11 @@
 /alias bt /send bladetrance %1
 
 ;; recycle veil of blades
-/def -mregexp -t"^One of your Exhaust timers has elapsed\. \(veil of blades\)" veil_of_blades_exhaust_down = \
-    /set ticktoggle=1%;\
-    /if ({refreshmisc} == 1) \
-        /refreshSkill stance veil%;\
-    /endif
+;/def -mregexp -t"^One of your Exhaust timers has elapsed\. \(veil of blades\)" veil_of_blades_exhaust_down = \
+;    /set ticktoggle=1%;\
+;    /if ({refreshmisc} == 1) \
+;        /refreshSkill stance veil%;\
+;    /endif
 
 ;;; Bladedtrance tracking
 /def -i setBladetrance = \
