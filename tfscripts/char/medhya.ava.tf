@@ -15,7 +15,8 @@
 
 ;; Turn Medhya's drone on with /auto drone on
 
-/def medhyadrone = \
+; rename it for now, while he's running alt
+/def MBMmedhyadrone = \
   /if ({medhya_auto_drone}=1) \
       /send config +noautomove=title |n|: BUZZ FOR STEEL%;\
   /else \

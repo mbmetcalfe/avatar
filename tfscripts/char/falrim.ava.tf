@@ -17,8 +17,8 @@
 /set cureSeriousGain=45
 /set cureLightGain=26
 
-/def -wfalrim falrimsleep = /sle
-/def -wfalrim falrimwake = /wa
+;/def -wfalrim falrimsleep = /sle
+;/def -wfalrim falrimwake = /wa
 
 /def -mglob -p1 -ag -wfalrim -t"Punch whom?" autoheal_toggle = \
     /if ({autoheal}=1) /set healToggle=1%;\

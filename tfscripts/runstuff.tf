@@ -27,10 +27,12 @@
 ;;; ----------------------------------------------------------------------------
 /def -mregexp -ah -t"([a-zA-Z0-9,\.\-\ \']+)'s fleeting spirit crystallizes into a a perfect (.*)\!" mob_pgem_drop = \
     /set pgems=%{pgems} %P2%;\
-    /send get %P2
+    /send get %P2%;\
+    /if ({leader} !~ "Self") /send give %P2 %{leader}%;/endif
 /def -mregexp -ah -t"([a-zA-Z0-9,\.\-\ \']+) leaves behind a perfect (amethyst|diamond|emerald|ruby|sapphire)\!$" pgem_drop = \
     /set pgems=%{pgems} %P2%;\
-    /send get %P2
+    /send get %P2%;\
+    /if ({leader} !~ "Self") /send give %P2 %{leader}%;/endif
 
 ;;; ----------------------------------------------------------------------------
 ;;; Experience related triggers
@@ -359,6 +361,7 @@
     /if ({refreshAura} == 1) /refreshAura%;/endif%;\
     /let this=$[tolower(world_info())]%;\
     /if /test (%{this}_cast == 1 & %{this}_auto_cast == 1)%;/then /cast off%;/endif%;\
+    /if /test (%{this}_auto_drone == 1)%;/then /mydrone off%;/endif%;\
     /edit -c100 gear_misc_coins
 
 ;;; ----------------------------------------------------------------------------

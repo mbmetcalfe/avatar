@@ -15,7 +15,7 @@
     /def -mglob -ag -t"They aren't here." bot_heal_not_here%;\
     /repeat -0:0:15 1 /undef bot_heal_not_here%;\
     /send tell teacup %{augLevel}=tell kaliver d%{augLevel}=tell styrr %{augLevel}=tell duckstar div%{augLevel}=tell tarlock div%{augLevel}=tell idle div%{augLevel}=tell Croninburg div%{augLevel}%;\
-    /send tell armathus div%{augLevel}=tell quempel div%{augLevel}=tell stahp div%{augLevel}=tell gobo div%{augLevel}%;\
+    /send tell armathus div%{augLevel}=tell quempel div%{augLevel}=tell stahp div%{augLevel}%;\
     /send tell Aerniil div%{augLevel}=tell textual div%{augLevel}%=tell barkhound %{augLevel}
 /def divme = /divme2 %{1}%;tel izar heal
 /def invigme = \

@@ -3,11 +3,6 @@
 
 /set main_bag "encrusted layer shells loot"
 
-/load -q char/hero.hit2.ava.tf
-/load -q char/hero.mana2.ava.tf
-;/load -q char/hero.ac2.ava.tf
-/load -q char/hero.ac1.ava.tf
-
 /def -wpaxon mana_post_on = \
     /set unbrandish=%{mana_held}%; \
     /set wield=%{mana_wield}%;\

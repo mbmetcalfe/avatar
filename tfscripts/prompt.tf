@@ -312,4 +312,4 @@
     /status_add_lag%;/status_add_exits%;/status_add_spell_mod%;\
     /status_add_world%;\
     /status_add -x -r1 -A@world mytier:4:Cgreen%;\
-    /status_add -x -r1 -Amytier mylevel:3:CCyan
+    /status_add -x -r1 -Amytier mylevel:4:CCyan

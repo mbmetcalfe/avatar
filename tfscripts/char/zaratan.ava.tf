@@ -16,8 +16,8 @@
 /alias aoe \
   /aoe %{1}%;\
   /set zaratan_auto_cast 1%;\
-  /if ({auto_aoe} == 1) /send wear light%;\
-  /else /send wear fire%;\
+  /if ({auto_aoe} == 1) /send wear light=gt aoe%;\
+  /else /send wear fire=gt noaoe%;\
   /endif
 
 /def -wzaratan -au -p9 -F -mglob -t'Your force shield shimmers then fades away.' zaratan_focidrop = \

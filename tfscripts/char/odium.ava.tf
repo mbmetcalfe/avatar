@@ -1,5 +1,16 @@
 ;;; odium.ava.tf
-;;; Specific variables/macroes for Odium
+;You have learned the following Rites:
+;    might
+;    resist pain
+;    ignore pain
+;    deathblow
+;    wail
+;    prime strike
+;    mutilation
+;    armor training
+;    warcry
+;    final fury
+;    bloodlust
 
 ;;; read in Odium's gear file
 ;/load -q char/odirum.gear.ava.tf
@@ -12,6 +23,8 @@
 
 /def -wodium -p0 -mregexp -t"^\*?(Shaykh|Khyfa|Zaffer|Lokken|Xharnah)\*? tells the group 'get me'" zaffer_resc = \
     /send rescue %{P1}
+/def -wodium -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" odium_poke_resc = \
+    /if ({odium_auto_rescue} == 1) /send rescue %{P1}%;/endif
 
 /def rally = \
     /send rally%;\

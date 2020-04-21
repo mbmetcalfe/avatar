@@ -159,6 +159,7 @@
 /def -mglob -t"A strange force overpowers your senses as it comes nearer!" gear_eragora_toggle_autoloot = /send config +autoloot%;/aq config -autoloot
 /def -mglob -t"An earth elemental is DEAD!!" gear_eragora_elemantal = /lootcor elemental
 /def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /lootcor pearl cor
+/def -mglob -t"* A barrel made from wooden lathes." gear_eragora_crab_meat = /if ({autoloot} = 1) /send open barrel=get meat barrel%;/endif
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose
@@ -198,6 +199,12 @@
 /def -mglob -t"A glimmering starshark is DEAD!!" gear_therim_skin_orb = /if ({autoloot} = 1) /send get corpse%;/endif
 /def -mglob -t"Corpse of a glimmering starshark falls to the ground." gear_therim_skin_orb2 = /if ({autoloot} = 1) /send get corpse%;/endif
 /def -mglob -t"The storm wyrm Oeheliu is DEAD!!" gear_therim_spearhead = /lootcor spearhead%;/lootcor orb
+
+;; Gear in Glyntaff Pass
+;;; skin item for snow leopardskin
+/def -mglob -t"A snow leopard is DEAD!!" gear_glyntaff_snow_leopard = /if ({autoloot} = 1) /send get corpse%;/endif
+/def -mglob -t"A golden eagle is DEAD!!" gear_glyntaff_golden_eagle = /if ({autoloot} = 1) /send get corpse%;/endif
+
 
 ;;; Silly aliases to tell self how to get Orosca
 /alias oros \

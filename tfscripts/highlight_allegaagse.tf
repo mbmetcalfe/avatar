@@ -65,7 +65,7 @@
 /def -ag -P -F -t'blue psi-blade(.*)' highlight_allegaagse_057 =/test $[echoGearItem({PL}, "blue psi-blade",  "alleg", {P1})]
 /def -ag -P -F -t'a ring of minor imagery(.*)' highlight_allegaagse_058 =/test $[echoGearItem({PL}, "a ring of minor imagery",  "alleg", {P1})]
 /def -ag -P -F -t'a pair of kzinti slaughter gloves(.*)' highlight_allegaagse_059 =/test $[echoGearItem({PL}, "a pair of kzinti slaughter gloves",  "alleg", {P1})]
-/def -ag -P -F -t'the whip, \"Death-Tamer\"(.*)' highlight_allegaagse_060 =/test $[echoGearItem({PL}, "the whip, \"Death-Tamer\"",  "alleg", {P1})]
+/def -ag -P -F -t'the whip, \"Death-Tamer\"(.*)' highlight_allegaagse_060 =/test $[echoGearItem({PL}, "the whip, Death-Tamer",  "alleg", {P1})]
 /def -ag -P -F -t'silver dagger with a golden handle(.*)' highlight_allegaagse_061 =/test $[echoGearItem({PL}, "silver dagger with a golden handle",  "alleg", {P1})]
 /def -ag -P -F -t'a blueish-white stone(.*)' highlight_allegaagse_062 =/test $[echoGearItem({PL}, "a blueish-white stone",  "alleg", {P1})]
 /def -ag -P -F -t'aura of domination(.*)' highlight_allegaagse_063 =/test $[echoGearItem({PL}, "aura of domination",  "alleg", {P1})]

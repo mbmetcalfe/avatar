@@ -44,14 +44,20 @@
 /def gouki = /multido Gouki %{*}
 /def granuja = /multido Granuja %{*}
 /def helfyre = /multido Helfyre %{*}
+/def iratavo = /multido Iratavo %{*}
 /def jekyll = /multido Jekyll %{*}
 /def kaboo = /multido Kaboo %{*}
+/def keiko = /multido Keiko %{*}
+/def kromlee = /multido Kromlee %{*}
 /def mahal = /multido Mahal %{*}
+/def medhya = /multido Medhya %{*}
+/def muerte = /multido Muerte %{*}
 /def muni = /multido Muni %{*}
 /def maxine = /multido Maxine %{*}
 /def odium = /multido Odium %{*}
 /def paxon = /multido Paxon %{*}
-/def muerte = /multido Muerte %{*}
+/def phenyx = /multido Phenyx %{*}
+/def skia = /multido Skia %{*}
 /def sombra = /multido Sombra %{*}
 /def statler = /multido Statler %{*}
 /def tahn = /multido Tahn %{*}
@@ -59,6 +65,7 @@
 /def tiati = /multido Tiati %{*}
 /def torvald = /multido Torvald %{*}
 /def verlegenheit = /multido Verlegenheit %{*}
+/def vulko = /multido Vulko %{*}
 /def waldorf = /multido Waldorf %{*}
 /def zaratan = /multido Zaratan %{*}
 

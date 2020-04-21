@@ -52,19 +52,6 @@
     /endif%;\
     /droneconfig
 
-/def -wgengis gengisspells = gtell |bc|marv|W|->|c|Invincibility|w|. |bp|sworship|w|->|p|SpellUp|w|.%; \
-    gtell |bg|admire|w|->|g|Aegis|w|.
-/def -washa ashaspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-/def -wtahn tahnspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-/def -wjekyll jekyllspells = \
-    gtell |bc|marv|w|->|c|Invincibility|w|. |bg|chop|w|->|g|Confidence|w|. |br|bark|w|->|r|Barkskin|w|.%; \
-    gtell |bp|sworship|w|->|p|SpellUp|w|.  |by|boogie|w|->|y|Sep|r|Awen|y|SpellUp|w|.
-/def -wpaxon maxinespells = gtell |bc|marv|w|->|c|Invincibility|n|. |br|bark|w|->|r|Barkskin|n|.
-/def -wkaboo kaboospells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wbauchan bauchanspells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wmahal mahalspells = gtell |bc|marv|w| to be put on list for: |c|barkskin|w|.
-/def -wskia skiaspells = gtell |bc|marv|w| to be put on list for: |c|Steel Skeleton|w|.
-
 /def spells = \
     /if ({drone} = 1) \
         /if /ismacro %{myname}spells%; /then /eval /%{myname}spells%; /endif%; \
@@ -182,7 +169,8 @@
 ;;; Drone triggers via the SAY channel
 ;;; ----------------------------------------------------------------------------
 /def -mregexp -t"([a-zA-Z]+) says '(heal|div|cc|cl|fren[zy]*|sanc|touch|rejuv|invig)'" auto_heal_say = \
-    /if ({drone} = 1 | {autoheal} = 1) \
+    /let this=$[tolower(world_info())]%;\
+    /if /test ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1)%;/then \
         /if ({P2} =~ "cc") c 'cure crit' %P1 %; \
         /elseif ({P2} =~ "cl") c 'cure light' %P1 %; \
         /else c %P2 %P1 %; \
@@ -191,7 +179,7 @@
 
 /def -mregexp -t"([a-zA-Z]+) says '(heal|div|cc|cl|fren[zy]*|sanc|touch|rejuv|pp|por[tal]*|nex[us]*|invig) ([a-zA-Z]+)'" auto_heal_other_say = \
     /let this=$[tolower(world_info())]%;\
-    /if ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1) \
+    /if /test ({drone} = 1 | {autoheal} = 1 | %{this}_auto_drone = 1)%;/then \
         /if ({P2} =~ "cc") c 'cure crit' %P3 %; \
         /elseif ({P2} =~ "cl") c 'cure light' %P3 %; \
         /elseif ({P2} =~ "pp" | {P2} =~ "por[tal]*") c portal %P3 %; \
@@ -260,7 +248,7 @@
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let _commandAugment=$[strip_attr({P3})]%;\
-    /if ({drone} = 1) /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;/endif%;\
+;    /if ({drone} = 1) /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;/endif%;\
     /if (({_command} =~ "commands" | {_command} =~ "help") & {drone} = 1 & {running}=0) \
         /def -mregexp -ag -p1 -n3 -t"You tell %{_commander} in your dreams.*" _drone_tell_commands%;\
         /if ({myclass} =~ "prs") \
@@ -396,7 +384,7 @@
 /def -wgengis -mregexp -ag -p1 -F -t"([a-zA-Z]+) tells you '(abs[olve]*|aegis|clar[ify]*|interv[ention]*|pana[cea]*|sol[itude]*)'" drone_priest_tells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
-    /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;\
+;    /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;\
     /if ({drone} = 1 & {_command} =~ "solitude" & {currentplane} !~ "thorngate" & {running}=0) \
         /send tell %{_commander} |w|Solitude |n|is only available on Thorngate.%;\
     /elseif ({drone} = 1 & {running}=0) \

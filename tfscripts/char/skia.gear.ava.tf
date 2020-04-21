@@ -5,10 +5,10 @@
 
 /load -q char/lord.hit2.ava.tf
 ;/load -q char/hero.mana3.ava.tf
-/load -q char/lord.ac2.ava.tf
+;/load -q char/lord.ac2.ava.tf
 
 /set hit_wield="claw dragon simple"
-/set hit_offhand="sword githyanki gith silver lordgear suffering"
+/set hit_offhand="dagger darkness"
 
 /def -wskia hit_post_on = \
     wield %{hit_wield}%;wear %{hit_offhand}%; \

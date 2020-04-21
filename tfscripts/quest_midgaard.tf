@@ -88,3 +88,7 @@
 /def -mglob -t"A team of deep gnomes are hauling their wealth home." deepways_dgn_recovery_team_info = /questinfo Drops a Cat's Eye Gemstone
 /def -mglob -p99 -F -t"The survivors flee, but in their panic they leave something behind." deepways_dgn_recovery_dead_team_info = /if ({autoloot} == 1) /send get "gemstone catseye cats eye"%;/endif
 
+;; Orphanage Quest
+/def -mglob -p5 -ah -t"An orphan holds something that OBVIOUSLY doesn't belong to them." quest_orphanage_tickle_rascal = \
+    /if ({autoquest} == 1) /send tickle rascal=tickle rascal=tickle rascal%;\
+    /else /questinfo Tickle that rascale!!%;/endif

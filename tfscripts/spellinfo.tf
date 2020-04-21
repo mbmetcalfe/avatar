@@ -226,6 +226,8 @@
 /def -p1 -mglob -t"Teacup shoos you away, what a jerk!" check_affects = /send affect
 /def -p1 -mglob -t"Yagharek tells the group 'And we're done!'" check_affects2 = /send affect
 /def -p1 -mglob -t"Kaliver tells the group 'Last chance to config your savespell (if needed) before I cast sanc!'" check_affects2 = /send affect
+/def -p1 -mglob -t"You dream of Barkhound telling you 'Spellup finished.'" check_affects3 = /send affect
+/def -p1 -mglob -t"You dream of Aerniil telling you 'I think that is the split spellup! '" check_affects3 = /send affect
 
 ;;; ---------------------------------------------------------------------------
 ;;; Script to cast any self buffs
@@ -392,7 +394,7 @@
 /def -mglob -aCmagenta -t"You are surrounded by a mystical barrier." mysticalup = \
     /set mysticalleft=999%;\
     /set checkSpecific=1%;\
-	/send aff ?foci=aff ?mystical barrier
+    /send aff ?foci=aff ?mystical barrier
 /def -mregexp -ahCred -t"(You are filled with rage|You are already in a frenzy)" self_frenzied = \
 	/set frenleft=999%;\
     /set checkSpecific=1%;\
@@ -1019,11 +1021,20 @@
     ;/let _otherLength=$[strlen(sic_other)]%;\
     /let _sick_message=%{_sick_message} %{sick_other}%;\
     /echo -pw @{Cred}[CHAR INFO]: Sickness: %{_sick_message}
+
+;; TODO: change /repeat to /while
 /def cure = \
     /sick%;\
     /if ({sick_poison} > 0) /repeat -00:00:01 %{sick_poison} c 'cure poison'%;/endif%;\
     /if ({sick_disease} > 0) /repeat -00:00:01 %{sick_disease} c 'cure disease'%;/endif%;\
     /if ({sick_blind} == 1) c 'cure blindness'%;/endif
+;/def cure = \
+;    /sick%;\
+;    /let i=1%;\
+;    /if ({sick_poison} > 0) /while ({i} <= {sick_poison}) c 'cure poison'%;/done%;/endif%;\
+;    /let i=1%;\
+;    /if ({sick_disease} > 0) /while ({i} <= {sick_disease}) c 'cure disease'%;/done%;/endif%;\
+;    /if ({sick_blind} == 1) c 'cure blindness'%;/endif
 
 /def sick2 = \
     /let paramCount=%# %; \
@@ -1246,7 +1257,10 @@
 
 /def -aufhCwhite -P -mregexp -t"You are blinded\!" self_blinded = \
     /set sick_blind=1%;\
-    /sayother I 1 "cure blindness" "blindness"
+    /sayother I 1 "cure blindness" "blindness"%;\
+    /if ({myclass} =~ "prs") /send c clarify%;\
+    /elseif (!regmatch({myclass}, "sor bzk shf bod")) /send c 'cure blindness'%;\
+    /endif
 
 
 /def -mregexp -ag -t"^([a-zA-Z]+) holds (his|her|its) breath for as long as (he|she|it) can\!" groupie_drowning = \
