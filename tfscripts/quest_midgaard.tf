@@ -33,12 +33,12 @@
 /def -mregexp -p1 -t"^Flex Glitterwing says 'Go and ask him politely if he'd be kind enough to borrow it\. Come back wearing it and pray that you return in time\!'$" quest_summoning_001 = \
     /questinfo Summoning Quest: Need to wear the mantle of the master arcanist.@{n}
 
-/def -mregexp -p1 -t"^Flex Glitterwing beckons you to follow him\.$" quest_summoning_002 = \
+/def -mregexp -p1 -t"^Flex Glitterwing beckons you to follow him\.$" quest_summoning_003 = \
     /if ({autoquest} == 1) /repeat -00:00:05 1 /send follow flex%;\
     /else /questinfo Summoning Quest: follow flex%;\
     /endif
 
-/def -mregexp -p1 -t"^Flex Glitterwing exclaims 'Just \.\.\. a \.\. bit \.\. morreee\!'$" quest_summoning_002 = \
+/def -mregexp -p1 -t"^Flex Glitterwing exclaims 'Just \.\.\. a \.\. bit \.\. morreee\!'$" quest_summoning_004 = \
     /if ({autoquest} == 1) /repeat -00:00:05 1 /send invoke%;\
     /else /questinfo Summoning Quest: invoke%;\
     /endif
@@ -92,3 +92,7 @@
 /def -mglob -p5 -ah -t"An orphan holds something that OBVIOUSLY doesn't belong to them." quest_orphanage_tickle_rascal = \
     /if ({autoquest} == 1) /send tickle rascal=tickle rascal=tickle rascal%;\
     /else /questinfo Tickle that rascale!!%;/endif
+
+
+;; Bane Chromatic Dragon Quest
+/def -mglob -p5 -ah -t"The High Priest of Quixoltan says 'May Quixoltan judge you worthy.'" quest_bane_autoloot_on = /send config +autoloot
