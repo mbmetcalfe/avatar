@@ -4,7 +4,8 @@
 /set main_bag "floating icesphere loot"
 
 /load -q char/lord.hit1.ava.tf
-;/load -q char/hero.mana1.ava.tf
+/set hit_bag="Catoblepouch pouch hitgear!"
+
 /load -q char/lord.ac1.ava.tf
 
 /def -wphenyx hit_post_on = \
