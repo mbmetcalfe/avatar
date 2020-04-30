@@ -333,8 +333,10 @@
 /def -mregexp -ag -t'^Critical hit!' hitcritical = \
     /set critical=$[++critical] %; \
     /echodam @{Cwhite}Critical hit @{hCwhite}(#%{critical})@{nCwhite}!@{n}
-/def -mglob -p9 -F -t"*You creep up behind *" sneak_attack = \
-    /set sneakattack=$[++sneakattack]
+/def -mglob -p9 -F -t"*You creep up behind *" sneak_attack = /set sneakattack=$[++sneakattack]
+/def -Fp9 -mglob -t'...but it turns to face you just as you attack!' sneak_attack_fail = /set sneakattackfail=$[++sneakattackfail]
+/def -Fp9 -mglob -t'...but it sees you coming a mile away!' sneak_attack_fail = /set sneakattackfail=$[++sneakattackfail]
+
 /def -mregexp -ag -t"You aim for a (VERY )?weak spot\!" vital_shot = \
     /set vital=$[++vital]%;\
     /echodam @{Cred}You aim for a weak spot! (#@{hCred}%{vital}@{nCred})
@@ -388,7 +390,7 @@
         /let extradammsg=|w|%{ctrs} |bg|counters|w|. %{golden} |by|golden strikes|w|. %{sucresc}|c|:|w|%{resc} |c|rescues|w|. %; \
     /endif %; \
     /if (regmatch({myclass},{rogType})) \
-        /let extradammsg=%{extradammsg} |w|%{vital} |r|vital shots|w|. %{sneakattack} |b|sneak attacks|w|.%; \
+        /let extradammsg=%{extradammsg} |w|%{vital} |r|vital shots|w|. %{sneakattack}:%{sneakattackfail} |b|sneak attacks|w|.%; \
         /let extradammsg=%{extradammsg} |w|%{adodged} |r|misses|w|.%;\
     /endif %; \
     /if ({damchan} =~ "/echo") \
@@ -425,7 +427,7 @@
 
 /def damreset = \
     /set nil=0 %;/set ctrs=0%;/set terminal=0 %; /set critical=0%; \
-    /set vital=0%;/set sneakattack=0%;/set adodged=0%;/set fumbles=0%;\
+    /set vital=0%;/set sneakattack=0%;/set sneakattackfail=0%;/set adodged=0%;/set fumbles=0%;\
     /unset avgdmg%;/unset avgdmgvar%;/unset totdmg%;/unset hits%;/unset chits%; \
     /unset cdmg%;/unset fanddmg%;/unset fandhits%;/unset csusdmg%;/unset csushits%;\
     /echo -p % @{hCred}Damage stats reset.@{n}

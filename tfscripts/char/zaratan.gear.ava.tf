@@ -12,7 +12,8 @@
     /set offhand=%{ac_offhand}%;\
     /send wear %{ac_offhand}%;\
     /send get all.fingerbone %{main_bag}=wear all.fingerbone%;\
-    /def -wzaratan sle = /ac2mana%%;/send sleep
+    /def -wzaratan sle = /ac2mana%%;/send sleep%;\
+    /send smooth self
 
 /def -wzaratan ac_pre_off = /send remove all.fingerbone=put all.fingerbone %{main_bag}
 

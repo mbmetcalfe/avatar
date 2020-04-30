@@ -17,12 +17,15 @@
 /set hit_arms "wings superior elegance"
 ;/set hit_offhand="psi-blade energy pure pain"
 ;/set hit_offhand="ant wing chakram boss2"
-/set hit_offhand="sword githyanki gith silver lordgear normal"
+;/set hit_offhand="sword githyanki gith silver lordgear normal"
+;/set hit_offhand="ant wing chakram normal"
+/set hit_offhand="ant wing chakram calpchak2b"
 /set hit_about "robe magnificence"
 /set hit_waist "belt souls strap"
 /set hit_wrist1 "broken shackles tyranny"
 /set hit_wrist2 "broken shackles tyranny"
-/set hit_wield "sword githyanki gith silver lordgear normal!"
+;/set hit_wield "sword githyanki gith silver lordgear normal!"
+/set hit_wield "ant wing chakram calpchak32b"
 /set hit_held="hand severed githyanki"
 
 ;;; ---------------------------------------------------------------------------

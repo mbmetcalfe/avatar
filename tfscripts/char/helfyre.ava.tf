@@ -19,24 +19,9 @@
     /if ({#} = 1) surge %1%; /endif %;\
     c 'death field'%;\
     /if ({#} = 1) surge off%; /endif
-
-/def ultcost = \
-    /mcost Ultrablast 37%;\
-    /mcost Ultrablast-S@{hCmagenta}2 111%;\
-    /mcost Ultrablast-S@{hCmagenta}3 222%;\
-    /mcost Ultrablast-Q@{hCgreen}1 74%;\
-    /mcost Ultrablast-Q@{hCgreen}2 111%;\
-    /mcost Ultrablast-Q@{hCgreen}3 148%;\
-    /mcost Ultrablast-Q@{hCgreen}4 185%;\
-    /mcost Ultrablast-Q@{hCgreen}5 222%;\
-    /mcost Ultrablast-Q@{hCgreen}6 259%;\
-    /mcost Ultrablast-Q@{hCgreen}7 296%;\
-    /mcost Ultrablast-Q@{hCgreen}8 333%;\
-    /mcost Ultrablast-Q@{hCgreen}9 371
-
-/set grouped_fusilier=Giterdun
-/def -p2 -ah -whelfyre -mglob -t"* catches it\!" fusilier_mob_catch = \
-    /addq get short corpse#give short %{grouped_fusilier}
+/alias svs \
+    /send cast 'sense weakness' %1%;\
+    /cast on%;/aq /cast off
 
 ;; Racial prowl support
 ;; Prowl can only be used during nighttime which lasts from 8pm until 6 am game time.

@@ -1,10 +1,14 @@
 ;-------------------------------------------------------------------------------
 ;;; duskrta.ava.tf
-;;; Duskrta: Wrongdoing, evil action, misdeed, sin; external sins of the body 
-;;;          and the mouth; a light sin.
-;; Dec. 7, 2009 - killed UD (Level 585).
-;;  started with fear/flash, then q6 torment
-;;  After UD died: Duskrta     : 1570/2813 hp (55%) 922/4995 mana (18%)
+;; Duskrta: Wrongdoing, evil action, misdeed, sin; external sins of the body 
+;;          and the mouth; a light sin.
+;; Hero 1:     314 hp, 704 m, 482 mv.
+;; Hero 101:   644 hp, 1428 m, 1496 mv.
+;; Hero 999:   3725 hp, 8037 m, 4177 mv.
+;; 20091207: Killed UD (Hero 585) - Started with fear/flash, then q6 torment
+;;          After UD died: 1570/2813 hp 922/4995 mana
+;; 20140829: Automorphed (4 levels): 5601 hp 36275 mana 6280 mv
+;; 20190927: Lord 999:   9692 hp, 44210 m, 10105 mv.
 ;; Aug 29, 2014 - Automorphed (4 levels): 5601 hp 36275 mana 6280 mv
 ;-------------------------------------------------------------------------------
 /def -F -wduskrta -mglob -t"Welcome to the AVATAR System, Lord Duskrta." duskrta_lord999_login = \
@@ -25,7 +29,11 @@
 /set main_bag "floating icesphere loot"
 /load -q char/lord.ac3.ava.tf
 
-;/def -wduskrta duskrtaunlvl = /send rem levelgear=wear %{ac_about}
+;Level 125(999) High Elf Sorcerer
+/def -wduskrta duskrtaunlvl = \
+    /def -wduskrta -n2 -p10 -ag -mregexp -t"^Playerinfo (cleared|line added)\.$" duskrta_playerinfo_gag%;\
+    /let levelDiff=$[{mylevel} - 999]%;\
+    /send playeri clear=playeri + |w|Level 125(|g|999|w|+|g|%{levelDiff}|w|: |g|%{mylevel}|w|) High Elf Sorcerer
 ;/def -wduskrta duskrtalvl = /send wear levelgear
 
 ;;; ----------------------------------------------------------------------------

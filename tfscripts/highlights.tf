@@ -330,6 +330,7 @@
 /def -p5 -mregexp -ahr -t"^Deep in the Kelp Grove \(Underwater\)$" highlight_eragora_deep_kelp_grove = \
     /echo -pw @{Cred}[NAVIGATION INFO]: Fastest stacking room.
 /def -p5 -abh -mglob -t"With the grove wiped out, a manta ray is visible near the sunken ship." highlight_eragora_kelp_grove_manta
+/def -mregexp -aCred -t"A campfire roars, providing safety for a long time\." highlight_eragora_campfire_full
 
 ;;; *** Outland mobs
 /def -ag -mglob -t"*The serene look of insanity, perhaps the last thing you ever see\." sub_outland_butcher = \
