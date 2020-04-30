@@ -148,7 +148,7 @@
         /setAllegItem Ring Of Minor Imagery%;\
         /echo -pw @{Cred}[ALLEG INFO]: @{Cred}%{allegItem} @{Cwhite}is a pain to get.@{n}%;\
     /elseif ({P2} =~ 'My collection needs a heartbane loaded weapon in case I ever want to slaughter foes.') /setAllegItem Pair Of Kzinti Slaughter Gloves%;\
-    /elseif ({P2} =~ 'My collection won\'t be complete without a way to tame death itself.') /setAllegItem the whip, "Death-Tamer"%;\
+    /elseif ({P2} =~ 'My collection won\'t be complete without a way to tame death itself.') /setAllegItem the whip, Death-Tamer%;\
     /elseif ({P2} =~ 'My dagger set just won\'t be complete without a golden handled weapon capable of damaging werewolves.') /setAllegItem Silver Dagger With A Golden Handle%;\
     /elseif ({P2} =~ 'My rock collection seems incomplete. See if you can turn up a blue or white stone for me.') /setAllegItem a blueish-white stone%;\
     /elseif ({P2} =~ 'No clerics have this aura, just the kzinti war leader.') /setAllegItem Aura Of Domination%;\

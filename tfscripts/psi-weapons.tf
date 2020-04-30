@@ -34,7 +34,7 @@
 /set psi_enaros=dingo laven
 /set psi_eric=eric
 /set psi_eshin=eshinsmight eshinoffhand
-/set psi_essel=jorah1 jorah2
+/set psi_essel=all.jorah
 /set psi_fili=all.mungewield
 /set psi_fnask=ormswield
 /set psi_forseti=fleshslicer fleshrender
@@ -47,7 +47,7 @@
 /set psi_gravman=grav
 /set psi_grizzdrop=all.hitt
 /set psi_grizzlelumps=piercer
-/set psi_gti=dagger
+/set psi_gti=all.gti
 /set psi_hierlo=damage
 /set psi_hiram=hiram
 /set psi_hoodwink=wink1 wink2
@@ -62,7 +62,6 @@
 /set psi_jaromil=aneurysm embolism
 /set psi_jclaw=terror
 /set psi_jinx=githyanki hitgear
-/set psi_jorah=jorah1 jorah2
 /set psi_juvenia=acuity novaculite
 /set psi_kali=apple
 /set psi_kessler=hypera misoph
@@ -84,6 +83,7 @@
 /set psi_meep=meep meep
 /set psi_meista=meista
 /set psi_merlen=merlen |br|merlen
+/set psi_merple=peas broccoli
 /set psi_message=medium voot
 /set psi_mesmer=noetch
 /set psi_methill=killl

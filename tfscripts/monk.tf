@@ -38,7 +38,7 @@
 
 /def -ag -mregexp -t"You are prepared to use ([a-zA-Z]+)\." monk_current_ctr = \
     /echo -p @{Cyellow}You are prepared to use @{hCgreen}%P1@{nCyellow}.@{n}
-/def -ahCyellow -t"You will continue using this counterattack until you change it." monk_current_ctr_stay
+/def -ahCyellow -p5 -mregexp -t"You will continue using this [a-zA-Z]+ until you change it\." monk_current_ctr_stay
 
 ;;; ----------------------------------------------------------------------------
 ;;; Monk Qi/Chakra stuff
@@ -54,7 +54,10 @@
 /alias dh /send c 'dagger hand'
 
 ; You focus on the Dagger Hand technique.
-; Your hands return to normal.
+/def -mglob -p5 -t"Your hands return to normal." monk_dagger_hand_fall =\
+    /if ({refreshmisc} == 1) \
+        /refreshSpell 'dagger hand'%;\
+    /endif
 
 ;;; Inner Qi techniques
 ;;CHAKRA STRIKE

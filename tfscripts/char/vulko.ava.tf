@@ -49,16 +49,15 @@
     /send stance soul=c 'soul shackle' %1%;\
     fine %1 %2
 /alias shack /send stance soul=c 'soul shackle' %1
+/alias vgo /cast on%;/aq /cast off%;/send =
 
 /alias mm /if ({#} > 1 | {1} > 0) surge %1%;/endif%;c 'memento mori' pool%;/if ({#} > 1 | {1} > 0) surge off%;/endif
 
 /def -wvulko -mglob -p9 -ah -t" has been marked with final rites." vulko_final_rites
 
-; Start auto-casting when mob is at hurt|awful
-;[22:26] {Jorah} i shackl at big nasty, so every heal i do after fills me back up
-;/def -wvulko -mglob -F -p999 -t"* has some big nasty wounds and scratches." vulko_big_nasty_mob = /echo here. 
-/def -wvulko -mglob -F -p999 -t"* looks pretty hurt." vulko_hurt_mob = /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
-/def -wvulko -mglob -F -p999 -t"* is in awful condition." vulko_awful_mob = /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
+/def -wvulko -F -mregexp -p999 -aCmagenta -t"has some big nasty wounds and scratches" vulko_shackle_start
+/def -wvulko -F -mregexp -p999 -aCred -t"(looks pretty hurt|in awful condition)" vulko_auto_phleb = \
+    /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
 
 /def -mglob -p1 -ag -wvulko -t"Punch whom?" autoheal_toggle = \
     /if ({autoheal}=1) /set healToggle=1%;\

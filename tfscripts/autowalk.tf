@@ -583,8 +583,8 @@
     /if ({autowalk} = 1) 7n2e3se%;o s%;s %; /endif
 /def ranguild = /echo -p %%% @{Cwhite}@{Ccyan}Ex-Wayfinder (Ranger Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan}8e3n\;o w\;w%; \
     /if ({autowalk} = 1) 8e3n;o w;w%; /endif
-/def warguild = /echo -p %%% @{Cwhite}@{Ccyan}Weaponsmaster (Warrior Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 8e5n\;o w\;wn %; \
-    /if ({autowalk} = 1) 8e5n%;o w%;wn%; /endif
+/def warguild = /echo -p %%% @{Cwhite}@{Ccyan}Weaponsmaster (Warrior Guild)@{Cwhite} From@{Ccyan} Hulk War@{Cwhite}:@{Ccyan} dss%; \
+    /if ({autowalk} = 1) dss%; /endif
 /def arcguild = /echo -p %%% @{Cwhite}@{Ccyan}Lord of the Hunt (Archer Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 5s3e2nunw%; \
     /if ({autowalk} = 1) 5s3e2nunw%; /endif
 /def asnguild = /echo -p %%% @{Cwhite}@{Ccyan}Hitman (Assassin Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 9s8w\;o w\;w\;o u\;2u%;\

@@ -111,6 +111,7 @@
 /def -mregexp -F -p4 -t"[A-Za-z]+ rescues ([A-Za-z]+) from [-'A-Za-z ]+." unresc_trig_4 = \
     /if /ismacro rescue_%{P2}%; /then /undef rescue_%{P2}%; /endif
 
+;todo: fix
 /def -mregexp -F -p9 -t"([a-zA-Z]+) successfully rescues you from .*" unresc_trig_5 = \
     /if /ismacro resc_trig_%{P1}%; /then /rmres %{P1}%; /endif
 
@@ -179,6 +180,20 @@
     /def -w%{this} -mregexp -p7 -F -t"attack(s?) (strike|strikes|haven't hurt) ((?i)%resclist)" %{this}resc = /eval resc %%P3%%;/edit -c0 %{this}resc%%;/repeat -00:00:01 1 /edit -c100 %{this}resc%;\
     /def -w%{this} -mregexp -p7 -F -t" (turns to shoot|stands up and faces) ((?i)%resclist)" %{this}resc1 = /eval resc %%P2%;\
     /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s pierce" %{this}resc2 = /eval resc %%P1
+
+;/if /test ((%{this}_cast == 1) & ({currentPosition} =~ "fight") & ({mudLag} == 0) & (%{this}_auto_cast == 1))%;/then /castdmg%;/set %{this}_cast 2%;/endif
+/def autores = \
+    /auto rescue %1%;\
+    /let this=$[world_info()]%;\
+    /if /test (%{this}_auto_rescue == 0)%;/then \
+        /edit -c0 %{this}resc%;\
+        /edit -c0 %{this}resc1%;\
+        /edit -c0 %{this}resc2%;\
+    /else \
+        /edit -c100 %{this}resc%;\
+        /edit -c100 %{this}resc1%;\
+        /edit -c100 %{this}resc2%;\
+    /endif
  
 /def rmres = \
     /let this=$[world_info()]%;\

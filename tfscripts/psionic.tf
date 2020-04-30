@@ -122,5 +122,6 @@
 ;;; Attempt to bi-pass gravitas weapon catching
 ;;; Good idea to magic light a few times before run starts.
 ;;; ----------------------------------------------------------------------------
+/set psi_dart_item=mindtrick
 /def -p1 -F -au -mregexp -t'surrounds (him|her|it)self with a telekinetic sink\.' gravitas_trap = \
-    /if ({myclass} =~ "psi") /send cast dart%;/endif
+    /if ({myclass} =~ "psi") /send get all.%{psi_dart_item} %{main_bag}=cast dart=put all.%{psi_dart_item} %{main_bag}%;/endif
