@@ -23,6 +23,8 @@
 /def -p1 -ag -mregexp -h'SEND who caster ?([0-9a-zA-Z]*)' hook_who_caster = /send who mag stm wzd psi mnd sor %{P1}
 /def -p1 -ag -mregexp -h'SEND who bot' hook_who_bot = /send who tag ?bot
 
+/def -p1 -ag -mregexp -h'SEND ^#(\d+) (.*)$' hook_command_repeat = /for i 1 %{P1} /eval %{P2}
+
 ; temp hook for getting all when moving in Heartwood
 ;/def -p1 -ag -mregexp -h'SEND ([neswud])' hook_heartwood_move_get = %{P1}%;get all
 
