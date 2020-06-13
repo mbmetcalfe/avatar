@@ -28,6 +28,7 @@ my $BWHITE       = $NOCOLOUR."\x1B[01;37m";
 while (1)
 {
     open fileHandle, $INPUTFILENAME or die "Cannot find $INPUTFILENAME :$!";
+    $numInfoLines = 0;
     
     @lines = <fileHandle>;
     $lineCount = @lines;
@@ -38,7 +39,13 @@ while (1)
     $gLeader = $1;
     $gTalent = $2;
     $gMonitor = $3;
+    $numInfoLines += 1;
+    $_ = shift @lines;
+    /deathlist: (.*)/;
+    $gDeathlist = $1;
+    $numInfoLines += 1;
     my $extraMessage = shift @lines;
+    $numInfoLines += 1;
 #    print "ext"
     # chomp($extraMessage);
 
@@ -81,6 +88,10 @@ while (1)
             $gNameCol = $BMAGENTA;
             $gInfo .= "@";
         }
+	if (index(lc($gDeathlist), lc($gName)) != -1)
+	{
+	    $gInfo .= "X";
+	}
 
         $gPosition = substr($4, 0, 3);
         $gCurHP = $5;
@@ -136,8 +147,8 @@ while (1)
         printf "$GREEN|$WHITE$gNameCol%-13s$NOCOLOR$GREEN|$WHITE%4s$GREEN|$WHITE%2s %3d$GREEN|$gHPCol%7d$GREEN|$BCYAN%7d$GREEN|$gMnCol%7d$GREEN|$BYELLOW%7d$GREEN|$gMvCol%6d$GREEN|$BGREEN%6d$GREEN|$gTnlCol%7d$GREEN|$YELLOW%5s$GREEN|$YELLOW%3s$GREEN|$WHITE$NOCOLOUR\n", $gName, $gInfo, $gTier, $gLevel, $gCurHP, $gMaxHP, $gCurMn, $gMaxMn, $gCurMv, $gMaxMv, $gTnl, $gAlign, $gPosition;
     }
     
-    my $groupSize = $lineCount - 2; # -2 to account for the first two info lines
-    print "$GREEN+$WHITE-------------$GREEN+$WHITE----$GREEN+$WHITE--------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-----$GREEN+$WHITE-----$GREEN+$NOCOLOUR\n";
+    my $groupSize = $lineCount - $numInfoLines; # to account for the first info lines
+    print "$GREEN+$WHITE-------------$GREEN+$WHITE----$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-----$GREEN+$WHITE---$GREEN+$NOCOLOUR\n";
     print "$GREEN|$WHITE Size: $YELLOW$groupSize$WHITE; Lead: $YELLOW$gLeader$WHITE; Talent: $YELLOW$gTalent$GREEN|$NOCOLOUR $extraMessage";
     
     undef $fileHandle;
