@@ -42,8 +42,8 @@ while (1)
 #    print "ext"
     # chomp($extraMessage);
 
-    printf "$GREEN|$YELLOW%-13s$GREEN|$YELLOW%4s$GREEN|$YELLOW%8s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%7s$GREEN|$YELLOW%5s$GREEN|$YELLOW%5s$GREEN|$NOCOLOUR\n", "Name", "Info", "Level", "CurHP", "MaxHP", "CurMn", "MaxMn", "CurMv", "MaxMv", "TNL", "Align", "Pos";
-    print "$GREEN+$WHITE-------------$GREEN+$WHITE----$GREEN+$WHITE--------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-----$GREEN+$WHITE-----$GREEN+$NOCOLOUR\n";
+    printf "$GREEN|$YELLOW%-13s$GREEN|$YELLOW%4s$GREEN|$YELLOW%6s$GREEN|$YELLOW%7s$GREEN|$YELLOW%7s$GREEN|$YELLOW%7s$GREEN|$YELLOW%7s$GREEN|$YELLOW%6s$GREEN|$YELLOW%6s$GREEN|$YELLOW%7s$GREEN|$YELLOW%5s$GREEN|$YELLOW%3s$GREEN|$NOCOLOUR\n", "Name", "Info", "Level", "CurHP", "MaxHP", "CurMn", "MaxMn", "CurMv", "MaxMv", "TNL", "Align", "Pos";
+    print "$GREEN+$WHITE-------------$GREEN+$WHITE----$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE-------$GREEN+$WHITE------$GREEN+$WHITE------$GREEN+$WHITE-------$GREEN+$WHITE-----$GREEN+$WHITE---$GREEN+$NOCOLOUR\n";
     while ($line = shift @lines)
     {
         $gLevel = 0;
@@ -67,9 +67,10 @@ while (1)
         $gInfo = "";
         
         $_ = $line;
-        /([0-9]+)[ ]+([a-zA-Z]+)[ ]+([a-zA-Z ]+)[ ]+(STUN|DROWN|Fight|Sleep|Stand|Rest)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9]+)[ ]+([0-9\-]+)/;
+        /([0-9]+)[ ]+([a-zA-Z]+)[ ]+([a-zA-Z ]+)[ ]+(STUN|DROWN|Fight|Sleep|Stand|Rest|Busy)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9\-]+)\/([0-9\-]+)[ ]+([0-9]+)[ ]+([0-9\-]+)/;
         $gLevel = $1;
-        $gTier = $2;
+        #$gTier = $2;
+        $gTier = substr($2, 0, 2);
         $gName = $3;
         if (lc($gName) eq lc($gMonitor))
         {
@@ -81,7 +82,7 @@ while (1)
             $gInfo .= "@";
         }
 
-        $gPosition = $4;
+        $gPosition = substr($4, 0, 3);
         $gCurHP = $5;
         $gMaxHP = $6;
         $gCurMn = $7;
@@ -132,7 +133,7 @@ while (1)
         elsif ($perMv < 85) {$gMvCol = $BLUE;}
         
         #print "$gLevel $gTier $gName $gPosition $gCurHP $gMaxHP $gCurMn $gMaxMn $gCurMv $gMaxMv rest: $gRest\n";
-        printf "$GREEN|$WHITE$gNameCol%-13s$NOCOLOR$GREEN|$WHITE%4s$GREEN|$WHITE%4s %3d$GREEN|$gHPCol%6d$GREEN|$BCYAN%6d$GREEN|$gMnCol%6d$GREEN|$BYELLOW%6d$GREEN|$gMvCol%6d$GREEN|$BGREEN%6d$GREEN|$gTnlCol%7d$GREEN|$YELLOW%5s$GREEN|$YELLOW%5s$GREEN|$WHITE$NOCOLOUR\n", $gName, $gInfo, $gTier, $gLevel, $gCurHP, $gMaxHP, $gCurMn, $gMaxMn, $gCurMv, $gMaxMv, $gTnl, $gAlign, $gPosition;
+        printf "$GREEN|$WHITE$gNameCol%-13s$NOCOLOR$GREEN|$WHITE%4s$GREEN|$WHITE%2s %3d$GREEN|$gHPCol%7d$GREEN|$BCYAN%7d$GREEN|$gMnCol%7d$GREEN|$BYELLOW%7d$GREEN|$gMvCol%6d$GREEN|$BGREEN%6d$GREEN|$gTnlCol%7d$GREEN|$YELLOW%5s$GREEN|$YELLOW%3s$GREEN|$WHITE$NOCOLOUR\n", $gName, $gInfo, $gTier, $gLevel, $gCurHP, $gMaxHP, $gCurMn, $gMaxMn, $gCurMv, $gMaxMv, $gTnl, $gAlign, $gPosition;
     }
     
     my $groupSize = $lineCount - 2; # -2 to account for the first two info lines
