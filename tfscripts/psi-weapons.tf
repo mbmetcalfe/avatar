@@ -73,6 +73,7 @@
 /set psi_krak=kwhit krak
 /set psi_language=mandelstick offhandstick
 /set psi_lemmi=venom
+/set psi_lunar=lunar solar
 /set psi_lycee=prism midnight
 /set psi_maankashakt=ramuk maanka
 /set psi_marwel=claw

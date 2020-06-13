@@ -5,6 +5,8 @@
 /load -q char/gouki.gear.ava.tf
 
 /require monk.tf
+/set monkHandMod=stone fist
+;/set monkHandMod=dagger hand
 
 ;;; set up other variables
 

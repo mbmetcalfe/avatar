@@ -14,6 +14,7 @@
     /send get all.fingerbone %{main_bag}=wear all.fingerbone%;\
     /def -wzaratan sle = /ac2mana%%;/send sleep%;\
     /send smooth self
+/def -wzaratan mana_post_on = /send relax
 
 /def -wzaratan ac_pre_off = /send remove all.fingerbone=put all.fingerbone %{main_bag}
 

@@ -225,7 +225,7 @@
     /else /echo -pw @{Cred}[QUEST INFO]: Auspices of the Temple Quest: @{Cyellow}give parchment haruspex%;\
     /endif
 
-/def -mregexp -p1 -t"^The Haruspex says 'Of winter's major signs, the magister and the burning man are two\.'" quest_eragora_auspice_1 = \
+/def -mregexp -p1 -t"^The Haruspex says 'Of winter's major signs, the magister and the burning man are two\.'" quest_eragora_auspice_2 = \
     /if ({autoquest} == 1) /repeat -0:0:03 1 /send say warhammer%;\
     /else /echo -pw @{Cred}[QUEST INFO]: Auspices of the Temple Quest: @{Cyellow}say warhammer%;\
     /endif

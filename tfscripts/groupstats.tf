@@ -45,6 +45,8 @@
 /def -ag -mglob -t"As a group leader, you can lead a group size of *." group_lead_size
 
 /def -ag -mregexp -t"([a-zA-Z]+)'s group: *([a-zA-Z\ ]*)$" group_leader = \
+    /let _deathlist=%{deathlist}%;\
+    /if (strlen({deathlist}) == 0) /let _deathlist="NA"%;/endif%;\
     /if ({gspam} = 1) \
         /echo -pw @{Cwhite}%{P1}'s @{Cgreen}group: @{Cyellow}%{P2}@{n}%;\
     /endif%;\
@@ -55,6 +57,7 @@
     /unset groupies %; \
     /unset grouplist%;\
     /eval /sys echo leader: %{P1} talent: %{P2} monitor: %{currentMonitor}.> .gstats.dat%;\
+    /eval /sys echo deathlist: %{_deathlist}>> .gstats.dat%;\
     /let extraMsg=%;\
     /if ({autocast}=1) /let extraMsg=%{extraMsg} Cast.%;/endif%;\
     /if ({running}=1) /let extraMsg=%{extraMsg} Running.%;/endif%;\

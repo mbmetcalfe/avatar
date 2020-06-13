@@ -32,7 +32,9 @@
 /def -mregexp -ah -t"([a-zA-Z0-9,\.\-\ \']+) leaves behind a perfect (amethyst|diamond|emerald|ruby|sapphire)\!$" pgem_drop = \
     /set pgems=%{pgems} %P2%;\
     /send get %P2%;\
-    /if ({leader} !~ "Self") /send give %P2 %{leader}%;/endif
+    /if ({leader} !~ "Self") /send give "perfect %P2" %{leader}%;/endif
+
+/def -mregexp -ah -t"^The automaton falls to pieces$" mob_bits_drop = /send get bits%;/if ({leader} !~ "Self") /send give bits %{leader}%;/endif
 
 ;;; ----------------------------------------------------------------------------
 ;;; Experience related triggers

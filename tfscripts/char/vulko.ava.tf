@@ -55,9 +55,14 @@
 
 /def -wvulko -mglob -p9 -ah -t" has been marked with final rites." vulko_final_rites
 
-/def -wvulko -F -mregexp -p999 -aCmagenta -t"has some big nasty wounds and scratches" vulko_shackle_start
+/def aphleb = /auto phleb %1
+/def ashack = /auto shackle %1
+/def -wvulko -F -mregexp -p999 -aCmagenta -t"has some big nasty wounds and scratches" vulko_shackle_start = \
+    /if ({vulko_auto_shackle} == 1) shack%;/endif
 /def -wvulko -F -mregexp -p999 -aCred -t"(looks pretty hurt|in awful condition)" vulko_auto_phleb = \
-    /if ({running} = 1 & {vulko_auto_cast} = 0) /cast on%;/aq /cast off%;/send =%;/endif
+    /if ({running} == 1 & {vulko_auto_cast} == 0 & {vulko_auto_phleb} == 1)\
+        /cast on%;/aq /cast off%;/send =%;\
+    /endif
 
 /def -mglob -p1 -ag -wvulko -t"Punch whom?" autoheal_toggle = \
     /if ({autoheal}=1) /set healToggle=1%;\

@@ -20,7 +20,10 @@
 /def swap = \
     /let arrowType=%{1}%;\
     /let braceType=arrow%;\
-    /if ({myclass} =~ "fus") /let braceType=stone%;/endif%;\
+    /if ({#} == 2) /let braceType=%{2}%;\
+    /elseif ({myclass} =~ "fus") /let braceType=stone%;\
+    /elseif ({myclass} =~ "sld") /let braceType=bolt%;\
+    /endif%;\
     get "%{arrowType} %{braceType}" %{quiver_bag}%;\
     wear "%{arrowType} %{braceType}"%;\
     get "all.%{arrowType} %{braceType}" %quiver_bag%;\

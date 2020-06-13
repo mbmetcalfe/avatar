@@ -11,8 +11,6 @@
 ;/def -wzaratan zaratanlvl = get all.levelgear %lootContainer%;rem %{ac_head}%;rem %{ac_neck1}%;wear all.levelgear
 ;/def -wzaratan zaratanunlvl = rem all.levelgear%;put all.levelgear %lootContainer%;wear %{ac_head}%;wear %{ac_neck1} 
 
-;/alias aoe /cast on%;/aoe on%;wear light
-;/alias noaoe /cast on%;/aoe off%;wear fire
 /alias aoe \
   /aoe %{1}%;\
   /set zaratan_auto_cast 1%;\
@@ -91,12 +89,11 @@
     c 'firestorm'%;\
     /if ({#} > 1 | {1} > 0) surge off%;/endif
 
-/def -wzaratan -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" zaratan_highlight_acid_rain
+;;; ----------------------------------------------------------------------------
+;;; Green Dragon triggers
+;;; ----------------------------------------------------------------------------
 
-/def -p4 -mglob -t"Paxon calls forth acid to scour away its foes!" paxon_acid_rain =\
-    /if ({multi} == 1) \
-        /send cast firestorm%;\
-    /endif
+/def -wzaratan -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" zaratan_highlight_acid_rain
 
 /def -wzaratan -mglob -p1 -t"Mayflower, Explorer and Trailblazer exclaims 'Follow me for Ocean Transport!'" mayflower_timed_follow = \
     /if ({leader} =~ "Self") /repeat -0:0:04 1 /send follow mayflower%;/endif

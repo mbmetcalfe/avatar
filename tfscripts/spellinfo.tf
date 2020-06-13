@@ -3,7 +3,7 @@
 ;;; Miscellaneous triggers and macroes to deal with spells/affects
 ;;; ---------------------------------------------------------------------------
 ;; Class types
-/set arcType=arc asn dru fus
+/set arcType=arc asn dru fus sld
 /set cleType=cle dru pal prs viz
 /set magType=mag stm sor wzd
 /set monType=mon shf

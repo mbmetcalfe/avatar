@@ -61,6 +61,7 @@
 ;/def -mglob -t'A masked psionicist rider is DEAD!!' gear_wpn_mask_psi = /lootcor chakram
 /def -mglob -t"The Giants' Nightmare is DEAD!!" gear_wpn_giant_nightmaer = /lootcor david
 ;/def -mglob -t"A deep gnome mercenary is DEAD!!" gear_wpn_gnome_mercenary = /lootcor dagger
+/def -mglob -t"Creela is DEAD!!" gear_wpn_creela = /lootcor seeker
 
 
 ;; AC collecting triggers
@@ -204,6 +205,9 @@
 ;;; skin item for snow leopardskin
 /def -mglob -t"A snow leopard is DEAD!!" gear_glyntaff_snow_leopard = /if ({autoloot} = 1) /send get corpse%;/endif
 /def -mglob -t"A golden eagle is DEAD!!" gear_glyntaff_golden_eagle = /if ({autoloot} = 1) /send get corpse%;/endif
+
+;; Gear in Aculeata Jatha-La
+/def -mglob -t"An empassioned wasp is DEAD!!" gear_aculeata = /if ({autoloot}=1) /send get corpse%;/endif
 
 
 ;;; Silly aliases to tell self how to get Orosca

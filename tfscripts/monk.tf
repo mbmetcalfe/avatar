@@ -54,9 +54,10 @@
 /alias dh /send c 'dagger hand'
 
 ; You focus on the Dagger Hand technique.
-/def -mglob -p5 -t"Your hands return to normal." monk_dagger_hand_fall =\
+/set monkHandMod=dagger hand
+/def -mglob -p5 -t"Your hands return to normal." monk_hand_mod_fall =\
     /if ({refreshmisc} == 1) \
-        /refreshSpell 'dagger hand'%;\
+        /refreshSpell '%{monkHandMod}'%;\
     /endif
 
 ;;; Inner Qi techniques

@@ -7,6 +7,9 @@
 ;;;    Didn't quaff and ended fight with: 943/  6157 hp   3058/  3881 ma
 ;;; 20160802: Morphed: 14506 hp  18300 ma   7458 mv
 ;;; 20160802: Evolved: 15240 hp  17740 ma   7536 mv
+;;; 20200526: Evolved:
+;;;           Before: 250 Lord: 17771 hp 19386 mana 8697 mv.
+;;;           After:  250 Lord: 20297 hp 20622 mana 8277 mv.
 /require psionic.tf
 
 /load -q char/waldorf.gear.ava.tf
@@ -87,7 +90,7 @@
 ;/def -wwaldorf waldorfunlvl = /send wear %{hit_held}=put orb %{main_bag}
 
 ;; Cast minds eye before wearing all
-;/def -wwaldorf -p0 -mglob -ag -h'SEND wear all' hook_waldorf_wear_all = /send quicken 5=c 'minds eye'=quicken off=wear all
+/def -wwaldorf -p0 -mglob -ag -h'SEND wear all' hook_waldorf_wear_all = /send quicken 5=c 'minds eye'=quicken off=wear all
 
 ;;; scripts to bipass migraine effects if stuff is stacked
 /def -wwaldorf -p1900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger\.\.\." migraine_disconnect_waldorf = \

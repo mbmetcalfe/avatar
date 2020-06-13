@@ -6,8 +6,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Variables used to hold class-types for making some triggers/macroes simpler
 ;;; ----------------------------------------------------------------------------
-/set arcType=arc asn dru fus
-/set cleType=cle dru pal prs
+/set arcType=arc asn dru fus sld
+/set cleType=cle dru pal prs viz
 /set magType=mag stm sor wzd
 /set monType=mon shf
 /set psiType=mnd psi
@@ -84,8 +84,8 @@
     /else /echo -p @{hcRed}Valid arguments are: on, off and <none>@{n}%;\
     /endif%;\
     /set %{this}_auto_%{tr} %{auto_tr}%;\
-    /if (auto_tr) /echo -p %%% Auto-%{this} %{tr} is @{Cgreen}enabled@{n}.%;\
-    /else /echo -p %%% Auto-%{this} %{tr} is @{Cred}disabled@{n}.%;\
+    /if (auto_tr) /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cgreen}ENABLED@{n}.%;\
+    /else /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cred}DISABLED@{n}.%;\
     /endif
 
 /def autoall = \
@@ -116,7 +116,10 @@
 /def castdmg = \
     /let this $[world_info()]%;\
     /if /test auto_aoe == 1%;/then /send -w%{this} 2 %{castTargetMob}%;/else /send -w%{this} 1 %{castTargetMob}%;/endif
-/def target=/set castTargetMob=%1%;/echo -p @{Cred}[TARGET INFO]: Target is now: @{Cwhite}%{castTargetMob}@{n}
+/def target = \
+    /set castTargetMob=%1%;/echo -p @{Cred}[TARGET INFO]: Target is now: @{Cwhite}%{castTargetMob}@{n}%;\
+    /def -n1 -mregexp -t"\w+ is not here\!" target_mob_not_here = /set castTargetMob
+
 ;;; ----------------------------------------------------------------------------
 
 ;/def aoe = \

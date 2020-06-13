@@ -12,7 +12,7 @@
     /send sur %1
 
 /alias pick \
-    /send get lockpick %{main_bag}=wear lockpick=pick %1=rem lockpick=put lockpick %{main_bag}=wear %unbrandish
+    /send get "%{lockpick_chest}" %{main_bag}=wear "%{lockpick_chest}"=pick %1=rem "%{lockpick_chest}"=put "%{lockpick_chest}" %{main_bag}=wear %unbrandish
 /alias pickdoor \
     /send get "%{lockpick_door}" %{main_bag}=wear "%{lockpick_door}"=pick %1=rem "%{lockpick_door}"=put "%{lockpick_door}" %{main_bag}=wear %unbrandish
 /alias pickchest \
@@ -70,25 +70,21 @@
         pickdoor %{pickdir}%;\
     /endif
 
-;/def -mregexp -t'^The a small wooden lockbox looks like it is armed with a ([a-zA-Z ]+) trap\.$' traptype = \
 /def -mregexp -t'^The .* looks like it is armed with a ([a-zA-Z ]+) trap\.$' traptype = \
     /let traptype=%P1 %; \
     /if ({autopick} == 1) \
         /send get disarming %{main_bag}=wear disarming=dismantle %traptype %lockbox %; \
-        /send rem disarming=put disarming %{main_bag}=wear lockpick=pick %lockbox%;\
+        /send rem disarming=put disarming %{main_bag}=wear %lockpick=pick %lockbox%;\
     /endif
 
-;/def -mglob -t'The a small wooden lockbox is not trapped.' lockpick_notrap = \
 /def -mglob -t'The * is not trapped.' lockpick_notrap = \
     /if ({autopick}=1) /send pick %lockbox%; /endif
 
-;/def -mglob -t"You couldn't make the lock turn on a small wooden lockbox\." lockpick_nounlock = \
 /def -mglob -t"You couldn't make the lock turn on *\." lockpick_nounlock = \
     /if ({autopick} == 1) \
         /send pick %lockbox%;\
     /endif
 
-;/def -mglob -t"You pick the lock on a small wooden lockbox\." lockpick_picked = \
 /def -mglob -t"You pick the lock on *." lockpick_picked = \
     /send open %lockbox=get all %lockbox=put all.red-brown %{main_bag}=drop all.vial=close %lockbox=drop %lockbox%; \
     /if ({autopick} == 1) \
@@ -97,7 +93,6 @@
         /endif%;\
     /endif
 
-;/def -mglob -t"A small wooden lockbox is not locked." lockpick_not_locked = \
 /def -mglob -t"* is not locked." lockpick_not_locked = \
     /send open %lockbox=get all %lockbox=put all.red-brown %{main_bag}=drop all.vial=close %lockbox=drop %lockbox%; \
     /if ({autopick} == 1) \
@@ -108,7 +103,7 @@
 
 /def -mregexp -t'([a-zA-Z ]+) breaks off in the lock\!' lockpick_broken = \
     /if ({autopick} == 1) \
-        /send get lockpick %{main_bag}=wear lockpick%;\
+        /send get "%{lockpick_chest}" %{main_bag}=wear "%{lockpick_chest}"%;\
     /endif
 
 /def -mregexp -t'You set off a trap\!' lockpick_set_off_trap = \
@@ -405,11 +400,11 @@
 /alias bt /send bladetrance %1
 
 ;; recycle veil of blades
-/def -mregexp -t"^One of your Exhaust timers has elapsed\. \(veil of blades\)" veil_of_blades_exhaust_down = \
-    /set ticktoggle=1%;\
-    /if ({refreshmisc} == 1) \
-        /refreshSkill stance veil%;\
-    /endif
+;/def -mregexp -t"^One of your Exhaust timers has elapsed\. \(veil of blades\)" veil_of_blades_exhaust_down = \
+;    /set ticktoggle=1%;\
+;    /if ({refreshmisc} == 1) \
+;        /refreshSkill stance veil%;\
+;    /endif
 
 ;;; Bladedtrance tracking
 /def -i setBladetrance = \

@@ -1,4 +1,4 @@
-/set arc_bag "Mekrith skin bag"
+/set arc_bag "bodybag bag architgear!"
 /set quiver_bag="Collosus skin bag quiver"
 
 /set arc_light "eye illusion chimeric"

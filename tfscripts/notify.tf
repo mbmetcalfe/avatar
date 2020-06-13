@@ -106,11 +106,13 @@
 ;;; Triggers to notify of.
 /def -mregexp -p1 -ah -t"^A HOGathon has just BEGUN!!!" hogathon_begun = \
     ;/sendEmail A HoG just started!%;\
+    /sendDiscordPrivateMsg @here: :pig: @here A HoG just started! :pig2:%;\
     /sendSlackNotificationMsg :piggy: A HoG just started! :piggy:%;\
     /sendDiscordNotifyMsg :pig: @here A HoG just started! :pig2:
 
 /def -mregexp -p1 -ah -t"^The HOGathon has ENDED\. HOG is no longer a valid command\." hogathon_ended = \
     ;/sendEmail The HoG is now over.%;\
+    /sendDiscordPrivateMsg @here: :pig: @here The HoG is now over. :pig2:%;\
     /sendSlackNotificationMsg :piggy: The HoG is now over. :piggy:%;\
     /sendDiscordNotifyMsg :pig: @here The HoG is now over. :pig2:
 
@@ -148,6 +150,7 @@
     /sendDiscordNotifyMsg The boon is now over. :unamused:
 
 /def -mregexp -p1 -ah -t"^We are preparing to reboot!$" notify_rebooting = \
+    /sendDiscordPrivateMsg @here: Reboot incoming!%;\
     /sendSlackNotificationMsg Reboot, incoming.%;\
     /sendDiscordNotifyMsg :exclamation: Reboot incoming! :exclamation: 
 
@@ -161,18 +164,18 @@
 ;;; ----------------------------------------------------------------------------
 ;; Send notification on beep, but turn it off for 30 seconds to avoid spam.
 /def -mregexp -p1 -ah -t"^You are being BEEPED by ([\w]+)!" email_beep = \
-    /sendDiscordPrivateMsg :bell: **${world_name}** is getting **BEEPED** by **%{P1}**! :bell:%;\
+    /sendDiscordPrivateMsg @here: :bell: **${world_name}** is getting **BEEPED** by **%{P1}**! :bell:%;\
     /edit -c0 email_beep%;\
     /repeat -0:0:30 1 /edit -c100 email_beep
 
 /def -mregexp -p1 -ah -t"You have ([0-9]+) new personal note\." notify_personal_note = \
-    /sendDiscordPrivateMsg :e_mail: **${world_name}** has *%{P1}* personal notes.
+    /sendDiscordPrivateMsg @here: :e_mail: **${world_name}** has *%{P1}* personal notes.
 
 /def -mregexp -p1 -ah -t"^Nom says '([a-zA-Z]+) has sent a personal note \(\#([0-9]+)\) to you\.'" notify_new_personal_note = \
-    /sendDiscordPrivateMsg :e_mail: **${world_name}** has received a personal note from **%{P1}**.
+    /sendDiscordPrivateMsg @here: :e_mail: **${world_name}** has received a personal note from **%{P1}**.
 
 /def -mregexp -p1 -ah -t"^The Mortician tells you 'Something of yours just ended up in my shop\.'" notify_morgue = \
-    /sendDiscordPrivateMsg :skull_crossbones: Something of **${world_name}'s** has ended up in the morgue. :coffin:%;\
+    /sendDiscordPrivateMsg @here: :skull_crossbones: Something of **${world_name}'s** has ended up in the morgue. :coffin:%;\
     /send morgue list
 
 ;;; ----------------------------------------------------------------------------

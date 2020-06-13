@@ -16,11 +16,13 @@
 ;; Turn Medhya's drone on with /auto drone on
 
 ; rename it for now, while he's running alt
-/def MBMmedhyadrone = \
+/def medhyadrone = \
   /if ({medhya_auto_drone}=1) \
       /send config +noautomove=title |n|: BUZZ FOR STEEL%;\
+      /send get lens %{main_bag}=wear lens%;\
   /else \
       /send title reset=config -noautomove%;\
+      /send rem lens=put lens %{main_bag}=wear "hat faded yellow sea bleached"%;\
   /endif%;\
   /send tag remove bot%;\
   /if ({medhya_auto_drone} == 1) \
