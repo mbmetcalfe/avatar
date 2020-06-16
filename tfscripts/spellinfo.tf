@@ -1161,6 +1161,9 @@
         /echo -pw %%% %newmsg %; \
     /else \
         /eval %sickechochan %sickmsg %; \
+    /endif%;\
+    /if ({autocure} == 1) \
+        /for i 1 %{countcure} /aq c '%{cure}' %{sickone}%;\
     /endif
 
 /def -mregexp -t'^([a-z|A-Z|0-9| |-]*) shudders as the virus takes hold!' poison_other_virus = \
