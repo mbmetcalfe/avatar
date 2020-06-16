@@ -46,7 +46,7 @@
     /else /send surge off%;\
     /endif%;\
     /echoflag %automidround Midround-Action%;\
-    /statusflag %automidround aMid%;\
+    /statusflag %automidround aMid
 
 /alias amid \
     /set automidround=0%;\
@@ -86,7 +86,8 @@
     /set %{this}_auto_%{tr} %{auto_tr}%;\
     /if (auto_tr) /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cgreen}ENABLED@{n}.%;\
     /else /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cred}DISABLED@{n}.%;\
-    /endif
+    /endif%;\
+    /statusflag %auto_tr aCast
 
 /def autoall = \
     /let tr %{1}%;\
@@ -100,7 +101,8 @@
     /set auto_%{tr} %{auto_tr}%;\
     /if (auto_tr) /echo -p %%% Auto-%{tr} is @{Cgreen}enabled@{n}.%;\
     /else /echo -p %%% Auto-%{tr} is @{Cred}disabled@{n}.%;\
-    /endif
+    /endif%;\
+    /statusflag %auto_tr AOE
     
 ;;; do stuff like this (/castdmg is ref'd in the prompt stuff):
 ;;; On a per alt, /cast and /stab to turn autocast/autostab on and off. 
