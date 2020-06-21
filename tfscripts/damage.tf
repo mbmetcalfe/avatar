@@ -63,53 +63,6 @@
     /endif%;\
     /unset _myname
 
-;;; ----------------------------------------------------------------------------
-;;; Yet another mid-round/autocast implementation.
-;;; This version is more multiplay-friendly.
-;;; Based on Meep/Ebin's design.
-;;; /auto and /autoall are generic macros
-;;;     so I can do /def cast =/auto cast %1
-;;;     /cast just calls /auto to set a variable based on /auto's positional params
-;;;     /auto looks at world, %1 (char), and %2 (the %1 passed to /cast)
-;;;     tried to get rid of a bunch of duplication
-;;; ----------------------------------------------------------------------------
-/def auto = \
-    /let tr %{1}%;\
-    /let this=$[world_info()]%;\
-    /let auto_tr_v %{this}_auto_%{tr}%;\
-    /let auto_tr $[expr({auto_tr_v})]%;\
-    /if ({2} =~ "") /let auto_tr $[!auto_tr] %;\
-    /elseif ({2} =~ "on") /let auto_tr 1 %;\
-    /elseif ({2} =~ "off")  /let auto_tr 0%;\
-    /else /echo -p @{hcRed}Valid arguments are: on, off and <none>@{n}%;\
-    /endif%;\
-    /set %{this}_auto_%{tr} %{auto_tr}%;\
-    /if (auto_tr) /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cgreen}ENABLED@{n}.%;\
-    /else /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cred}DISABLED@{n}.%;\
-    /endif%;\
-    /statusflag %auto_tr aCast
-
-/def autoall = \
-    /let tr %{1}%;\
-    /let auto_tr_v auto_%{tr}%;\
-    /let auto_tr $[expr({auto_tr_v})]%;\
-    /if ({2} =~ "") /let auto_tr $[!auto_tr] %;\
-    /elseif ({2} =~ "on") /let auto_tr 1 %;\
-    /elseif ({2} =~ "off")  /let auto_tr 0%;\
-    /else /echo -p @{hcRed}Valid arguments are: on, off and <none>@{n}%;\
-    /endif%;\
-    /set auto_%{tr} %{auto_tr}%;\
-    /if (auto_tr) /echo -p %%% Auto-%{tr} is @{Cgreen}enabled@{n}.%;\
-    /else /echo -p %%% Auto-%{tr} is @{Cred}disabled@{n}.%;\
-    /endif%;\
-    /statusflag %auto_tr AOE
-    
-;;; do stuff like this (/castdmg is ref'd in the prompt stuff):
-;;; On a per alt, /cast and /stab to turn autocast/autostab on and off. 
-;;; Also control /aoe across all alts to turn it on/off depending if I'm in a gear room or not.
-/def cast=/auto cast %1
-/def aoe=/autoall aoe %1
-
 /def setCastTarget = \
     /set castTargetMob=%{*}%;\
     /echo -pw @{Cwhite}Cast target set to: @{hCred}%{castTargetMob}@{n}%;\

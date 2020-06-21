@@ -47,10 +47,10 @@
             /let _chatter={%{_chatter}}%;\
             /let _channel=%;\
         /elseif ({_channel} =~ "herochat") \
-            /logChannel **%{_chatter}**> %{_message}%;\
+;/logChannel **%{_chatter}**> %{_message}%;\
             /let _channel=>%;\
         /elseif ({_channel} =~ "lordchat") \
-            /logChannel (**%{_chatter}**) %{_message}%;\
+;/logChannel (**%{_chatter}**) %{_message}%;\
             /let _channel=%;\
             /let _chatter=(%{_chatter})%;\
         /endif%;\

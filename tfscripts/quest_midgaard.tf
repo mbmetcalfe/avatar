@@ -26,8 +26,8 @@
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 
 ;;; Log quest tickets for Sanctuary insig
-/def -ag -Ph -F -t'luscious crab meat(.*)' h_midgaard_great_summoning_001 = /test $[echoGearItem({PL}, "luscious crab meat",  "quest", {P1})]
-/def -ag -Ph -F -t'the mantle of the master arcanist(.*)' h_midgaard_great_summoning_002 = /test $[echoGearItem({PL}, "the mantle of the master arcanist",  "quest", {P1})]
+/def -ag -Ph -F -t'luscious crab meat(.*)' h_midgaard_great_summoning_001 = /test $[echoGearItem({PL}, "luscious crab meat",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'the mantle of the master arcanist(.*)' h_midgaard_great_summoning_002 = /test $[echoGearItem({PL}, "the mantle of the master arcanist",  "quest", {P1}, {PR})]
 
 
 /def -mregexp -p1 -t"^Flex Glitterwing says 'Go and ask him politely if he'd be kind enough to borrow it\. Come back wearing it and pray that you return in time\!'$" quest_summoning_001 = \

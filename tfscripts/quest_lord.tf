@@ -8,13 +8,15 @@
 
 ;; Vault Thief's Bane (aka Hide quest)
 ;; https://avatar.melanarchy.info/index.php/Vault_Thief%27s_Bane
-/def -ag -Ph -F -t'an embossed hide' highlight_hide_quest_001 = /test $[echoGearItem(%{PL}, "an embossed hide", "quest", %{P1})]
-/def -ag -Ph -F -t'the whole hide of a merman' highlight_hide_quest_002 = /test $[echoGearItem(%{PL}, "the whole hide of a merman", "quest", %{P1})]
-/def -ag -Ph -F -t'a glazed gith hide' highlight_hide_quest_003= /test $[echoGearItem(%{PL}, "a glazed gith hide", "quest", %{P1})]
-/def -ag -Ph -F -t'a soft nubuc hide' highlight_hide_quest_004 = /test $[echoGearItem(%{PL}, "a soft nubuc hide", "quest", %{P1})]
+/def -ag -Ph -F -t'an embossed hide' highlight_hide_quest_001 = /test $[echoGearItem({PL}, "an embossed hide", "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'the whole hide of a merman' highlight_hide_quest_002 = /test $[echoGearItem({PL}, "the whole hide of a merman", "quest", %{P1}, {PR})]
+/def -ag -Ph -F -t'a glazed gith hide' highlight_hide_quest_003= /test $[echoGearItem({PL}, "a glazed gith hide", "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a soft nubuc hide' highlight_hide_quest_004 = /test $[echoGearItem({PL}, "a soft nubuc hide", "quest", {P1}, {PR})]
 
-/def -ag -Ph -F -t'a mindflayer scalp' highlight_gith_remort_quest = /test $[echoGearItem(%{PL}, "a mindflayer scalp", "quest", %{P1})]
+/def -ag -Ph -F -t'a mindflayer scalp' highlight_gith_remort_quest = /test $[echoGearItem({PL}, "a mindflayer scalp", "quest", {P1}, {PR})]
 
+;; Once Sundered tickets (for UD Girth "upgrade")
+/def -ag -P -F -t'half of the Sundered Ring' highlight_once_sundered = /test $[echoGearItem({PL}, "half of the Sundered Ring", "quest", {P1}, {PR})]
 
 ;; -----------------------------------------------------------------------------
 ;;; Shadowrun

@@ -330,6 +330,7 @@
 /def -p5 -mregexp -ahr -t"^Deep in the Kelp Grove \(Underwater\)$" highlight_eragora_deep_kelp_grove = \
     /echo -pw @{Cred}[NAVIGATION INFO]: Fastest stacking room.
 /def -p5 -abh -mglob -t"With the grove wiped out, a manta ray is visible near the sunken ship." highlight_eragora_kelp_grove_manta
+/def -mregexp -aCyellow -t"A campfire burns low, providing safety for a short time." highlight_eragora_campfire_partial
 /def -mregexp -aCred -t"A campfire roars, providing safety for a long time\." highlight_eragora_campfire_full
 
 ;;; *** Outland mobs
@@ -456,13 +457,13 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Fae Rune Displaying
 ;;; ----------------------------------------------------------------------------
-/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (10QP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Fire|Disease|Insanity|Pain)'(.*)" highlight_fae_rune_002 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (5QP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Chaos|Obfuscation)'(.*)" highlight_fae_rune_003 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (400XP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Darkness|Drought|Fear|Charm|Entropy)'(.*)" highlight_fae_rune_004 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (300XP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Power|Wrath)'(.*)" highlight_fae_rune_005 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (250XP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Influence|Corruption)'(.*)" highlight_fae_rune_006 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (200XP)"))]
-/def -ag -Ph -F -t"the fae rune for '(Misfortune|Blood|Silence|Apathy|Ice|Vengeance)'(.*)" highlight_fae_rune_007 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (100XP)"))]
+/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (10QP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Fire|Disease|Insanity|Pain)'(.*)" highlight_fae_rune_002 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (5QP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Chaos|Obfuscation)'(.*)" highlight_fae_rune_003 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (400XP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Darkness|Drought|Fear|Charm|Entropy)'(.*)" highlight_fae_rune_004 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (300XP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Power|Wrath)'(.*)" highlight_fae_rune_005 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (250XP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Influence|Corruption)'(.*)" highlight_fae_rune_006 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (200XP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Misfortune|Blood|Silence|Apathy|Ice|Vengeance)'(.*)" highlight_fae_rune_007 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (100XP)"), {PR})]
 
 ;;; ----------------------------------------------------------------------------
 ;;; Gagging score screen items
@@ -476,3 +477,23 @@
 /def -mglob -p9 -F -t"A forest of fungus" deepways_exit_to_fungal_forest = \
     /echo -pw @{Cred}[AREA INFO]: [Exits: north east south] -- south exit goes to Fungal Forest
 
+
+;;; 
+;;; Room helpers
+;;;
+;; Show safe rooms
+/def -i echoRoomFlags = \
+    /if ({#} != 2) \
+        /echo -pw @{Cred}/echoRoomFlags @{Cwhite}[Room Name] [Flag]@{n}%;\
+    /else \
+        /echo -pw @{Cyellow}%{1} @{Cgreen}[%{2}]@{n}%;\
+    /endif
+
+;; Necropolis
+/def -ag -mregexp -t"^At the cusp of the Necropolis$" necropolis_safe_room = /test $[echoRoomFlags({P0},  "Safe")]
+
+;; The Great Divide
+/def -ag -mregexp -t"^Altar of Kra$" divide_safe_room = /test $[echoRoomFlags(%{P0},  "Anti-Magic, Safe")]
+/def -ag -mregexp -t"^Shattered wall$" divide_noncursed_room1 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]
+/def -ag -mregexp -t"Opening in the cliffs$" divide_noncursed_room2 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]
+/def -ag -mregexp -t"The one with the Abyss$" divide_noncursed_room3 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]

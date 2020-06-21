@@ -52,9 +52,9 @@
 
 
 ;;; Log quest tickets for Exp insig
-/def -ag -Ph -F -t'a misty elixir(.*)' h_eragora_exp_insig_001 = /test $[echoGearItem({PL}, "a misty elixir",  "quest", {P1})]
-/def -ag -Ph -F -t'a torn out journal entry(.*)' h_eragora_exp_insig_002 = /test $[echoGearItem({PL}, "a torn out journal entry",  "quest", {P1})]
-/def -ag -Ph -F -t'a commission to explore the mountains(.*)' h_eragora_exp_insig_003 = /test $[echoGearItem({PL}, "a commission to explore the mountains",  "quest", {P1})]
+/def -ag -Ph -F -t'a misty elixir(.*)' h_eragora_exp_insig_001 = /test $[echoGearItem({PL}, "a misty elixir",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a torn out journal entry(.*)' h_eragora_exp_insig_002 = /test $[echoGearItem({PL}, "a torn out journal entry",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a commission to explore the mountains(.*)' h_eragora_exp_insig_003 = /test $[echoGearItem({PL}, "a commission to explore the mountains",  "quest", {P1}, {PR})]
 
 ;; -----------------------------------------------------------------------------
 ;; Sanctuary insignia:
@@ -84,8 +84,8 @@
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n} 
 
 ;;; Log quest tickets for Sanctuary insig
-/def -ag -Ph -F -t'soul splitting spike dagger(.*)' h_eragora_sanc_insig_001 = /test $[echoGearItem({PL}, "soul splitting spike dagger",  "quest", {P1})]
-/def -ag -Ph -F -t'zurik\'s Cowl(.*)' h_eragora_sanc_insig_002 = /test $[echoGearItem({PL}, "zurik's Cowl",  "quest", {P1})]
+/def -ag -Ph -F -t'soul splitting spike dagger(.*)' h_eragora_sanc_insig_001 = /test $[echoGearItem({PL}, "soul splitting spike dagger",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'zurik\'s Cowl(.*)' h_eragora_sanc_insig_002 = /test $[echoGearItem({PL}, "zurik's Cowl",  "quest", {P1}, {PR})]
 
 /def -mregexp -p1 -t"^1\. History of this place\.\.\.$" quest_eragora_sanc_insig_1 = \
     /if ({autoquest} == 1) /send say history%;\
@@ -150,13 +150,13 @@
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 
 ;;; Log quest tickets for Sanctuary insig
-/def -ag -Ph -F -t'a half-orc torch(.*)' h_eragora_fingerbone_insig_001 = /test $[echoGearItem({PL}, "a half-orc torch",  "quest", {P1})]
-/def -ag -Ph -F -t'a luminescent stalk(.*)' h_eragora_fingerbone_insig_002 = /test $[echoGearItem({PL}, "a luminescent stalk",  "quest", {P1})]
-/def -ag -Ph -F -t'a baby eyestalk(.*)' h_eragora_fingerbone_insig_003 = /test $[echoGearItem({PL}, "a baby eyestalk",  "quest", {P1})]
-/def -ag -Ph -F -t'a limp eyestalk(.*)' h_eragora_fingerbone_insig_004 = /test $[echoGearItem({PL}, "a limp eyestalk",  "quest", {P1})]
-/def -ag -Ph -F -t'a juicy steak(.*)' h_eragora_fingerbone_insig_005 = /test $[echoGearItem({PL}, "a juicy steak",  "quest", {P1})]
-/def -ag -Ph -F -t'an ornate lockbox(.*)' h_eragora_fingerbone_insig_006 = /test $[echoGearItem({PL}, "an ornate lockbox",  "quest", {P1})]
-/def -ag -Ph -F -t'a silver key(.*)' h_eragora_fingerbone_insig_007 = /test $[echoGearItem({PL}, "a silver key",  "quest", {P1})]
+/def -ag -Ph -F -t'a half-orc torch(.*)' h_eragora_fingerbone_insig_001 = /test $[echoGearItem({PL}, "a half-orc torch",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a luminescent stalk(.*)' h_eragora_fingerbone_insig_002 = /test $[echoGearItem({PL}, "a luminescent stalk",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a baby eyestalk(.*)' h_eragora_fingerbone_insig_003 = /test $[echoGearItem({PL}, "a baby eyestalk",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a limp eyestalk(.*)' h_eragora_fingerbone_insig_004 = /test $[echoGearItem({PL}, "a limp eyestalk",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a juicy steak(.*)' h_eragora_fingerbone_insig_005 = /test $[echoGearItem({PL}, "a juicy steak",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'an ornate lockbox(.*)' h_eragora_fingerbone_insig_006 = /test $[echoGearItem({PL}, "an ornate lockbox",  "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'a silver key(.*)' h_eragora_fingerbone_insig_007 = /test $[echoGearItem({PL}, "a silver key",  "quest", {P1}, {PR})]
 
 /def -mregexp -p1 -t"^4\. Any quests\?$" quest_eragora_fingerbone_1 = \
     /if ({autoquest} == 1) /repeat -0:0:03 1 /send say quests%;\

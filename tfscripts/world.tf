@@ -7,5 +7,8 @@
 /test addworld("aveast", "diku", "avatar.outland.org", "3000")
 /test addworld("testport", "diku", "avatar.outland.org", "5005")
 
+;; "local" world for GMCP stuff
+/addworld local 127.0.0.1 10002
+
 ;;; Load in server-specific worlds
 /load -q ava-world.tf

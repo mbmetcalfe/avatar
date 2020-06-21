@@ -46,7 +46,7 @@
 
 /set script_path=/home/mike/avatar/tfscripts/
 
-/load -q ava-world.tf
+/load -q world.tf
 
 /load -q ava-hook.tf
 /load -q ava-macro.tf

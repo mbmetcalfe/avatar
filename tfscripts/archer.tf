@@ -174,3 +174,11 @@
     /let fletchTimeMsg=@{Cgreen}$[mod(fletchTime/60,60)] @{Cwhite}mins  @{Cgreen}$[mod(fletchTime,60)] @{Cwhite}secs.%; \
     /echo -p %%% %{fletchmsg}  %fletchTimeMsg
 
+/def -i ammo=/auto ammo %1
+/def ammo_swap=/if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /if /test opt_w =~ 'a'%;/then%;\
+    /let this=$[world_info()]%;\
+  /else \
+    /let this=%opt_w%;\
+  /endif%;\
+  /if /test %{this}_auto_ammo == 1 %; /then /send -w%{this} /swap %1%;/endif

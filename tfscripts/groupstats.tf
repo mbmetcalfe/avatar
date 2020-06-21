@@ -39,7 +39,11 @@
 /def gspam = \
     /toggle gspam%;\
     /echoflag %gspam @{Cyellow}Group Spam@{n}%; \
-    /if ({gspam} = 1) /send group%; /endif
+    /if ({gspam} = 1) \
+        /send group%;\
+	/def -p5 -t"^\w joins \w's group." gspam_get_new_group = /send group%;\
+    /else /undef gspam_get_new_group%;\
+    /endif
 /def echogroup = /if ({gspam} = 1) /echo -pw %{*}@{n}%; /endif
 
 /def -ag -mglob -t"As a group leader, you can lead a group size of *." group_lead_size

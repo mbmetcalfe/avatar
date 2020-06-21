@@ -41,7 +41,8 @@
     /edit -c0 reloghook%;\
     /let logincharname=$[strip_attr({P1})]%;\
     /let logincharname=$[tolower({logincharname})]%;\
-    /set myname=%logincharname
+    /set myname=%logincharname%;\
+    /setgmcp
 
 /def -mregexp -t'^Welcome back to the AVATAR System ([a-zA-Z]+), hope you get beyond level ([0-9]+) today!' welcomeback1 = \
     /hook_resize%;\
@@ -53,14 +54,16 @@
     /set myname=%logincharname%;\
     /def -hload -ag ~gagload%;\
     /undef ~gagload%;\
-    /send worth
+    /send worth%;\
+    /setgmcp
 
 /def -mregexp -t'Good luck getting (Hero|Lord|Legend) level ([0-9]*) today!' set_level = \
     /let tier=%P1%;/let level=%P2%;\
     /set mylevel=$[{level}-1]%;\
     /set mytier=$[tolower({tier})]%;\
     /atitle (%mytier %mylevel)%;\
-    /send worth
+    /send worth%;\
+    /setgmcp
 
 /def -mregexp -t'Welcome to the AVATAR System, (Hero|Lord) [a-zA-Z]+\.' set_tier = \
     /set mytier=$[tolower({P1})]

@@ -24,16 +24,17 @@
 
 ; Show the gear item and optionally log it to the database.
 /def echoGearItem = \
-    /if ({#} != 4) \
-        /echo -pw @{Cred}/echoGearItem @{Cwhite}[PL] [item] [type] [P1]@{n}%;\
+    /if ({#} != 5) \
+        /echo -pw @{Cred}/echoGearItem @{Cwhite}[PL] [item] [type] [P1] [PR]@{n}%;\
     /else \
         /let _pl=%{1}%;\
         /let _item=%{2}%;\
         /let _type=%{3}%;\
         /let _p1=%{4}%;\
+        /let _pr=%{5}%;\
         /let numItems=1%;\
         /if (regmatch("\( ?([0-9]+)\) .*", {_pl})) /let numItems=%{P1}%;/endif%;\
-        /echo -pw @{Cwhite}%{_pl}@{n}%{_item} (%{_type})%{_p1}%;\
+        /echo -pw @{Cwhite}%{_pl}@{n}%{_item} (%{_type})%{_p1}%{_pr}%;\
         /if ({LOG_GEAR} == 1) \
             /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
         /endif%;\

@@ -90,6 +90,10 @@
 /load -q quest_midgaard.tf
 /load -q quest_lord.tf
 
+;;; GMCP, etc
+/load -q gmcp.tf
+/load -q generic.tf
+
 ;; to avoid having to reload ava-macro.tf, will try putting this here
 /def -b'^P' key_prev_hx = /dokey recallb
 /def -b'^N' key_next_hx = /dokey recallf
