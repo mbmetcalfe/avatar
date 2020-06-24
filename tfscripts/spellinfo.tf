@@ -16,10 +16,10 @@
 /def dochk = \
     /if ({dochecks}=1) \
 ;;;    /if ({heichk}=1) heighten %; /endif%; \
-        /if ({sanctleft} < 0 & {resanc} = 1) \
+        /if ({sanctuaryleft} < 0 & {resanc} = 1) \
             /sanc%;\
         /endif%; \
-        /if ({frenleft} < 0 & {refren} = 1) c frenzy%; /endif%; \
+        /if ({frenzyleft} < 0 & {refren} = 1) c frenzy%; /endif%; \
         /if ({mysticalleft} < 0 & {refreshmisc} = 1 & regmatch({myclass},{magType})) \
             c 'mystical barrier'%;\
         /endif%; \
@@ -33,7 +33,7 @@
 ;;; Echo missing spells.
 ;;; ---------------------------------------------------------------------------
 /def missing = \
-    /if ({fortleft} < 0) /echo -pw % @{Cwhite}Fortitudes @{nCwhite}missing.@{n} %; \
+    /if ({fortitudesleft} < 0) /echo -pw % @{Cwhite}Fortitudes @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if (({awenleft} < 0 & {aegisleft} < 0) & \
         ({armorleft} < 0 | {holyarmorleft} < 0 | {holyauraleft} < 0 | {blessleft} < 0)) \
@@ -41,7 +41,7 @@
     /endif %; \
     /if ({focileft} < 0) /echo -pw % @{hCgreen}Foci @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({frenleft} < 0) /echo -pw % @{hCred}Frenzy @{nCwhite}missing.@{n}%; \
+    /if ({frenzyleft} < 0) /echo -pw % @{hCred}Frenzy @{nCwhite}missing.@{n}%; \
     /endif %; \
     /if ({myclass} =~ "pal") \
         /if ({fervorleft} < 0) \
@@ -51,7 +51,7 @@
             /echo -pw % @{hCmagenta}Holy Zeal @{nCwhite}missing.@{n}%; \
         /endif%;\
     /endif%;\
-    /if (({racialfrenleft} < 0) & (({myrace}=~"kzn") | ({myrace}=~"orc") | ({myrace}=~"hor") | ({myrace}=~"hob"))) \
+    /if (({racialfrenzyleft} < 0) & (({myrace}=~"kzn") | ({myrace}=~"orc") | ({myrace}=~"hor") | ({myrace}=~"hob"))) \
         /if ({racialfren} < 0) \
             /echo -pw % @{hCred}Racial Frenzy  @{nCwhite}missing.@{n} %; \
         /else \
@@ -63,24 +63,24 @@
         /else /echo -pw % @{Cblack}Racial Prowl @{nCwhite}is missing but can be reapplied in @{Cblack}%{racialprowl} @{nCwhite}hours.%;\
         /endif%;\
     /endif%;\
-    /if ({sanctleft} < 0) /echo -pw % @{hCwhite}Sanctuary @{nCwhite}missing.@{n} %; \
+    /if ({sanctuaryleft} < 0) /echo -pw % @{hCwhite}Sanctuary @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({ironleft} < 0) /echo -pw % @{Cyellow}Iron Skin @{nCwhite}missing.@{n} %; \
+    /if ({ironskinleft} < 0) /echo -pw % @{Cyellow}Iron Skin @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({steelleft} < 0) /echo -pw % @{hCyellow}Steel Skeleton @{nCwhite}missing.@{n} %; \
+    /if ({steelskeletonleft} < 0) /echo -pw % @{hCyellow}Steel Skeleton @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({barkleft} < 0) /echo -pw % @{Cyellow}Barkskin @{nCwhite}missing.@{n} %; \
+    /if ({barkskinleft} < 0) /echo -pw % @{Cyellow}Barkskin @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if ({regenleft} < 0) /echo -pw % @{Cmagenta}Regeneration @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if ({blessleft} < 0) /echo -pw % @{hCcyan}Bless @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({invincleft} < 0) /echo -pw % @{hCwhite}Invincibility @{nCwhite}missing.@{n} %; \
+    /if ({invincibilityleft} < 0) /echo -pw % @{hCwhite}Invincibility @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({waterleft} < 0 & ({myrace} !~ "tua" | {myrace} !~ "liz")) \
+    /if ({waterbreathingleft} < 0 & ({myrace} !~ "tua" | {myrace} !~ "liz")) \
         /echo -pw % @{hCblue}Water Breath @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({concleft} < 0) /echo -pw % @{Cwhite}Concentrate @{nCwhite}missing.@{n} %; \
+    /if ({concentrateleft} < 0) /echo -pw % @{Cwhite}Concentrate @{nCwhite}missing.@{n} %; \
     /endif %; \
     /if ({prayerleft} < 0 & regmatch({myclass}, {noWorshipType}) == 0) \
         /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
@@ -168,53 +168,42 @@
         /endif%;\
     /endif
 
+;;; Check active stance and its duration
+/def stance = \
+  /let active_stance=None%;\
+  /let stance_duration=-1%;\
+; bladedancer stances
+  /if ({bladedanceleft} > 0) /let active_stance=bladedance%;/endif%;\
+  /if ({dervishdanceleft} > 0) /let active_stance=dervishdance%;/endif%;\
+  /if ({inspiringdanceleft} > 0) /let active_stance=inspiringdance%;/endif%;\
+  /if ({unendingdanceleft} > 0) /let active_stance=unendingdance%;/endif%;\
+  /if ({veilofbladesleft} > 0) /let active_stance=veilofblades%;/endif%;\
+; warrior stances
+  /if ({protectivestanceleft} > 0) /let active_stance=protectivestance%;/endif%;\
+  /if ({relentlessstanceleft} > 0) /let active_stance=relentlessstance%;/endif%;\
+  /if ({surefootstanceleft} > 0) /let active_stance=surefootstance%;/endif%;\
+  /let stance_duration_name=%{active_stance}left%;\
+  /if ({active_stance} =~ "None") /echo -pw @{Cred}[CHAR INFO]: @{hCgreen}No active stance.@{n}%;\
+  /else \
+    /let stance_duration=$[expr({stance_duration_name})]%;\
+    /echo -pw @{Cred}[CHAR INFO]: @{hCgreen}%{active_stance} for %{stance_duration}@{n}%;\
+  /endif
+
 ;;; ---------------------------------------------------------------------------
 ;;; Reset durations
 ;;; ---------------------------------------------------------------------------
 /set checkSpecific=0
+/def -i clrvar = /set %1 -1
+/def -i clearspelldurations = \
+  /let spell_vars=$(/listvar -s *left)%;\
+  /mapcar /clrvar %{spell_vars}
+
 /def -mglob -ahCwhite -t'You are not under the affects of any spells or skills.' durationreset2 = /durationreset
 /def -mglob -ag -t'You are affected by:' durationreset = \
     /if ({affectspam} = 1) /echo -pw @{hCwhite}You are affected by:@{n}%;\
     /else /echo -pw @{hCwhite}You are affected by @{nCred}(Suppressed}@{hCwhite}:@{n}%;\
     /endif%;\
-    /if ({checkSpecific} == 0)\
-        /set frenleft=-1 %; /set sanctleft=-1 %; /set ironleft=-1 %; \
-        /set steelleft=-1 %; /set barkleft=-1 %; /set concleft=-1 %; \
-        /set regenleft=-1  %; /set invincleft=-1 %; /set fortleft=-1 %; \
-        /set awenleft=-1 %; /set focileft=-1 %;/set aegisleft=-1 %;\
-        /set waterleft=-1%;/set fervorleft=-1%;/set blessleft=-1%; \
-        /set armorleft=-1%;/set holyarmorleft=-1%;/set holyauraleft=-1%;/set blessleft=-1%;\
-        /set mysticalleft=-1 %; /set astralshieldleft=-1%;/set illusoryshieldleft=-1%;\
-        /set defiledfleshleft=-1%;/set taintleft=-1%;/set exhaust_taint=-1%;\
-        /set kineticchainleft=-1%;/set exhaust_kineticchain=-1%;\
-        /set savinggraceleft=-1%;/set intervetionleft=-1%;/set exhaust_intervention=-1%;\
-        /set fotmleft=-1%;/set gloriousconquestleft=-1%;\
-        /set racialfren=-1 %; /set racialfrenleft=-1 %;\
-        /set prayerleft=-1 %; /set prayaff=nothing %; \
-        /set savvyleft=-1 %; /set acumenleft=-1 %; \
-        /set consummationleft=-1%;/set blinddevotionleft=-1%;\
-        /set nightcloakleft=-1%;/set deathshroudleft=-1%;/set immolationleft=-1%; \
-        /set poisonleft=-1 %; /set poisonaff=nothing%;/set numpoison=0 %; \
-        /set biotoxinleft=-1 %; /set biotoxinaff=nothing%;/set numbiotoxin=0 %; \
-        /set toxinleft=-1 %; /set toxinaff=nothing%;/set numtoxin=0 %; \
-        /set venomleft=-1 %; /set venomaff=nothing%;/set numvenom=0 %; \
-        /set heartbaneleft=-1 %; /set heartbaneaff=nothing%;/set numheartbane=0 %; \
-        /set doomtoxinleft=-1 %; /set doomtoxinaff=nothing%;/set numdoomtoxin=0 %; \
-        /set plagueleft=-1 %; /set plagueaff=nothing%;/set numplague=0 %; \
-        /set virusleft=-1 %; /set virusaff=nothing%;/set numvirus=0 %; \
-        /set necrotialeft=-1 %; /set necrotiaaff=nothing%;/set numnecrotia=0 %; \
-        /set fearleft=-1 %; /set fearaff=nothing %; \
-        /set curseleft=-1 %; /set curseaff=nothing%;/set numcurse=0  %; \
-        /set scrambleleft=-1 %; /set scrambleaff=nothing%;/set numscramble=0 %; \
-        /set webleft=0%;/set webaff=nothing%;/set numweb=0%;\
-        /set enduranceleft=-1%;/set enduranceaff=nothing%;\
-        /set solitudeleft=-999%;/set holyzealleft=-1%;\
-        /set racialprowl=-1%;/set canProwl=0%;\
-        /set disablingweaponleft=-1%;/set stunningweaponleft=-1%;/set distractingweaponleft=-1%;\
-        /set astralprisonleft=-1%;/set vilephilosophyleft=-1%;\
-        /set sick_poison=0%;/set sick_disease=0%;/set sick_deathsdoor=0%;/set sick_web=0%;\
-        /set sick_rupture=0%;/set sick_blind=0%;/unset sick_other%;\
-        /set daggerhandleft=-1%;/set stonefistleft=-1%;\
+    /if ({checkSpecific} == 0) /clearspelldurations%;\
     /else \
         /def generalPromptHookCheck = /set checkSpecific=0%;\
     /endif
@@ -279,8 +268,8 @@
     /else \
         /aq cast %{*}%;\
     /endif
-/def -mglob -aCwhite -t'You feel less focused\.' concdrop = /set concleft=-1%;/set ticktoggle=1
-/def -mglob -aCyellow -t'Your skin returns to normal\.' barkdrop = /set barkleft=-1%;/set ticktoggle=1
+/def -mglob -aCwhite -t'You feel less focused\.' concdrop = /set concentrateleft=-1%;/set ticktoggle=1
+/def -mglob -aCyellow -t'Your skin returns to normal\.' barkdrop = /set barkskinleft=-1%;/set ticktoggle=1
 /def -mglob -aCmagenta -t'Your pulse slows and your body returns to normal\.' regendrop = /set regenleft=-1%;/set ticktoggle=1
 /def -mglob -aCwhite -t'You feel more exposed as your Nightcloak fades.' nightcloakdrop = /set nightcloakleft=-1%;/set ticktoggle=1
 /def -mregexp -aCwhite -p1 -t'Your illusory shield dissipates.' illusoryshielddrop = \
@@ -341,7 +330,7 @@
 /def -mregexp -t"^Your senses are (completely|partially|already) heightened[\.!]$" heitrig5 = /set heichk=0
 
 ;;; these next two detect fortitudes/awen drop, but it is a bad hack
-/def -mglob -t'You no longer disperse energy\.' fortdrop = /set fortleft=-1%;/set ticktoggle=1
+/def -mglob -t'You no longer disperse energy\.' fortdrop = /set fortitudesleft=-1%;/set ticktoggle=1
 /def -mglob -t'You feel less protected\.' awendrop = /set awenleft=-1%;/set ticktoggle=1
 
 /def -mregexp -aCcyan -t'^Almighty Gorn\'s presence disappears.' gorn_prayerdrop = \
@@ -350,7 +339,7 @@
     /set checkSpecific=1
 
 /def -mglob -ahCwhite -t'The protective aura fades from around your body\.' sancdrop = \
-    /set sanctleft=-1%;/set ticktoggle=1%; \
+    /set sanctuaryleft=-1%;/set ticktoggle=1%; \
     /if ({resanc} == 1) \
         /refreshSkill /sanc%;\
     /else /send emote 's |bw|Sanctuary|n| is gone.%;\
@@ -367,7 +356,7 @@
     /else /send emote 's |bc|Fervor|n| is gone.%;/endif
 
 /def -mglob -ahCred -t'You slowly come out of your rage\.' frenzydrop = \
-    /set frenleft=-1%;/set ticktoggle=1 %; \
+    /set frenzyleft=-1%;/set ticktoggle=1 %; \
     /if ({refren} = 1 & {myclass} =~ "pal") \
         /refreshSpell fervor%;\
     /elseif ({refren} = 1) \
@@ -383,7 +372,7 @@
     /endif 
 
 /def -mregexp -ahCMagenta -t'^The pink aura around you fades away.' pinkfade = /set ticktoggle=1
-/def -mregexp -ahCblue -t'^Your lungs adapt to oxygen once again.' waterfade = /set waterleft=-1%;/set ticktoggle=1
+/def -mregexp -ahCblue -t'^Your lungs adapt to oxygen once again.' waterfade = /set waterbreathingleft=-1%;/set ticktoggle=1
 /def -mregexp -ah -t'^You feel less sick.' feellesssick = /send emote 's |y|sickness |n|has been cleared.
 /def -mregexp -ah -t'^Your sores vanish.' plaguedrop = /send emote 's |br|plague |n|has been cured.
 
@@ -396,7 +385,7 @@
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?mystical barrier
 /def -mregexp -ahCred -t"(You are filled with rage|You are already in a frenzy)" self_frenzied = \
-	/set frenleft=999%;\
+	/set frenzyleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?frenzy
 /def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) causes you to rage in fanatical fervor." self_fervored = \
@@ -408,16 +397,16 @@
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?fervor
 /def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted = \
-    /set sanctleft=999%;\
+    /set sanctuaryleft=999%;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?sanctuary
 /def -mglob -ahCwhite -t"* surrounds you with sanctuary\!" self_sancted2 = \
-    /set sanctleft=999;\
+    /set sanctuaryleft=999;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?sanctuary
 /def -mglob -ahCwhite -t"* is surrounded by *'s sanctuary." other_sancted
 /def -mregexp -ahCwhite -t"(You are already Glowing|You concentrate on the Iron Monk style)" self_already_im = \
-    /set sanctleft=999;\
+    /set sanctuaryleft=999;\
     /set checkSpecific=1%;\
     /send aff ?foci=aff ?iron monk
 /def -mregexp -aCWhite -t"(You now have a death shroud\.|You are already shrouded\.)" self_already_shrouded = /set deathshroudleft=999
@@ -547,21 +536,21 @@
         /set aegisleft=%P2 %; \
         /let color=@{Cred} %; \
     /elseif ({P1} =~ "fortitudes") \
-        /set fortleft=%P2 %; \
+        /set fortitudesleft=%P2 %; \
         /let color=@{Cwhite} %; \
     /elseif ({P1} =~ "foci") \
         /set focileft=%P2 %; \
         /let color=@{hCgreen} %; \
     /elseif ({P1} =~ "sanctuary") \
-        /set sanctleft %P2 %; \
+        /set sanctuaryleft %P2 %; \
         /let color=@{hCwhite} %; \
-        /if ({running} == 1 & {sanctleft} >= {focileft} & {resanc} == 1) /resanc%;/endif%;\
+        /if ({running} == 1 & {sanctuaryleft} >= {focileft} & {resanc} == 1) /resanc%;/endif%;\
     /elseif ({P1} =~ "iron monk") \
-        /set sanctleft=%P2 %; \
+        /set sanctuaryleft=%P2 %; \
         /let color=@{hCwhite} %; \
-        /if ({running} == 1 & {sanctleft} >= {focileft} & {resanc} == 1) /resanc%;/endif%;\
+        /if ({running} == 1 & {sanctuaryleft} >= {focileft} & {resanc} == 1) /resanc%;/endif%;\
     /elseif ({P1} =~ "water breathing") \
-        /set waterleft=%P2 %; \
+        /set waterbreathingleft=%P2 %; \
         /let color=@{hCblue} %; \
     /elseif ({P1} =~ "demonfire") \
         /let color=@{Cblack} %; \
@@ -625,7 +614,7 @@
 /def -mregexp -ag -p1 -t'^Spell: \'([a-zA-Z ]+)\' *continuous.' spellforaffcont = \
     /let colour=@{hCyellow}%;\
     /if ({P1} =~ "sanctuary") \
-        /set sanctleft=999%;\
+        /set sanctuaryleft=999%;\
         /let colour=@{hCwhite}%;\
     /endif%;\
     /if ({qryspell} =~ substr({P1},0,strlen({qryspell}))) \
@@ -722,19 +711,19 @@
     /let _spell=$[strip_attr({P1})]%;\
     /if ({_spell} =~ "invincibility") \
         /let color=@{hCwhite} %; \
-        /set invincleft=%P4 %; \
+        /set invincibilityleft=%P4 %; \
     /elseif ({_spell} =~ "frenzy") \
         /let color=@{hCred} %; \
-        /set frenleft=%P4 %; \
-        /if ({running} == 1 & {frenleft} >= {focileft} & {refren} == 1) /refren%;/endif%;\
+        /set frenzyleft=%P4 %; \
+        /if ({running} == 1 & {frenzyleft} >= {focileft} & {refren} == 1) /refren%;/endif%;\
     /elseif ({_spell} =~ "fervor") \
         /let color=@{hCcyan} %; \
         /set fervorleft=%P4 %; \
         /if ({running} == 1 & {fervorleft} >= {focileft} & {refren} == 1) /refren%;/endif%;\
     /elseif ({_spell} =~ "racial frenzy") \
         /let color=@{hCred} %; \
-        /set racialfrenleft=%P4 %; \
-        /if ({running} == 1 & {racialfrenleft} >= {focileft} & {refren} == 1) /refren%;/endif%;\
+        /set racialfrenzyleft=%P4 %; \
+        /if ({running} == 1 & {racialfrenzyleft} >= {focileft} & {refren} == 1) /refren%;/endif%;\
     /elseif ({_spell} =~ "dagger hand") \
         /let color=@{hCmagenta} %; \
         /set daggerhandleft=%P4 %; \
@@ -743,13 +732,13 @@
         /set stonefistleft=%P4%;\
     /elseif ({_spell} =~ "concentrate") \
         /let color=@{Cwhite} %; \
-        /set concleft=%P4 %; \
+        /set concentrateleft=%P4 %; \
     /elseif ({_spell} =~ "barkskin") \
         /let color=@{Cyellow} %; \
-        /set barkleft=%P4 %; \
+        /set barkskinleft=%P4 %; \
     /elseif ({_spell} =~ "iron skin") \
         /let color=@{Cyellow} %; \
-        /set ironleft=%P4 %; \
+        /set ironskinleft=%P4 %; \
     /elseif ({_spell} =~ "armor") \
         /let color=@{hCred} %; \
         /set armorleft=%P4 %; \
@@ -768,7 +757,7 @@
         /set blessleft=%P4 %; \
     /elseif ({_spell} =~ "steel skeleton") \
         /let color=@{Cyellow} %; \
-        /set steelleft=%P4 %; \
+        /set steelskeletonleft=%P4 %; \
     /elseif ({_spell} =~ "endurance") \
         /let color=@{hCgreen} %; \
         /set enduranceleft=%{P4}%;\
@@ -938,9 +927,9 @@
 /def prayaff = /echo -pw %% @{Ccyan}Prayer: @{Cwhite}%Prayaff@{Ccyan}.@{n}
 /def gtprayaff = gtell |c|Prayer |w|modifies %Prayaff
 
-/def sanctleft = \
-    /if ({sanctleft} >= 0) \
-        /echo -pw %%% @{hCwhite}Sancturay @{nCwhite}for @{hCwhite}%sanctleft @{nCwhite}hours. %; \
+/def sanctuaryleft = \
+    /if ({sanctuaryleft} >= 0) \
+        /echo -pw %%% @{hCwhite}Sancturay @{nCwhite}for @{hCwhite}%sanctuaryleft @{nCwhite}hours. %; \
     /else \
         /echo -pw %%% @{Cwhite}You are not affected by @{hCwhite}Sanctuary@{nCwhite}. %; \
     /endif
@@ -1115,7 +1104,7 @@
 /def sleft = \
     /let spellsleft=%awenleft %; \
     /if ({focileft} < {spellsleft}) /let spellsleft=%focileft %; /endif %; \
-    /if ({fortleft} < {spellsleft}) /let spellsleft=%fortleft %; /endif %; \
+    /if ({fortitudesleft} < {spellsleft}) /let spellsleft=%fortitudesleft %; /endif %; \
     /if ({spellsleft} >= 0) \
         /echo -pw %%% @{hCgreen}Spells for @{Cred}%{spellsleft}@{Cgreen} hours.@{n} %; \
     /else \
@@ -1300,3 +1289,5 @@
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1
 
+;;; Check duration of stance in use
+/def -mregexp -p99 -F -t"^\* ([a-zA-Z ]+) is currently in use.$" stance_in_use = /send aff ?%{P1}
