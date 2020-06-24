@@ -63,6 +63,8 @@
         /if ({autogroup}=1) group %_name %; \ /endif %; \
     /endif
 
+;/def -mregexp -t'^Clr is now leading Ator's group\.' change_leader = \
+
 /def -mregexp -p5 -F -t"^([a-zA-Z]+) enters [a|an|the]+ ([a-z]+)." leader_ported = \
     /let _porter=$[tolower(strip_attr({P1}))]%;\
     /if ({_porter} =~ {leader}) \

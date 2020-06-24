@@ -144,14 +144,18 @@
 ;;;     tried to get rid of a bunch of duplication
 ;;; ----------------------------------------------------------------------------
 /def auto = \
-  /let tr %{1}%;\
   /let this=$[world_info()]%;\
+  /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /if /test opt_w =~ 'a'%;/then%;/let this=$[world_info()]%;\
+  /else /let this=%opt_w%;\
+  /endif%;\
+  /let tr %{1}%;\
   /let auto_tr_v %{this}_auto_%{tr}%;\
   /let auto_tr $[expr({auto_tr_v})]%;\
   /if ({2} =~ "") /let auto_tr $[!auto_tr] %;\
   /elseif ({2} =~ "on") /let auto_tr 1 %;\
   /elseif ({2} =~ "off")  /let auto_tr 0%;\
-  /else /echo -p @{hcRed}Valid arguments are: on, off and <none>@{n}%;\
+  /else /echo Valid arguments are: on, off and <none>%;\
   /endif%;\
   /set %{this}_auto_%{tr} %{auto_tr}%;\
   /if (auto_tr) /echo -p @{Cred}[CHAR INFO]:@{hCred} Auto-@{Cmagenta}%{tr}@{hCred} (%{this}) is @{Cgreen}ENABLED@{n}.%;\

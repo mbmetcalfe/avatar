@@ -170,6 +170,26 @@
     /statusflag %atarg Target%;\
     /if ({atarg}=1 & {#}>0) /targ %*%;/endif
 
+;; New auto-targetting/stab macro
+/def stab = \
+  /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /if /test opt_w =~ 'a'%;/then%;/let this=$[world_info()]%;\
+  /else /let this=%{opt_w}%;\
+  /endif%;\
+  /auto -w%{this} stab %1%;\
+  /let auto_tr_v %{this}_auto_stab%;\
+  /let auto_tr $[expr({auto_tr_v})]%;\
+  /statusflag %{auto_tr} Stab
+
+/def chkassa=/if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /if /test opt_w =~ 'a'%;/then%;\
+    /let this=$[world_info()]%;\
+  /else \
+    /let this=%opt_w%;\
+  /endif%;\
+;  /let mt $(/getvar tank)%;
+  /if /test %{this}_auto_stab == 1 %; /then /repeat -%2 1 /send -w%{this} hit %1%;/endif
+
 /def targ = \
     /if ({#} > 0) \
         /if ({1} =~ "clear") /unset autotargets%;\

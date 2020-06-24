@@ -52,4 +52,6 @@
 
 /python_load gmcp
 /set gmcp_trig=Y
-/def setgmcp=/send-gmcp Core.Supports.Set ["Room 1", "Char 1" ]
+/def setgmcp =\
+  /send-gmcp Core.Supports.Set ["Room 1", "Char 1" ]%;\
+  /send-gmcp char.group.list

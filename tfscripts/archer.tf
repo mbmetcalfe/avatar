@@ -17,7 +17,7 @@
     put all.bolt %{quiver_bag}%;\
     /set xbowon=0
 
-/def swap = \
+/def old_swap = \
     /let arrowType=%{1}%;\
     /let braceType=arrow%;\
     /if ({#} == 2) /let braceType=%{2}%;\
@@ -28,6 +28,19 @@
     wear "%{arrowType} %{braceType}"%;\
     get "all.%{arrowType} %{braceType}" %quiver_bag%;\
     put all.%{braceType} %quiver_bag%;\
+    /set unbrandish=%{arrowType} %{braceType}
+/def swap = \
+    /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+    /let arrowType=%{1}%;\
+    /let braceType=arrow%;\
+    /if ({#} == 2) /let braceType=%{2}%;\
+    /elseif ({myclass} =~ "fus") /let braceType=stone%;\
+    /elseif ({myclass} =~ "sld") /let braceType=bolt%;\
+    /endif%;\
+    /send -w%{this} get "%{arrowType} %{braceType}" %{quiver_bag}%;\
+    /send -w%{this} wear "%{arrowType} %{braceType}"%;\
+    /send -w%{this} get "all.%{arrowType} %{braceType}" %quiver_bag%;\
+    /send -w%{this} put all.%{braceType} %quiver_bag%;\
     /set unbrandish=%{arrowType} %{braceType}
 
 /def -p0 -mregexp -t"([a-zA-Z\*]+) tells the group '(.*) arrows?'" drone_arrow_swap = \
@@ -181,4 +194,4 @@
   /else \
     /let this=%opt_w%;\
   /endif%;\
-  /if /test %{this}_auto_ammo == 1 %; /then /send -w%{this} /swap %1%;/endif
+  /if /test %{this}_auto_ammo == 1 %; /then /swap -w:{this} %1%;/endif

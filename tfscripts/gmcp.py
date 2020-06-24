@@ -18,6 +18,13 @@ tf.eval("/echo Area ammo information loaded.")
 
 area_ignore = ["System", "Sanctum"]
 
+def gmcp_debug(line, force=False):
+    if not force:
+        tf.eval("/if ({gmcp_echo} =~ 'Y') /echo -p @{hCcyan}[GMCP DEBUG]: @{xCyellow}" + line + "@{n}%;/endif")
+    else:
+        tf.eval("/echo -p @{hCcyan}[GMCP DEBUG]: @{xCyellow}" + line + "@{n}")
+    return
+
 def parse_line(line):
     world, cmd, content = line.split(' ', 2)
     j = None
@@ -29,7 +36,6 @@ def parse_line(line):
       pass
     return world, cmd, j
 
-
 def send_vitals(world, groupie):
     tf.eval("/sendlocal groupie:{}|{}|{}|{}|{}|{}".format(
         world,
@@ -39,8 +45,21 @@ def send_vitals(world, groupie):
         groupie["maxmp"],
         groupie.get("position", "**")))
 
+def get_spell_duration(affect_line):
+    spell_dur_match = re.match(r'for ([0-9]+)', affect_line)
+    if spell_dur_match:
+        return spell_dur_match.groups()[0]
+    else:
+        spell_dur_match = re.match(r'modifies .* for ([0-9]+)', affect_line)
+        if spell_dur_match:
+            return spell_dur_match.groups()[0]
+
+        gmcp_debug("No spell duration match.")
+        return affect_line
+
 def Char_Status(world, status):
     area = status.get('area_name', None)
+    affects = status.get("affects", None)
     if area:
         area_match = re.match(r'^\{[^\}]+\}\s+[^\s]*\s+(.*)', area)
         if area_match:
@@ -49,6 +68,24 @@ def Char_Status(world, status):
         if area not in area_ignore:
             ammo_type = ammo_area.get(area, "piercing")
             tf.eval("/ammo_swap -w%s %s" % (world, ammo_type))
+    if affects:
+        gmcp_debug("We have some affects.")
+        tf.eval("/tickset")
+        tf.eval("/clearspelldurations")
+        for affect in affects:
+            spell_match = re.match(r'^Spell: ([a-zA-Z ]+)$', affect)
+
+            if spell_match:
+                spell_name = spell_match.groups()[0]
+                spell_duration = get_spell_duration((affects[affect]))
+                try:
+                    spell_duration_value = int(spell_duration)
+                    gmcp_debug("%s: %s" % (spell_name, spell_duration_value))
+                    tf_spell_var = spell_name.replace(" ", "") + "left"
+                    tf.eval("/set %s=%d" %(tf_spell_var, spell_duration_value))
+                except ValueError:
+                    gmcp_debug("%s duration is not an int: %s" % (spell_name, spell_duration))
+
 
 def Char_Vitals(world, groupie):
     send_vitals(world, groupie)
