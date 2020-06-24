@@ -2,6 +2,7 @@
 import time
 import subprocess as sp
 import sqlite3
+from tabulate import tabulate
 
 BUFFER_SIZE=1
 HOST='127.0.0.1'
@@ -31,34 +32,35 @@ curs = db.cursor()
 
 while True:
   tmp = sp.call('clear',shell=True)
-  curs.execute('select * from groupies order by hpcurr asc')
-  groupies = curs.fetchall()
-
+  curs.execute('select substr(position,1, 3) position, name, hpcurr, hpmax, manacurr, manamax from groupies order by hpcurr asc')
+  rows = list(curs.fetchall())
   cnt = 0
   msg = ''
-  while True:
-    cnt = 0
-    for groupie in groupies:
-      cnt += 1
+  groupTable = []
+  for groupie in rows:
+      newGroupie = list(groupie)
       hpcol = WHITE
       mncol = WHITE
       namecol = YELLOW
-      name = groupie[0][0:8].rjust(9)
-      fighting = "  "
-      if (groupie[1] < groupie[2]*.75):
-        hpcol = RED
-        namecol = BRED
-      if (groupie[3] < groupie[4]/2):
-        mncol = BRED
-      if (groupie[5] == 'fight'):
-        fighting = BRED + " F" + NOCOLOUR
-      else:
-        fighting = groupie[5][:2]
-      msg = "%s%s%s" + NOCOLOUR + ": %s%d \ " + CYAN + "%d hp  %s%d \ " + GREEN + "%d m" + NOCOLOUR
-      print msg % (fighting, namecol, name, hpcol, groupie[1], groupie[2], mncol, groupie[3], groupie[4]),
-      if cnt % 2 == 0:
-        print
-      else:
-        print "\n",
-    break
-  time.sleep(0.25)
+      poscol = WHITE
+      if (groupie[2] < groupie[3]*0.75):
+          hpcol = RED
+          namecol = BRED
+      if (groupie[4] < groupie[5]/2):
+          mncol = BRED
+      if (groupie[0] == 'fig'):
+          poscol = BRED
+          newGroupie[0] = newGroupie[0].upper()
+      newGroupie[0] = poscol + groupie[0] + NOCOLOUR
+      newGroupie[1] = namecol + groupie[1] + NOCOLOUR
+      newGroupie[2] = hpcol + str(groupie[2]) + NOCOLOUR
+      newGroupie[3] = CYAN + str(groupie[3]) + NOCOLOUR
+      newGroupie[5] = GREEN + str(groupie[5]) + NOCOLOUR
+      groupTable.append(newGroupie)
+      cnt += 1
+
+  #print(tabulate(groupTable, headers=["Pos", "Name", "HP", "MaxHP", "Mn", "MaxMn"], tablefmt="presto", colalign=("right", "right", "right", "left", "right", "left")))
+  print(tabulate(groupTable, headers=["Pos", "Name", "HP", "MaxHP", "Mn", "MaxMn"], tablefmt="presto"))
+
+#  time.sleep(0.25)
+  time.sleep(1)
