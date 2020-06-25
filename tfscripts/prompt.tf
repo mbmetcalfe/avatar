@@ -248,7 +248,6 @@
     /if /test (({mudLag} == 0) & ({currentPosition} =~ "stand"))%;/then /set %{this}_cast 1%;/endif%;\
     /if /test ((%{this}_cast == 1) & ({currentPosition} =~ "fight") & ({mudLag} == 0) & (%{this}_auto_cast == 1))%;/then /castdmg%;/set %{this}_cast 2%;/endif
 
-; From Ebin:
 ;/def -F -mregexp -ag -t"^p2> ([0-9]*) ([A-Za-z]*)\s*$" prompt2 = \
 ;  /let this=$[tolower(world_info())]%;\
 ;  /let wait $[strip_attr({P1})]%;\
@@ -268,6 +267,10 @@
 
 /def status_add_exits = /status_add -x -r1 -AdisplayLag exits:9:Ccyan
 /def status_rm_exits = /status_rm exits
+
+/def status_add_misc = /status_add -x -r1 -Aexits status_misc:8:Cmagenta
+/def status_edit_misc = /status_edit -r1 status_misc:%{1}:Cmagenta
+/def status_rm_misc = /status_rm status_misc
 
 /def status_add_world = /status_add -xB -r1 @world:13:Cred
 /def status_rm_world = /status_rm @world
