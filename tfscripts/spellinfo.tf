@@ -20,7 +20,7 @@
             /sanc%;\
         /endif%; \
         /if ({frenzyleft} < 0 & {refren} = 1) c frenzy%; /endif%; \
-        /if ({mysticalleft} < 0 & {refreshmisc} = 1 & regmatch({myclass},{magType})) \
+        /if ({mysticalbarrierleft} < 0 & {refreshmisc} = 1 & regmatch({myclass},{magType})) \
             c 'mystical barrier'%;\
         /endif%; \
     /endif
@@ -85,7 +85,7 @@
     /if ({prayerleft} < 0 & regmatch({myclass}, {noWorshipType}) == 0) \
         /echo -pw % @{Ccyan}Prayer @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({mysticalleft} < 0 & regmatch({myclass},{magType}) & {myclass} !~ "stm") \
+    /if ({mysticalbarrierleft} < 0 & regmatch({myclass},{magType}) & {myclass} !~ "stm") \
         /echo -pw % @{Cmagenta}Mystical Barrier @{nCwhite}missing.@{n} %; \
     /endif%; \
     /if ({illusoryshieldleft} < 0 & regmatch({myclass},{psiType})) \
@@ -194,6 +194,8 @@
 ;;; ---------------------------------------------------------------------------
 /set checkSpecific=0
 /def -i clrvar = /set %1 -1
+;; spell duration variables are all xxxleft (e.g. focileft, astralshieldleft, etc)
+;; set it to -1 to indicate that it is not active on character
 /def -i clearspelldurations = \
   /let spell_vars=$(/listvar -s *left)%;\
   /mapcar /clrvar %{spell_vars}
@@ -211,12 +213,6 @@
 ;;; Savespell scripts
 /def -p1 -mglob -t"You gain foci." savespell_gain_foci = \
   /if (mytier!~"lord") /send config +savespell%;/endif
-
-/def -p1 -mglob -t"Teacup shoos you away, what a jerk!" check_affects = /send affect
-/def -p1 -mglob -t"Yagharek tells the group 'And we're done!'" check_affects2 = /send affect
-/def -p1 -mglob -t"Kaliver tells the group 'Last chance to config your savespell (if needed) before I cast sanc!'" check_affects2 = /send affect
-/def -p1 -mglob -t"You dream of Barkhound telling you 'Spellup finished.'" check_affects3 = /send affect
-/def -p1 -mglob -t"You dream of Aerniil telling you 'I think that is the split spellup! '" check_affects3 = /send affect
 
 ;;; ---------------------------------------------------------------------------
 ;;; Script to cast any self buffs
@@ -268,16 +264,10 @@
     /else \
         /aq cast %{*}%;\
     /endif
-/def -mglob -aCwhite -t'You feel less focused\.' concdrop = /set concentrateleft=-1%;/set ticktoggle=1
-/def -mglob -aCyellow -t'Your skin returns to normal\.' barkdrop = /set barkskinleft=-1%;/set ticktoggle=1
-/def -mglob -aCmagenta -t'Your pulse slows and your body returns to normal\.' regendrop = /set regenleft=-1%;/set ticktoggle=1
-/def -mglob -aCwhite -t'You feel more exposed as your Nightcloak fades.' nightcloakdrop = /set nightcloakleft=-1%;/set ticktoggle=1
 /def -mregexp -aCwhite -p1 -t'Your illusory shield dissipates.' illusoryshielddrop = \
     /set illusoryshieldleft=-1%;\
     /if ({refreshmisc} == 1) c 'illusory shield'%;/endif
-/def -mglob -aCwhite -t'You can no longer support your kinetic chain and it snaps.' kineticchaindrop = /set kineticchainleft=-1%;/set ticktoggle=1
 /def -mglob -aCwhite -t'You no longer are attuned to the anger of your allies.' fotmdrop = /set fotmleft=-1%;/set ticktoggle=1
-/def -mglob -t'You are no longer due divine intervention.' interventiondrop = /set interventionleft=-1
 /def -mglob -t'Your force shield shimmers then fades away.' focidrop = /set focileft=-1%;/send config -savespell%;/set ticktoggle=1
 /def -mregexp -t'^You no longer move hidden.' re_movehidden = \
     /refreshSkill move%;\
@@ -290,7 +280,7 @@
     /set shadowleft=-1%;/set ticktoggle=1
 
 /def -mglob -ahCmagenta -t"Your mystical barrier shimmers and is gone." mysticaldrop = \
-    /set mysticalleft=-1%;/set ticktoggle=1%;\
+    /set mysticalbarrierleft=-1%;/set ticktoggle=1%;\
     /if ({refreshmisc} == 1) \
         /refreshSpell 'mystical barrier'%;\
     /endif
@@ -310,28 +300,14 @@
         /refreshSpell 'holy zeal'%;\
     /endif
 
-/def -p5 -mglob -t"You concentrate on the darker tenets of your vile philosophy." vilephilosophyup = /set vilephilosophy=999
 /def -p5 -mglob -t"You purge your mind of some of your darker thoughts." vilephilosophydrop = \
     /set vilephilosophy=-1%;/set ticktoggle=1%; \
     /if ({refreshmisc} == 1) cast 'vile philosophy'%;/endif
 
-/def -mglob -aCwhite -t"The soul screams in anguish as it is tied to you." immolationup = /set immolationleft=999
-/def -mglob -aCwhite -t"The power of your immolation disappears." immolationdrop = /set immolationleft=-1%;/set ticktoggle=1
-
-/def -mglob -ah -t"The prison shrinks into a floating red crystal. The soul pulses slowly." astralprisonup = /set astralprisonleft=999
-/def -mglob -aCwhite -t"You already are leeching power off of a trapped soul." astralprisonup2 = /set astralprisonleft=999
-/def -mglob -aCwhite -t"The time is ripe to trap a new soul." astralprisondrop = /set astralprisonleft=999
-
 /def -mregexp -t"(Your senses return to normal|You fail to heighten your senses)" hei_trig = \
     /if ({refreshmisc} == 1) /refreshSkill heighten%;/endif%;\
     /set ticktoggle=1
-;/def -mglob -t"Your senses return to normal." heitrig = /set heichk=1 %; /send hei
-;/def -mglob -t"You fail to heighten your senses." heitrig2 = /send hei
 /def -mregexp -t"^Your senses are (completely|partially|already) heightened[\.!]$" heitrig5 = /set heichk=0
-
-;;; these next two detect fortitudes/awen drop, but it is a bad hack
-/def -mglob -t'You no longer disperse energy\.' fortdrop = /set fortitudesleft=-1%;/set ticktoggle=1
-/def -mglob -t'You feel less protected\.' awendrop = /set awenleft=-1%;/set ticktoggle=1
 
 /def -mregexp -aCcyan -t'^Almighty Gorn\'s presence disappears.' gorn_prayerdrop = \
     /set prayerleft=-1%;\
@@ -371,69 +347,41 @@
     /else /send emote 's |bw|Iron Monk|n| is gone.%;\
     /endif 
 
-/def -mregexp -ahCMagenta -t'^The pink aura around you fades away.' pinkfade = /set ticktoggle=1
-/def -mregexp -ahCblue -t'^Your lungs adapt to oxygen once again.' waterfade = /set waterbreathingleft=-1%;/set ticktoggle=1
+/def -mregexp -ahCMagenta -t'^The pink aura around you fades away.' pinkfade
+/def -mregexp -ahCblue -t'^Your lungs adapt to oxygen once again.' waterfade
 /def -mregexp -ah -t'^You feel less sick.' feellesssick = /send emote 's |y|sickness |n|has been cleared.
 /def -mregexp -ah -t'^Your sores vanish.' plaguedrop = /send emote 's |br|plague |n|has been cured.
 
 ;;; ---------------------------------------------------------------------------
 ;;; Spell Refresh
 ;;; ---------------------------------------------------------------------------
-/def -mglob -aCblack -t"You cloak your presence." nightcloakup = /set nightcloakleft=999
-/def -mglob -aCmagenta -t"You are surrounded by a mystical barrier." mysticalup = \
-    /set mysticalleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?mystical barrier
-/def -mregexp -ahCred -t"(You are filled with rage|You are already in a frenzy)" self_frenzied = \
-	/set frenzyleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?frenzy
-/def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) causes you to rage in fanatical fervor." self_fervored = \
-	/set fervorleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?fervor
-/def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) sees no need to bestow a blessing upon you." self_already_fervored = \
-	/set fervorleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?fervor
-/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted = \
-    /set sanctuaryleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?sanctuary
-/def -mglob -ahCwhite -t"* surrounds you with sanctuary\!" self_sancted2 = \
-    /set sanctuaryleft=999;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?sanctuary
+/def -mglob -aCblack -t"You cloak your presence." nightcloakup
+/def -mglob -aCmagenta -t"You are surrounded by a mystical barrier." mysticalup
+/def -mregexp -ahCred -t"(You are filled with rage|You are already in a frenzy)" self_frenzied
+/def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) (causes you to rage in fanatical fervor|sees no need to bestow a blessing upon you)." self_fervored
+/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted
+/def -mglob -ahCwhite -t"* surrounds you with sanctuary\!" self_sancted2
+/def -mglob -aCblack -t"You cloak your presence." nightcloakup
+/def -mglob -aCmagenta -t"You are surrounded by a mystical barrier." mysticalup
+/def -mregexp -ahCred -t"(You are filled with rage|You are already in a frenzy)" self_frenzied 
+/def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) causes you to rage in fanatical fervor." self_fervored
+/def -mregexp -ahCcyan -t"^(Werredan|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan) sees no need to bestow a blessing upon you." self_already_fervored 
+/def -mregexp -ahCwhite -t"(You are surrounded by a white aura|You are surrounded by a black aura|You are already in sanctuary)" self_sancted 
+/def -mglob -ahCwhite -t"* surrounds you with sanctuary\!" self_sancted2 
 /def -mglob -ahCwhite -t"* is surrounded by *'s sanctuary." other_sancted
-/def -mregexp -ahCwhite -t"(You are already Glowing|You concentrate on the Iron Monk style)" self_already_im = \
-    /set sanctuaryleft=999;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?iron monk
-/def -mregexp -aCWhite -t"(You now have a death shroud\.|You are already shrouded\.)" self_already_shrouded = /set deathshroudleft=999
-/def -mregexp -t"(Your offering of flesh is eagerly accepted\!|You're about as defiled as you're going to get.)" self_defiled_flesh = /set defiledfleshleft=999
-/def -mglob -aCwhite -t'You attune your mind to the anger of your allies.' fotmup = /set fotmleft=999
-/def -mglob -aCwhite -t'You develop a strong kinetic link with your weapons.' kineticchainup = /set kineticchainleft=999
-/def -mglob -aCwhite -t'You project your thoughts and an illusion appears.' illusoryshieldup = /set illusoryshieldleft=999
-/def -mglob -t'The Gods agree to intervene on your behalf!' interventionup = \
-    /set interventionleft=999%;\
-    /set exhaust_intervention=3
-/def -mregexp -t'^([a-zA-Z]+) is already protected by Divine Intervention\!' interventionalreadyup = \
-    /if ({P1} =~ ${world_character}) \
-        /set interventionleft=999%;\
-        /set exhaust_intervention=3%;\
-    /endif
-/def -mglob -ahCmagenta -t"You are consumed by holy zeal." holy_zeal_up = \
-	/set holyzealleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?zeal
+/def -mregexp -ahCwhite -t"(You are already Glowing|You concentrate on the Iron Monk style)" self_already_im 
+/def -mregexp -aCWhite -t"(You now have a death shroud\.|You are already shrouded\.)" self_already_shrouded
+/def -mregexp -t"(Your offering of flesh is eagerly accepted\!|You're about as defiled as you're going to get.)" self_defiled_flesh
+/def -mglob -aCwhite -t'You attune your mind to the anger of your allies.' fotmup
+/def -mglob -aCwhite -t'You develop a strong kinetic link with your weapons.' kineticchainup
+/def -mglob -aCwhite -t'You project your thoughts and an illusion appears.' illusoryshieldup
+/def -mglob -t'The Gods agree to intervene on your behalf!' interventionup
+/def -mregexp -t'^([a-zA-Z]+) is already protected by Divine Intervention\!' interventionalreadyup
+/def -mglob -ahCmagenta -t"You are consumed by holy zeal." holy_zeal_up 
 
-/def -mregexp -t'^You pray to .* for the .* boon\.' prayer_up = \
-    /set prayerleft=999%;\
-    /set checkSpecific=1%;\
-    /send aff ?foci=aff ?prayer
+/def -mregexp -t'^You pray to .* for the .* boon\.' prayer_up 
 
-/def -mglob -ahCmagenta -t"You focus on the Stone Fist technique." stone_fist_up = /set stonefistleft=999
-/def -mglob -ahCmagenta -t"You focus on the Dagger Hand technique." dagger_hand_up = /set daggerhandleft=999
+/def -mglob -ahCmagenta -t"You focus on the (Stone Fist|Dagger Hand) technique." monk_hand_mods_up
 
 ;;; ---------------------------------------------------------------------------
 ;;; Exhaustion
@@ -559,8 +507,8 @@
         /let color=@{Cgreen} %; \
     /elseif ({P1} =~ "mystical barrier") \
         /let color=@{Cmagenta} %; \
-        /set mysticalleft=%P2 %; \
-        /if ({running} == 1 & {mysticalleft} >= {focileft} & {refreshmisc} == 1) /refreshmisc%;/endif%;\
+        /set mysticalbarrierleft=%P2 %; \
+        /if ({running} == 1 & {mysticalbarrierleft} >= {focileft} & {refreshmisc} == 1) /refreshmisc%;/endif%;\
     /elseif ({P1} =~ "illusory shield") \
         /let color=@{Cmagenta} %; \
         /set illusoryshieldleft=%P2 %; \
