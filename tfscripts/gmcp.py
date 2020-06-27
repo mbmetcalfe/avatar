@@ -85,6 +85,7 @@ def Char_Status(world, status):
                     tf.eval("/set %s=%d" %(tf_spell_var, spell_duration_value))
                 except ValueError:
                     gmcp_debug("%s duration is not an int: %s" % (spell_name, spell_duration))
+    tf.eval("/gmcp-char-status")
 
 
 def Char_Vitals(world, groupie):
@@ -96,6 +97,7 @@ def Char_Group_List(world, groupies):
     for groupie in groupies:
         send_vitals(groupie["name"].lower(), groupie)
     tf.eval("/set grouplist=%s" % ' '.join([groupie["name"].lower() for groupie in groupies]))
+    tf.eval("/set groupies=<%s<" % '<'.join([groupie['name'].lower() for groupie in groupies]))
 
 def Room_RemovePlayer(world, j):
     tf.eval("/send-gmcp char.group.list")

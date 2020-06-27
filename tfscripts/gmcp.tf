@@ -40,7 +40,6 @@
   /endif
 
 
-
 /def do-gmcp-stuff = \
   /let this $[world_info()]%;\
   /if (gmcp_echo =~ "Y") \
@@ -55,3 +54,11 @@
 /def setgmcp =\
   /send-gmcp Core.Supports.Set ["Room 1", "Char 1" ]%;\
   /send-gmcp char.group.list
+
+;;; Macros to trigger from gmcp.py
+;; /gmcp-char-status - this is fired after all processing in Char_Status. 
+;;    After char.status is received and processed.
+/def -i  gmcp-char-status = \
+  /let this=$[world_info()]%;\
+  /if /ismacro %{this}_char_status%; /then /%{this}_char_status%;/else /generic_char_status%;/endif
+  

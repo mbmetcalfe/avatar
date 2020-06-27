@@ -46,8 +46,8 @@
     c 'final rite' %1%;\
     /aq vit %2
 /alias fines \
-    /send stance soul=c 'soul shackle' %1%;\
-    fine %1 %2
+    fine %1 %2%;\
+    /send stance soul=c 'soul shackle' %1
 /alias shack /send stance soul=c 'soul shackle' %1
 /alias vgo /cast on%;/aq /cast off%;/send =
 
@@ -58,7 +58,7 @@
 /def aphleb = /auto phleb %1
 /def ashack = /auto shackle %1
 /def -wvulko -F -mregexp -p999 -aCmagenta -t"has some big nasty wounds and scratches" vulko_shackle_start = \
-    /if ({vulko_auto_shackle} == 1) shack%;/endif
+    /if ({vulko_auto_shackle} == 1) shack%;/ashack off%;/aq /ashack on%;/endif
 /def -wvulko -F -mregexp -p999 -aCred -t"(looks pretty hurt|in awful condition)" vulko_auto_phleb = \
     /if ({running} == 1 & {vulko_auto_cast} == 0 & {vulko_auto_phleb} == 1)\
         /cast on%;/aq /cast off%;/send =%;\

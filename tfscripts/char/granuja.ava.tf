@@ -13,10 +13,10 @@
 
 /def -ag -mregexp -wgranuja -t"^\*([a-zA-Z]*)\* tell[s]* the group 'pick ([a-zA-Z]+)'" gtell_autopick = pick %P2
 
-/def granujamidround = \
-    /if ({mudLag} <3) \
-        /send vital %avs_spot%;\
-    /endif 
+/def granuja_char_status = \
+  /set status_misc=$[getStanceStatus()]%;\
+  /let curStanceLen=$[strlen({status_misc})]%;\
+  /status_edit_misc %{curStanceLen}
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState granuja

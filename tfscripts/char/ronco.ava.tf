@@ -43,5 +43,10 @@
         /set roncoPromptHookCheckToggle=1%;\
     /endif
 
+/def ronco_char_status = \
+  /set status_misc=$[getStanceStatus()]%;\
+  /let curStanceLen=$[strlen({status_misc})]%;\
+  /status_edit_misc %{curStanceLen}
+
 ;; Load in the variables saved from previous state.
 /loadCharacterState ronco
