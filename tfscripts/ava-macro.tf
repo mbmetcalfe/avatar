@@ -640,18 +640,17 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Brandish stuff
 ;;; ----------------------------------------------------------------------------
-;/set branLeft=0
 /def -i setBranLeft = \
-    /set branLeft %1%;\
-    /set displayBranLeft=$[substr({brandish}, 0, 3)]:%{branLeft}
+    /set branRemaining %1%;\
+    /set displayBranRemaining=$[substr({brandish}, 0, 3)]:%{branRemaining}
 
-/def status_add_brandish = /status_add -x -BdisplayTNL displayBranLeft:8
-/def status_rm_brandish = /status_rm displayBranLeft
+/def status_add_brandish = /status_add -x -BdisplayTNL displayBranRemaining:8
+/def status_rm_brandish = /status_rm displayBranRemaining
 
 /def bra = \
     get %brandish %{main_bag}%;remove %unbrandish%;wear %brandish%;brandish%;rem %brandish%;wear %unbrandish%; \
-    /setBranLeft $[--branLeft]%; \
-    /if ({branLeft} > 1) \
+    /setBranLeft $[--branRemaining]%; \
+    /if ({branRemaining} > 1) \
         put %brandish %{main_bag} %; \
     /else \
         /send get %{rechargeContainer} %{main_bag}=put %brandish %{rechargeContainer}=put %{rechargeContainer} %{main_bag}%; \
@@ -679,7 +678,7 @@
  
 /def branleft = \
     /if ({brandish} !~ "") \
-        /echo -pw %% @{hCred}There are @{hCwhite}%branLeft @{hCred}brandishes left on @{hCwhite}%brandish@{hCred}.@{n}%;\
+        /echo -pw %% @{hCred}There are @{hCwhite}%branRemaingin  @{hCred}brandishes left on @{hCwhite}%brandish@{hCred}.@{n}%;\
     /else \
         /echo -pw @{hCred}No brandish currently configured.@{n}%;\
     /endif
