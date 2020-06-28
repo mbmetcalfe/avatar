@@ -15,6 +15,7 @@
 
 /def granuja_char_status = \
   /set status_misc=$[getStanceStatus()]%;\
+  /if ({status_misc} =~ "No Stance") /set status_misc=$[getSpellDuration()]%;/endif%;\
   /let curStanceLen=$[strlen({status_misc})]%;\
   /status_edit_misc %{curStanceLen}
 

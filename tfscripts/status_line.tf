@@ -61,7 +61,7 @@
   /endif%;\
   /let stance_duration_name=%{active_stance}left%;\
   /if ({active_stance} =~ "None") \
-      /return "No Stance"%;\
+    /return "No Stance"%;\
   /else \
     /let stance_duration=$[expr({stance_duration_name})]%;\
     /return "%{stance_display}:%{stance_duration}"%;\
