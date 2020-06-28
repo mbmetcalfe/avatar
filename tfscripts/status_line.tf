@@ -73,6 +73,7 @@
     /if ({awenleft} > {spellDuration}) /let spellDuration=%{awenleft}%;/endif%;\
     /if ({focileft} > {spellDuration}) /let spellDuration=%{focileft}%;/endif%;\
     /if ({fortitudesleft} > {spellDuration}) /let spellDuration=%{fortitudesleft}%;/endif%;\
+    /if ({spellDuration} < 0) /let spellDuration=0%;/endif%;\
     /return "Spells:%{spellDuration}"
 
 ;;; Set misc status line field as spell duration

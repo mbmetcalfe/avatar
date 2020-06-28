@@ -55,6 +55,7 @@ while True:
       newGroupie[1] = namecol + groupie[1] + NOCOLOUR
       newGroupie[2] = hpcol + str(groupie[2]) + NOCOLOUR
       newGroupie[3] = CYAN + str(groupie[3]) + NOCOLOUR
+      newGroupie[4] = mncol + str(groupie[4]) + NOCOLOUR
       newGroupie[5] = GREEN + str(groupie[5]) + NOCOLOUR
       groupTable.append(newGroupie)
       cnt += 1

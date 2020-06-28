@@ -22,3 +22,18 @@
 /def -F -mregexp -t"^You create a magic air hammer!$" autoham2=/if /test $(/getvar auto_hammer) == 1%;/then t %{rcbot} rc%;/endif
 /def -F -mregexp -t"^Your a magic air hammer glows blue.$" autoham3=/if /test $(/getvar auto_hammer) == 1%;/then c id ham%;/endif
 
+/alias 11 surge 1=1 %1
+/alias 12 surge 2=1 %1
+/alias 13 surge 3=1 %1
+/alias 14 surge 4=1 %1
+/alias 15 surge 5=1 %1
+/alias 21 surge 1=2
+/alias 22 surge 2=2
+/alias 23 surge 3=2
+/alias 24 surge 4=2
+/alias 25 surge 5=2
+/alias 31 surge 1=3 %1
+/alias 32 surge 2=3 %1
+/alias 33 surge 3=3 %1
+/alias 34 surge 4=3 %1
+/alias 35 surge 5=3 %1

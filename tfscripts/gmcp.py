@@ -36,7 +36,7 @@ def parse_line(line):
       pass
     return world, cmd, j
 
-def send_vitals(world, groupie):
+def log_vitals(world, groupie):
     tf.eval("/sendlocal groupie:{}|{}|{}|{}|{}|{}".format(
         world,
         groupie["hp"],
@@ -87,15 +87,26 @@ def Char_Status(world, status):
                     gmcp_debug("%s duration is not an int: %s" % (spell_name, spell_duration))
     tf.eval("/gmcp-char-status")
 
-
-def Char_Vitals(world, groupie):
-    send_vitals(world, groupie)
-    #tf.eval("/send-gmcp char.group.list")
+def Char_Vitals(world, data):
+    log_vitals(world, data)
+    # set status line variables
+    tf.eval("/set myTNL=%s" % data['maxtnl'])
+    tf.eval("/set curr_hp=%s" % data['hp'])
+    tf.eval("/set max_hp=%s" % data['maxhp'])
+    tf.eval("/set curr_mana=%s" % data['mp'])
+    tf.eval("/set max_mana=%s" % data['maxmp'])
+    tf.eval("/set curr_move=%s" % data['mv'])
+    tf.eval("/set max_move=%s" % data['maxmv'])
+    # TODO: Fix status line to reduce these 4 lines to 2.
+    tf.eval("/set mudLag=%s" % data['lag'])
+    tf.eval("/set displayLag=Lag:%s" % data['lag'])
+    tf.eval("/set tnl=%s" % data['tnl'])
+    tf.eval('/set displayTNL=%s' % data['tnl'])
 
 def Char_Group_List(world, groupies):
     tf.eval("/sendlocal groupieclr:")
     for groupie in groupies:
-        send_vitals(groupie["name"].lower(), groupie)
+        log_vitals(groupie["name"].lower(), groupie)
     tf.eval("/set grouplist=%s" % ' '.join([groupie["name"].lower() for groupie in groupies]))
     tf.eval("/set groupies=<%s<" % '<'.join([groupie['name'].lower() for groupie in groupies]))
 
