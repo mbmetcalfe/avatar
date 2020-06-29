@@ -94,6 +94,7 @@
 /load -q gmcp.tf
 /load -q generic.tf
 /load -q vars.tf
+/load -q status_line.tf
 
 ;; to avoid having to reload ava-macro.tf, will try putting this here
 /def -b'^P' key_prev_hx = /dokey recallb
