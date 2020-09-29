@@ -184,3 +184,79 @@
 ;;; ----------------------------------------------------------------------------
 /def -mregexp -ahCwhite -p99 -t'has been marked with final rites\.$' final_rites_up 
 
+;;; Lord auto-healing macros
+;; /addheal name   Add name to heal list
+;; /rmheal name    Remove name from heal list
+;; /noheal         Remove everyone from heal list
+;; /checkheal      Look at current world heal list and ask db who you need to comfort (or mass comf)
+;;                 Should have in game alias of 'pc' for "c 'mass comfort'" or "preach comfort"
+/def addheal=\
+ /let this=$[world_info()]%;\
+ /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+ /if /test opt_w =~ 'a'%;/then%;\
+  /let this=$[world_info()]%;\
+ /else \
+   /let this=%opt_w%;\
+ /endif%;\
+ /let hlv=%{this}_heallist%;\
+ /let heallist=$[expr(%hlv)]%;\
+ /let heallist=$(/unique $[tolower(strcat({heallist}," ",{*}))])%;\
+ /set %{this}_heallist=%heallist%;\
+ /echo %{this} healing: %heallist
+
+/def rmheal=\
+ /let this=$[world_info()]%;\
+ /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+ /if /test opt_w =~ 'a'%;/then%;\
+  /let this=$[world_info()]%;\
+ /else \
+   /let this=%opt_w%;\
+ /endif%;\
+ /let hlv=%{this}_heallist%;\
+ /let heallist=$[expr(%hlv)]%;\
+ /echo %heallist%;\
+ /let heallist=$(/remove %{1} %heallist)%;\
+ /set %{this}_heallist=%heallist%;\
+ /echo %{this} healing: %heallist
+
+/def noheal = \
+ /let this=$[world_info()]%;\
+ /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+ /if /test opt_w =~ 'a'%;/then%;\
+  /let this=$[world_info()]%;\
+ /else \
+   /let this=%opt_w%;\
+ /endif%;\
+ /set %{this}_heallist=%;\
+ /echo -p @{Ccyan}%{this} healing none.@{n}
+
+;; queries db for who to heal, only useful for lord really since the server sends back comforts
+;; heals people in the list who are down more than 800 hps. does not augment.
+/def checkheal=\
+  /let this $[world_info()]%;\
+ /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+ /if /test opt_w =~ 'a'%;/then%;\
+  /let this=$[world_info()]%;\
+ /else \
+   /let this=%opt_w%;\
+ /endif%;\
+  /let htv %{this}_heallist%;\
+  /let heallist=$[expr(htv)]%;\
+  /let heallist=$[replace(" ","|",%heallist)]%;\
+  /let heallen=$[strlen(heallist)]%;\
+  /let heallist=$[substr(heallist, 0, $[heallen-1])]%;\
+  /sendlocal heal:%{this}|%{heallist}
+
+/def showheal = \
+  /let this=$[world_info()]%;\
+  /let htv %{this}_heallist%;\
+  /let heallist=$[expr(htv)]%;\
+  /let heallist=$[replace(" ","|",%heallist)]%;\
+  /let heallen=$[strlen(heallist)]%;\
+  /let heallist=$[substr(heallist, 0, $[heallen-1])]%;\
+  /echo -p @{Ccyan}%{this} Healing: @{Cwhite}%heallist@{n}
+
+;; trigger for the 'local' world that executes commands returned from the server
+/def -wlocal -mregexp -t"^/echo(.*)$"=/echo %P1
+/def -wlocal -mregexp -t"^([a-z]*):(.*)$"=/send -w%P1 %P2%;/echo -w%P1 %P2
+
