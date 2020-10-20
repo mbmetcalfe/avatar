@@ -57,7 +57,7 @@
     /send worth%;\
     /setgmcp
 
-/def -mregexp -t'Good luck getting (Hero|Lord|Legend) level ([0-9]*) today!' set_level = \
+/def -mregexp -t'^Good luck getting (Hero|Lord|Legend) level ([0-9]*) today!' set_level = \
     /let tier=%P1%;/let level=%P2%;\
     /set mylevel=$[{level}-1]%;\
     /set mytier=$[tolower({tier})]%;\
@@ -65,8 +65,10 @@
     /send worth%;\
     /setgmcp
 
-/def -mregexp -t'Welcome to the AVATAR System, (Hero|Lord) [a-zA-Z]+\.' set_tier = \
-    /set mytier=$[tolower({P1})]
+/def -mregexp -t'^Welcome to the AVATAR System, (Hero|Lord) [a-zA-Z]+\.' set_tier = \
+    /set mytier=$[tolower({P1})]%;\
+    /setgmcp
+
 /def -mregexp -t"^Why haven\'t you morphed yet\?$" set_level999 = \
     /hook_resize%;\
 ;    /set mylevel=999%;\

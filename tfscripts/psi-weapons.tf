@@ -18,6 +18,7 @@
 /set psi_brock=nightblade nine
 /set psi_busket=all.busk
 /set psi_calp=calpchak32 calpchak2
+/set psi_cheddar=cheddar1 calpchak1.2
 /set psi_capulet=capuletwie capuletoff
 /set psi_chiles=brock skillet 
 /set psi_chloro=wildwood
@@ -25,7 +26,7 @@
 /set psi_concertina=aria
 /set psi_cruel=hitjf executioner
 /set psi_deacon=deacon
-/set psi_delaznel=croatoan delaznel
+/set psi_delaznel=calpchak2 calpchak32c
 /set psi_diabolus=vermistra yxunomei
 /set psi_dino=dino
 /set psi_drakki=nyxx
@@ -90,13 +91,14 @@
 /set psi_mesmer=noetch
 /set psi_methill=killl
 /set psi_michelle=zenita natal
-/set psi_mimi=destiny myzerie
+/set psi_mimi=all.mimi
 /set psi_mindmelt=calris
 /set psi_mithr=psiw rogo
 /set psi_mosh=wield
 /set psi_muaddib=spirit
 /set psi_nit=waldorf
 /set psi_nonaloth=nonawield nonaoffhand
+/set psi_ore=all.oreweap
 /set psi_outcast=vanpsimain vanpsioff
 /set psi_owari=all.ragn
 /set psi_patog=mars thanatos

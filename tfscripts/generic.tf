@@ -16,11 +16,15 @@
 ;; /set rcbot=someone          Who to send tells for remove curse to
 /def hammer=/auto hammer %1
 
-/def -F -mregexp -t"^'air hammer     '  modifies damage roll by  (1[0-9]|2[0-3]) continuous" air_hammer01 = drop hammer
-/def -ahCyellow -F -mregexp -t"^'air hammer     '  modifies damage roll by  (2[4-9]|3[0-9]) continuous" air_hammer02 = put ham %{main_bag}
+/def -F -mregexp -t"^'air hammer     '  modifies damage roll by  (1[0-9]|2[0-3]) continuous" air_hammer01 = /if /test $(/getvar auto_hammer) == 1%;/then drop hammer%;/endif
+/def -ahCyellow -F -mregexp -t"^'air hammer     '  modifies damage roll by  (2[4-9]|3[0-9]) continuous" air_hammer02 = /if /test $(/getvar auto_hammer) == 1%;/then put ham %{main_bag}%;/endif
 /def -F -mregexp -t"^'air hammer     '  modifies hit roll by " autoham=/if /test $(/getvar auto_hammer) == 1%;/then c 'air hammer'%;/endif
 /def -F -mregexp -t"^You create a magic air hammer!$" autoham2=/if /test $(/getvar auto_hammer) == 1%;/then t %{rcbot} rc%;/endif
 /def -F -mregexp -t"^Your a magic air hammer glows blue.$" autoham3=/if /test $(/getvar auto_hammer) == 1%;/then c id ham%;/endif
+
+;; questpoint transfer
+/def -mregexp -ah -t"^You have ([0-9]+) quest points.$" transfer_questpoints = \
+    /if ((%{P1} >= 5) & (world_info() !~ tolower(%{MAIN_QUESTPOINT_ALT}))) /send questpoint transfer %{P1} %{MAIN_QUESTPOINT_ALT}%;/endif
 
 /alias 11 surge 1=1 %1
 /alias 12 surge 2=1 %1

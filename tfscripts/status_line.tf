@@ -69,11 +69,12 @@
 
 ;;; Curde method of getting spell duration - just take the greater of the macro spell duration
 /def -i getSpellDuration = \
-    /let spellDuration=%{aegisleft}%;\
+    /let spellDuration=-1%;\
+    /if ({aegisleft} > {spellDuration}) /let spellDuration=%{aegisleft}%;/endif%;\
     /if ({awenleft} > {spellDuration}) /let spellDuration=%{awenleft}%;/endif%;\
     /if ({focileft} > {spellDuration}) /let spellDuration=%{focileft}%;/endif%;\
     /if ({fortitudesleft} > {spellDuration}) /let spellDuration=%{fortitudesleft}%;/endif%;\
-    /if ({spellDuration} < 0) /let spellDuration=0%;/endif%;\
+    /if ({spellDuration} < 0) /let spellDuration=NA%;/endif%;\
     /return "Spells:%{spellDuration}"
 
 ;;; Set misc status line field as spell duration
@@ -82,3 +83,9 @@
   /let curDurationLen=$[strlen({status_misc})]%;\
   /status_edit_misc %{curDurationLen}
 
+;; Set misc status line field to stance. If not stance active, go with spell duration
+/def stance_char_status = \
+  /set status_misc=$[getStanceStatus()]%;\
+  /if ({status_misc} =~ "No Stance") /set status_misc=$[getSpellDuration()]%;/endif%;\
+  /let curStanceLen=$[strlen({status_misc})]%;\
+  /status_edit_misc %{curStanceLen}

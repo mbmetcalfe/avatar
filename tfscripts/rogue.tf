@@ -74,7 +74,7 @@
     /let traptype=%P1 %; \
     /if ({autopick} == 1) \
         /send get disarming %{main_bag}=wear disarming=dismantle %traptype %lockbox %; \
-        /send rem disarming=put disarming %{main_bag}=wear %lockpick=pick %lockbox%;\
+        /send rem disarming=put disarming %{main_bag}=wear %{lockpick_chest}=pick %lockbox%;\
     /endif
 
 /def -mglob -t'The * is not trapped.' lockpick_notrap = \
@@ -117,10 +117,8 @@
 ;;; ----------------------------------------------------------------------------
 /def -mregexp -t"(Alert what now\?|You feel less perceptive|The only thing you notice is that your boots are untied)" alert_trig = \
     /set ticktoggle=1%;\
-    /if ({running}=1) \
-        /if ({currentPosition} =~ "stand" & {mudLag} < 3) /send alertness%;\
-        /else /aq alertness%;\
-        /endif%;\
+    /if ({refreshmisc} == 1) \
+        /refreshSkill alertness%;\
     /endif
 
 /def -p1 -mglob -t"* dodges at the last second\!" attack_dodged = /set adodged=$[++adodged]
@@ -182,11 +180,16 @@
   /statusflag %{auto_tr} Stab
 
 /def chkassa=/if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /echo -p [DEBUG:] /chkassa HIT%;\
   /if /test opt_w =~ 'a'%;/then%;\
     /let this=$[world_info()]%;\
   /else \
     /let this=%opt_w%;\
   /endif%;\
+  /if /test %{this}_auto_stab == 1%; /then /echo stabbing%;/endif%;\
+  /let mbm_v %{this}_auto_stab%;\
+  /let mbm $[expr({mbm_v})]%;\
+  /eval /echo -p STAB: %{this}, 1: %{1}, 2: %{2}, auto: %{this}_auto_stab : %{mbm}%;\
 ;  /let mt $(/getvar tank)%;
   /if /test %{this}_auto_stab == 1 %; /then /repeat -%2 1 /send -w%{this} hit %1%;/endif
 

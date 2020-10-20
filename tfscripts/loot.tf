@@ -135,7 +135,7 @@
 /def -mglob -t"*A pile of gold coins." gear_misc_coins = /if ({autoloot} = 1) /send get all.coins%; /endif
 ;/def -mglob -t"Cyskadella is DEAD!!" gear_misc_cysk = /if ({autoloot} = 1) /send get key cor%;/endif
 /def -mglob -t'The master thief is DEAD!!' gear_misc_intruder = /lootcor lockpick
-/def -mglob -t"The Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
+/def -mglob -t"Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
 /def -mglob -t"The Lord Typhus' shadow is DEAD!!" gear_misc_typhus = /lootcor staff
 /def -mglob -t"The grand templar is DEAD!!" gear_misc_templar = /lootcor flask
 /def -mglob -t"Tryystania the DracoLich is DEAD!!" gear_misc_tryys = /if ({autoloot} = 1) /send get skull corpse%;/endif
@@ -161,6 +161,10 @@
 /def -mglob -t"An earth elemental is DEAD!!" gear_eragora_elemantal = /lootcor elemental
 /def -mglob -t"Binbinka, the village shaman is DEAD!!" gear_eragora_binbin = /lootcor pearl cor
 /def -mglob -t"* A barrel made from wooden lathes." gear_eragora_crab_meat = /if ({autoloot} = 1) /send open barrel=get meat barrel%;/endif
+
+;; Sanc insig items
+/def -mglob -t"Zurik the Elder Shaman is DEAD!!" gear_eragora_cowl = /lootcor cowl
+/def -mglob -t"A circle of shamans is DEAD!!" gear_eragora_night_skirt = /lootcor skirt%;/if ({autoloot} = 1) /send get key corpose%;/endif
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose
@@ -236,7 +240,11 @@
 /def -mglob -p1 -t"A lizardwoman thief is DEAD!!" gear_misc_silver_lockpick = /lootcor lockpick
 
 ;;; Lordly level stuff
-/def -mglob -p1 -t"The flames subside, leaving a crystalline wand in their wake." gear_lord_crystal_wand = /if ({autoloot} = 1) /send get wand%; /endif
+/def -mglob -p1 -t"The flames subside, leaving a crystalline wand in their wake." gear_lord_crystal_wand = \
+    /if ({autoloot} = 1) \
+        /send get "ritual purification wand crystal"%;\
+        /def -n1 -mglob -p50 -F -t"You get ritual purification wand." gear_lord_get_wand = /send give "ritual purification wand crystal" %{leader}%;\
+    /endif
 /def -mglob -p1 -t"* leaves behind * ashes!" gear_misc_ashes = /if ({autoloot} == 1) /send get ashes%;/endif
 /def -mglob -p1 -t"A gith thief is DEAD!!" gear_lord_thief_corpse = \
     /if ({autoloot} == 1) /send get corpse%;/endif

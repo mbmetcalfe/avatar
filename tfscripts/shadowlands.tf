@@ -40,5 +40,6 @@
 /set numShadowPieces=0
 /def -ar -mregexp -t"^The shadow falls to pieces\." highlight_shadowlands_piece = \
     /set numShadowPieces=$[++numShadowPieces]%;\
-    /echo -pw %%% @{Cwhite}%{numShadowPieces} shadow pieces.@{n}
+    /echo -pw %%% @{Cwhite}%{numShadowPieces} shadow pieces.@{n}%;\
+    /if ({leader} !~ "Self") /send get "shadow piece"=give "shadow piece" %{leader}%;/endif
 

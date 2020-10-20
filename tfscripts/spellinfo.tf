@@ -152,8 +152,9 @@
                 /echo -pw % @{hCyellow}Kinetic Chain Exhausts in @{nCwhite}%{exhaust_kineticchain} @{hCyellow}hours.@{n}%;\
             /endif%;\
         /endif%;\
-        /if ({stunningweaponleft} < 0 & {disablingweaponleft} < 0 & {distractingweaponleft} < 0) \
-            /echo -pw % @{Cyellow}Missing Kinetic Enhancer (@{Cwhite}disabling@{Cyellow}|@{Cwhite}stunning@{Cyellow}|@{Cwhite}distracting@{Cyellow})@{n}%;\
+        /if ({consciousweaponleft} < 0) /echo -pw % @{hCyellow}Conscious Weapon @{nCwhite}missing.@{n}%;/endif%;\
+        /if ({stunningweaponleft} < 0 & {disablingweaponleft} < 0 & {distractingweaponleft} < 0 & {fellingweaponleft} < 0) \
+            /echo -pw % @{Cyellow}Missing Kinetic Enhancer (@{Cwhite}disabling@{Cyellow}|@{Cwhite}stunning@{Cyellow}|@{Cwhite}distracting@{Cyellow}|@{Cwhite}felling@{Cyellow})@{n}%;\
         /endif%;\
     /elseif ({myclass} =~ "prs") \
         /if ({interventionleft} < 0) \
@@ -192,13 +193,26 @@
 ;;; ---------------------------------------------------------------------------
 ;;; Reset durations
 ;;; ---------------------------------------------------------------------------
+;; -- set some vars that don't 'normally' get set
+/clrvar stunningweaponleft
+/clrvar disablingweaponleft
+/clrvar distractingweaponleft
+/clrvar fellingweaponleft
+/clrvar consciousweaponleft
+/clrvar prayerleft
+/clrvar illusoryshieldleft
+/clrvar holyzealleft
+/clrvar fervorleft
+
 /set checkSpecific=0
 /def -i clrvar = /set %1 -1
 ;; spell duration variables are all xxxleft (e.g. focileft, astralshieldleft, etc)
 ;; set it to -1 to indicate that it is not active on character
 /def -i clearspelldurations = \
   /let spell_vars=$(/listvar -s *left)%;\
-  /mapcar /clrvar %{spell_vars}
+  /mapcar /clrvar %{spell_vars}%;\
+  /set sick_poison=0%;/set sick_disease=0%;/set sick_other=%;/set sick_web=0%;/set sick_deathsdoor=0%;\
+  /set sick_rupture=0%;/set sick_blind=0
 
 /def -mglob -ahCwhite -t'You are not under the affects of any spells or skills.' durationreset2 = /durationreset
 /def -mglob -ag -t'You are affected by:' durationreset = \
@@ -1225,8 +1239,8 @@
     /toggle autohog%;\
     /echoflag %{autohog} Re-HoG
     
-/def -mglob -p5 -t"With despair, you realize your hands are mortal again." hog_rehog = \
-    /if ({autohog} == 1) /send hog%;/endif
+/def -mglob -p5 -t"With despair, you realize your hands are mortal again." hog_rehog = /if ({autohog} == 1) /send hog%;/endif
+/def -mglob -p5 -t"There is a HOGathon going on right now!" login_rehog = /if ({autohog} == 1) /send hog%;/endif
 
 /def -p5 -mglob -t"Your mind drifts off onto the joy of killing!" tainted_genius_up = \
     /stnl $[tnlthreshold*2]%;\
@@ -1239,3 +1253,12 @@
 
 ;;; Check duration of stance in use
 /def -mregexp -p99 -F -t"^\* ([a-zA-Z ]+) is currently in use.$" stance_in_use = /send aff ?%{P1}
+
+;; Triggers until he gets more mvs
+/def seven = /auto seven
+; make a severside alias 'seven' to get/wear seven league boots
+/def -mregexp -p1 -au -t"^You feel less durable\.$" endurance_fall = \
+  /if /test $(/getvar auto_seven) == 1%;/then /send seven%;/endif
+; make a serverside alias 'noseven' to wear 'normal' foot wear
+/def -mregexp -p1 -au -t"^You feel energized\.$" endurance_up = \
+  /if /test $(/getvar auto_seven) == 1%;/then /send noseven=config +savespell%;/endif

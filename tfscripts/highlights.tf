@@ -34,6 +34,8 @@
 /def -ag -mglob -t"People who share your buddy value:" gag_buddyshare
 /def -ag -mregexp -t"^\[GROUP INFO\]: ([a-zA-Z]*) \((Hero|Lord|Legend|level) ([0-9]*) ([a-zA-Z ]*)\) is looking for a group!" high_groupme = \
 	/echo -pw @{Cred}[GROUP INFO]: @{hCyellow}%P1 @{nCred}(@{hCcyan}%P2 @{hCred}%P3 @{hCcyan}%P4@{nCred}) is looking for a group!@{n}
+/def -ag -mregexp -t"^\[GROUP INFO\]: ([a-zA-Z]+) \((Legend|Lord|Hero|level)\) ([0-9]+) is starting a group: (.*)" high_groupstart =\
+  /echo -pw @{Cred}[GROUP INFO]: @{hCyellow}%P1 @{nCred}(@{hCcyan}%P2 @{hCred}%P3 @{hCcyan}%P4@{nCred}) is starting a group: @{hCcyan}%{P5}@{n}
 
 /def -ag -mregexp -t"^\[DEATH INFO\]: ([a-zA-Z]*) killed by (.+) in (.+) \(([0-9]*)\)\." high_deathinfo = \
     /echo -pw @{Cred}[DEATH INFO]: @{hCcyan}%P1 @{nCred}killed by @{hCyellow}%P2 @{nCred}in @{hCyellow}%P3 @{nCred}(%P4).@{n} %; \
@@ -338,8 +340,13 @@
     /echo -pw @{Ccyan}%{PL}@{nCcyan}The serene @{hCwhite}(@{nCcyan}butcher@{hCwhite}) @{nCcyan}look of insanity, perhaps the last thing you ever see.
 /def -ag -mglob -t"A massive githzerai swaggers toward you\." sub_outland_champion = \
     /echo -pw @{Ccyan}%{PL}@{nCcyan}A massive githzerai, @{hCwhite}(@{nCcyan}champion@{hCwhite}), swaggers toward you.
+/def -p99 -F -ag -mglob -t"A githzerai hides in the shadows, gathering intelligence." sub_outland_det_spy = /echo -pw %{PL}(@{nCyellow}Detonate@{nCyan}) A githzerai hides in the shadows, gathering intelligence.@{n}
 
 /def -ah -mglob -t"A royal half-orc guard blocks your path." erogora_guard_with_key_to_zurik
+
+;;; ==== Arcadia
+;;; *** Menagerie
+/def -ah -mglob -t"You feel you can learn even more now from the menagerie creatures." arcadia_menagerie_death_wishes
 
 ;;; *** Gags
 /def -mregexp -ag -t"^A large number of [a-zA-Z]+'s wounds are healed." gag_heal
@@ -457,7 +464,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Fae Rune Displaying
 ;;; ----------------------------------------------------------------------------
-/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (10QP)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-exp", strcat({P2}, " (300 Exp)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Fire|Disease|Insanity|Pain)'(.*)" highlight_fae_rune_002 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (5QP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Chaos|Obfuscation)'(.*)" highlight_fae_rune_003 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (400XP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Darkness|Drought|Fear|Charm|Entropy)'(.*)" highlight_fae_rune_004 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (300XP)"), {PR})]
@@ -489,11 +496,34 @@
         /echo -pw @{Cyellow}%{1} @{Cgreen}[%{2}]@{n}%;\
     /endif
 
+;; Karnath
+;;; Patriarchs' Gulch
+/def -ag -mregexp -t"^Overlooking Patriarchs\' gulch" karnath_gulch_room = /test $[echoRoomFlags({P0}, "Lloydable")]
+
 ;; Necropolis
 /def -ag -mregexp -t"^At the cusp of the Necropolis$" necropolis_safe_room = /test $[echoRoomFlags({P0},  "Safe")]
 
 ;; The Great Divide
-/def -ag -mregexp -t"^Altar of Kra$" divide_safe_room = /test $[echoRoomFlags(%{P0},  "Anti-Magic, Safe")]
+/def -ag -mregexp -t"^The Altar of Kra$" divide_safe_room = \
+    /test $[echoRoomFlags(%{P0},  "Anti-Magic, Safe")]%;\
+    /if ({leader} =~ "Self") /send linkrefresh group%;/endif
 /def -ag -mregexp -t"^Shattered wall$" divide_noncursed_room1 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]
 /def -ag -mregexp -t"Opening in the cliffs$" divide_noncursed_room2 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]
 /def -ag -mregexp -t"The one with the Abyss$" divide_noncursed_room3 = /test $[echoRoomFlags(%{P0},  "Non-Cursed")]
+
+;; Deepways
+/def -ag -mregexp -t"^At the entrance to the Fungal Forest$" deepways_safe_room =\
+    /test $[echoRoomFlags(%{P0}, "Safe, Cursed")]%;\
+    /if ({leader} =~ "Self") /send linkrefresh group%;/endif
+
+/def -ag -mregexp -t"^Shrine of Acilese$" typhus_safe_room =\
+    /test $[echoRoomFlags({P0},  "Safe")]%;\
+    /if ({leader} =~ "Self") /send linkrefresh group%;/endif
+
+;;;
+;; Auction highlighting
+/def -ag -mregexp -p999 -t"^([0-9 ]+)\|([0-9\, ]+)\|([0-9 ]+)\|([0-9 ]+)\|([0-9\, ]+)" highlight_auction_list = \
+    /let auctionMins=%{P3}%;\
+    /let auctionHours=$[{P3}/60]%;\
+    /if ({auctionHours} > 1) /let auctionTime=%{auctionHours}h%;/else /let auctionTime=%{auctionMins}m%;/endif%;\
+    /echo -pw @{hCwhite}%{P1}@{n}|@{Cyellow}%{P2}@{n}| @{Ccyan}$[pad({auctionTime}, -4)]@{n} |@{Cwhite}%{P4}@{n}|@{Cyellow}%{P5}@{n}

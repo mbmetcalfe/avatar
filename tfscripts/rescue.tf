@@ -51,6 +51,10 @@
         /echo -p %%% @{CWhite}%1 @{Ccyan}is already in rescue list.%; \
     /endif
 
+/def -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" poke_resc = \
+    /let resc_target=%{P1}%;\
+    /if /test $(/getvar auto_rescue) == 1%;/then /send res %{resc_targe}%;/endif
+
 /def addresOld = /while ({#}) /addsingleres %{1}%;/shift%;/done
 
 /def -i addsinglestabres = \
@@ -164,7 +168,8 @@
     /let this=$[world_info()]%;\
     /let rlv=%{this}_resclist%;\
     /let resclist=$[expr(%rlv)]%;\
-    /let resclist=$[substr(resclist, 0, $[resclen-1])]%;\
+    /let resclen=$[strlen(resclist)]%;\
+    /let resclist=$[substr(resclist, 0, $[resclen])]%;\
     /echo -p @{Ccyan}%{this} Rescuing: @{Cwhite}%resclist@{n}
 
 /def addres = \

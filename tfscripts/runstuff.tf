@@ -36,6 +36,13 @@
 
 /def -mregexp -ah -t"^The automaton falls to pieces$" mob_bits_drop = /send get bits%;/if ({leader} !~ "Self") /send give bits %{leader}%;/endif
 
+;;; unlock for leader
+/def -p99 -mregexp -t"^\*?([a-zA-Z]+)\*? tells the group 'unl[ock]* ([neswud]?|north|east|south|west|up|down)'" autounlock_gtell = \
+  /let unlockdir=%{P2}%;\
+  /if ({running} == 1 & {P1} =~ {leader}) \
+    unlock %{unlockdir}%;\
+  /endif
+
 ;;; ----------------------------------------------------------------------------
 ;;; Experience related triggers
 ;;; ----------------------------------------------------------------------------
@@ -281,7 +288,7 @@
     /set golden=0%;/set resc=0%;/set sucresc=0 %; \
     /set hpgains=0%;/set managains=0%;/set mvgains=0%;/set pracgains=0%; \
     /set scrollcount=0%;/set potioncount=0%;/set stavecount=0%; \
-    /set runElapsedTime=0%;\
+    /set runElapsedTime=0%;/set autochase=0%;\
     /if ({myclass} =~ "prs") \
         /set tothealxp=$[tothealxp+healxp] %; \
         /set totnumheal=$[totnumheal+numheal] %; \
@@ -553,3 +560,7 @@
         /send note send=board 7%;\
     /endif
     
+;; 
+/def -p99 -mregexp -t"^\*?([a-zA-Z]+)\*? tells the group 'unl[ock]+ ([neswud]?|north|east|south|west|up|down)'" autounlock_gtell = \
+  /let unlockdir=%{P2}%;\
+  /if ({P1} =~ {leader}) unlock %{unlockdir}%;/endif

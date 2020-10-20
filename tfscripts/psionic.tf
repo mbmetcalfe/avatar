@@ -89,7 +89,11 @@
     /elseif ({P1} =~ "disable") /set disablingweaponleft=999%;\
     /elseif ({P1} =~ "distract") /set distractingweaponleft=999%;\
     /endif
-/def -mregexp -aCyellow -t"^Your weapons lose the ability to (stun|disable)\." kinetic_enhancement_down = \
+
+/def -mregexp -aCyellow -t"^Your weapons lose their consciousness\.$" conscious_enhancement_down =\
+    /if ({refreshmisc} == 1) /aq c 'conscious weapon'%;/endif
+
+/def -mregexp -aCyellow -t"^Your weapons lose the ability to (fell|stun|disable)\." kinetic_enhancement_down = \
     /if ({P1} =~ "stun") \
         /set stunningweaponleft=-1%;\
         /if ({refreshmisc} == 1) \
@@ -104,6 +108,10 @@
         /set distractingweaponleft=-1%;\
         /if ({refreshmisc} == 1) \
             /aq c 'distracting weapon'%;\
+        /endif%;\
+    /elseif ({P1} =~ "fell")\
+        /if ({refreshmisc} == 1) \
+            /aq c 'felling weapon'%;\
         /endif%;\
     /endif
 /def -mregexp -aCyellow -t"^Your weapons already possess the ability to (stun|disable)\." kinetic_enhancement_up2 = \
@@ -125,3 +133,16 @@
 /set psi_dart_item=mindtrick
 /def -p1 -F -au -mregexp -t'surrounds (him|her|it)self with a telekinetic sink\.' gravitas_trap = \
     /if ({myclass} =~ "psi") /send get all.%{psi_dart_item} %{main_bag}=cast dart=put all.%{psi_dart_item} %{main_bag}%;/endif
+
+/def overconf = /auto overconf %1
+/def -mregexp -au -p20 -F -t"^You start fighting (a Black Circle assassin|a High Drow child|Veyah's most trusted guard)\." psi_auto_overconf = /if /test $(/getvar auto_overconf) == 1%;/then c overconf%;/endif
+
+/def psyphon = /auto psyphon %1
+/def -mregexp -au -p21 -F -t"^You start fighting (Veyah's sorcerer)\." psi_auto_psyphon = /if /test $(/getvar auto_psyphon) == 1%;/then c psyphon%;/endif
+
+;;; ----------------------------------------------------------------------------
+;;; Attempt to cast shatterspell on mobs
+;;; ----------------------------------------------------------------------------
+/def shatter = /auto shatter %1
+/def -au -mregexp -t"^Torrents of jagged ice cascade down upon .* enemies\!$" auto_shatterspell = /if /test $(/getvar auto_bash) == 1%;/then c shatterspell%;/endif
+

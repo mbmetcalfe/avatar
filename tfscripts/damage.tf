@@ -308,7 +308,7 @@
 /def -i echodam = \
     /if ({bspam} = 1) /echo -pw %{*}@{n}%; /endif
 
-/set obspam=1
+/set obspam=0
 /def obspam = /toggle obspam%;/echoflag %obspam @{Cyellow}Others Battle Spam@{n}
 /def -i echootherdam = \
     /if ({obspam} = 1) /echo -pw %{*}@{n}%; /endif
