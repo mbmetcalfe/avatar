@@ -109,7 +109,7 @@
 /def -ag -P -F -t'corpse of A githyanki lookout(.*)' highlight_allegaagse_101 = /test $[echoGearItem({PL}, "corpse of A githyanki lookout", "alleg", {P1}, {PR})]
 
 ;/def -mregexp -F -t"the staff of prophecy" alleg_test = /substitute the staff of prophecy (alleg)
-;/def -mregexp -F -t"coarse leather boots" alleg_test2 = /test substitute(replace("coarse leather boots", "coarse leather boots(alleg)", {P0}))
+;/def -mregexp -F -t"coarse leather boots" alleg_test2 = /test substitute(replace("coarse leather boots", "coarse leather boots (alleg)", {P0}))
 ;/def -mregexp -F -t"a Faerie script" alleg_test3 = /test substitute(replace("a Faerie script", "a Faerie script (alleg)", {P0}))
 ;/def -mregexp -F -t"blood red robe" alleg_test4 = /test substitute(replace("blood red robe", "blood red robe (alleg)", {P0}))
 

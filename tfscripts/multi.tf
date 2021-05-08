@@ -13,7 +13,8 @@
     /toggle multi%;\
     /echoflag %{multi} Multi
 
-/def all = /send -W %{*}
+;/def all = /send -W %{*}
+/def all = /alldo %{*}
 
 /def oth = \
     /let socks $[$(/listsockets -s)]%;\
@@ -45,6 +46,7 @@
 /def granuja = /multido Granuja %{*}
 /def helfyre = /multido Helfyre %{*}
 /def iratavo = /multido Iratavo %{*}
+/def isosha = /multido Isosha %{*}
 /def jekyll = /multido Jekyll %{*}
 /def kaboo = /multido Kaboo %{*}
 /def keiko = /multido Keiko %{*}
@@ -57,9 +59,12 @@
 /def odium = /multido Odium %{*}
 /def paxon = /multido Paxon %{*}
 /def phenyx = /multido Phenyx %{*}
+/def purohitah = /multido Purohitah %{*}
+/def shubie = /multido Shubie %{*}
 /def skia = /multido Skia %{*}
 /def sombra = /multido Sombra %{*}
 /def statler = /multido Statler %{*}
+/def table = /multido Table %{*}
 /def tahn = /multido Tahn %{*}
 /def tarkara = /multido Tarkara %{*}
 /def tiati = /multido Tiati %{*}
@@ -95,4 +100,3 @@
 /def -ag -hBGTRIG no_background_display
 ;; Remove '% Activity in world world'
 /def -ag -hACTIVITY no_activity_display
-

@@ -37,11 +37,14 @@
     /elseif ({myclass} =~ "fus") /let braceType=stone%;\
     /elseif ({myclass} =~ "sld") /let braceType=bolt%;\
     /endif%;\
-    /send -w%{this} get "%{arrowType} %{braceType}" %{quiver_bag}%;\
-    /send -w%{this} wear "%{arrowType} %{braceType}"%;\
-    /send -w%{this} get "all.%{arrowType} %{braceType}" %quiver_bag%;\
-    /send -w%{this} put all.%{braceType} %quiver_bag%;\
-    /set unbrandish=%{arrowType} %{braceType}
+    /if (regmatch({myclass}, {arcType}))\
+        /send -w%{this} get "%{arrowType} %{braceType}" %{quiver_bag}%;\
+        /send -w%{this} wear "%{arrowType} %{braceType}"%;\
+        /send -w%{this} get "all.%{arrowType} %{braceType}" %quiver_bag%;\
+        /send -w%{this} put all.%{braceType} %quiver_bag%;\
+        /set unbrandish=%{arrowType} %{braceType}%;\
+    /else /send gtell Suggested projectile type: %{arrowType}%;\
+    /endif
 
 /def -p0 -mregexp -t"([a-zA-Z\*]+) tells the group '(.*) arrows?'" drone_arrow_swap = \
     /let arrowType=%{P2}%;\
@@ -175,6 +178,19 @@
         /send get fletch %{main_bag}=wear fletch=fletch %fletchtype '%arrowlevel %arrowtype'%; \
     /endif
 
+; New arrow fletching macroes
+/set fletch_count=0
+/set fletch_max=15
+/def fletch = /auto fletch %1
+
+;/def -i flone = /send hold fletch=fletch %1 %2
+/def -i flone = /if /test %{this}_auto_fletch == 1%;/then /send hold fletch=fletch %1 %2%;/endif
+/def -i fletcharrow = /send wake=get all.fletch %{main_bag}%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/flone %1 %2%;/send rem fletch=put all.fletch %{main_bag}=sleep
+
+/def -i fletchmacro = /let this=$[world_info()]%;/if /test %{this}_auto_fletch == 1%;/then /fletcharrow %1 %2%;/endif
+/def -i fletchloop = /if /test fletch_count <= fletch_max%;/then /set fletch_count $[fletch_count+1]%;/fletchmacro %1 %2%;/repeat -1800 1 /fletchloop %1 %2%;/endif
+/def mkarrow = /fletch on%;/set fletch_count 0%;/fletchloop %1 %2
+
 /def flstat = \
     /let t1=%{1}%;/let t2=%{2}%;\
     /if ({1} =~ "") /let t1=%{arrowtype}%;/endif%;\
@@ -195,3 +211,43 @@
     /let this=%opt_w%;\
   /endif%;\
   /if /test %{this}_auto_ammo == 1 %; /then /swap -w:{this} %1%;/endif
+
+;; Trigger to drop the braces archers loot when grabbing braces
+/def -mglob -p2 -t"You get a pair of spiked elbow braces from corpse of *." drop_elbow_braces = \
+  /if ((regmatch({myclass},{arcType}))) /send drop elbow%;/endif
+/def -mglob -p2 -t"You get a blue metal bracer from corpse of *." drop_blue_metal_bracer = \
+  /if ((regmatch({myclass},{arcType}))) /send drop "blue bracer"%;/endif
+
+;; Swap ammo if using wrong type.
+/def -p10 -mglob -au -t"You have the wrong kind of ammo!" archer_wrong_ammo = /swap %{boltType}
+
+
+;; Amp up some damage for certain mobs
+; Ruin of the Arcanists
+/def held = /auto held %1
+/def -mregexp -p5 -au -F -t"^You start fighting (Shol, grandmaster of the guardian sect|A whirling water vortex|A crackling lightning automaton|A crashing water automaton|A sizzling automaton of acid|A bellowing air automaton|A mighty automaton of earth|A frosty ice automaton|A crash of glacial ice)\." arc_arcanist_ruins_auto_cast = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+; Sem Vida
+/def -mregexp -p5 -au -F -t"^You start fighting (Groundskeeper Skaggs|Groundskeeper Chalmers)\." arc_sem_vida_auto_cast = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+; Necropolis
+/def -mregexp -p5 -au -F -t"^You start fighting (a dark ring of ice-blue fire|the General Commander for Veyah L'Aturii)\." arc_necropolis_auto_cast = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+; Divide
+/def -mregexp -p5 -au -F -t"^You start fighting (Arcanthra the Black|Crullius the White)\." arc_divide_held = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+; Morte
+/def -mregexp -p5 -au -F -t"^You start fighting (Iadus, daughter of Collosus|Oborus, daughter of Collosus|the power liche, Azric|Collosus)\." arc_morte_held = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+; Alpha Thule
+/def -mregexp -p5 -au -F -t"^You start fighting (The Celestial|An ancient sentinel)\." arc_alphathule_held = \
+    /if /test $(/getvar auto_held) == 1%;/then /send held%;/endif
+
+;; Soldier stance highlights
+;Following your lead, Setho joins echelon formation!
+;Nartaka tries to follow your lead, but fails to join echelon formation.

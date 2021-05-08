@@ -35,7 +35,10 @@
 /def -mregexp -t"\<\<\(Please Press \<enter\>  continue\)\>\>" continue_cr = /send =
 /def -p1 -mglob -t'***** Please Press Enter to Continue *****' continue_cr2 = /send =
 
-    
+;; for some reason I cannot get the last lowmort login screen to trigger - wondering if it's a prompt?
+;; anyway, a hack is to trigger off the 2nd-last line in the lowmort login help screen:
+/def -p99 -mglob -t'/ Character NAMES must be tasteful and in theme. See HELP NAME RULE         /' lowmort_autologin_hack = /send =
+
 /def -mregexp -t'^Ah, the Immortal ([a-zA-Z]+) has returned\! Addicted, eh\?' char_immlogin = \
     /hook_resize%;\
     /edit -c0 reloghook%;\
@@ -84,6 +87,8 @@
 /def -mregexp -t'-------\'---,--\{\@ \( Please press \<enter\> to continue \) \@\}--,---\'-------' continue_cr3 = %;
 /def -mregexp -t'\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*' continue_cr4 = /send =
 /def -mglob -t"*+*+O+b+i+t+u+m+*+*+*+  ( Press <enter> to continue )  +*+*+*+*+*+*+*+" continue_cr5 = /send =
+/def -p1 -mglob -t'*Press <enter> to continue*' enter_login = /send =
+/def -p1 -mglob -t'*Please hit enter to continue*' motd_login = /send =
 
 
 /def -mregexp -t'^Welcome back to the AVATAR System, ([a-zA-Z]+) ([a-zA-Z]+).' welcomeback2 = \

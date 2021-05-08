@@ -41,10 +41,10 @@
     /endif %; \
     /if ({focileft} < 0) /echo -pw % @{hCgreen}Foci @{nCwhite}missing.@{n} %; \
     /endif %; \
-    /if ({frenzyleft} < 0) /echo -pw % @{hCred}Frenzy @{nCwhite}missing.@{n}%; \
+    /if ({frenzyleft} < 0 & {myrace} !~ "hie") /echo -pw % @{hCred}Frenzy @{nCwhite}missing.@{n}%; \
     /endif %; \
     /if ({myclass} =~ "pal") \
-        /if ({fervorleft} < 0) \
+        /if ({fervorleft} < 0 & {myrace} !~ "hie") \
             /echo -pw % @{hCcyan}Fervor @{nCwhite}missing.@{n}%; \
         /endif%;\
         /if ({holyzealleft} < 0) \
@@ -134,7 +134,7 @@
         /if ({astralprisonleft} < 0) \
             /echo -pw % @{hCyellow}Astral Prison @{nCwhite}missing.@{n}%; \
         /endif%;\
-        /if ({taintleft} < 0) \
+        /if ({taintedgeniousleft} < 0) \
             /if ({exhaust_taint} < 0) \
                 /echo -pw % @{hCyellow}Tainted Genius @{nCwhite}missing.@{n}%; \
             /else \
@@ -199,17 +199,19 @@
 /clrvar distractingweaponleft
 /clrvar fellingweaponleft
 /clrvar consciousweaponleft
-/clrvar prayerleft
 /clrvar illusoryshieldleft
+/clrvar prayerleft
 /clrvar holyzealleft
 /clrvar fervorleft
+/clrvar immolationleft
+/clrvar astralprisonleft
 
 /set checkSpecific=0
 /def -i clrvar = /set %1 -1
 ;; spell duration variables are all xxxleft (e.g. focileft, astralshieldleft, etc)
 ;; set it to -1 to indicate that it is not active on character
 /def -i clearspelldurations = \
-  /let spell_vars=$(/listvar -s *left)%;\
+  /let spell_vars=$(/listvar -s *left) $(/listvar -s *fatigue)%;\
   /mapcar /clrvar %{spell_vars}%;\
   /set sick_poison=0%;/set sick_disease=0%;/set sick_other=%;/set sick_web=0%;/set sick_deathsdoor=0%;\
   /set sick_rupture=0%;/set sick_blind=0
@@ -1093,7 +1095,10 @@
         /echo -pw @{Cred}[GROUP INFO]: @{hCgreen}%1 @{nCyellow}has @{hCred}%4 @{nCyellow}and needs @{hCred}%2 @{nCyellow}'cure @{hCred}%3@{nCyellow}'.%; \
     /endif%;\
     /if ({autocure} == 1) \
-        /for i 1 %{_numPoison} /aq c 'cure %{_cureType}' %{_poisoned}%;\
+        /if ({_cureType} =~ "poison") /let _curecmd=cp%;\
+        /elseif ({_cureType} =~ "disease") /let _curecmd=cd%;\
+        /endif%;\
+        /for i 1 %{_numPoison} /aq %{_curecmd} %{_poisoned}%;\
     /endif
 
 /def -i sayother = \
@@ -1170,6 +1175,12 @@
 /def -mglob -ahCred -t'You feel very sick.' poison_self_venom_virus = \
     /echo -pw @{hCgreen}Virused (3 cure disease) or Venomed (1 cure poison)
 
+/def -mregexp -t'^([a-zA-Z\-\,\. ]+) starts? to panic\!' panic_other = \
+    /let paniced=%{P1}%;/let spaniced=<%{P1}<%;\
+    /if ({spaniced} =~ "You") /sayother I 1 clairfy "panic"%;\
+    /else /sayother %{paniced} 1 clarify "panic"%;\
+    /endif
+
 /def -mregexp -ag -t'^([a-zA-Z\-\,\. ]+) (is|are) surrounded by a pink outline\.' pink_other = \
     /let pinked=%P1 %; \
     /let spinked=<%P1< %; \
@@ -1203,11 +1214,14 @@
 
 /def -mregexp -ag -t"^The eyes of (.+) dim and turn milky white\." sick_blinded = \
     /let blinded=%P1 %; \
-    /let sblinded=<%P1< %; \
     /echo -pw @{Cgreen}The eyes of @{hCcyan}%{blinded} @{nCwhite}dim @{Cgreen}and turn @{nCwhite}milky white.@{n}%; \
-    /if (regmatch(tolower({sblinded}),{groupies})) \
-        /sayother %blinded 1 PureTouch blind%; \
-    /endif
+    /if (strstr({groupies},{blinded}) > -1) \
+        /if ({autocure}==1)\
+            /if ({myclass} =~ "prs") c 'pure touch' %{blinded}%;\
+            /elseif (!regmatch({myclass}, "sor bzk shf bod rip")) c 'cure blind' %{blinded}%;\
+            /endif%;\
+        /endif%;\
+    /endif 
 
 /def -aufhCwhite -P -mregexp -t"You are blinded\!" self_blinded = \
     /set sick_blind=1%;\
@@ -1246,7 +1260,7 @@
     /stnl $[tnlthreshold*2]%;\
     /set taintleft=999
 
-/def -p5 -mglob -t"Your mind drifts closer to sanity." tainted_genius_down = \
+/def -p5 -mregexp -t"^Your mind drifts closer to sanity\." tainted_genius_down = \
     /eval /echo -pw @{hCgreen}Set tnl to $[tnlthreshold/2]@{n}%;\
     /stnl $[tnlthreshold/2]%;\
     /set taintleft=-1

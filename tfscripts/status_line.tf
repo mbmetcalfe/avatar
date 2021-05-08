@@ -67,7 +67,7 @@
     /return "%{stance_display}:%{stance_duration}"%;\
   /endif
 
-;;; Curde method of getting spell duration - just take the greater of the macro spell duration
+;;; Crude method of getting spell duration - just take the greater of the macro spell duration
 /def -i getSpellDuration = \
     /let spellDuration=-1%;\
     /if ({aegisleft} > {spellDuration}) /let spellDuration=%{aegisleft}%;/endif%;\

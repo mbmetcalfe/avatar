@@ -7,7 +7,7 @@
 /def -mregexp -p99 -ag -t"^\*([a-zA-Z]*)\* tell[s]* the group 'k ([a-zA-Z0-9\.]+)'" autotarget1 = /ki %P2
 /def -mregexp -ag -t"^([a-zA-Z]*) Attacking ([a-zA-Z0-9\.]+)." autotarget2 = /ki %P2
 
-/def -mregexp -ag -t'^([a-zA-Z]*) killing ([a-zA-Z0-9\.]+).' autotarget4 = /ki %P2
+/def -mregexp -ag -t'^([a-zA-Z]*) (is)? killing ([a-zA-Z0-9\.]+)[\.\!]' autotarget4 = /ki %P3
 /def -mregexp -ag -t"^([a-zA-Z]*) k ([a-zA-Z0-9\.]+)." autotarget5 = /ki %P2
 /def -mregexp -p99 -ag -t"^\*?([a-zA-Z]*)\*? tells the group 'kill(ing)? ([a-zA-Z0-9\.]+)'" autotarget6 = /ki %P3
 /def -mregexp -p99 -ag -t'^\*([a-zA-Z]*)\* tells the group \'kill ([a-zA-Z0-9\.]+)[ ]*\'' autotarget7 = /ki %P2
@@ -17,7 +17,8 @@
 /def -mregexp -ag -t"^([a-zA-Z]*) kills? ([a-zA-Z0-9\.]+)." autotarget10 = /ki %P2
 
 ;;; Load in Psion variables for weapons
-/load -q psi-weapons.tf
+;; May not be needed if GMCP is active
+;/load -q psi-weapons.tf
 
 ;;; Load area-specific targets
 /load -q targets-deepways.tf
@@ -195,12 +196,12 @@
 
 /def -mregexp -au -t"A tiny form dances amid the glowing embers." arcadia_immolate_ember = /sacrificeMob ember
     
-/def -mregexp -au -t"A dark cloud of diminishing hate struggles to keep itself together." outland_immolate_mob = /sacrificeMob gith
-/def -mregexp -au -t"Back from the dead, this Githzerai stumbles to his feet." outland_immolate_mob2 = /sacrificeMob gith
-/def -mregexp -au -t"Red particles swirl together in a fierce cluster." outland_immolate_dust = /sacrificeMob dust
-/def -mregexp -au -t"This Githyanki coughs, blood bubbling up through his open mouth." outland_immolate_mob3 = /sacrificeMob gith
-/def -mregexp -au -t"Unsure on his feet, this young Githzerai tries to stay out of the way." outland_immolate_mob3 = /sacrificeMob gith
-/def -mregexp -au -t"The shadows reveal a Githyanki hidden behind the outhouse." outland_immolate_shadow = /sacrificeMob shadow
+/def -mglob -au -t"A dark cloud of diminishing hate struggles to keep itself together." outland_immolate_mob = /sacrificeMob gith
+/def -mglob -au -t"Back from the dead, this Githzerai stumbles to his feet." outland_immolate_mob2 = /sacrificeMob gith
+/def -mglob -au -t"Red particles swirl together in a fierce cluster." outland_immolate_dust = /sacrificeMob dust
+/def -mglob -au -t"This Githyanki coughs, blood bubbling up through his open mouth." outland_immolate_mob3 = /sacrificeMob gith
+/def -mglob -au -t"Unsure on his feet, this young Githzerai tries to stay out of the way." outland_immolate_mob3 = /sacrificeMob gith
+/def -mglob -au -t"The shadows reveal a Githyanki hidden behind the outhouse." outland_immolate_shadow = /sacrificeMob shadow
 
 ;/def -mregexp -au -t"The soulless one wanders mindlessly." astral_immolate_soulless = /sacrificeMob soulless
 

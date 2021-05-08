@@ -60,5 +60,5 @@
 ; Need config +blind for this macro to work. Changes channel output to be the long versions.
 /def -ag -p1 -t -mregexp -t"^([a-zA-Z\ \-\,\.]+) (buddychat|lordchat|herochat)s? '(.*)'$" log_channels = /test $[logGenericChannel({P1}, {P2}, {P3})] 
 
-;/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats \'altlist ([a-zA-Z]+)\'$" buddylist_altlist = /altlist %{P1} buddy
+/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats? \'!stats ([a-zA-Z]+)\'$" buddylist_charstats = /charstat %{P1} buddy
 /def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats 'No altlist found for ([a-zA-Z]+).'$" buddylist_altlist = /altlist %{P1} buddy

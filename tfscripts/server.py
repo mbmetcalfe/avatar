@@ -62,7 +62,8 @@ def handleData(msg, curs):
       targets = parts[1].split('|')
       healer = targets[0]
       targets = "','".join(targets[1:])
-      stmt = "select name, hpcurr, hpmax from groupies where name in ('%s');" % targets
+      stmt = "select name, hpcurr, hpmax from groupies where name in ('%s') order by hpcurr;" % targets
+      #stmt = "select name, hpcurr, hpmax, (hpcurr*100/hpmax) from groupies where name in ('%s') order by 4;" % targets
       needsHeal = []
       curs.execute(stmt)
       for row in curs.fetchall():
@@ -141,6 +142,39 @@ def handleData(msg, curs):
       return '\n'.join(rets)
     elif prefix == 'dmgclr':
       curs.execute("delete from damage_others")
+
+#    elif prefix == "groupres":
+#        rescuer = parts[1]
+#        # thresh = parts[2]
+#        
+#        stmt = "select name from groupies where hpmax <= %d;" % 20000
+#        needsRescue = []
+#        curs.execute(stmt)
+#        for row in curs.fetchall():
+#            name = row[0]
+#            needsRescue.append(name)
+#
+#        if len(needsRescue) > 0:
+#            ret = ''
+#            for nh in needsRescue:
+#                ret += "%s:/echo -p Rescue: @{Cwhite}%s@{n}\n" % (rescuer, nh)
+#                return '\n'.join(ret)
+#                #return ret.rstrip()
+
+    elif prefix == 'mobile':
+      data = parts[1].split('|')
+      zone_q = 'select id from zone where name = ?'
+      zoneid = None
+      for row in curs.execute(zone_q, (data[0],)):
+        zoneid = row[0]
+      if not zoneid:
+        q = 'insert into zone(name) values(?)'
+        curs.execute(q, (data[0],))
+        zoneid = curs.lastrowid
+      q = 'insert or ignore into zonemob(zoneid, mob) values(?, ?)'
+      params = (zoneid, data[1])
+      curs.execute(q, params)
+    
   except (KeyboardInterrupt, SystemExit):
     return
   except Exception as e:
@@ -169,6 +203,24 @@ class TCPHandler(SocketServer.BaseRequestHandler):
         db.execute('CREATE UNIQUE INDEX groupies_name on groupies(name)')
       except:
         pass
+      try:
+        db.execute('CREATE TABLE zone(id integer primary key autoincrement, name text)')
+      except:
+        pass
+      try:
+        db.execute('CREATE UNIQUE INDEX zone_name on zone(name)')
+      except:
+        pass
+      try:
+        db.execute('CREATE TABLE zonemob(id integer primary key autoincrement, zoneid integer, mob text, unique(zoneid, mob))')
+      except:
+        pass
+    
+#      try:
+#        db.execute('CREATE TABLE mobiles(area_name text, mob_short text)')
+#        db.execute('CREATE UNIQUE INDEX mobile_area_short on mobiles(area_name, mob_short)')
+#      except:
+#        pass
       db.commit()
 
       #mdb = sqlite3.connect(":memory:", isolation_level=None)

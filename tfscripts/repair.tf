@@ -8,6 +8,8 @@
     /if (regmatch({myrace},"dwf due"))\
         /toggle repairMode%;/echoflag %repairMode Repair-Mode%; \
         /echo -pw %%% Don't forget to get|put gear from container.%;\
+; Fail-safe to always turn notake off after finished repair. If an alt wants it on, too bad - do it manually!
+        /if ({repairMode}==0) /send config -notake%;/endif%;\
     /else /echo -pw @{hCred}You are neither a Dwarf or Duergar. Maybe you should not repair.%;\
     /endif
 
@@ -19,12 +21,13 @@
     /if ({repairMode}=1) repair 1. %; /endif
 
 /def -mglob -p0 -t'You do not have that item\.' repair_item_nothave = \
-    /if ({repairMode}=1) give 1. %repairFor %; /endif
+    /if ({repairMode}=1) /send give 1. %repairFor=config -notake %; /endif
 
 /def -mregexp -p0 -t'^([a-zA-Z]+) gives you (.+)\.$' repair_item_given = \
     /if ({repairMode}=1) \
-        /set repairFor %P1%; \
-        /set repairing %P2%; \
+        /send config +notake%;\
+        /set repairFor %P1%;\
+        /set repairing %P2%;\
         /send save=repair %repairing%; \
     /endif
 
@@ -33,6 +36,7 @@
     /if ({repairMode}=1) \
         tell %repairFor |w|Repair Status: |c|%repairitem |g|was in pristine condition already.%; \
         /eval give "%repairing" %repairFor%; \
+        /send config -notake%;\
         /set numNoRepair=$[++numNoRepair]%; \
     /endif
 
@@ -41,6 +45,7 @@
     /if ({repairMode}=1) \
         /eval tell %repairFor |w|Repair Status: |g|succeeded in repairing the |c|%repairitem|g|!%; \
         /eval give "%repairitem" %repairFor%; \
+        /send config -notake%;\
         /set numRepaired=$[++numRepaired]%; \
     /endif
 

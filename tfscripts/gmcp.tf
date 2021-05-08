@@ -34,6 +34,7 @@
   /if (gmcp_trig=~"N") \
     /echo You're now executing gmcp python %; \
     /set gmcp_trig=Y %; \
+    /get_group_list%;\
   /else \
     /echo You're NOT going execute gmcp python %; \
     /set gmcp_trig=N %; \
@@ -50,6 +51,13 @@
   /endif%;\
 
 /python_load gmcp
+/def  get_group_list = \
+  /if (gmcp_trig=~"Y") \
+    /send-gmcp char.group.list%;\
+;    /repeat -0:00:01 1 /get_group_list%; \
+  /else /echo -pw No longer polling for group-list%;\
+  /endif
+
 /set gmcp_trig=Y
 /def setgmcp =\
   /send-gmcp Core.Supports.Set ["Room 1", "Char 1" ]%;\
@@ -62,3 +70,4 @@
   /let this=$[world_info()]%;\
   /if /ismacro %{this}_char_status%; /then /%{this}_char_status%;/else /generic_char_status%;/endif
   
+/def -b'^G' getgroup = /send-gmcp char.group.list

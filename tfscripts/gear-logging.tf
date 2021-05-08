@@ -44,14 +44,25 @@
     /let _item=$[replace("'", "'\''", {2})]%;\
     /sys sqlite3 avatar.db 'insert into gear_inventory (character, item, amount, type) values ("%{1}", "%{_item}", "%{3}", "%{4}")'
     
-/def findgear = \
-    /quote -S /echo -pw %%% @{Cred}[GEAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || ' has ' || amount || ' ''' || item || '''.' from gear_inventory where item like '\%%{*}\%'"
+;/def findgear = \
+;    /quote -S /echo -pw %%% @{Cred}[GEAR INFO]:@{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || ' has ' || amount || ' ''' || item || '''.' from gear_inventory where item like '\%%{*}\%'"
+
+;; /fgear item name = Searches for alts' gear that matches "item name"
+;; /fgear -tsearch_type = searches for alts' gear that is the search type (eg. /fgear -tgem to find pgems)
+/def fgear = \
+    /if (!getopts("t:", "")) /return 0%;/endif%;\
+    /if ({opt_t} =~ "") \
+      /quote -S /echo -pw %%% @{Cred}[GEAR INFO]: @{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || ' has ' || amount || ' ''' || item || '''.' from gear_inventory where item like '\%%{*}\%'"%;\
+    /else \
+      /quote -S /echo -pw %%% @{Cred}[GEAR INFO]: @{hCred} !sqlite3 avatar.db "select upper(substr(character,1,1)) || substr(character,2) || ' has ' || amount || ' ''' || item || '''.' from gear_inventory where type like '\%%{opt_t}\%'"%;\
+    /endif
+/def -i findgear = /fgear %{*}
 
 /def -ag -p999 -mglob -t"*I have the following possible Allegaagse item*" gag_allegaagse_tells
 /def -p20 -mregexp -t"^\{([a-zA-Z]+)} alleg\? (.*)" buddyset_find_alleg = /quote -S tell %{P1} |r|I have the following possible Allegaagse item:|y| !sqlite3 avatar.db "select distinct item from gear_inventory where item like '\%%{P2}\%' and type='alleg'"
 
 ;;;-----------------------------------------------------------
-/def -Ph -F -t'a perfect (amethyst|diamond|emerald|ruby|sapphire)' highlight_perfect_gem = \
+/def -P -aBCwhite,Cbgmagenta -F -t'a perfect (amethyst|diamond|emerald|ruby|sapphire)' highlight_perfect_gem = \
     /let _pl=%{PL}%;\
     /let _item=perfect %{P1}%;\
     /let _type=gem%;\
@@ -61,7 +72,7 @@
         /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
     /endif
 
-/def -Ph -F -t'a (fully intact|partially burnt) grimoire' highlight_grimoire = \
+/def -P -aBCyellow,Cbgmagenta -F -t'a (fully intact|partially burnt) grimoire' highlight_grimoire = \
     /let _pl=%{PL}%;\
     /let _item=%{P1} grimoire%;\
     /let _type=quest%;\
@@ -71,7 +82,7 @@
         /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
     /endif
 
-/def -Ph -F -t'a demonic lapis lazuli' highlight_dgem = \
+/def -P -aBCred,Cbgcyan -F -t'a demonic lapis lazuli' highlight_dgem = \
     /let _pl=%{PL}%;\
     /let _item=%{P1} demonic lapis lazuli%;\
     /let _type=gems%;\

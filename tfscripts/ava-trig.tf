@@ -2,12 +2,13 @@
 ;;; ava-trig.tf
 ;;; Random triggers that don't fit into their own module/file
 ;;; ---------------------------------------------------------------------------
-/def -mregexp -t'^You disappear into the void.' voidtrig = /send snore=inventory
+/def -mregexp -t'^You disappear into the void.' voidtrig = /send snore=afk
 /def -mregexp -t'You attempt to bash into' failbash = wake
 /def -mregexp -t"^[-',A-Za-z ]+ bashed into you and you go down\!" bashed_down = /send stand
 
 /def -mregexp -ag -t'^You failed your ([a-zA-Z ]*) due to lack of concentration!' failspell = \
-	/echo -p @{hCgreen}You failed your @{nCwhite}%P1 @{hCgreen}due to lack of concentration!@{n}
+	/echo -p @{hCgreen}You failed your @{nCwhite}%P1 @{hCgreen}due to lack of concentration!@{n}%;\
+    /send =
 
 /set atitle=1
 /def atitle = \
@@ -76,13 +77,13 @@
 ;    /eval /sys echo $[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}: You lose %P1 hero levels! >> char/%{myname}.%{gains_suffix}.dat%;\
 ;    /atitle - Lost %P1 levels.
 ;[HERO INFO]: Vulko failed morph at level 478.
-/def -mregexp -t'^\[HERO INFO\]\: ([a-zA-Z]+) failed morph at level ([0-9]+)\.$' fail_morph = \
+/def -p900 -F -mregexp -t'^\[HERO INFO\]\: ([a-zA-Z]+) failed morph at level ([0-9]+)\.$' fail_morph = \
     /let _lc_name=$[tolower({P1})]%;\
     /if ({_lc_name} =~ {myname}) \
         /eval /sys echo $[ftime("%m%d", time())] - %{mylevel} %{mytier}: Failed morph. >> char/%{myname}.%{gains_suffix}.dat%;\
     /endif
 
-/def -mglob -t"With confidence you meld with the continuum briefly and become a new Lord!" success_morph = \
+/def -mregexp -t"^With confidence you meld with the continuum briefly and become a new Lord\!$" success_morph = \
     /eval /sys echo $[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}: Morphed. >> char/%{myname}.%{gains_suffix}.dat%;\
     /atitle (Lord 1)
 
@@ -103,7 +104,8 @@
         /echo -p @{Cmagenta}Your gain is: @{hCcyan}%{hpgain}@{nCcyan}hp @{hCyellow}%{managain}@{nCyellow}m @{hCgreen}%{mvgain}@{nCgreen}mv @{hCwhite}%{pracgain}@{nCwhite}prac@{nCmagenta}. %; \
         /set lvlmsg=$[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}:%{hpgain}/%{bhp} hp, %{managain}/%{bmana} m, %{mvgain}/%{bmv} mv %{pracgain}/%{bprac} prac. %; \
         /eval /sys echo %lvlmsg >> char/%{myname}.%{gains_suffix}.dat%; \
-;;;            /eval /send gt |c|%{hpgain} |y|hp, |c|%{managain} |y|m, |c|%{mvgain} |y|mv |c|%{pracgain} |y|prac.|w|%;\
+        /quote -S /nothingStat !sqlite3 avatar.db 'delete from char_stat where lower(character) = lower("%{myname}")'%;\
+        /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{myname}", "%{mytier}", "%{mylevel}", "%{bhp}", "%{bmana}", "%{bmv}", "$[ftime("%Y%m%d", time())]")'%;\
     /endif
 
 /def -mregexp -ag -t'^You raise a level!!  Your gain is: ([0-9]+)/([0-9]+) hp, ([0-9]+)/([0-9]+) m, ([0-9]+)/([0-9]+) mv ([0-9]+)/([0-9]+) prac.' telllowmortgaintrig = \
@@ -117,6 +119,8 @@
     /echo -p @{Cmagenta}Your gain is: @{hCcyan}%{hpgain}@{nCcyan}hp @{hCyellow}%{managain}@{nCyellow}m @{hCgreen}%{mvgain}@{nCgreen}mv @{hCwhite}%{pracgain}@{nCwhite}prac@{nCmagenta}. %; \
     /set lvlmsg=$[ftime("%Y%m%d", time())] - %{mylevel} %{mytier}:%{hpgain}/%{bhp} hp, %{managain}/%{bmana} m, %{mvgain}/%{bmv} mv %{pracgain}/%{bprac} prac. %; \
     /eval /sys echo %lvlmsg >> char/%{myname}.%{gains_suffix}.dat%;\
+    /quote -S /nothingStat !sqlite3 avatar.db 'delete from char_stat where lower(character) = lower("%{myname}")'%;\
+    /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{myname}", "%{mytier}", "%{mylevel}", "%{bhp}", "%{bmana}", "%{bmv}", "$[ftime("%Y%m%d", time())]")'%;\
     /eval /send gt |c|%{hpgain} |y|hp, |c|%{managain} |y|m, |c|%{mvgain} |y|mv |c|%{pracgain} |y|prac.|w|
     
 /def -mregexp -p1 -t"You need [0-9]+ experience to level and have ([0-9]+) practices\." char_worth_pracs = /set max_prac=%P1
@@ -295,4 +299,14 @@
     /if ({_currDir} =/ "*closed") /let _currDir=$[toupper({_currDir})]%;/endif%;\
     /set exits=%{exits}$[substr({_currDir}, 0, 1)]
 
+;;; ----------------------------------------------------------------------------
+;;; Bladedancer stance buffs
+;;; ----------------------------------------------------------------------------
+/def -p6 -mregexp -ah -t"^[a-zA-Z]+'s tempo change grants you an epiphany!" bld_epiphany = \
+  /set ticktoggle=1%;\
+  /repeat -00:00:03 1 /sregen
 
+;^[a-zA-Z]+'s tempo change blesses your blade!
+
+;; auto-deposit when visiting this room
+/def -p5 -F -t"Pansho's Apothecary" shogun_pansho_deposit = /send deposit all

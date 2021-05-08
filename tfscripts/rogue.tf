@@ -54,7 +54,7 @@
     /def -ag -p9 -mregexp -t"^You successfully dismantle the (.+)\." gag_lockpick_dismantle_trap%;\
     /def -ag -p9 -mregexp -t"^You stand up and wipe the sweat from your brow\." gag_lockpick_done_disarm%;\
     /def -ahCred -p9 -mregexp -t"^You get an red\-brown vial of healing from a small wooden lockbox\." apick_div_pot = put all.red-brown %%{main_bag}%;\
-    /def -ahCred -p9 -mregexp -t"^You get a practice ticket from a small wooden lockbox\.$$" apick_practice_ticket = put practice %%{main_bag}
+    /def -abhCred -p9 -mregexp -t"^You get a practice ticket from a small wooden lockbox\.$$" apick_practice_ticket = put practice %%{main_bag}
 
 /def -i cleanup_autopick = /undef gag_lockpick_pick gag_lockpick_click gag_lockpick_open \
     gag_lockpick_close gag_lockpick_drop gag_lockpick_inspect gag_lockpick_not_trapped \

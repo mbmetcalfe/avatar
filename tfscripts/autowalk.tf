@@ -567,8 +567,8 @@
 /set dirs=Githzerai Tower (@{Ccyan}/githtower@{Cwhite}), Guilds (@{Ccyan}/classguild@{Cwhite}), Statue of Utami (@{Ccyan}/utami@{Cwhite}), Doom (@{Ccyan}/admin2doom@{Cwhite}), Recall Dirs (@{Ccyan}/recalldirs@{Cwhite})
 /def recalldirs = /echo -p %%% @{Cwhite}@{Cwhite}Recall Paths: Aelmon To Sol (@{Ccyan}ael2sol@{Cwhite}), Aelmon to Zin (@{Ccyan}ael2zin@{Cwhite}), @{Cwhite}Sol To Aelmon (@{Ccyan}sol2ael@{Cwhite}), Zin To Aelmon (@{Ccyan}zin2ael@{Cwhite})
 
-/def cleguild = /echo -p %%% @{Cwhite}@{Ccyan}Guildmaster High Priest (Cleric Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 5w3n3w %; \
-    /if ({autowalk} = 1) 5w3n3w%; /endif
+/def cleguild = /echo -p %%% @{Cwhite}@{Ccyan}Guildmaster High Priest (Cleric Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 5wn2wu %; \
+    /if ({autowalk} = 1) 5wn2wu%; /endif
 /def magguild = /echo -p %%% @{Cwhite}@{Ccyan}Guildmaster Arch Mage (Mage Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 8s2w3n\;o n\;n\;o w\;w\;o n\;n2u%; \
     /if ({autowalk} = 1) 8s2w3n%;o n%;n%;o w%;w%;o n%;n2u %; /endif
 /def monguild = /echo -p %%% @{Cwhite}@{Ccyan}Huran (Monk Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 14nw3nwn\;o e\;e2n2w3s\;o s\;s %; \
@@ -589,6 +589,8 @@
     /if ({autowalk} = 1) 5s3e2nunw%; /endif
 /def asnguild = /echo -p %%% @{Cwhite}@{Ccyan}Hitman (Assassin Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 9s8w\;o w\;w\;o u\;2u%;\
     /if ({autowalk} = 1) 9s8w%;o w%;w%;o u%;2u%; /endif
+/def bodguild = /echo -p %%% @{Cwhite}@{Ccyan}Gruuntak (Bodyguard Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 19n3w5nd3nwnw3nu2ne3nwnw11n3e\;o n\;n%;\
+    /if ({autowalk} = 1) 19n3w5nd3nwnw3nu2ne3nwnw11n3e;o n;n%;/endif
 /def bzkguild = /echo -p %%% @{Cwhite}@{Ccyan}Hairy Barbarian (Berserker Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 6en%;\
     /if ({autowalk} = 1) 6en%; /endif
 /def bciguild = /echo -p %%% @{Cwhite}@{Ccyan}Black Circle Master (Black Circle Initiate Guild)@{Cwhite} From@{Ccyan} Aelmon@{Cwhite}:@{Ccyan} 14n8w3n6w4nwunwdnd2ne2n2w2nwu2wn2ueu3nese2nwnd2ndwde2d3n2w%;\
@@ -843,6 +845,11 @@
 
 /def bigfis2alpha = /echo -p %%% @{Cwhite}@{Ccyan} Alpha Thule@{Cwhite} From@{Ccyan} Big Fish@{Cwhite}:@{Ccyan} n5w12n %; \
     /if ({autowalk} = 1) n5w12n%; /endif
+
+;;; To EHA zones
+;s, [s], s, e, s, d, e, d, e, s
+/def kelsee2Aculeata = /echo -p %%% @{Cwhite}@{Ccyan}Aculeata Jatha-La@{Cwhite} From@{Ccyan} Kelsee@{Cwhite}:@{Ccyan} 3sesdedes%;\
+    /if ({autowalk}=1) 3sesdedes%;/echo p %%% @{Cwhite}Private rooms to zone: Go 2s%;/endif
 
 ;;; /def ANAME = /echo -p %%% @{Cwhite}@{Ccyan} PLACE@{Cwhite} From@{Ccyan} PPTARGET@{Cwhite}:@{Ccyan} DIRS %; \
 ;;;    /if ({autowalk} = 1) DIRS%; /endif

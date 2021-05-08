@@ -99,7 +99,7 @@
         /echo -p %%% @{Cyellow}Syntax: @{Cgreen}echotrack @{Cgreen}ON [target]@{n}|@{Cred}OFF@{n}.%;\
     /endif
 
-/set bloodhounders=rog war arc bzk dru bod fus bld
+/set bloodhounders=rog war arc bzk dru bod fus bld rip
 /def -mregexp -t"^\*?([a-zA-Z]+)\*? tells the group 'track (.+)'$" leader_gtell_track_trig = \
     /let _leader=$[strip_attr({P1})]%;\
     /let tTarget=$[strip_attr({P2})]%;\

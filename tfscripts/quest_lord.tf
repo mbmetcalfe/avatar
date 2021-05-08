@@ -12,6 +12,7 @@
 /def -ag -Ph -F -t'the whole hide of a merman' highlight_hide_quest_002 = /test $[echoGearItem({PL}, "the whole hide of a merman", "quest", %{P1}, {PR})]
 /def -ag -Ph -F -t'a glazed gith hide' highlight_hide_quest_003= /test $[echoGearItem({PL}, "a glazed gith hide", "quest", {P1}, {PR})]
 /def -ag -Ph -F -t'a soft nubuc hide' highlight_hide_quest_004 = /test $[echoGearItem({PL}, "a soft nubuc hide", "quest", {P1}, {PR})]
+/def -ag -Ph -F -t'the hide of an unlucky human' highlight_hide_quest_005 = /test $[echoGearItem({PL}, "the hide of an unlucky human", "quest", {P1}, {PR})]
 
 /def -ag -Ph -F -t'a mindflayer scalp' highlight_gith_remort_quest = /test $[echoGearItem({PL}, "a mindflayer scalp", "quest", {P1}, {PR})]
 
@@ -64,3 +65,8 @@
   /if ({autoquest} == 1) /send give "strand golden hair" laz%;\
   /else /echo -pw @{Cred}[QUEST INFO]: Faerie Script Quest: @{Cyellow}give "strand golden hair" ceilican%;\
   /endif
+
+;; 
+;; Conundrum things
+;;
+/def -p5 -mglob -t"* A crack on another demiplane is leaking out dusty air." quest_conundrum_enter_crack = /send enter crack

@@ -1,8 +1,16 @@
 ;;; ----------------------------------------------------------------------------
 ;;; highlights.tf
+;;; ----------------------------------------------------------------------------
+
+;;; ----------------------------------------------------------------------------
+;;; Load other highlight files.
+;;; ----------------------------------------------------------------------------
+/load -q highlight_transmog.tf
+
+;;; ----------------------------------------------------------------------------
 ;;; Locate triggers / highlights
 ;;; ----------------------------------------------------------------------------
-/def -mglob -ahb -t"The Black Staff of Typhus carried by The demon lord Typhus." high_old_typhus
+/def -mglob -ahb -t"Corrupted staff of Typhus carried by Demon Lord Typhus." high_old_typhus
 /def -mglob -ahb -t"Black staff of Typhus carried by The Lord Typhus' shadow." high_typhus
 /def -mglob -ahb -t"A very heavy purse carried by Oglethorpe, 1st Master Merchant of Freeport." high_oglethorpe
 /def -mglob -ahb -t"Maelstrom, sword of the Balrog carried by Ral." high_ral
@@ -99,7 +107,7 @@
 ;;/def -PhCyellow -F -mregexp -t"^You adopt ([a-zA-Z\ ]+) stance\.$" highlight_stance_adopt = /test substitute(replace({P1}, @{Cgreen}{P1}, {P0}))
 /def -mregexp -ag -t"You adopt ([a-zA-Z\ ]+) stance." highlight_stance_adopt = \
     /echo -pw @{hCgreen}You adopt @{nCyellow}%{P1} @{hCgreen}stance.@{n}
-/def -mregexp -ag -t"You stop using ([a-zA-Z\ ]+)\." highlight_stance_stop = \
+/def -mregexp -ag -F -t"You stop using ([a-zA-Z\ ]+)\." highlight_stance_stop = \
     /echo -pw @{hCgreen}You stop using @{nCyellow}%{P1}@{hCgreen}.@{n}
 /def -mregexp -ag -t"Your ([a-zA-Z\ ]+) stance is still exhausted\." highlight_stance_exhausted = \
     /echo -pw @{hCgreen}Your @{nCyellow}%{P1}@{hCgreen} stance is still exhausted.@{n}
@@ -134,6 +142,8 @@
 /def -PhCblack -mregexp -F -t"\(Black Aura\)" high_blackaura
 /def -PhCwhite -mregexp -F -t"\(White Aura\)" high_whiteaura
 /def -PhCgreen -mregexp -F -t"\(Green Aura\)" high_endurance
+
+/def -ah -mglob -t"Your tail brutally cripples *!" high_dragon_kathunk = /send gtell |br|KATHUNKed|n|! 
 
 ;;; ----------------------------------------------------------------------------
 ;;; Healing highlights
@@ -325,6 +335,9 @@
     /echo -pw @{Ccyan}%{PL}@{hCwhite}(@{nCcyan}Xorn@{n}@{hCwhite})@{n}@{nCcyan} A three-armed creature is here, gnawing on some iron ore.@{n}
 
 ;;; ==== Eragora
+/def -mglob -t'*Some ragtag children play the "hit stranger with rock and flee" game.' heragora_ragtag_melee = /echo -pw @{Cred}Devour @{Cwhite}ragtag @{Cred} for a melee boon.
+/def -mglob -t'*A ragtag scarecrow is swinging in the breeze.' heragora_ragtag_spellpower = /echo -pw @{Cred}Devour @{Cwhite}ragtag @{Cred} for a spell power boon.
+
 ;;; *** Kelp Grove
 /def -p5 -mregexp -ahr -t"^The Kelp Grove \(Underwater\)$" highlight_eragora_kelp_grove = \
     /echo -pw @{Cred}[NAVIGATION INFO]: Directions to Explorers Respite: 2n4eudes%;\
@@ -334,6 +347,7 @@
 /def -p5 -abh -mglob -t"With the grove wiped out, a manta ray is visible near the sunken ship." highlight_eragora_kelp_grove_manta
 /def -mregexp -aCyellow -t"A campfire burns low, providing safety for a short time." highlight_eragora_campfire_partial
 /def -mregexp -aCred -t"A campfire roars, providing safety for a long time\." highlight_eragora_campfire_full
+/def -ar -mglob -p2 -t"A new growth of kelp stretches out from the ocean floor." kelp_grove_newgrowth_spawn
 
 ;;; *** Outland mobs
 /def -ag -mglob -t"*The serene look of insanity, perhaps the last thing you ever see\." sub_outland_butcher = \
@@ -464,13 +478,28 @@
 ;;; ----------------------------------------------------------------------------
 ;;; Fae Rune Displaying
 ;;; ----------------------------------------------------------------------------
-/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-exp", strcat({P2}, " (300 Exp)"), {PR})]
+/def -ag -Ph -F -t"the fae rune for '(Enslavement|Despair|Destruction|Fatigue|Regeneration)'(.*)" highlight_fae_rune_001 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (12 QP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Fire|Disease|Insanity|Pain)'(.*)" highlight_fae_rune_002 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-qp", strcat({P2}, " (5QP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Chaos|Obfuscation)'(.*)" highlight_fae_rune_003 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (400XP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Darkness|Drought|Fear|Charm|Entropy)'(.*)" highlight_fae_rune_004 = /test $[echoGearItem(%{PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (300XP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Power|Wrath)'(.*)" highlight_fae_rune_005 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (250XP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Influence|Corruption)'(.*)" highlight_fae_rune_006 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (200XP)"), {PR})]
 /def -ag -Ph -F -t"the fae rune for '(Misfortune|Blood|Silence|Apathy|Ice|Vengeance)'(.*)" highlight_fae_rune_007 = /test $[echoGearItem({PL}, strcat("the fae rune for '", {P1}, "'"),  "token-xp", strcat({P2}, " (100XP)"), {PR})]
+
+;;; QP Tokens
+;(39) a QuestPoint Token (2QP)
+/def -ag -Ph -F -t"a QuestPoint Token \(([0-9]+)QP\)" highlight_qp_tokens_001 = /test $[echoGearItem({PL}, strcat("a ", {P1}, " QP Token"), "quest", "", {PR})]
+
+;;; Gearbox items
+/def -ag -Ph -F -t"a book on machinery" highlight_gearbox_001 = /test $[echoGearItem({PL}, "book on machinery",  "token-exp", strcat({P1}, " (1000XP)"), {PR})]
+/def -ag -Ph -F -t"a page about animation" highlight_gearbox_002 = /test $[echoGearItem({PL}, "a page about animation",  "misc", strcat({P1}, " (orbit)"), {PR})]
+/def -ag -Ph -F -t"a page about shielding" highlight_gearbox_003 = /test $[echoGearItem({PL}, "a page about shielding",  "misc", strcat({P1}, " (werrebocler)"), {PR})]
+/def -ag -Ph -F -t"a page about imbuing" highlight_gearbox_004 = /test $[echoGearItem({PL}, "a page about imbuing",  "misc", strcat({P1}, " (spiritlink)"), {PR})]
+/def -ag -Ph -F -t"a page about repairing" highlight_gearbox_005 = /test $[echoGearItem({PL}, "a page about repairing",  "misc", strcat({P1}, " (mass comfort)"), {PR})]
+/def -ag -Ph -F -t"a page about cleansing" highlight_gearbox_006 = /test $[echoGearItem({PL}, "a page about cleansing",  "misc", strcat({P1}, " (ablution)"), {PR})]
+/def -ag -Ph -F -t"a page about divinity" highlight_gearbox_007 = /test $[echoGearItem({PL}, "a page about divinity",  "misc", strcat({P1}, " (intervention)"), {PR})]
+/def -ag -Ph -F -t"broken bits" highlight_gearbox_008 = /test $[echoGearItem({PL}, "broken bits",  "token-exp", strcat({P1}, " (100XP)"), {PR})]
+/def -ag -Ph -F -t"a sulfurous shooter" highlight_gearbox_009 = /test $[echoGearItem({PL}, "a sulfurous shooter",  "misc", strcat({P1}, " (30day 5% mana insignia)"), {PR})]
 
 ;;; ----------------------------------------------------------------------------
 ;;; Gagging score screen items
@@ -503,6 +532,11 @@
 ;; Necropolis
 /def -ag -mregexp -t"^At the cusp of the Necropolis$" necropolis_safe_room = /test $[echoRoomFlags({P0},  "Safe")]
 
+;; Transfigured Forest
+/def -ag -mregexp -t"^A quiet place within the fields of destruction$" transfigured_forest_safe_room = \
+    /test $[echoRoomFlags({P0}, "Safe")]%;\
+    /if ({leader} =~ "Self") /send linkrefresh group%;/endif
+
 ;; The Great Divide
 /def -ag -mregexp -t"^The Altar of Kra$" divide_safe_room = \
     /test $[echoRoomFlags(%{P0},  "Anti-Magic, Safe")]%;\
@@ -520,6 +554,7 @@
     /test $[echoRoomFlags({P0},  "Safe")]%;\
     /if ({leader} =~ "Self") /send linkrefresh group%;/endif
 
+/def -ag -mregexp -t"^The mountaintop" summoning_safe_room_01=/test $[echoRoomFlags({P0},  "Safe")]
 ;;;
 ;; Auction highlighting
 /def -ag -mregexp -p999 -t"^([0-9 ]+)\|([0-9\, ]+)\|([0-9 ]+)\|([0-9 ]+)\|([0-9\, ]+)" highlight_auction_list = \

@@ -157,7 +157,12 @@
     /set healToggle=%{autoheal}%;\
     /if ({#}=1) /set healRedux=%1%;/endif%;\
     /echoflag %autoheal Auto-@{hCWhite}Healing (HP Reduction: @{hCred}%healRedux@{hCWhite})@{n}%;\
-    /statusflag %autoheal Heal_%{healRedux}
+    /statusflag %autoheal Heal_%{healRedux}%;\
+    /let this=$[world_info()]%;\
+    /if ({autoheal}==1)\
+        /def -mglob -p1 -ag -w%{this} -t"Punch whom?" %{this}_autoheal_toggle = /if ({autoheal}==1) /set healToggle=1%%;/endif%;\
+    /else /undef %{this}_autoheal_toggle%;\
+    /endif
 
 /def autocure = \
     /toggle autocure%;\
@@ -203,8 +208,14 @@
     /endif
 
 /def -mregexp -t"([\*a-zA-Z]+) tells the group '(heal|div|cc|fren[zy]*|sanc|touch|rejuv|pp|por[tal]*|nex[us]*|invig) ([0-9a-zA-Z\ \!\.]+)'" auto_heal_other_gt = \
+    /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let _commandParam=$[strip_attr({P3})]%;\
+    /echo DEBUG: auto_heal_other_gt _commander: %{_commander}, _command: %{_command}, _commandParam: %{_commandParam}%;\
+    /if (regmatch({_commandParam}, "pl[easz]+")) \
+      /echo -pw _commandParam: %{_commandParam}. Changing to %{_commander}%;\
+      /let _commandParam=%{_commander}%;\
+    /endif%;\
     /let this=$[tolower(world_info())]%;\
     /if /test ({drone} = 1 | {autoheal} = 1 | (%{this}_auto_drone == 1))%;/then \
         /if ({_command} =~ "cc") c 'cure crit' %_commandParam %; \
@@ -215,7 +226,7 @@
         /endif%; \
     /endif
 
-/def -wgengis -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'preach ?(up|all|sanc|frenzy|div|aegis|foci|fort[itudes]*|bless|invig|dark embrace|iron skin|holy aura|holy armor|armor|fly|water breath|water|invinc|holy sight|comf|clarify|absolve|panacea)([1-5]?)'" drone_priest_preach_grouptells = \
+/def -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'preach ?(up|all|sanc|frenzy|div|aegis|foci|fort[itudes]*|bless|invig|dark embrace|iron skin|holy aura|holy armor|armor|fly|water breath|water|invinc|holy sight|comf|clarify|absolve|panacea)([1-5]?)'" drone_priest_preach_grouptells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let _commandParam=$[strip_attr({P3})]%;\
@@ -244,7 +255,7 @@
 ;;; ----------------------------------------------------------------------------
 /def -mregexp -ag -p1 -t"You tell [a-zA-Z]+ in your dreams 'I would like to help you with that, but I cannot seem to find you." drone_gag_not_here_tell
 
-/def -mregexp -ag -p1 -t"([a-zA-Z]+) tells you '([fF][uU][lL][lL]|spells|splitspells|split|[sS]anc|fren[zy]*|div|help|commands|light|sleep|repmana|report|status|decurse|rc|cp|cd|cb|cure ?poison|cure ?disease|cure ?blind|awen|foci|fort[itudes]*|sepawen|bless|invig|bark|conf[idence]*|dark[ embrace]*|iron skin|holy aura|holy armor|holy sight|hos|hs|armor|fly|water breath|water|invinc|holy sight|reset|home|thorn|mid|shrine|comf|art[ificer]*)([2-5]?)'" drone_midgaardia_tells = \
+/def -mregexp -ag -p1 -t"([a-zA-Z]+) tell[sing]+ you '([fF][uU][lL][lL]|spells|splitspells|split|[sS]anc|fren[zy]*|div|help|commands|light|sleep|repmana|report|status|decurse|rc|cp|cd|cb|cure ?poison|cure ?disease|cure ?blind|awen|foci|fort[itudes]*|sepawen|bless|invig|bark|conf[idence]*|dark[ embrace]*|iron skin|holy aura|holy armor|holy sight|hos|hs|armor|fly|water breath|water|invinc|invis|holy sight|reset|home|thorn|mid|shrine|comf|art[ificer]*)([2-5]?)'" drone_midgaardia_tells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let _commandAugment=$[strip_attr({P3})]%;\
@@ -270,7 +281,7 @@
         /def -mregexp -ag -p1 -n1 -t"You tell %{_commander} in your dreams.*" _drone_tell_nofrenzy4u%;\
         tell %_commander Alas, I am a priest and priests do not get the frenzy spell so I can not cast it upon thee.%;\
     /elseif ({drone} = 1 & {running}=0) \
-        /def -mregexp -ag -p1 -n1 -t"^%{_commander} is not here\!" %{_commander}_not_here = tell %{_commander} I would like to help you with that, but I cannot seem to find you.%;\
+        /def -mregexp -w%{myname} -ag -p1 -n1 -t"^%{_commander} is not here\!" %{_commander}_not_here = tell %{_commander} I would like to help you with that, but I cannot seem to find you.%;\
         /send stand%;\
         /if ({_command} =~ "sleep") \
             /send sleep%; \
@@ -345,7 +356,7 @@
         /send tell %{_commander} Sorry, bot mode is currently disabled.  Try again later.%;\
     /endif
 
-/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tells you '(thren[ody]*|req[uiem]*|salv[ation]*) ([a-zA-Z]+)'" drone_lord_misc_tells = \
+/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tell[sing]+ you '(thren[ody]*|req[uiem]*|salv[ation]*) ([a-zA-Z]+)'" drone_lord_misc_tells = \
     /if ({drone} = 1 & {currentplane} !~ "thorngate" & {running}=0) \
         /send tell %{P1} That spell is only available on Thorngate.%;\
     /elseif ({drone} == 1 & {running}=0) \
@@ -361,7 +372,7 @@
     /endif
 
 ;; Send scripts
-/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tells you 'send ([a-zA-Z]+) ([a-zA-Z]+)'" drone_lord_send_tell = \
+/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tell[sing]+ you 'send ([a-zA-Z]+) ([a-zA-Z]+)'" drone_lord_send_tell = \
     /if ({drone} = 1 & {currentplane} !~ "thorngate" & {running}=0) \
         /send tell %{P1} |w|Send |n|is only available on Thorngate.%;\
     /elseif ({drone} = 1 & {running}=0) \
@@ -381,7 +392,7 @@
         /unset droneToSend%;/unset droneSendPlane%;\
     /endif
     
-/def -wgengis -mregexp -ag -p1 -F -t"([a-zA-Z]+) tells you '(abs[olve]*|aegis|clar[ify]*|interv[ention]*|pana[cea]*|sol[itude]*)'" drone_priest_tells = \
+/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tell[sing]+ you '(abs[olve]*|aegis|clar[ify]*|interv[ention]*|pana[cea]*|sol[itude]*)'" drone_priest_tells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
 ;    /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;\
@@ -401,7 +412,7 @@
         /endif%;\
     /endif
 
-/def -wgengis -mregexp -ag -p1 -F -t"([a-zA-Z]+) tells you 'preach (all|sanc|frenzy|div|aegis|foci|fort[itudes]*|bless|invig|iron skin|holy aura|holy armor|armor|fly|water breath|water|invinc|holy sight|comf|clarify|absolve|panacea)([1-5]?)'" drone_priest_preach_tells = \
+/def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tell[sing]+ you 'preach (all|sanc|frenzy|div|aegis|foci|fort[itudes]*|bless|invig|iron skin|holy aura|holy armor|armor|fly|water breath|water|invinc|holy sight|comf|clarify|absolve|panacea)([1-5]?)'" drone_priest_preach_tells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
     /let _commandParam=$[strip_attr({P3})]%;\
@@ -425,17 +436,17 @@
 ;         /quote -S /echo !mysql -u %{DB_USERNAME} --password=%{DB_PASSWORD} %{DB_NAME} -s -e "insert into drone_commands (name, command) values ('%{_commander}', 'preach %{_command} %{_commandParam}')"%;\
     /endif
 
-/def -mregexp -p1 -ag -t"([a-zA-Z]+) tells you 'seal (por[tal]*|nex[us]*)'" drone_seal = \
+/def -mregexp -p1 -ag -t"([a-zA-Z]+) tell[sing]+ you 'seal (por[tal]*|nex[us]*)'" drone_seal = \
     /if ({drone} = 1 & {running}=0) \
         /send stand%;\
         /if ({P2} =/ "por*") /let transType=portal%;\
         /else /let transType=nexus%;\
         /endif%;\
-        /send say |w|Sealing |g|%{transType} |w|for |bg|%{P1}|w|"|n|=c seal %{P2}%;\
+        /send say |w|Sealing |g|%{transType} |w|"for |bg|%{P1}|w|"|n|=c seal %{P2}%;\
         /send sleep%;\
     /endif
 
-/def -mregexp -p1 -ag -t"([a-zA-Z]+) tells you '(nex[us]*|por[tal]*|pp) (.*)'" drone_portal = \
+/def -mregexp -p1 -ag -t"([a-zA-Z]+) tell[sing]+ you '(nex[us]*|por[tal]*|pp) (.*)'" drone_portal = \
     /if ({drone} = 1 & {running}=0) \
 ;        /if ({position} =~ "sleeping") \
 ;            /let priorPosition="sleeping"%;\
@@ -469,11 +480,10 @@
 /def -ag -mregexp -t"^bot \- (midgaardia|thorngate)" gag_plane_bot_tag
 
 /def -mglob -p5 -t"You form a magical vortex and step into it..." drone_shift = /send where
-/def -mregexp -p5 -t"(You become your true self again|But you are already there|The Center of Thorngate Square)" drone_thorngate = \
-    /droneconfig thorngate
+;/def -mregexp -p5 -t"(You become your true self again|But you are already there|The Center of Thorngate Square)" drone_thorngate = \
+/def -mregexp -p5 -t"(But you are already there|The Center of Thorngate Square)" drone_thorngate = /droneconfig thorngate
 
-/def -mglob -p5 -t"The Flying Citadel of Zin *" drone_midgaardia = \
-    /droneconfig midgaardia
+/def -mglob -p5 -t"The Flying Citadel of Zin *" drone_midgaardia = /droneconfig midgaardia
 
 /def -mregexp -p5 -t"Players near you in (.*) Plane, Area" drone_plane_where = \
     /set currentplane=$[strip_attr(tolower({P1}))]%;\

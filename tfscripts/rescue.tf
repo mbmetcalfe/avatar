@@ -176,7 +176,7 @@
     /let this=$[world_info()]%;\
     /let rlv=%{this}_resclist%;\
     /let resclist=$[expr(%rlv)]%;\
-    /let resclist=$(/unique $[tolower(strcat({resclist}," ",{1}))])%;\
+    /let resclist=$(/unique $[tolower(strcat({resclist}," ",{*}))])%;\
     /let resclen=$[strlen(resclist)]%;\
     /let resclist=$[substr(resclist, 0, $[resclen-1])]%;\
     /set %{this}_resclist=%resclist%;\
@@ -184,7 +184,8 @@
     /echo -p @{Ccyan}%{this} Rescuing: @{Cwhite}%resclist@{n}%;\
     /def -w%{this} -mregexp -p7 -F -t"attack(s?) (strike|strikes|haven't hurt) ((?i)%resclist)" %{this}resc = /eval resc %%P3%%;/edit -c0 %{this}resc%%;/repeat -00:00:01 1 /edit -c100 %{this}resc%;\
     /def -w%{this} -mregexp -p7 -F -t" (turns to shoot|stands up and faces) ((?i)%resclist)" %{this}resc1 = /eval resc %%P2%;\
-    /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s pierce" %{this}resc2 = /eval resc %%P1
+    /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s pierce" %{this}resc2 = /eval resc %%P1%;\
+    /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist) successfully rescues you from .*!" %{this}resc3 = /rmres -w%{this} %%P1
 
 ;/if /test ((%{this}_cast == 1) & ({currentPosition} =~ "fight") & ({mudLag} == 0) & (%{this}_auto_cast == 1))%;/then /castdmg%;/set %{this}_cast 2%;/endif
 /def autores = \
@@ -194,24 +195,33 @@
         /edit -c0 %{this}resc%;\
         /edit -c0 %{this}resc1%;\
         /edit -c0 %{this}resc2%;\
+        /edit -c0 %{this}resc3%;\
     /else \
         /edit -c100 %{this}resc%;\
         /edit -c100 %{this}resc1%;\
         /edit -c100 %{this}resc2%;\
+        /edit -c100 %{this}resc3%;\
     /endif
  
 /def rmres = \
-    /let this=$[world_info()]%;\
+    /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+    /if /test opt_w =~ 'a'%;/then%;/let this=$[world_info()]%;\
+    /else /let this=%{opt_w}%;\
+    /endif%;\
     /let hlv=%{this}_resclist%;\
     /let resclist=$[expr(%hlv)]%;\
-    /echo -p @{Ccyan}%resclist%;\
-    /let resclist=$(/remove %{1} %resclist)%;\
+    /let pres=$[tolower(strip_attr(%{1}))]%;\
+    /let resclist=$(/remove %{pres} %resclist)%;\
     /set %{this}_resclist=%resclist%;\
+; call /addres with no arguments to adjust triggers
     /addres
 
 /def clrres = \
     /let this=$[world_info()]%;\
-    /if /ismacro %{this}resc %; /then /undef %{this}resc%;/undef %{this}resc1%;/undef %{this}resc2%;/endif%;\
+    /if /ismacro %{this}resc %; /then /undef %{this}resc%;/undef %{this}resc1%;/undef %{this}resc2%;/undef %{this}resc3%;/endif%;\
     /set %{this}_resclist=%;\
 ;    /unset %{this}_resclist%;\
     /echo -p @{Ccyan}%{this} rescuing none.@{n}
+
+; Add the whole group
+/def grres = /clrres%;/addres %{grouplist}%;/rmres $[world_info()]

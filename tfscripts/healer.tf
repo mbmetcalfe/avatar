@@ -2,13 +2,16 @@
 ;; File used for macroes/triggers useful for healer-type characters
 /loaded __TFSCRIPTS__/healer.tf
 
-/set healerlist=Cleric Druid Paladin Priest
+/set healerlist=Cleric Druid Paladin Priest Vizier
 
 ;; spell queue spell to give.
 /set my_spell=invincibility
 
 /alias hos c 'holy sight' %*
 /alias invinc c invinc %1
+; Alias to get/recite a scroll -- it doesn't discriminate on what scroll it pulls from loot bag.
+/alias scr get scroll %{main_bag}%;recite scroll %1
+/alias zap get %1 %{main_bag}%;wear %1%;/send zap %2%;wear %unbrandish%;put %1 %{main_bag}
 
 ;;; ----------------------------------------------------------------------------
 ;; Autohealing defaults
@@ -28,6 +31,11 @@
 ;;; ----------------------------------------------------------------------------
 ;;; healing aliases
 ;;; ----------------------------------------------------------------------------
+/alias hii c 'heal ii' %1
+/alias mcc c 'mass cure crit'
+/alias mdiv c 'mass divinity'
+/alias mhe c 'mass heal'
+
 /alias comf \
     /if ({#} > 1 | {1} > 0) \
         /let _augment=1%;\
@@ -59,6 +67,14 @@
         /shift%;\
     /endif%;\
     c 'cure crit' %1%;\
+    /if ({_augment} = 1) augment off%;/endif
+/alias cs \
+    /if ({#} > 1 | {1} > 0) \
+        /let _augment=1%;\
+        augment %1%;\
+        /shift%;\
+    /endif%;\
+    c 'cure serious' %1%;\
     /if ({_augment} = 1) augment off%;/endif
 /alias cl \
     /if ({#} > 1 | {1} > 0) \
@@ -96,7 +112,9 @@
         quicken %1%;\
         /shift%;\
     /endif%;\
-    c 'cure blindness' %1%;\
+    /if ({myclass} =~ "prs") c clarify %1%;\
+    /else c 'cure blindness' %1%;\
+    /endif%;\
     /if ({_quicken} = 1) quicken off%;/endif
 
 /alias cd \
@@ -105,7 +123,10 @@
         quicken %1%;\
         /shift%;\
     /endif%;\
-    c 'cure disease' %1%;\
+    /if (regmatch({myclass}, "mon shf")) c medicine %1%;\
+    /elseif ({myclass} =~ "prs") c panacea %1%;\
+    /else c 'cure disease' %1%;\
+    /endif%;\
     /if ({_quicken} = 1) quicken off%;/endif
 
 /alias cp \
@@ -114,8 +135,27 @@
         quicken %1%;\
         /shift%;\
     /endif%;\
-    c 'cure poison' %1%;\
+    /if (regmatch({myclass},"rip sor")) c 'cell adjustment' %1%;\
+    /elseif (regmatch({myclass}, "mon shf")) c medicine %1%;\
+    /elseif ({myclass} =~ "prs") c panacea %1%;\
+    /else c 'cure poison' %1%;\
+    /endif%;\
     /if ({_quicken} = 1) quicken off%;/endif
+
+;;; --
+;;; Priest specific stuff
+;;;
+/alias p /send preach %*
+/alias pt c 'pure touch' %*
+/alias cla c clarify %*
+/alias pan c panacea %*
+/alias pcc preach cure critical
+/alias phe preach heal
+/alias pdiv preach div
+/alias pto preach pure touch
+/alias pinn preach innocence
+/alias inno /if ({myclass} =~ "prs") c innocence %{*}%;/else /send innocence *{*}%;/endif
+/alias psanc /send quicken 9=c innocence=quicken off=preach sanc
 
 ;;; ----------------------------------------------------------------------------
 ;;; Cleric Aura Handling.
@@ -169,7 +209,7 @@
 /def -mglob -aCwhite -p99 -F -t'surrounds you with a grim blessing. Let the harvest commence!' aura_grim_harvest_up = \
     /set grimharvestleft=999
 ;Kra surrounds you with a grim blessing. Let the harvest commence!
-/def -mglob -aCwhite -p99 -F -t'The grim aura disappears.' aura_grim_harvest_down = \
+/def -mglob -aCwhite -p99 -F -t'Your grim harvest comes to an end.' aura_grim_harvest_down = \
     /set grimharvestleft=-1%;\
     /set ticktoggle=1%;\
     /if ({refreshAura} == 1) \
@@ -256,7 +296,37 @@
   /let heallist=$[substr(heallist, 0, $[heallen-1])]%;\
   /echo -p @{Ccyan}%{this} Healing: @{Cwhite}%heallist@{n}
 
-;; trigger for the 'local' world that executes commands returned from the server
-/def -wlocal -mregexp -t"^/echo(.*)$"=/echo %P1
-/def -wlocal -mregexp -t"^([a-z]*):(.*)$"=/send -w%P1 %P2%;/echo -w%P1 %P2
+; triggers to check healing need every 15 seconds
+; when running the prs, turn on with /healbot, then start with a gt with no message:
+; /healbot
+; gt
+;
+; after we see the "Leader's group:" line, wait a second and then run /checkheal, which checks db for who to heal
+/def healbot = \
+  /auto healbot %1%;\
+  /let this=$[world_info()]%;\
+  /let auto_tr_v %{this}_auto_healbot%;\
+  /let auto_tr $[expr({auto_tr_v})]%;\
+  /statusflag %{auto_tr} aHeal
 
+/def -i rpt_heal_proc = /send-gmcp char.group.list%;/send -w%{1} gt
+/def -F -mregexp -t"^([A-Za-z]*)'s group:" heal_bot_grouplist =\
+  /let this=$[world_info()]%;\
+  /if /test %{this}_auto_healbot == 1%;/then /repeat -w%{this} -00:00:01 1 /checkheal%;/endif
+/def -F -mregexp -t"^Tell your group what?" heal_bot_tell_group=\
+  /let this=$[world_info()]%;\
+;  /if /test %{this}_auto_healbot == 1%;/then /repeat -w%{this} -00:00:15 1 /rpt_heal_proc %{this}%;/endif
+  /if /test %{this}_auto_healbot == 1%;/then /repeat -w%{this} -00:00:15 1 /send -w%{this} gt=gr%;/endif
+
+;; trigger for the 'local' world that executes commands returned from the server
+/def -wlocal -mregexp -t"^/echo(.*)$" local_echo =/echo %P1
+/def -wlocal -mregexp -t"^([a-z]*):(.*)$" local_execute=/send -w%P1 %P2%;/echo -w%P1 %P2
+
+;
+;; intervention self                                                                                                   
+/def intervention = /auto intervention %1
+/def -mregexp -t"^You are no longer due divine intervention\.$" intervention_down =\
+    /if /test $(/getvar auto_intervention) == 1%;/then /if ({refreshmisc}=1) c intervention%;/endif%;/endif
+
+;; Attempt to save someone who gets kathunk'ed
+/def -ah -mregexp -t"^[a-zA-Z\ \,\.\- ]+\'s tail brutally cripples ([a-zA-Z]+)\!  They stagger\." other_kathunk

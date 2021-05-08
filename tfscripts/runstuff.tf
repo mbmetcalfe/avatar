@@ -61,7 +61,7 @@
 
 ;; Morph failers get reduced exp
 /def -p0 -mregexp -t'^Your failed morph penalty reduces the experience gain to ([0-9]+).$' morphfail_rcvexp = \
-    ;/setXp $[xp + lastXp*-1 + {P1}]%;\
+;    /setXp $[xp + lastXp*-1 + {P1}]%;\
     /set failXp=$[failXp+{P1}]
 
 /def -p0 -mregexp -t'^Tul-Sith grants you ([0-9]+) exp!$' rcvhealexp = \
@@ -196,7 +196,7 @@
         /let rgainmsg=%rgainmsg |g|%xppermin |w|exp/min.%; \
     /endif%; \
     /let rgainmsg=%rgainmsg |w|Thanks |g|%{thankee}|w|.%; \
-    /if ({myclass} =~ "prs") \
+    /if ({myclass} =~ "prs" & {healxp}>0) \
         /let rhealmsg=|bw|Run Heal Exp stats: |br|%{numheal} |bw|heals that gave exp giving |br|%{healxp}|bw| (|br|%{maxheal}|bw| Max). %; \
     /endif %; \
     /if ({pgems} !~ "") \
@@ -246,7 +246,7 @@
     /if ({#} > 0) /let echochan=%*%; /endif %; \
     /if ({totkills} > 0) /let avg=$[totxp/totkills] %; /endif %; \
     /let gainmsg=|g|%{totxp}|w| exp (|g|%{totlevels} |w|levels) from |g|%{totkills}|w| kills (|g|%{avg}|w| avg) from |g|%{runs} |w|runs.%; \
-    /if ({myclass} =~ "prs") \
+    /if ({myclass} =~ "prs" & {tothealxp}>0) \
         /let healmsg=|bw|Heal Exp: |br|%{totnumheal} |bw|heals that gave exp giving |br|%{tothealxp}|bw| (|br|%{maxheal}|bw| Max). %; \
     /endif %; \
     /if ({echochan} =~ "/echo") \
@@ -330,10 +330,11 @@
         /autorelog %{leader}%;\
     /endif%;\
     /if ({refreshmisc} == 0) /refreshmisc%;/endif%;\
-    /if ({mytier} !~ "lord" & {resanc} = 0 & ({myclass} !~ "sor" | {myclass} !~ "bci" | {myclass} !~ "bzk")) /resanc %; /endif%;\
-      /if ({myclass} =~ "pal" & {repray} = 0) /repray %; /endif%;\
+    /if ({mytier} !~ "lord" & {resanc} = 0 & (!regmatch({myclass}, "sor bzk"))) /resanc%;/endif%;\
+;    /if ({mytier} !~ "lord" & {resanc} = 0 & ({myclass} !~ "sor" | {myclass} !~ "bci" | {myclass} !~ "bzk")) /resanc %; /endif%;\
+    /if ({myclass} =~ "pal" & {repray} = 0) /repray %; /endif%;\
     /if ({refren} = 0 & {leader} !~ "Self" & {myclass} !~ "bzk") /refren %; /endif%;\
-    /if ({autokill} = 0 & {leader} !~ "Self" & {mytier} !~ "lord" & {myclass} !~ "prs") /assist %; /endif%;\
+    /if ({autokill} = 0 & {leader} !~ "Self" & {myclass} !~ "prs") /assist %; /endif%;\
     /def -n1 -mregexp -ag -p2 -t"You need [0-9]+ experience to level and have ([0-9]+) practices\." runstart_worth_pracs = /set max_prac=%%P1%;\
     /def -n1 -ag -p5 -mglob -t"You have * gold coins in hand and * gold coins in the bank\." runstart_gold%;\
     /send worth
@@ -368,9 +369,10 @@
     /if ({autocure} = 1) /autocure%;/endif%;\
     /if ({refreshmisc} = 1) /refreshmisc%;/endif%;\
     /if ({refreshAura} == 1) /refreshAura%;/endif%;\
-    /let this=$[tolower(world_info())]%;\
-    /if /test (%{this}_cast == 1 & %{this}_auto_cast == 1)%;/then /cast off%;/endif%;\
-    /if /test (%{this}_auto_drone == 1)%;/then /mydrone off%;/endif%;\
+    /if /test $(/getvar auto_cast) == 1%;/then /cast off%;/endif%;\
+    /if /test $(/getvar auto_drone) == 1%;/then /mydrone off%;/endif%;\
+    /if /test $(/getvar auto_tankbot) == 1%;/then /tankbot off%;/endif%;\
+    /if /test $(/getvar auto_stab) == 1%;/then /stab off%;/endif%;\
     /edit -c100 gear_misc_coins
 
 ;;; ----------------------------------------------------------------------------
@@ -564,3 +566,13 @@
 /def -p99 -mregexp -t"^\*?([a-zA-Z]+)\*? tells the group 'unl[ock]+ ([neswud]?|north|east|south|west|up|down)'" autounlock_gtell = \
   /let unlockdir=%{P2}%;\
   /if ({P1} =~ {leader}) unlock %{unlockdir}%;/endif
+
+;; Tank-bot
+/def tankbot = /auto tankbot %1
+
+/def -F -p999 -mregexp -t"^You receive ([0-9]*)" autotank_next =\
+  /let this=$[world_info()]%;\
+  /let do_autotank $(/getvar auto_tankbot)%;\
+  /if /test do_autotank == 1%;\
+    /python_call gmcp.autotank %this%;\
+  /endif

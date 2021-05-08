@@ -37,9 +37,11 @@
         /echo -pw %%% @{hCCyan}Shadowlands setup for @{xCwhite}%{followShadowPorter}@{hCcyan}.@{n}%;\
     /endif
 
-/set numShadowPieces=0
+;/set numShadowPieces=0
 /def -ar -mregexp -t"^The shadow falls to pieces\." highlight_shadowlands_piece = \
     /set numShadowPieces=$[++numShadowPieces]%;\
     /echo -pw %%% @{Cwhite}%{numShadowPieces} shadow pieces.@{n}%;\
-    /if ({leader} !~ "Self") /send get "shadow piece"=give "shadow piece" %{leader}%;/endif
+    /if ({leader} !~ "Self") /send get "shadow piece"=give "shadow piece" %{leader}%;/endif%;\
+    /let showcount=$[mod(numShadowPieces,5)]%;\
+    /if ({showcount}  == 0) /send gtell |bc|%{numShadowPieces}|n|. |bc|%{numShadowPieces}|n| shadow pieces... ah ah ah...%;/endif
 

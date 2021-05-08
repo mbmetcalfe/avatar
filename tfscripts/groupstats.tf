@@ -565,6 +565,14 @@
     /endif %;\
     /unset listaltlist
 
+; show main alt when someone logs in/out.
+/def -mregexp -ag -t"^\[BUDDY INFO\]\: ([a-zA-Z]+) has logged in\.$" buddy_login=\
+  /let qryalt=$[strip_attr({P1})]%;\
+  /quote -S /echo -pw @{Cred}[BUDDY INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || main_alt || '@{Cred} has logged in with @{Cwhite}%{P1}@{Cred}.@{n}' from alt_list where lower(name) = lower('%{qryalt}')"
+/def -mregexp -ag -t"^\[BUDDY INFO\]\: ([a-zA-Z]+) has logged out\.$" buddy_logout = \
+  /let qryalt=$[strip_attr({P1})]%;\
+  /quote -S /echo -pw @{Cred}[BUDDY INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || main_alt || '@{Cred} has logged out of @{Cwhite}%{P1}@{Cred}.@{n}' from alt_list where lower(name) = lower('%{qryalt}')"
+
 ; -- to do, gag "You tell JeKyll '" on the following 2 triggers.
 /def -mregexp -p1 -ag -t"^([a-zA-Z]+) tells you '!altlist ([a-zA-Z]+)'$" tell_altlist = \
     /if ("Daeron" !~ ${world_character}) /altlist %{P2} tell %{P1}%; /endif
@@ -624,7 +632,7 @@
     /let _mana=$[substr({4}, strstr({4}, "/")+1)]%;\
     /let _mv=$[substr({5}, strstr({5}, "/")+1)]%;\
     /if ({log_char_stat} == 1) \
-        /quote -S /nothingStat !sqlite3 avatar.db 'delete from char_stat where character = "%{_name}"'%;\
+        /quote -S /nothingStat !sqlite3 avatar.db 'delete from char_stat where lower(character) = lower("%{_name}")'%;\
         /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{_name}", "%{_tier}", "%{2}", "%{_hp}", "%{_mana}", "%{_mv}", "$[ftime("%Y%m%d", time())]")'%;\
     /endif
 
@@ -639,9 +647,6 @@
 ;;; Hero/Lord Params: 1 - Name, 2 - Race, 3 - Level, 5 - Hero/Lord, 6 - Class
 ;;; Lowmort Params: 1 - Name, 2 - Race, 3 - Level, 5 - Class
 ;;; Legend Params: 1 - Name, 2 - Race, 3 - Lord Level, 5 - Class, 6 - Legend Level
-;zaffer the Sprite is a 70th level Lord Priest, was born a long time ago, and
-;caree the High Elf is a 999th level Lord Sorcerer (Legend 1 High Elf Sorcerer),
-;zalera the Centaur is a 24th level Mage, was born on 2015/10/13, and
 /def updateChar = \
     /if ({log_char_stat} == 0) /logCharStat%;/endif%;\
     /def -mregexp -ag -t'was last logged in [on|from].*' gag_lastline2%; \
@@ -656,5 +661,23 @@
 ;;; ----------------------------------------------------------------------
 ;;; Miscellaneous
 ; Macroes to give an item to each group member
-/def givegroup = /set giveGroupieItem=%{*}%;/mapcar /_givegroup %{grouplist}
-/def _givegroup = /echo /send give %{giveGroupieItem} %{1}
+/def givegroup = /let giveGroupieItem=%{*}%;/mapcar /_givegroup %{grouplist}
+/def _givegroup = /send give %{giveGroupieItem} %{1}
+
+/def grmiss = \
+    /let echochan=/echo%; \
+    /if ({#} > 0) /let echochan=%*%; /endif %; \
+    /let _groupies=%{grouplist}%;\
+    /let _roomPlayers=$(/getvar room_players)%;\
+    /while ({_roomPlayers} !~ "") \
+        /let _player=$(/first %{_roomPlayers})%;\
+        /let _roomPlayers=$(/remove %{_player} %{_roomPlayers})%;\
+        /let _groupies=$(/remove %{_player} %{_groupies})%;\
+    /done%;\
+    /let missMsg=|br|Missing Groupies: |y|%{_groupies}|n|%;\
+    /if ({echochan} =~ "/echo") /chgcolor %{missMsg}%;\
+    /else \
+        /if ({_groupies} =~ "") /eval %{echochan} |br|No missing groupies.|n|%;\
+        /else /eval %{echochan} %{missMsg}%;\
+        /endif%;\
+    /endif

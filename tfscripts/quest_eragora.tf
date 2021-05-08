@@ -13,9 +13,9 @@
 /def checklistExpInsig = \
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------%;\
     /echo -pw @{Cred}A halfling "detective" Insignia quest checklist:%;\
-    /echo -pw @{Cyellow}  1. a misty elixir%;\
-    /echo -pw @{Cyellow}  2. a torn out journal entry%;\
-    /echo -pw @{Cyellow}  3. a commission to explore the mountains%;\
+    /echo -pw @{Cyellow}  1. a misty elixir (From Throdak: des)%;\
+    /echo -pw @{Cyellow}  2. a torn out journal entry (On Halfling Slave: A halfling searches the area for clues)%;\
+    /echo -pw @{Cyellow}  3. a commission to explore the mountains (On Nervous Adventurer)%;\
     /echo -pw @{Cyellow}Take tokens to Halfling Spy.%;\
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 /def findlistExpInsig = \
@@ -71,9 +71,10 @@
 ;;; -----------------------------------------------------------------------------
 /def checklistSancInsig = \
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------%;\
-    /echo -pw @{Cred}Sanctuary Insignia quest checklist:%;\
-    /echo -pw @{Cyellow}  1. soul splitting spike dagger%;\
-    /echo -pw @{Cyellow}  2. zurik's Cowl%;\
+    /echo -pw @{Cred}End Of A Well Seasoned Nightmare (Sanctuary) Insignia quest checklist:%;\
+    /echo -pw @{Ccyan}https://avatar.melanarchy.info/index.php/Spoiler_-_End_Of_A_Well_Seasoned_Nightmare_Quest%;\
+    /echo -pw @{Cyellow}  1. soul splitting spike dagger (Carried by Ruddloaf)%;\
+    /echo -pw @{Cyellow}  2. zurik's Cowl (Carried by Zurik)%;\
     /echo -pw @{Cyellow}Take tokens to Seneca.%;\
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 /def findlistSancInsig = \
@@ -129,13 +130,13 @@
 /def checklistFingerbone = \
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------%;\
     /echo -pw @{Cred}Fingerbone quest checklist:%;\
-    /echo -pw @{Cyellow}  1. a half-orc torch%;\
-    /echo -pw @{Cyellow}  2. a luminescent stalk%;\
-    /echo -pw @{Cyellow}  3. a baby eyestalk%;\
-    /echo -pw @{Cyellow}  4. a limp eyestalk%;\
-    /echo -pw @{Cyellow}  5. a juicy steak%;\
-    /echo -pw @{Cyellow}  6. an ornate lockbox%;\
-    /echo -pw @{Cyellow}  7. a silver key.%;\
+    /echo -pw @{Cyellow}  1. a half-orc torch (pp night dancer. From down exit: 2dw)%;\
+    /echo -pw @{Cyellow}  2. a luminescent stalk (mammoth iwei)%;\
+    /echo -pw @{Cyellow}  3. a baby eyestalk (small uwei)%;\
+    /echo -pw @{Cyellow}  4. a limp eyestalk (medium uwei)%;\
+    /echo -pw @{Cyellow}  5. a juicy steak (pp akrikto)%;\
+    /echo -pw @{Cyellow}  6. an ornate lockbox (from drop: 2d2euwn)%;\
+    /echo -pw @{Cyellow}  7. a silver key (iron key from Arakos: 2dwdne, silver key from Drago: 2dwd2s).%;\
     /echo -pw @{Cyellow}Take tokens to Grogbert.%;\
     /echo -pw @{Cwhite}-----------------------------------------------------------------------------@{n}
 /def findlistFingerbone = \
@@ -279,3 +280,7 @@
     /if ({autoquest} == 1) /repeat -0:0:03 1 /send say winter%;\
     /else /echo -pw @{Cred}[QUEST INFO]: Auspices of the Temple Quest: @{Cyellow}say winter%;\
     /endif
+
+;; Spirits of Eragora
+/def -mglob -p50 -F -t"Zurik the Elder Shaman is DEAD!!" spirits_eragora_statuette = /lootcor "relic wooden statuette hunter"
+/def -mglob -p50 -F -t"Captain Tyrana is DEAD!!" spirits_eragora_shawl = /lootcor shawl

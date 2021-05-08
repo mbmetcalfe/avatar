@@ -135,14 +135,15 @@
 /def -mglob -t"*A pile of gold coins." gear_misc_coins = /if ({autoloot} = 1) /send get all.coins%; /endif
 ;/def -mglob -t"Cyskadella is DEAD!!" gear_misc_cysk = /if ({autoloot} = 1) /send get key cor%;/endif
 /def -mglob -t'The master thief is DEAD!!' gear_misc_intruder = /lootcor lockpick
-/def -mglob -t"Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff
+/def -mglob -t"Demon Lord Typhus is DEAD!!" gear_misc_old_typhus = /lootcor staff%;/lootcor ringband
 /def -mglob -t"The Lord Typhus' shadow is DEAD!!" gear_misc_typhus = /lootcor staff
+/def -mglob -t"Gorgon is DEAD!!" gear_misc_gorgon = /lootcor madness
 /def -mglob -t"The grand templar is DEAD!!" gear_misc_templar = /lootcor flask
 /def -mglob -t"Tryystania the DracoLich is DEAD!!" gear_misc_tryys = /if ({autoloot} = 1) /send get skull corpse%;/endif
 /def -mglob -t"ArchBishop Morte is DEAD!!" gear_misc_archbishop = /if ({autoloot} = 1) /send get amulet corpse=unlock north=open north%;/endif
 /def -mglob -t"Belag is DEAD!!" gear_misc_belag = /lootcor symbol
 /def -mglob -t'A Glacial Guardian is DEAD!!' gear_misc_milk = /if ({autoloot} = 1) /send get milk cor%;/endif
-/def -mglob -t"The Privateer Captain is DEAD!!" gear_misc_privateer = /lootcor bag
+/def -mglob -t"The Privateer Captain is DEAD!!" gear_misc_privateer = /if ({autoloot} = 1) /send bag corpse%;/endif
 /def -mglob -t"A dragon Seer is DEAD!!" gear_misc_seer = /lootcor elixir
 /def -mglob -t"The guardian of the white temple is DEAD!!" gear_misc_guardwhite = /lootcor cross
 /def -mglob -t"The Obelische Priest is DEAD!!" gear_misc_obelische = /lootcor cloth
@@ -164,7 +165,7 @@
 
 ;; Sanc insig items
 /def -mglob -t"Zurik the Elder Shaman is DEAD!!" gear_eragora_cowl = /lootcor cowl
-/def -mglob -t"A circle of shamans is DEAD!!" gear_eragora_night_skirt = /lootcor skirt%;/if ({autoloot} = 1) /send get key corpose%;/endif
+/def -mglob -t"A circle of shamans is DEAD!!" gear_eragora_night_skirt = /lootcor skirt%;/if ({autoloot} = 1) /send get key corpse%;/endif
 
 ;;; Heartwood
 /def -p1 -aB -mglob -t'     A single white feather lies amongst the forest leaves.' quest_heartwood_goose_feather = /send get goose
@@ -188,8 +189,9 @@
 /def -mglob -t"The General Commander for Veyah L'Aturii is DEAD!!" necropolis_loot_general_command = /lootcor ashe
 /def -mglob -t"Golem guardian is DEAD!!" necropolis_loot_golem_guardian = /lootcor blade
 
+;;; EHA
 /def -mglob -t"Groundskeeper Chalmers is DEAD!!" Aculeata_loot_chalmers = /lootcor talisman
-
+/def -mglob -t"The hydra's body is DEAD!!" sem_vida_loot_death = /lootcor decay
 
 ;;; Poisons
 /def -mglob -t"A trapdoor spider is DEAD!!" gear_poison_trapspider = /lootcor venom
@@ -213,6 +215,8 @@
 ;; Gear in Aculeata Jatha-La
 /def -mglob -t"An empassioned wasp is DEAD!!" gear_aculeata = /if ({autoloot}=1) /send get corpse%;/endif
 
+;; Gear in Veil of Ecstasy
+/def -mglob -t"Baccarrel is DEAD!!" g_veil_golden = /lootcor golden
 
 ;;; Silly aliases to tell self how to get Orosca
 /alias oros \

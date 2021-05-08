@@ -14,14 +14,23 @@
     /if ({#} == 1) /let augLevel=%{1}%;/endif%;\
     /def -mglob -ag -t"They aren't here." bot_heal_not_here%;\
     /repeat -0:0:15 1 /undef bot_heal_not_here%;\
-    /send tell teacup %{augLevel}=tell kaliver d%{augLevel}=tell styrr %{augLevel}=tell duckstar div%{augLevel}=tell tarlock div%{augLevel}=tell idle div%{augLevel}=tell Croninburg div%{augLevel}%;\
-    /send tell armathus div%{augLevel}=tell quempel div%{augLevel}=tell stahp div%{augLevel}%;\
-    /send tell Aerniil div%{augLevel}=tell textual div%{augLevel}%=tell barkhound %{augLevel}
+    /send tell martyr div%{augLevel}=tell teacup %{augLevel}=tell idle div%{augLevel}=tell Croninburg div%{augLevel}%;\
+    /send tell idle div%{augLevel}=tell sethica div%{augLevel}%;\
+;    /send tell armathus div%{augLevel}=tell quempel div%{augLevel}=tell stahp div%{augLevel}=tell barkhound %{augLevel}%;\
+;    /send tell kaliver d%{augLevel}=tell styrr %{augLevel}=tell duckstar div%{augLevel}=tell tarlock div%{augLevel}%;\
+    /send tell Aerniil div%{augLevel}=tell textual div%{augLevel}=tell Raiwen div%{augLevel}
 /def divme = /divme2 %{1}%;tel izar heal
 /def invigme = \
     /def -mglob -ag -t"They aren't here." bot_invig_not_here%;\
     /repeat -0:0:15 1 /undef bot_invig_not_here%;\
-    /send tell aset invig=tell teacup invig=tell izar invig=tell duckstar invig=tell styrr invig=tell armathus invig=tell quempel invig=tell kaliver rejuv=tell idle invig=tell barkhound rejuvenate=tell textual invig=tell Aerniil INVIG
+    /send tell aset invig=tell martyr rejuv=tell teacup invig=tell textual invig=tell Aerniil INVIG=tell raiwen invig%;\
+    /send tell idle invig
+;    /send tell izar invig=tell duckstar invig=tell styrr invig=tell armathus invig%;\
+;    /send tell quempel invig=tell kaliver rejuv=tell idle invig=tell barkhound rejuvenate
+/def rcme = \
+    /def -mglob -ag -t"They aren't here." bot_invig_not_here%;\
+    /repeat -0:0:15 1 /undef bot_invig_not_here%;\
+    /send tell teacup rc=tell idle rc=tell raiwen rc=tell aset rc
 
 ;;; ----------------------------------------------------------------------------
 ;;; Aliases to view some history
@@ -65,6 +74,7 @@
     /else emote |n|'s fleeting spirit crystallizes into a perfect %{*}!%;\
     /endif
 
+/alias lkr /send linkrefresh group
 /alias b  wear shield%;bash %1%;stand%;wear %{offhand}
 /alias ba bash %1%;stand
 /alias bj get blackjack %lootContainer%;wear blackjack%;blackjack %*%;rem blackjack%;put blackjack %lootContainer%;wear %unbrandish
@@ -75,21 +85,12 @@
 /alias unlall unl n%;unl e%;unl s%;unl w%;unl n%;unl u%;unl d
 /alias o open %1
 /alias oall open n%;open e%;open s%;open w%;open n%;open u%;open d
-/alias res  rescue %1
 /alias qua /send get %1 %lootContainer=quaff %1
 /alias cross /send get marble %lootContainer=wear marble=brandish=wear %unbrandish=put marble %lootContainer
 /alias lily /send get lily %{main_bag}=wear lily=brandish=wear %{unbrandish}=put lily %{main_bag}
 /alias crum /send get crumple %lootContainer=recite crumple %1
-/alias frag /send get fragment %lootContainer=recite fragment %1
-/alias setoffhand  /set offhand %1%;/echo -w -aB -p Ok.  Offhand weapon set to %1.
-/alias setwield /set wield %1%;/echo -w -aB -p Ok.  Wielded weapon set to %1.
 /alias whios whois %*
-/def chksev = get carved %lootContainer=get all carved=put all.small %lootContainer
-/def chkscorp = get arm %lootContainer=get all arm=put arm %lootContainer=put all.scorp %lootContainer
-/alias awe /send quicken %1=c awe=quicken off
 
-/alias budzaff buddyset vikalpa%;buddylist
-/alias budgene buddyset |bp|terror%;buddylist
 /alias bl /send buddylist
 /alias bc /send buddy %*
 
@@ -98,7 +99,6 @@
 ;;; ----------------------------------------------------------------------------
 /alias eport enter portal
 /alias enex enter nexus
-/alias ast c astral %*
 /alias nex c nexus %*
 /alias port c portal %*
 /alias tele c teleport %*
@@ -249,15 +249,6 @@
 /alias eb c 'enchant bow' %1
 /alias ew c 'enchant weapon' %1
 
-; Healing spell aliases
-/alias cc c 'cure crit' %1
-/alias cs c 'cure serious' %1
-/alias div c divinity %1
-/alias he c heal %1
-/alias hii c 'heal ii' %1
-/alias mcc c 'mass cure crit'
-/alias mdiv c 'mass divinity'
-/alias mhe c 'mass heal'
 /alias rc \
     /if ({#} > 1 | {1} > 0) \
         /let _quicken=1%;\
@@ -571,7 +562,7 @@
     /toggle folport%;\
     /if ({folport} == 0) \
         /statusflag %{folport} f_%{followPorter}%;\
-        /undef folleadport folleadsanct folleaddrink folleadrecall folleadtrickle folleaddrinkfountain%;\
+        /undef folleadport folleaddrink folleadtrickle folleaddrinkfountain%;\
         /undef folleadquaff folleadpentagram folleadshizaga folleadwerredan folleadsunlight folleaddarkpatch%;\
         /undef folleaddimtunnel folleadmemlane folleadmaelstrom folleadvortex folleadshimmeringmirror%;\
         /echo -pw %%% @{Cred}No longer automatically entering portals, etc.@{n}%;\
@@ -582,10 +573,6 @@
             /if ({folport} == 1) /send enter "%%P1"%%;/endif%;\
         /def -mregexp -p3 -t"^%{followPorter} enters a silver pentagram." folleadpentagram = \
             /if ({folport} == 1) /send enter pentagram%%;/endif%;\
-        /def -mglob -t"%{followPorter} utters the word \'Sanctum\' and slowly fades from view\." folleadsanct = \
-            /if ({folport} == 1 & {running}==1) /send recall set=sanctum=down=west%%;/invigme%%;/divme%%;/endif%;\
-        /def -mregexp -t"^%{followPorter} recalls\!" folleadrecall = \
-            /if ({folport} == 1) /send recall%%;/endif%;\
         /def -p3 -mregexp -p0 -t"^%{followPorter} drinks ([a-zA-Z\ ]+) from (a fountain of the fates|a fountain of escape)\." folleaddrinkfountain = \
             /if ({folport} == 1) /send drink%%;/endif%;\
         /def -p2 -mregexp -p2 -t"^%{followPorter} drinks water from \." folleadtrickle = \
@@ -615,6 +602,24 @@
         /echo -pw %%% @{Cred}Will enter portals, recall, etc after @{hCYellow}%{followPorter}.@{n}%;\
     /endif
 
+/def -p3 -F -ah -mregexp -t"\*?([a-zA-Z]+)\*? tells the group \'en([ter]*)? (.*)\'" enter_things = \
+    /if (({P1} =~ {leader}) & {folport}==1) /send enter %{P3}%;/endif
+
+;; Macroes to enable auto-following group leader to sanctum or recall.
+;; When going to sanctum the following occurs:
+;;  1. recall set
+;;  2. go to sanctum infirmary (e, d) 
+;;  3. call the /divme and /invigme macroes to get heals and moves
+/def fsanct = /auto folsanctum %1
+/def frecall = /auto folrecall %1
+
+/def -mregexp -t"^([a-zA-Z]+) utters the word \'Sanctum\' and slowly fades from view\." folleadsanct = \
+  /if (({P1} =~ {leader}) & ($(/getvar auto_folsanctum) == 1)) /send recall set=sanctum=down=west%;/invigme%;/divme%;/endif
+
+/def -mregexp -t"^([a-zA-Z]+) recalls\!" folleadrecall = \
+  /if (({P1} =~ {leader}) & ($(/getvar auto_folrecall) == 1)) /send recall%;/endif%;\
+;;
+
 /def fshift = \
     /toggle folshift%;\
     /if ({folshift} == 0) \
@@ -636,6 +641,14 @@
             /endif%;\
         /echo -pw %%% @{Cred}Will Homeshift after @{hCYellow}%{followShifter}.@{n}%;\
     /endif
+
+;;; Let's toggle some shifting home action
+/def home = /auto home %1
+;/if /test (({wait} == 0) & ({pos} =~ "Stand"))%;/then /set %{this}_cast 1%;/endif%;\ 
+/def -p88 -au -F -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'home'" auto_leader_homeshift = \
+    /if (({P1} =~ {leader}) & ($(/getvar auto_home) == 1)) c homeshift%;/home off%;/endif
+/def -p88 -au -F -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'plane thorn'" auto_leader_planeshift = \
+    /if (({P1} =~ {leader}) & ($(/getvar auto_home) == 1)) c plane thorngate%;/home off%;/endif
 
 ;;; ----------------------------------------------------------------------------
 ;;; Brandish stuff
@@ -922,7 +935,9 @@
     /let _togoChan=/echo%;\
     /if ({#}>0) /let _togoChan=%{*}%;/endif%;\
     /let togoExp=$[({levelGoal} - {mylevel})*{myTnl} - ({myTnl} - {tnl})]%;\
-    /let _togoMsg=|g|$[({levelGoal} - {mylevel})] |w|levels to go (|g|%{togoExp} |w|exp|w|, |g|$[{togoExp}/{xp}] |w|runs @ |g|%{xp} |w|exp/run|w|) until level |g|%{levelGoal}|n|%;\
+    /let _xp=%{xp}%;\
+    /if ({failXp}>0) /let _xp=%{failXp}%;/endif%;\
+    /let _togoMsg=|g|$[({levelGoal} - {mylevel})] |w|levels to go (|g|%{togoExp} |w|exp|w|, |g|$[{togoExp}/{_xp}] |w|runs @ |g|%{_xp} |w|exp/run|w|) until level |g|%{levelGoal}|n|%;\
     /unset togoExp%;\
     /if ({_togoChan} =~ "/echo") \
         /chgcolor %{_togoMsg}%;\
@@ -934,7 +949,9 @@
     /let _togoChan=/echo%;\
     /if ({#}>0) /let _togoChan=%{*}%;/endif%;\
     /let togoExp=$[({levelGoal} - {mylevel})*{myTnl} - ({myTnl} - {tnl})]%;\
-    /let _togoMsg=|g|$[({levelGoal} - {mylevel})] |w|levels to go (|g|%{togoExp} |w|exp|w|, |g|$[{togoExp}/{totxp}] |w|days @ |g|%{totxp} |w|exp/day|w|) until level |g|%{levelGoal}|n|%;\
+    /let _xp=%{totxp}%;\
+    /if ({totFailXp}>0) /let _xp=%{totFailXp}%;/endif%;\
+    /let _togoMsg=|g|$[({levelGoal} - {mylevel})] |w|levels to go (|g|%{togoExp} |w|exp|w|, |g|$[{togoExp}/{_xp}] |w|days @ |g|%{_xp} |w|exp/day|w|) until level |g|%{levelGoal}|n|%;\
     /unset togoExp%;\
     /if ({_togoChan} =~ "/echo") \
         /chgcolor %{_togoMsg}%;\

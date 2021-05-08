@@ -10,8 +10,9 @@
     /if ({1} !~ "") /set tnlthreshold=%1%; /endif%; \
     /echo -p %%% @{Ccyan}TNL threshold set to: @{hCwhite}%tnlthreshold@{nCcyan}.@{n}
 
-/def setprompt = /send prompt <%%h/%%H %%m/%%M %%w/%%W %%v/%%V %%T>%%n%;/send config +prompt%;/setprompt2
+/def setprompt1 = /send prompt <%%h/%%H %%m/%%M %%w/%%W %%v/%%V %%T>%%n%;/send config +prompt
 /def setprompt2 = /send prompt2 <Pos: %%e Lag: %%s S:%%S Q:%%Q A:%%A>%%n%;/send config +prompt2
+/def setprompt = /setprompt1%;/setprompt2
 /def setimmprompt = /send prompt <Room: %%R | %%z | I:%%i>%%n
 /def setimmprompt2 = /send prompt2 <Room: %%R | %%z | I:%%i>%%n
 
@@ -109,11 +110,11 @@
     /if ({PL} =/ "*\**") /set prompt_bits=%{prompt_bits}*%;/endif%;\
     /if ({PL} =/ "*\^*") /set prompt_bits=%{prompt_bits}^%;/endif%;\
     /if ({PL} =/ "*\?*") /set prompt_bits=%{prompt_bits}?%;/endif%;\
-    /set curr_hp=$[strip_attr({P1})]%;/set max_hp=$[strip_attr({P2})]%;\
-    /set curr_mana=$[strip_attr({P3})]%;/set max_mana=$[strip_attr({P4})]%;\
-    /set curr_mhp=$[strip_attr({P5})]%;/set max_mhp=$[strip_attr({P6})]%;\
-    /set curr_move=$[strip_attr({P7})]%;/set max_move=$[strip_attr({P8})]%;\
-    /set tnl=$[strip_attr({P9})]%;/set displayTNL=TNL:%{tnl}%;\
+;    /set curr_hp=$[strip_attr({P1})]%;/set max_hp=$[strip_attr({P2})]%;\
+;    /set curr_mana=$[strip_attr({P3})]%;/set max_mana=$[strip_attr({P4})]%;\
+;    /set curr_mhp=$[strip_attr({P5})]%;/set max_mhp=$[strip_attr({P6})]%;\
+;    /set curr_move=$[strip_attr({P7})]%;/set max_move=$[strip_attr({P8})]%;\
+;    /set tnl=$[strip_attr({P9})]%;/set displayTNL=TNL:%{tnl}%;\
     /if (ticktoggle=1) /set ticktoggle=0%;\
     /else \
         /if ((next_tick) & (curr_hp > last_hp | curr_mana > last_mana | curr_move > last_move)) \
@@ -205,7 +206,12 @@
         /if /ismacro full_move_action%; /then /full_move_action%;/undef full_move_action%;/endif%;\
     /endif%;\
     /promptHookCheck%;\
+    /send-gmcp char.group.list%;\
     /if ({visual} =~ "off")  /show_prompt%; /endif
+
+;; Couple keyboard hooks to fire actions on command line when full hp/mana
+/def key_f5 = /def full_hp_action = $[kbhead()]%;/echo -pw %% When HP full: $[kbhead()]%;/kb_backward_kill_line
+/def key_f6 = /def full_mana_action = $[kbhead()]%;/echo -pw %% When Mana full: $[kbhead()]%;/kb_backward_kill_line
 
 ;;; ----------------------------------------------------------------------------
 ;;; Extra prompt
@@ -311,8 +317,8 @@
     /status_rm @log%;\
     /status_rm @mail%;\
     /status_rm @clock%;\
-    /status_add -B prompt_bits:5:hCyellow :1 nexttic:4 :1 curr_hp:6 "/":1:Cyellow max_hp:6:Cgreen "hp":2:Cyellow :1 curr_mana:5 "/":1:Cyellow max_mana:5:Cgreen "ma":2:Cyellow :1 curr_move:5 "/":1:Cyellow max_move:5:Cgreen "mv":2:Cyellow :1 curr_mhp:6 "/":1:Cyellow max_mhp:6:Cgreen "mo":2:Cyellow :1 displayBranLeft:8 displayTNL:9 :1 displayXP:9:Cyellow%;\
-    /status_add_lag%;/status_add_exits%;/status_add_spell_mod%;\
+    /status_add -B prompt_bits:5:hCyellow :1 nexttic:4 :1 curr_hp:6 "/":1:Cyellow max_hp:6:Cgreen "hp":2:Cyellow :1 curr_mana:5 "/":1:Cyellow max_mana:5:Cgreen "ma":2:Cyellow :1 curr_move:5 "/":1:Cyellow max_move:5:Cgreen "mv":2:Cyellow :1 curr_mhp:6 "/":1:Cyellow max_mhp:6:Cgreen "mo":2:Cyellow :1 displayBranRemaining:8 displayTNL:9 :1 displayXP:9:Cyellow%;\
+    /status_add_lag%;/status_add_exits%;/status_add_spell_mod%;/status_add_misc%;\
     /status_add_world%;\
     /status_add -x -r1 -A@world mytier:4:Cgreen%;\
     /status_add -x -r1 -Amytier mylevel:4:CCyan

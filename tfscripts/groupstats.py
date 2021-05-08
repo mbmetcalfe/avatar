@@ -37,8 +37,16 @@ while True:
   cnt = 0
   msg = ''
   groupTable = []
+  groupHP = 0
+  groupMaxHP = 0
+  groupMn = 0
+  groupMaxMn = 0
   for groupie in rows:
       newGroupie = list(groupie)
+      groupHP += groupie[2]
+      groupMaxHP += groupie[3]
+      groupMn += groupie[4]
+      groupMaxMn += groupie[5]
       hpcol = WHITE
       mncol = WHITE
       namecol = YELLOW
@@ -46,6 +54,9 @@ while True:
       if (groupie[2] < groupie[3]*0.75):
           hpcol = RED
           namecol = BRED
+      elif (groupie[2] < groupie[3]*0.50):
+          hpcol = YELLOW
+          namecol = BMAGENTA
       if (groupie[4] < groupie[5]/2):
           mncol = BRED
       if (groupie[0] == 'fig'):
@@ -59,6 +70,8 @@ while True:
       newGroupie[5] = GREEN + str(groupie[5]) + NOCOLOUR
       groupTable.append(newGroupie)
       cnt += 1
+#  totalRow = ['', 'Total:', groupHP, str((groupHP / groupMaxHP) * 100) + '%' , groupMn, str((groupMn / groupMaxMn) * 100) + '%']
+#  groupTable.append(totalRow)
 
   #print(tabulate(groupTable, headers=["Pos", "Name", "HP", "MaxHP", "Mn", "MaxMn"], tablefmt="presto", colalign=("right", "right", "right", "left", "right", "left")))
   print(tabulate(groupTable, headers=["Pos", "Name", "HP", "MaxHP", "Mn", "MaxMn"], tablefmt="presto"))

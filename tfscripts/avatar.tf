@@ -1,6 +1,9 @@
 ;;; Load in files we want for Avatar
 /echo -p %% @{hCyellow}Loading @{CWhite}Avatar @{Cyellow}files...@{n}
 
+;; suppress '% Trigger in world X'
+/def -ag -hBGTRIG
+
 ;;; Avatar ticksize
 /load -q tick.tf
 /ticksize 28
@@ -21,8 +24,7 @@
 ;    /echo %% TICK
 /def -i tick_action = \
     /echo %% TICK%;\
-    /send =
-;    /if ({running} == 1) /send =%;/endif
+    /if ({running} == 1) /send =%;/endif
 
 ;;; Damage display/counter
 /load -q damage.tf

@@ -44,7 +44,6 @@
         /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}!sqlite3 avatar.db "select status || '. ' || IFNULL(item, '') || ' @{Cwhite}Date:@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where lower(character) = '${world_name}'"%;\
     /endif
 
-
 /def alleggear = \
     /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || item || '@{Cred} on @{Cwhite} ' || plane || '@{Cred}. Difficulty: @{Cwhite}' || difficulty || '@{Cred} Instructions: @{Cwhite}' || instructions || '@{n}' from alleg_gear where item like '\%%{*}\%'"
 
@@ -80,14 +79,14 @@
     /sys sqlite3 avatar.db 'insert into char_alleg (character, status, updated) values ("${world_name}", "%{*}", date())'
 
 /def -mregexp -p5 -t"Allegaagse (says|asks) \'(.*)\'" allegaagse_quest = \
-    /if ({P2} =~ 'A beacon from the stands would make me happy.') /setAllegItem Havynne's Lantern%;\
+    /if ({P2} =~ 'A beacon from the stands would make me happy.') /setAllegItem Havynne''s Lantern%;\
     /elseif ({P2} =~ 'A bow made of gold would be a fine addition to my collection.') /setAllegItem Golden Bow%;\
     /elseif ({P2} =~ 'A river of blood should make for some interesting flails.') /setAllegItem Bloodletter Flail%;\
     /elseif ({P2} =~ 'Be a lamb and fetch me a knife from Karnath.') /setAllegItem a sacrificial knife%;\
     /elseif ({P2} =~ 'Bring me a dagger I can use to cut glass.') /setAllegItem Diamond Dagger%;\
     /elseif ({P2} =~ 'Bring me a fiery ring.') /setAllegItem Ring Of The White Flame%;\
     /elseif ({P2} =~ 'Bring me a fiery signet.') /setAllegItem Signet Of Pure Flame%;\
-    /elseif ({P2} =~ 'Bring me a goat\'s head from the demons. Mount it on a stick or something.') /setAllegItem Ram's Head staff%;\
+    /elseif ({P2} =~ 'Bring me a goat\'s head from the demons. Mount it on a stick or something.') /setAllegItem Ram''s Head staff%;\
     /elseif ({P2} =~ 'Bring me a madman\'s embedded whip.') /setAllegItem Shard-Embedded Whip%;\
     /elseif ({P2} =~ 'Bring me a shroud. Be sure it has some heft to it.') /setAllegItem Heavy Shroud%;\
     /elseif ({P2} =~ 'Bring me a Sultan\'s head! Or the turban that rests on it at least.') /setAllegItem Sultans Turban%;\
@@ -125,7 +124,7 @@
     /elseif ({P2} =~ 'I find myself needing to purify a few sections of my hoard; perhaps a wand would aid me with this.') /setAllegItem Ritual Purification Wand%;\
     /elseif ({P2} =~ 'I found a bare spot in my collection that would benefit from a plain staff, or staff of a plane.') /setAllegItem Staff Of The Lower Planes%;\
     /elseif ({P2} =~ 'I have a leather restorer and preservative I would like to test on some leather armor that has seen better days.') /setAllegItem Decaying Vest Made From Cracked Leather%;\
-    /elseif ({P2} =~ 'I just want you to do a quick trip to Astral shift and grab me a guardian\'s weapon.') /setAllegItem Massive Slate-grey Sledgehammer%;\
+    /elseif ({P2} =~ 'I just want you to do a quick trip to Astral shift and grab me a guardian\'s weapon.') /setAllegItem a massive slate-grey sledgehammer%;\
     /elseif ({P2} =~ 'I need you to go visit with the Demogorgon and see if you can purchase his whip, or maybe he would give it to me as a gift.') /setAllegItem a black whip%;\
     /elseif ({P2} =~ 'I probably wouldn\'t want to encounter bugs attached to green webbing, but a veil made of such stuff intrigues me.') /setAllegItem a green web veil%;\
     /elseif ({P2} =~ 'I require a blindfold that has seen some action. Don\'t waste my time with the one that blind Fae wears.') /setAllegItem Bloodstained Blindfold%;\
@@ -200,7 +199,7 @@
     /endif%;\
     /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}%{allegItem}@{n}%;\
     /alleggear %{allegItem}%;\
-    /findgear %{allegItem}
+    /fgear %{allegItem}
 
 ;;; ---------------------------------------------------------------------------- 
 ;;; Macros to display what items can be found on a particular plane
@@ -310,5 +309,5 @@
 ;Your insignia:
 ;    Goto Guy/Gal/Person
 ;    Busybody
-/def -mregexp -p5 -t"^    (Scratcher|Busybody|Deed Doer|Goto Guy\/Gal\/Person)$" alleg_insignia_level = \
+/def -mregexp -p5 -t"^    (Scratcher|Busybody|Deed Doer|Goto Guy\/Gal\/Person|Feat Finisher|Task Master)$" alleg_insignia_level = \
     /sys sqlite3 avatar.db 'update char_alleg set level = "%{P1}" where lower(character) = "${world_name}"'
