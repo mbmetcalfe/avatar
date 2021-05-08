@@ -13,7 +13,6 @@
 ;-------------------------------------------------------------------------------
 /def -F -wduskrta -mglob -t"Welcome to the AVATAR System, Lord Duskrta." duskrta_lord999_login = \
     /hook_resize%;\
-;    /set mylevel=999%;\
     /let logincharname=${world_character}%;\
     /let logincharname=$[tolower({logincharname})]%;\
     /set myname=%{logincharname}%;\
@@ -31,7 +30,7 @@
 
 ;Level 125(999) High Elf Sorcerer
 /def -wduskrta duskrtaunlvl = \
-    /def -wduskrta -n2 -p10 -ag -mregexp -t"^Playerinfo (cleared|line added)\.$" duskrta_playerinfo_gag%;\
+    /def -wduskrta -n2 -p10 -ag -mregexp -t"^Playerinfo (cleared|line added)\." duskrta_playerinfo_gag%;\
     /let levelDiff=$[{mylevel} - 999]%;\
     /send playeri clear=playeri + |w|Level 125(|g|999|w|+|g|%{levelDiff}|w|: |g|%{mylevel}|w|) High Elf Sorcerer
 ;/def -wduskrta duskrtalvl = /send wear levelgear

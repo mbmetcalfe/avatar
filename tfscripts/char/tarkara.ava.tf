@@ -1,9 +1,12 @@
 ;;; tarkara.ava.tf
 ;;; Oct 9, 2014 - Died to Bask - No Silver Iguana for me!
 ;/load -q char/tarkara.gear.ava.tf
+/load -q char/lord.roghit1.ava.tf
 /set hit_bag="urn black hitgear"
 /set hit_held="shard black doom marble"
-/set main_bag=loot
+/set hit_wield="pointy stick croms lordgear elemdagger"
+/set hit_offhand="pointy stick crom lordgear plain"
+/set main_bag="jumpsuit white loot"
 
 ;DtI@Hero 250: 2022 hp    187 ma  1778 mv   3333 tnl
 ;WvI@Hero 250: 2132 hp    308 ma  1914 mv   2857 tnl

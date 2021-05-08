@@ -6,15 +6,5 @@
 ;/load -q char/dusta.gear.ava.tf
 
 ;;; set up other variables
-/set myclass=rog
-/set myrace=lsi
-/set myTnl 1111
 
-/set wield=bladed
-/set offhand=shield
-/set unbrandish=leman
-/set brandish=typhus
-/set lootContainer=loot
-
-/stnl 110
-
+/loadCharacterState dusta

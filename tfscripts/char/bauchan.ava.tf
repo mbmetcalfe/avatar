@@ -18,8 +18,6 @@
 ;;;    ax called tornado - hits multiple mobs (Divide)
 ;;;    spear called rip (Apocalypse)
 
-/set my_spell=barkskin
-
 /require archer.tf
 /alias bowie get bowie %lootContainer%;wield bowie
 /alias unbowie wield %{wield}%;put bowie %lootContainer

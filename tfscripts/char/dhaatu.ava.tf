@@ -10,16 +10,13 @@
 /load -q char/dhaatu.gear.ava.tf
 /set lootContainer=loot
 
-;; Temp triggers until he gets more mvs
-/def -wdhaatu -mregexp -p1 -au -t"^You feel less durable\.$" dhaatu_endurance_fall = \
-    /send wear seven%;\
-    /set enduranceleft=-1
-/def -wdhaatu -mregexp -p1 -au -t"^You feel energized\.$" endurance_up = \
-    /send wear %{hit_feet}=wear %{ac_feet}=config +savespell%;\
-    /set enduranceleft=999
+/def -wdhaatu -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" dhaatu_poke_resc = /if ({dhaatu_auto_rescue} == 1) /send rescue %{P1}%;/endif
+
+;; Wear seneca robe to bipass curse on the ofcol rings
+/def -wdhaatu -p0 -mglob -ag -h'SEND wear all' hook_dhaatu_wear_all = /send wear all=get "robes sustainment" %{main_bag}=wear "robes sustainment"=wear "robe greatness"=put "robes sustainment" %{main_bag}
 
 ;Kra's presence disappears.
-/set dhaatu_prayer_boon=Precision
+;/set dhaatu_prayer_boon=Precision
 /def -wdhaatu -au -mregexp -p10 -F -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears\.$" dhaatu_prayer_drop = \
     /if ({repray} == 1) /refreshSkill c prayer %{dhaatu_prayer_boon}%;/endif
 
@@ -32,6 +29,15 @@
     /endif
 /def -wdhaatu reshoulder = /toggle dhaatu_reshoulder%;/echoflag %dhaatu_reshoulder Re-@{hCblue}Shoulder Burden@{n}
 
+;; Autohealing variables
+; Kra War Oath levels:
+/set divGain=162
+/set healGain=79
+/set cureLightGain=21
+
+/def -mglob -p1 -ag -wdhaatu -t"Punch whom?" dhaatu_autoheal_toggle = \
+  /if ({autoheal}=1) /set healToggle=1%;\
+  /else /echo -pw @{Cgreen}Punch whom?@{n}%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState dhaatu

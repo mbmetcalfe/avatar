@@ -30,7 +30,7 @@
 ;        /aq wear autumn%;\
 ;    /endif
 
-/def -wmaxine wa = /send wake%;/mana2arc
+;/def -wmaxine wa = /send wake%;/mana2arc
 
 /def -wmaxine -p9 -ag -mregexp -F -t"\'s attac.* strikes? you [0-9]* (time|times), with .* [a-zA-Z]*(\.|\!)$" archer_aggie_swap_bow = \
     /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif

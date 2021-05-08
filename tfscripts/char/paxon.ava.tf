@@ -86,6 +86,9 @@
 
 /def chargeit = charge fire flametongue%;/def full_mana_action = wake%%;charge light arc
 
+;; refresh sneak if running
+/def -p9 -t"You feel less fatigued. (sneak)" paxon_refresh_sneak = /if ({running}==1) /send racial sneak%;/endif
+
 ;; Load in the variables saved from previous state.
 /loadCharacterState paxon
 

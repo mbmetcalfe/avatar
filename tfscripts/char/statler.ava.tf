@@ -7,11 +7,6 @@
 ;;; 20190520: Morphed at level 502: 8158 hp 27486 ma
 ;;; 20190627: Remorted to tua sor
 
-;liz mag -> liz sor -> tua sor
-;(999 * 1052) + (200 * 1052) + (1050 * 1052) + (125 * 1052) + (1050 * 1538) = 4112348
-;liz mag -> tua mag -> tua sor
-;(999 * 1052) + (25 * 1052) + (1050 * 1538) + (200 * 1538) + (1050 * 1538) = 4614648
-
 ;;; ----------------------------------------------------------------------------
 ;;; Gear stuff
 ;;; ----------------------------------------------------------------------------
@@ -63,8 +58,11 @@
 
 /def -wstatler -Fp5 -au -P0h -t"calls forth acid to scour away his foes!" statler_highlight_acid_rain
 
+;;
+/def -wstatler -mregexp -au -t"^\*Sal\* tells the group \'calm\'" statler_calm_gt = /if ({running}==1) /send quicken 9=c calm=quicken off%;/endif
+
 ; Temp trigger to swap to ac when Nit does
-/def -wstatler -mglob -t"Nit smoothes out its clothes." nit_smooth_to_ac = /mana2ac
+;/def -wstatler -mglob -t"^(Roku|Nit) smoothes out its clothes." nit_smooth_to_ac = /mana2ac
 
 /def -wstatler -mglob -p1 -t"Mayflower, Explorer and Trailblazer exclaims 'Follow me for Ocean Transport!'" mayflower_timed_follow = \
     /if ({leader} =~ "Self") /repeat -0:0:04 1 /send follow mayflower%;/endif

@@ -3,14 +3,6 @@
 
 /load -q char/ronco.gear.ava.tf
 
-;; Temp triggers until he gets more mvs
-/def -wronco -mregexp -p1 -au -t"^You feel less durable\.$" ronco_endurance_fall = \
-    /send wear seven%;\
-    /set enduranceleft=-1
-/def -wronco -mregexp -p1 -au -t"^You feel energized\.$" ronco_endurance_up = \
-    /send wear %{hit_feet}=config +savespell%;\
-    /set enduranceleft=999
-
 ; Tear triggers
 /def -wronco -mglob -t"One of your Exhaust timers has elapsed. (tear)" ronco_tear_ready = \
     /if ({refreshmisc} == 1) \
@@ -23,14 +15,28 @@
 ;You flay Crullius the White's hide!
 ;You prepare to dispense a savage mauling...
 
+
+/def maul = /auto maul %1
+/def flay = /auto flay %1
+/def rundmg = /maul %1%;/flay %1%;/cast %1%;/assist
+
+/def -wronco -mregexp -p9 -F -t"^You start fighting .*\." ronco_autoflay =\
+  /let roncoHPThresholdPercent=$[{max_hp} * {roncoHPThreshold} / 100]%;\
+  /if ({curr_hp} > {roncoHPThresholdPercent} & {ronco_auto_flay} == 1) /send flay%;/endif
+/def -wronco -mregexp -p9 -F -t"^You pounce on .*, claws flying!" ronco_autoflay2 =\
+  /let roncoHPThresholdPercent=$[{max_hp} * {roncoHPThreshold} / 100]%;\
+  /if ({curr_hp} > {roncoHPThresholdPercent} & {ronco_auto_flay} == 1) /send flay%;/endif
+/def -wronco -mregexp -p9 -t"^You attempt a pounce, but .* evades!" ronco_autoflay3=\
+  /let roncoHPThresholdPercent=$[{max_hp} * {roncoHPThreshold} / 100]%;\
+  /if ({curr_hp} > {roncoHPThresholdPercent} & {ronco_auto_flay} == 1) /send flay%;/endif
+
 ;;; ----------------------------------------------------------------------------
 ;;; roncoPromptHookCheck is called from the prompt_hook via /promptHookCheck
 ;;; What we want to do here is just turn off auto-cast when Ronco is < 75% hp.
 ;;; ----------------------------------------------------------------------------
-/def amaul = /auto maul %1
 /set roncoPromptHookCheckToggle=1
 ; Threshold is a percent of max HP
-/set roncoHPThreshold=75
+/set roncoHPThreshold=78
 /def roncoPromptHookCheck = \
     /let roncoHPThresholdPercent=$[{max_hp} * {roncoHPThreshold} / 100]%;\
     /if ({curr_hp} < {roncoHPThresholdPercent} & {roncoPromptHookCheckToggle} == 1 & {ronco_auto_maul} == 1 & {ronco_auto_cast} == 1) \

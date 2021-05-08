@@ -22,6 +22,9 @@
 ;/send gtell #tr {^ Pain clatters to the ground!} {get all.pain;give pain asha;give pain asha} {psi}
 ;/send gtell #tr {^ Pain clatters to the ground!} {get |by|pain|n|;get |bg|boss2|n|;give |by|pain|n| asha;give |bg|boss2|n| asha} {psi}
 
+/def -washa -mglob -t"You have received an award of * quest points!" asha_qp_turnin = \
+    /if ({autoquest} == 1) /send give autoqpt "Quest Automaton"%;/endif
+
 /alias danc c 'dancing weapon'
 /alias bio /send look %1 description
 
@@ -51,9 +54,7 @@
 ;;; ---------------------------------------------------------------------------
 ;;; Weapon fiddling
 ;;; ---------------------------------------------------------------------------
-/def -i fixweaps = /send wield %{hit_wield}=wear %{hit_offhand}
-/def -mglob -p0 -washa -t"You feel weaker." giantstr_fade = \
-    /if ({running} == 1) /send str%; /endif
+/def -mglob -p0 -washa -t"You feel weaker." giantstr_fade = /if ({running} == 1) /send str%; /endif
 
 /def -mglob -p0 -washa -t"You must be wielding two weapons to use this spell!" weaponmissing = \
     /send wield %{hit_wield}=wear %{hit_offhand}%;\
@@ -95,23 +96,12 @@
 
 /def -mglob -ahCwhite -t"Your weapons dance through the air!" highlight_fandango
 
-/def fandcost = \
-    /mcost Fandango 114%;\
-    /mcost Fandango-q@{hCmagenta}1 228%;\
-    /mcost Fandango-q@{hCmagenta}2 342%;\
-    /mcost Fandango-q@{hCmagenta}3 456%;\
-    /mcost Fandango-q@{hCmagenta}4 570%;\
-    /mcost Fandango-q@{hCmagenta}5 684%;\
-    /mcost Fandango-q@{hCmagenta}6 798%;\
-    /mcost Fandango-q@{hCmagenta}7 912%;\
-    /mcost Fandango-q@{hCmagenta}8 1026
-
 ;; Cast minds eye before wearing all
 /def -washa -p0 -mglob -ag -h'SEND wear all' hook_asha_wear_all = /send quicken 5=c 'minds eye'=quicken off=wear all
 
 ;;; scripts to bipass migraine effects if stuff is stacked
 /def -washa -p1900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger\.\.\." migraine_disconnect_asha = \
-    /if ({running}=1) /rc%;quicken off%;surge off%;c 'psychic drain'%;/endif
+    /if ({running}=1) c 'water breath'%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState asha

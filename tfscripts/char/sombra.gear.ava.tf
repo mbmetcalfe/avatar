@@ -15,8 +15,6 @@
 
 ;/load -q char/lord.hit2.ava.tf
 ;/load -q char/lord.ac2.ava.tf
-;/set hit_wield="claw dragon simple"
-;/set hit_offhand="pointy stick crom lordgear"
 ;/set ac_wield="stiletto poignant memories unostiletto"
 ;/set ac_offhand="stiletto poignant memories dosstiletto"
 

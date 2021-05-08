@@ -1,7 +1,7 @@
 ;; zaratan.gear.ava.tf
 /cleangear
 
-/set main_bag="jumpsuit white loot"
+/set main_bag="drake scale skin smoldering rucksack loot"
 
 ;/load -q char/hero.lightmana.ava.tf
 /load -q char/hero.mana2.ava.tf

@@ -11,23 +11,23 @@
 
 ;;; read in Keiko's gear file
 /load -q char/keiko.gear.ava.tf
-/load -q char/lord.ac1.ava.tf
 
 /require rogue.tf
 /require monk.tf
 
-/def -wkeiko keikolvl = wear levelgearac
-/def -wkeiko keikounlvl = wear lodestone
+/set monkHandMod=dagger hand
 
-/def keikomidround = \
-    /if ({mudLag} <3) \
-        /send vital %avs_spot%;\
-    /endif
+/def vamp = /send stance vampire fang
+/def -wkeiko -p9 -F -t"You adopt vampire fang." keiko_vamp_up = /postpush crush
+/def -wkeiko -p9 -F -t"You adopt emu stance." keiko_emu_up = /postpush kick
+/def -wkeiko -p9 -F -t"You stop using vampire fang." keiko_vamp_down = /postpush kick
 
-
-/set grouped_fusilier=Chandalen
-/def -p2 -ah -wkeiko -mglob -t"* catches it\!" fusilier_mob_catch = \
-    /addq get spear corpse#give spear %{grouped_fusilier}
+;; Add mon qi status items in manually
+/status_add_mon
+;; try and remove the status items, but don't work if using the /r command
+/def -wkeiko -p0 -mglob -ag -h'SEND quit' hook_keiko_quit = \
+    /status_rm_mon%;\
+    /send quit
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState keiko

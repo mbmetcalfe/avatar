@@ -10,6 +10,13 @@
 /load -q char/gengis.gear.ava.tf
 /def -wgengis wa = /send wake%;/mana2ac
 
+/def -wgengis grheal = /noheal%;/graction /addheal
+
+;/def gengissanc = /send quicken 9=c innocence=quicken off=preach sanc
+/def gengissanc = \
+    /if ({currentPosition} =~ "stand" & {mudLag} < 3) /send preach sanc%;\
+    /else /send quicken 9=c innocence=quicken off=preach sanc%;\
+    /endif
 ;;/redef off
 
 /def -wgengis gsup = \
@@ -18,17 +25,6 @@
     preach water breath%;preach iron skin%;preach fortitudes%;remove all.cape%;preach foci%;wear all.cape%;preach aegis%;preach sanct%;preach holy sight%; \
     filter -spellother
 
-/def -wgengis tpcomf = \
-    /if ({autocast}=1) \
-    	preach comf%;inv%;\
-    	/repeat -0:00:35 1 /tpcomf%; \
-    /endif
-
-/alias p preach %*
-/alias pt c 'pure touch' %*
-/alias cla c clarify %*
-/alias pan c panacea %*
-/alias pto preach pure touch
 
 ;;; ----------------------------------------------------------------------------
 ;;; combat assistance aliases
@@ -50,8 +46,6 @@
     /endif%;\
     preach innocence%;\
     /if ({_quicken} = 1) quicken off%;/endif
-
-/alias psanc /send quicken 9=c innocence gengis=quicken off=preach sanc
 
 ;;; ----------------------------------------------------------------------------
 ;;; preached healing aliases
@@ -110,8 +104,7 @@
     /if ({#} > 1 | {1} > 0) quicken off%;/endif
 
 ;;; scripts to bipass migraine effects if stuff is stacked
-/def -wgengis -p900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger\.\.\." migraine_disconnect = \
-    /if ({running}=1) /rc%;quicken off%;surge off%;c 'cure light'%;/endif
+/def -wgengis -p900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger\.\.\." gengis_migraine = /if ({running}=1) c 'water breath'%;/endif
 
 ;;; ----------------------------------------------------------------------------
 ;;; Autohealing setup
@@ -134,7 +127,11 @@
 /def -mglob -p1 -ag -wgengis -t"Wow, that takes talent." autoheal_toggle = \
     /if ({autoheal}=1 & {healToggle}=0) /set healToggle=1%;/endif
 
-;;/redef on
+;;; --- do some things when told to return to Thorngate
+/def -p90 -au -F -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'home'" gengis_auto_leader_homeshift = \
+    /if (({P1} =~ {leader}) & ($(/getvar auto_home) == 1)) /healbot off%;/endif
+/def -p90 -au -F -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'plane thorn'" gengis_auto_leader_planeshift = \
+    /if (({P1} =~ {leader}) & ($(/getvar auto_home) == 1)) /healbot off%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState gengis

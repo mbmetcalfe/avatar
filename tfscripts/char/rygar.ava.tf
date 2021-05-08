@@ -6,5 +6,8 @@
 
 /set poisonkit=toxifier
 
+/def -p50 -au -wrygar -mregexp -t"A female lizardman thief hunts for treasure\." rygar_atarg_female_lizardman = bs female!%;/aq /find female
+
+
 ;; Load in the variables saved from previous state.
 /loadCharacterState rygar

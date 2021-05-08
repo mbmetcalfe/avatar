@@ -20,4 +20,4 @@
 /set ac_wrist1 "kzinti kzintium blade bracer"
 /set ac_wrist2 "kzinti kzintium blade bracer"
 /set ac_wield "ethereal blade"
-/set ac_held "lodestone chunk rock"
+/set ac_held "sceptre might dawizs lordgear"

@@ -18,12 +18,17 @@
 
 ;;; scripts to bipass migraine effects if stuff is stacked
 /def -wverlegenheit -p900 -mregexp -ar -t"^You feel a slight headache growing stronger\.\.\." migraine_disconnect_verlegenheit = \
-    /if ({running}=1) /rc%;quicken off%;surge off%;c 'cure light'%;/endif
+    /if ({running}==1) c 'water breath'%;/endif
+;    /if ({running}=1) /rc%;quicken off%;surge off%;c 'cure light'%;/endif
 
-;; drone/autoheal thing
-/def -mglob -p1 -ag -wphenyx -t"Punch whom?" autoheal_toggle = \
-    /if ({autoheal}=1) /set healToggle=1%;\
-    /else /echo -pw @{Cgreen}Punch whom?@{n}%;/endif
+/set verlegenheit_prayer_boon=Stupefy
+/def -wverlegenheit -au -mregexp -p10 -F -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears\.$" verlegenheit_prayer_drop = \
+    /if ({repray} == 1) \
+        /refreshSkill c prayer '%{verlegenheit_prayer_boon}'%;\
+    /endif
+
+; auto-set lord-leadership skill
+/def -wverlegenheit -mregexp -F -t'^You join ([a-zA-Z]+)\'s group.' verlegenheit_set_leadership = /send leadership switch right hand
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState verlegenheit

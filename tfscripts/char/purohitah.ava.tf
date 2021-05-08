@@ -1,37 +1,45 @@
 ;;; purohitah.ava.tf
 ;; 
-;/load -q char/purohitah.gear.ava.tf
+;; 20201030 - 538 hero, Killed UD
+/load -q char/purohitah.gear.ava.tf
+
+;; Autohealing variables
+/set comfGain=1500
+/set divGain=235
+/set healGain=117
+/set cureLightGain=27
 
 ;;; set up other variables
-/set myclass=prs
-/set myrace=tua
-/set lootContainer=loot
-;; spell queue spell to give.
-/set my_spell=invincibility
-
-/redef off
-/alias hos c 'holy sight' %*
-/alias invinc c invinc %1
-
 /def -wpurohitah gsup = \
 	filter +spellother%; \
-	gtell |c|Ok, here comes spells, sleep if you want to avoid spam.  You may want to |y|remove capes|c|.|w|%; \
-	preach water breath%;preach iron skin%;preach fortitudes%;preach foci%;preach aegis%; \
+	gtell |c|Ok, here comes spells, sleep if you want to avoid spam.|w|%; \
+	preach holy sight%;preach water breath%;preach iron skin%;preach fortitudes%;preach foci%;preach aegis%;preach sanc%; \
 	filter -spellother%; \
 	gtell |r|Frenzy |c|if you need to.|w|
 
-/alias p preach %*
-/alias pt c 'pure touch' %*
-/alias cla c clarify %*
-/alias pan c panacea %*
-/alias pcc preach cure critical
-/alias phe preach heal
-/alias pdiv preach div
-/alias pto preach pure touch
-/alias pinn preach innocence
-/alias inno c innocence %*
-/alias swa sleep%;/addq wake
-;/alias kin /eval /send emote attacks %targetMob=c innoc %1
-;/alias pin /eval /send emote attacks %targetMob=preach innoc
-/alias comf c comfort %*
-/redef on
+/def -wpurohitah wa = /send wake%;/mana2ac
+
+; Temp trigger to swap to ac when leader does
+/def -wpurohitah -mregexp -t"^(Nit|Roku) smoothes out its clothes\." leader_smooth_to_ac = /if ({running}==1) /mana2ac%;/endif
+
+; Swap to mana when leader does
+/def -wpurohitah -mregexp -t"^(Nit|Roku) takes it easy and relaxes." leader_swap_to_mana = /if ({running}==1) /ac2mana%;sleep%;/endif
+
+; follow teleport
+/def -wpurohitah -p4 -au -mglob -t"Nit steps into a shimmering portal." purohitah_follow_nit = /if ({running}==1) c teleport nit%;/endif
+
+;; Migraine stuff
+/def -wpurohitah -p1900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger\.\.\." purohitah_migrained = c 'water breath' 
+
+;; inno things
+/def -wpurohitah -mregexp -au -t"^([a-zA-z]+) tries to tell you a story to make .* look innocent\.$" purohitah_inno_other = \
+  /if ({running}==1) c innocence %{P1}%;/endif
+
+/def -wpurohitah -mregexp -au -t"^\*Roku\* tells the group \'inno\'" purohitah_preach_inno_gt = \
+    /if ({running}==1) preach innocence%;/endif
+
+/def -wpurohitah -mregexp -au -t"^(Fluent) tells the group '(clarify|pana) ?(pls)?'" purohitah_clarify_gt = /send wak=c %{P2} %{P1}=slee
+/def -wpurohitah -mregexp -au -t"^(Purohitah|Fluent) looks at your description." purohitah_noafk = /let wait_time=$[rand(0,24)]%;\
+ /repeat -00:00:%{wait_time} 1 look
+
+/loadCharacterState purohitah

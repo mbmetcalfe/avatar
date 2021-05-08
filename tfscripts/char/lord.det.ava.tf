@@ -1,4 +1,4 @@
-/set det_bag "bodybag body bag detgear"
+/set det_bag "floating icesphere detgear!"
 
 /set det_light "sphere burning souls"
 /set det_finger1 ""

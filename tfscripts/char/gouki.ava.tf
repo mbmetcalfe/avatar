@@ -8,20 +8,10 @@
 /set monkHandMod=stone fist
 ;/set monkHandMod=dagger hand
 
-;;; set up other variables
+/def -wgouki -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" gouki_poke_resc = \
+  /if ({gouki_auto_rescue} == 1) /send rescue %{P1}%;/endif
 
 /def -wgouki ba = /send wear all.shield=bash %1=stand=remove all.shield
-/alias endur /send get seven %lootContainer=wear seven=c endurance=wear %{ac_feet}=put  seven %lootContainer
-
-/def -wgouki goukimidround = kick
-
-;; Temp triggers until he gets more mvs
-/def -wgouki -mregexp -p1 -au -t"^You feel less durable\.$" gouki_endurance_fall = \
-    /send get seven %{main_bag}=wear seven%;\
-    /set enduranceleft=-1
-/def -wgouki -mregexp -p1 -au -t"^You feel energized\.$" endurance_up = \
-    /send wear %{hit_feet}=wear %{ac_feet}=put seven %{main_bag}=config +savespell%;\
-    /set enduranceleft=999
 
 /def -wgouki -au -p9 -F -mglob -t'Your force shield shimmers then fades away.' gouki_focidrop = \
     /if ({running} == 1) /send racial fly%;/endif

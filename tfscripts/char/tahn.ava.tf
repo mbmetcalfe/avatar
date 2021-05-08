@@ -21,11 +21,8 @@
     /repeat -00:00:03 1 /sregen
 
 ;;; scripts to bipass migraine effects if stuff is stacked
-/def -wtahn -p900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger..." tahn_migraine_disconnect = \
-    /if ({running}=1) /rc%;quicken off%;surge off%;c 'psychic drain'%;/endif
-
-/set tahnMidSpell='fracture'
-/def tahnmidround = /send -wtahn c %{tahnMidSpell}
+/def -wtahn -p900 -mregexp -ahCwhite -t"^You feel a slight headache growing stronger..." tahn_migraine = \
+    /if ({running}=1) c 'water breath'%;/endif
 
 ;;; ----------------------------------------------------------------------------
 ;;; tahnPromptHookCheck is called from the prompt_hook via /promptHookCheck
@@ -38,9 +35,12 @@
         /echo -pw @{hCmagenta}Mana below threshold. Turning @{hCred}OFF@{hCmagenta} surge.  Will turn toggle back on when mana is full.@{n}%;\
         /send -wtahn surge off%;\
         /set tahnPromptHookCheckToggle=0%;\
-        /def full_mana_action=/set tahnPromptHookCheckToggle=1%%;/echo -pw @{hCmagenta}Surge/Mana toggle check back @{hCgreen}ON@{hCmagenta}.@{n}%;\
-        /if ({multi} == 1) /send gtell Mana low, turning surge off%;/endif%;\
+        /def full_mana_action=/set tahnPromptHookCheckToggle=1%%;/echo -pw @{hCmagenta}Surge/Mana toggle check back @{hCgreen}ON@{hCmagenta}.@{n}%%;/aq surge 2%;\
+        /if ({multi} == 1) /send -wtahn gtell Mana low, turning surge off%;/endif%;\
     /endif
+
+/def psyphon = /auto psyphon %1
+/def -wtahn -ahu -p500 -mregexp -t", (a sorceror|a kinetic caster|a psion|a mage|a very learned caster|a cleric|a lich|will make an omelette of your brain|a great healer)," tahn_psyphon_caster_mobs = /if ({tahn_auto_psyphon} == 1) /send quicken 9=c psyphon=quicken off%;/endif
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState tahn
