@@ -21,7 +21,8 @@
     /if ({running}==1) c 'water breath'%;/endif
 ;    /if ({running}=1) /rc%;quicken off%;surge off%;c 'cure light'%;/endif
 
-/set verlegenheit_prayer_boon=Stupefy
+;/set verlegenheit_prayer_boon=Stupefy
+/def boon = /setvar prayer_boon %*
 /def -wverlegenheit -au -mregexp -p10 -F -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears\.$" verlegenheit_prayer_drop = \
     /if ({repray} == 1) \
         /refreshSkill c prayer '%{verlegenheit_prayer_boon}'%;\

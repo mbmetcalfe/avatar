@@ -1,7 +1,7 @@
 ;; paxon.gear.ava.tf
 /cleangear
 
-/set main_bag "encrusted layer shells loot"
+/set main_bag "floating icesphere loot"
 
 /def -wpaxon mana_post_on = \
     /set unbrandish=%{mana_held}%; \

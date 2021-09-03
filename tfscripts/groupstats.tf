@@ -625,6 +625,8 @@
     /let _tier=$[replace(" ", "", substr({_tier_name}, 1, strstr({_tier_name}, " ", 1)))]%;\
     /let _name=$[replace(" ", "", substr({_tier_name}, strstr({_tier_name}, {_tier}) + strlen({_tier}) + 1))]%;\
     /let _lcname=$[tolower({_name})]%;\
+    /let _level=%{2}%;\
+    /if ({_lcname} =~ {myname}) /let _level=%{mylevel}%;/endif%;\
     /set displayMonitorHP_%{_lcname}=%{_name}: %{3} hp%;\
     /set displayMonitorMN_%{_lcname}=%{_name}: %{4} mn%;\
     /set displayMonitorMV_%{_lcname}=%{_name}: %{5} mv%;\
@@ -633,7 +635,7 @@
     /let _mv=$[substr({5}, strstr({5}, "/")+1)]%;\
     /if ({log_char_stat} == 1) \
         /quote -S /nothingStat !sqlite3 avatar.db 'delete from char_stat where lower(character) = lower("%{_name}")'%;\
-        /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{_name}", "%{_tier}", "%{2}", "%{_hp}", "%{_mana}", "%{_mv}", "$[ftime("%Y%m%d", time())]")'%;\
+        /quote -S /nothingStat !sqlite3 avatar.db 'insert into char_stat (character, tier, level, hp, mana, mv, last_seen) values ("%{_name}", "%{_tier}", "%{_level}", "%{_hp}", "%{_mana}", "%{_mv}", "$[ftime("%Y%m%d", time())]")'%;\
     /endif
 
 /def charstat = \

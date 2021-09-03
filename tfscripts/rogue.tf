@@ -168,7 +168,11 @@
     /statusflag %atarg Target%;\
     /if ({atarg}=1 & {#}>0) /targ %*%;/endif
 
-;; New auto-targetting/stab macro
+;; Auto-targetting macros
+;; /stab [on|off]     - Toggle auto-targetting.
+;; /stabdelay #       - Add an an extra delay on top of value coming from gmcp.py
+;;                      Useful for auto-targetting but waiting for stabbers to hit first.
+;; /chkassa MOB DELAY - This is called from gmcp.py.
 /def stab = \
   /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
   /if /test opt_w =~ 'a'%;/then%;/let this=$[world_info()]%;\
@@ -177,21 +181,19 @@
   /auto -w%{this} stab %1%;\
   /let auto_tr_v %{this}_auto_stab%;\
   /let auto_tr $[expr({auto_tr_v})]%;\
-  /statusflag %{auto_tr} Stab
+  /statusflagcolour %{auto_tr} hCred Stab
+
+/def stabdelay = /setvar stabdelay %1
 
 /def chkassa=/if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
-  /echo -p [DEBUG:] /chkassa HIT%;\
   /if /test opt_w =~ 'a'%;/then%;\
     /let this=$[world_info()]%;\
   /else \
     /let this=%opt_w%;\
   /endif%;\
-  /if /test %{this}_auto_stab == 1%; /then /echo stabbing%;/endif%;\
-  /let mbm_v %{this}_auto_stab%;\
-  /let mbm $[expr({mbm_v})]%;\
-  /eval /echo -p STAB: %{this}, 1: %{1}, 2: %{2}, auto: %{this}_auto_stab : %{mbm}%;\
-;  /let mt $(/getvar tank)%;
-  /if /test %{this}_auto_stab == 1 %; /then /repeat -%2 1 /send -w%{this} hit %1%;/endif
+  /let delay=$[{2} + $(/getvar -w%this stabdelay)]%;\
+  /eval /echo -p /chkassa mob: %{1}, delay: %{delay}%;\
+  /if /test %{this}_auto_stab == 1 %; /then /repeat -%delay 1 /send -w%{this} hit %1%;/endif
 
 /def targ = \
     /if ({#} > 0) \
@@ -239,7 +241,7 @@
 /def aslip = \
     /toggle aslip%;\
     /echoflag %{aslip} Auto-@{Cyellow}Slip@{n}%;\
-    /statusflag %{aslip} aSlip
+    /statusflagcolour %{aslip} hCred aSlip
 
 /def slip = \
     /if ({#} = 2) \
@@ -284,7 +286,7 @@
     /else /set _slip_dir=na%;\
     /endif%;\
     /if ({_slip_dir} !~ "na") \
-        /send %{_disengage_dir}=slip %{_slip_dir} %{_slip_mob}=assassinate %{_slip_mob}%;\
+        /send %{_disengage_dir}=slip %{_slip_dir} %{_slip_mob}=hit %{_slip_mob}%;\
     /else /echo -pw %%% @{hCred} /slip [north|east|south|west|up|down] [mob]%;\
     /endif
 

@@ -124,12 +124,12 @@
 /def -wjekyll -mregexp -t"^([a-zA-Z]+) makes (his|her|its) hand flat and does a karate chop to your neck!" jekyllconfidence = \
     /if ({drone} = 1) \
         /send tell %{P1} |w|Confidence: |n| +STR that can be stacked as long as it is cast BEFORE |w|Foci|n|%;\
-        stand%;c confidence %{P1}%;sleep%;\
+        /send stand=quicken 6=c confidence %{P1}=quicken off=sleep%;\
     /endif
 /def -wjekyll -mregexp -t"^([a-zA-Z]+) barks at you." jekyllbarkskin = \
-    /if ({drone} = 1) stand%;c barkskin %{P1}%;sleep%;/endif
+    /if ({drone} = 1) /send stand=quicken 6=c barkskin %{P1}=quicken off=sleep%;/endif
 /def -wmaxine -mregexp -t"^([a-zA-Z]+) barks at you." maxinebarkskin = \
-    /if ({drone} = 1) stand%;c barkskin %{P1}%;sleep%;/endif
+    /if ({drone} = 1) /send stand=quicken 6=c barkskin %{P1}=quicken off=sleep%;/endif
 
 /def -mregexp -p6 -F -t"^([a-zA-Z]+) beckons for you to follow (him|her|it)\." drone_beckon = \
     /if ({drone}=1 & {running}=0) \
@@ -306,25 +306,33 @@
                 tell %_commander Sorry, I need more mana first.%;\
             /endif%;\
         /elseif ({_command} =~ "decurse" | {_command} =~ "rc") \
+            /send quicken 5%;\
             /if ({myclass} =~ "prs") c absolve %{_commander}%;\
             /else c 'remove curse' %{_commander}%;\
             /endif%;\
+            /send quicken 5%;\
         /elseif ({_command} =~ "cure ?poison" | {_command} =~ "cp") \
+            /send quicken 5%;\
             /if ({myclass} =~ "prs") c panacea %{_commander}%;\
             /else c 'cure poison' %{_commander}%;\
             /endif%;\
+            /send quicken off%;\
         /elseif ({_command} =~ "cure ?disease" | {_command} =~ "cd") \
+            /send quicken 5%;\
             /if ({myclass} =~ "prs") c panacea %{_commander}%;\
             /else c 'cure disease' %{_commander}%;\
             /endif%;\
+            /send quicken off%;\
         /elseif ({_command} =~ "cure ?blind" | {_command} =~ "cb") \
+            /send quicken 5%;\
             /if ({myclass} =~ "prs") c panacea %{_commander}%;\
             /else c 'cure blindness' %{_commander}%;\
             /endif%;\
+            /send quicken off%;\
         /elseif ({_command} =~ "holy sight" | {_command} =~ "hs" | {_command} =~ "hos") \
-            c 'holy sight' %{_commander}%;\
+            /send quicken 5=c 'holy sight' %{_commander}=quicken off%;\
         /elseif ({_command} =~ "light") \
-            c 'magic light' %{_commander}%;\
+            /send quicken 5=c 'magic light' %{_commander}=quicken off%;\
         /elseif ({_command} =/ "home" | {_command} =/ "thorn") \
             /if ({currentplane} !~ "thorngate") \
                 /send stand=c homeshift=east=east=where%;\
@@ -378,14 +386,12 @@
     /elseif ({drone} = 1 & {running}=0) \
         /set droneToSend=$[tolower(strip_attr({P2}))]%;\
         /set droneSendPlane=$[tolower(strip_attr({P3}))]%;\
-;        /echo -pw @{Cyellow}Commander: %{P1}, Command: send, Argument: %{droneToSend} %{droneSendPlane}%;\
         /send gtell |y|%{P1} |c|has requested that I send |y|%{droneToSend} |c|to |y|%{droneSendPlane}|c|.|n|%;\
         /send group%;\
     /endif
 
 /def -mregexp -p1 -F -t'\|[ ]*[0-9]+[ ]+[a-zA-Z]+[ ]+([a-zA-Z ]+)[ ]+(STUN|DROWN|Busy|Fight|Sleep|Stand|Rest)[ ]+([0-9\-]+)/([0-9\-]+)[ ]+([0-9\-]+)/([0-9\-]+)[ ]+([0-9\-]+)/([0-9\-]+)(.*)' drone_lord_send_from_grouplist = \
     /let lcgroupiename=$[tolower(replace(" ", "", strip_attr({P1})))]%;\
-;    /echo -pw @{Cyellow}Groupie: %{lcgroupiename}, Command: send, Argument: %{droneToSend} %{droneSendPlane}%;\
     /if ({drone} = 1 & {running}=0 & {currentplane} =~ "thorngate" & {droneToSend} !~ "" & {droneSendPlane} !~ "" & regmatch({droneToSend}, {lcgroupiename})) \
         /send gtell |c|Ok, sending |y|%{droneToSend} |c|to |y|%{droneSendPlane}|c|. Safe Travels.|n|%;\
         /send stand=cast 'send' %{droneToSend} %{droneSendPlane}=follow self=sleep%;\
@@ -395,7 +401,6 @@
 /def -mregexp -ag -p1 -F -t"([a-zA-Z]+) tell[sing]+ you '(abs[olve]*|aegis|clar[ify]*|interv[ention]*|pana[cea]*|sol[itude]*)'" drone_priest_tells = \
     /let _commander=$[strip_attr({P1})]%;\
     /let _command=$[strip_attr({P2})]%;\
-;    /echo -pw @{Cyellow}Commander: %{_commander}, Command: %{_command}, Augment: %{_commandAugment}%;\
     /if ({drone} = 1 & {_command} =~ "solitude" & {currentplane} !~ "thorngate" & {running}=0) \
         /send tell %{_commander} |w|Solitude |n|is only available on Thorngate.%;\
     /elseif ({drone} = 1 & {running}=0) \

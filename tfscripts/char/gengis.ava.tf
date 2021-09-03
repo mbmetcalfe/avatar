@@ -6,18 +6,29 @@
 ;; 
 /require healer.tf
 
-;;; read in Gengis' gear file
+/def -F -wgengis -mglob -t"Welcome to the AVATAR System, Lord Gengis." gengis_lord999_login = \
+    /hook_resize%;\
+    /let logincharname=${world_character}%;\
+    /let logincharname=$[tolower({logincharname})]%;\
+    /set myname=%{logincharname}%;\
+    /def -hload -ag ~gagload%;\
+    /undef ~gagload%;\
+    /atitle (%mytier %mylevel)%;\
+    /send worth 
 /load -q char/gengis.gear.ava.tf
-/def -wgengis wa = /send wake%;/mana2ac
 
+/def -wgengis gengisunlvl = \
+    /def -wgengis -n2 -p10 -ag -mregexp -t"^Playerinfo (cleared|line added)\." duskrta_playerinfo_gag%;\
+    /let levelDiff=$[{mylevel} - 999]%;\
+    /send playeri clear=playeri + |w|Level 125(|g|999|w|+|g|%{levelDiff}|w|: |g|%{mylevel}|w|) Sprite Priest%;\
+    /send unlvl
+    
 /def -wgengis grheal = /noheal%;/graction /addheal
 
-;/def gengissanc = /send quicken 9=c innocence=quicken off=preach sanc
 /def gengissanc = \
     /if ({currentPosition} =~ "stand" & {mudLag} < 3) /send preach sanc%;\
     /else /send quicken 9=c innocence=quicken off=preach sanc%;\
     /endif
-;;/redef off
 
 /def -wgengis gsup = \
     filter +spellother%; \

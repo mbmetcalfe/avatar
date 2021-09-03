@@ -93,6 +93,9 @@
 /def -mregexp -aCyellow -t"^Your weapons lose their consciousness\.$" conscious_enhancement_down =\
     /if ({refreshmisc} == 1) /aq c 'conscious weapon'%;/endif
 
+/def -mregexp -aCyellow -t"^Your weapons will no longer intelligently attack your opponents\." intelligent_weap_down = \
+    /refreshSpell 'intelligent weapon'
+
 /def -mregexp -aCyellow -t"^Your weapons lose the ability to (fell|stun|disable)\." kinetic_enhancement_down = \
     /if ({P1} =~ "stun") \
         /set stunningweaponleft=-1%;\

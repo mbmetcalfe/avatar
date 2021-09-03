@@ -16,11 +16,14 @@
 /load -q char/asha.gear.ava.tf
 /require psionic.tf
 
+;;; Requiem-bot
+/def requiem = /auto requiem %1
+/def -mregexp -washa -t"^\[DEATH INFO\]: ([a-zA-Z]*) killed by (.+) in (.+) \(([0-9]*)\)\." asha_req_bot = \
+    /if /test $(/getvar auto_requiem) == 1%;/then /send stand=cast requiem %{P1}=sleep%;/endif
+
 ;;; ---------------------------------------------------------------------------
 ;;; Misc other triggers/aliases
 ;;; ---------------------------------------------------------------------------
-;/send gtell #tr {^ Pain clatters to the ground!} {get all.pain;give pain asha;give pain asha} {psi}
-;/send gtell #tr {^ Pain clatters to the ground!} {get |by|pain|n|;get |bg|boss2|n|;give |by|pain|n| asha;give |bg|boss2|n| asha} {psi}
 
 /def -washa -mglob -t"You have received an award of * quest points!" asha_qp_turnin = \
     /if ({autoquest} == 1) /send give autoqpt "Quest Automaton"%;/endif

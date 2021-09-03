@@ -5,6 +5,9 @@
 
 /load -q char/hero.mana5.ava.tf
 /load -q char/hero.ac3.ava.tf
+/set ac_bag="bodybag body bag tankgear!"
+/set ac_wield="crimson spellshard shard spell"
+
 /load -q char/hero.hit4.ava.tf
 
 /def -wshubie ac_pre_on = /send altof helfyre
@@ -14,8 +17,8 @@
     /set unbrandish=%{ac_held}%;\
     /set offhand=%{ac_offhand}%;\
     /send wear %{ac_offhand}%;\
-    /send get all.fingerbone %{main_bag}=wear all.fingerbone%;\
-    /send get "talisman gauntlets magence"=wear "talisman gauntlets magence"%;\
+;    /send get all.fingerbone %{main_bag}=wear all.fingerbone%;\
+    /send get "talisman gauntlets magence" %{main_bag}=wear "talisman gauntlets magence"%;\
     /def -wshubie sle = /ac2mana%%;/send sleep%;\
     /send smooth self
 /def -wshubie mana_post_on = /send relax
@@ -25,7 +28,7 @@
     /set offhand=%{hit_offhand}%;\
     /set wield=%{hit_wield}%;\
     /send get all.fingerbone %{main_bag}=wear all.fingerbone%;\
-    /send get "talisman gauntlets magence"=wear "talisman gauntlets magence"%;\
+    /send get "talisman gauntlets magence" %{main_bag}=wear "talisman gauntlets magence"%;\
     /send wield %{wield}=wear %{offhand}%;\
     /def -wshubie sle = /hit2mana%%;sleep
 

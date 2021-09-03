@@ -17,7 +17,7 @@
 /set arc_waist "belt souls strap lordgear"
 /set arc_wrist1 "wrist guard demogorgon rotting demonic flesh"
 /set arc_wrist2 "wrist guard demogorgon rotting demonic flesh"
-/set arc_wield "lacquered bow ambush"
+/set arc_wield "long bow deep shadow"
 /set arc_held "brace ice arrows"
 
 /set arc_xbow "lightning crossbow"

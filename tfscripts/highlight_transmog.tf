@@ -10,11 +10,16 @@
 ;; Cubes
 ;;; ---------------------------------------------------------------------------
 /def -ag -P -F -t'a Token of the Gyrosphinx(.*)' h_transmog_001 = /test $[echoGearItem({PL}, "@{hCblack} a Token of the Gyrosphinx@{n}",  "transmog-token", strcat({P1}, " (token to get cube OR 20% death xp redux)"), {PR})]
-/def -ag -P -F -t'a lordly cloak engraved cube(.*)' h_transmog_002 = /test $[echoGearItem({PL}, "a lordly cloak engraved cube",  "transmog-cube", strcat({P1}, " (about body)"), {PR})]
-/def -ag -P -F -t'a lordly leggings engraved cube(.*)' h_transmog_003 = /test $[echoGearItem({PL}, "a lordly leggings engraved cube",  "transmog-cube", strcat({P1}, " (legs)"), {PR})]
-/def -ag -P -F -t'a lordly chestplate engraved cube(.*)' h_transmog_022 = /test $[echoGearItem({PL}, "a lordly chestplate engraved cube",  "transmog-cube", strcat({P1}, " (on body)"), {PR})]
-/def -ag -P -F -t'a lordly stone engraved cube(.*)' h_transmog_006 = /test $[echoGearItem({PL}, "a lordly stone engraved cube",  "transmog-cube", strcat({P1}, " (held)"), {PR})]
-/def -ag -P -F -t'a lordly gauntlet engraved cube(.*)' h_transmog_025 = /test $[echoGearItem({PL}, "a lordly gauntlet engraved cube",  "transmog-cube", strcat({P1}, " (hands)"), {PR})]
+/def -P -F -t'a lordly (gauntlet|cloak|leggings|chestplate|stone|gauntlet|boots) engraved cube(.*)' h_transmog_cubes = \
+    /let _pl=%{PL}%;\
+    /let _item=a lordly %{P1} engraged cube%;\
+    /let _type=transmog-cube%;\
+    /let numItems=1%;\
+    /if (regmatch("\( ?([0-9]+)\) .*", {_pl})) /let numItems=%{P1}%;/endif%;\
+    /if ({LOG_GEAR} == 1) \
+        /test $[recordGearItem(${world_name}, {_item}, {numItems}, {_type})]%;\
+    /endif
+
 
 ;;; ---------------------------------------------------------------------------
 ;; Base Items
@@ -23,6 +28,7 @@
 /def -ag -P -F -t'the greaves of desolation(.*)' h_transmog_005 = /test $[echoGearItem({PL}, "@{hCblack}the greaves of desolation@{n}", "transmog-base", strcat({P1}, " (-45ac)"), {PR})]
 /def -ag -P -F -t'aura of corruption(.*)' h_transmog_018 = /test $[echoGearItem({PL}, "@{hCblack}aura of corruption@{n}", "transmog-base", strcat({P1}, " (base item)"), {PR})]
 /def -ag -P -F -t'Verdant Gloves(.*)' h_transmog_024 = /test $[echoGearItem({PL}, "@{Cgreen}Verdant Gloves@{n}", "transmog-base", strcat({P1}, " (base item)"), {PR})]
+;|bk|marble |bw|boots
 
 ;;; ---------------------------------------------------------------------------
 ;; Ingredients
@@ -56,6 +62,17 @@
 ;; Ingredients for KWALASHAI
 /def -ag -P -F -t'survivor tattoo(.*)' h_transmog_027 = /test $[echoGearItem({PL}, "@{hCblack}survivor tattoo@{n}", "transmog-mat", strcat({P1}, " (4dr)"), {PR})]
 
+;; Ingredients for Flayer Keep
+/def -ag -P -F -t'alpha glimmerskin(.*)' h_transmog_032 = /test $[echoGearItem({PL}, "@{hCblack}alpha glimmerskin@{n}", "transmog-mat", strcat({P1}, " (-5ac)"), {PR})]
+/def -ag -P -F -t'beta glimmerskin(.*)' h_transmog_033 = /test $[echoGearItem({PL}, "@{hCblack}beta glimmerskin@{n}", "transmog-mat", strcat({P1}, " (40mana)"), {PR})]
+/def -ag -P -F -t'gamma glimmerskin(.*)' h_transmog_034 = /test $[echoGearItem({PL}, "@{hCblack}gamma glimmerskin@{n}", "transmog-mat", strcat({P1}, " (+1dr)"), {PR})]
+/def -ag -P -F -t'delta glimmerskin(.*)' h_transmog_035 = /test $[echoGearItem({PL}, "@{hCblack}delta glimmerskin@{n}", "transmog-mat", strcat({P1}, " (+1hr)"), {PR})]
+
+;; Ingredients for Silmavar Lost
+/def -ag -P -F -t'a Bhyss Queen skin coat(.*)' h_transmog_028 = /test $[echoGearItem({PL}, "@{hCwhite}a Bhyss Queen skin coat@{n}", "transmog-mat", strcat({P1}, " (-5ac)"), {PR})]
+/def -ag -P -F -t'a Bhyss Bishop skin coat(.*)' h_transmog_029 = /test $[echoGearItem({PL}, "@{hCwhite}a Bhyss Bishop skin coat@{n}", "transmog-mat", strcat({P1}, " (40mana)"), {PR})]
+/def -ag -P -F -t'a Bhyss Rook skin coat(.*)' h_transmog_030 = /test $[echoGearItem({PL}, "@{hCwhite}a Bhyss Rook skin coat@{n}", "transmog-mat", strcat({P1}, " (+1dr)"), {PR})]
+/def -ag -P -F -t'a Bhyss Knight skin coat(.*)' h_transmog_031 = /test $[echoGearItem({PL}, "@{hCwhite}a Bhyss Knight skin coat@{n}", "transmog-mat", strcat({P1}, " (+1hr)"), {PR})]
 
 ;;; ---------------------------------------------------------------------------
 ;; Base & Ingredients

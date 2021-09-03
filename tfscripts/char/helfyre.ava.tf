@@ -10,10 +10,8 @@
 /require rogue.tf
 /require psionic.tf
 
-/def -whelfyre wa = /send wake%;/mana2hit
-;/def -whelfyre wa = /send wake%;/mana2ac
 /def helfyresanc = /send mysanc
-/def helfyremidround = /send -whelfyre c ultrablast
+/def helfyrefren = /q 5 c frenzy %1
 
 /alias df \
     /if ({#} = 1) surge %1%; /endif %;\
@@ -22,6 +20,9 @@
 /alias svs \
     /send cast 'sense weakness' %1%;\
     /cast on%;/aq /cast off
+
+;; Wear seneca robe to bipass curse on the ofcol rings
+/def -whelfyre -p0 -mglob -ag -h'SEND wear all' hook_helfyre_wear_all = /send wear all=get "robes sustainment" %{main_bag}=wear "robes sustainment"=wear "robe greatness"=put "robes sustainment" %{main_bag}
 
 ;; Racial prowl support
 ;; Prowl can only be used during nighttime which lasts from 8pm until 6 am game time.

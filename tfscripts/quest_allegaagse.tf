@@ -15,19 +15,6 @@
 ;;; ---------------------------------------------------------------------------- 
 ;;; Macro to display what character needs.
 ;;; ----------------------------------------------------------------------------
-;/def alleg = \
-;    /if ({#}=1 & {1} =/ "show") \
-;        /sh alleg.pl%;\
-;    /else \
-;        /if ({allegItem} !~ "Completed") \
-;            /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}%{allegItem}@{n}%;\
-;        /elseif ({allegItem} =~ "Completed") \
-;            /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest completed.@{n}%;\
-;        /elseif ($(/listvar -vmglob allegItem) > 0) \
-;            /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest not started.@{n}%;\
-;        /endif%;\
-;    /endif
-
 /def alleg = \
     /if ({#} == 1) \
         /if ({1} =~ "all") \
@@ -44,6 +31,20 @@
         /quote -S /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}!sqlite3 avatar.db "select status || '. ' || IFNULL(item, '') || ' @{Cwhite}Date:@{Cred} ' || IFNULL(updated, '') || '. @{Cwhite}Level@{Cred}: ' || IFNULL(level, 'n/a') || '.' from char_alleg where lower(character) = '${world_name}'"%;\
     /endif
 
+/def alleg_needs = \
+    /if (!getopts("c:", "")) /let echochan=/echo%;/endif%;\
+    /if ({opt_c} !~ '') /let echochan=%{opt_c}%;\
+    /else /let echochan=/echo%;\
+    /endif%;\
+    /echo -pw echochan: (%{echochan}) (%opt_c) (%{#}) (%{1}, %{2})%;\
+    /quote -S /set alleg_needsmsg !%{script_path}alleg_inline.sh%;\
+    /echo -pw alleg_needsmsg: %alleg_needsmsg%;\
+    /if ({echochan} =~ "/echo") \
+        /if (strlen({alleg_needsmsg}) > 0) /chgcolor |r|[ALLEG INFO]: |w|%{alleg_needsmsg}%;/endif%;\
+    /else \
+        /if (strlen({alleg_needsmsg}) > 0) /eval %echochan Alleg needs: %alleg_needsmsg%;/endif%;\
+    /endif
+
 /def alleggear = \
     /quote -S /echo -pw @{Cred}[ALLEG INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || item || '@{Cred} on @{Cwhite} ' || plane || '@{Cred}. Difficulty: @{Cwhite}' || difficulty || '@{Cred} Instructions: @{Cwhite}' || instructions || '@{n}' from alleg_gear where item like '\%%{*}\%'"
 
@@ -57,13 +58,13 @@
 ;;; ----------------------------------------------------------------------------
 /def -mglob -p6 -t"Allegaagse says 'Exactly what I wanted, thank you.'" allegaagse_quest_complete = \
     /setAllegStatus Complete%;\
-    /send save=insignia
+    /send insignia=save
 /def -mglob -p6 -t"Allegaagse says 'Fine, I will find someone else to get that for me.'" allegaagse_quest_give_up = \
     /setAllegStatus Gave Up%;\
-    /send save=insignia
+    /send insignia=save
 /def -mglob -p6 -t"Allegaagse says 'You have done such a good job that I have raised my estimation of your worth as a searcher.'" allegaagse_quest_complete2 = \
     /setAllegStatus Complete%;\
-    /send save=insignia
+    /send insignia=save
 
 /def -mglob -p7 -ag -t"Allegaagse asks 'What do I need?'" allegaagse_quest_gag
 /def -mglob -p7 -ag -t"Allegaagse says 'Now go away. Maybe I will see if you can be useful some other time." allegaagse_quest_gag3
@@ -140,7 +141,7 @@
     /elseif ({P2} =~ 'Let\'s sow a little discord; we just need the right weapon.') /setAllegItem Blades of Discord%;\
     /elseif ({P2} =~ 'Madness and wickedness, Elaxor radiates both.') /setAllegItem Radiance Of Wickedness%;\
     /elseif ({P2} =~ 'Malafont\'s armor, I want it.') /setAllegItem A Suit Of Dress Plate%;\
-    /elseif ({P2} =~ 'The master of death needs to lose his hood.') /setAllegItem black master's hood%;\
+    /elseif ({P2} =~ 'The master of death needs to lose his hood.') /setAllegItem black masters hood%;\
     /elseif ({P2} =~ 'Maybe if it was pure the elder wouldn\'t throw this clear thing around.') /setAllegItem Clear Psi-Blade%;\
     /elseif ({P2} =~ 'Maybe they should be rainbow disciples rather than nihilistic.') /setAllegItem Blue Psi-Blade%;\
     /elseif ({P2} =~ 'Minor illusions can be just as powerful as major ones. Bring me a minor illusionist\'s ring.') \
@@ -199,7 +200,8 @@
     /endif%;\
     /echo -pw @{Cred}[ALLEG INFO]: @{Cwhite}Allegaagse Quest item: @{Cred}%{allegItem}@{n}%;\
     /alleggear %{allegItem}%;\
-    /fgear %{allegItem}
+    /fgear %{allegItem}%;\
+    /send insignia=save
 
 ;;; ---------------------------------------------------------------------------- 
 ;;; Macros to display what items can be found on a particular plane
@@ -311,3 +313,15 @@
 ;    Busybody
 /def -mregexp -p5 -t"^    (Scratcher|Busybody|Deed Doer|Goto Guy\/Gal\/Person|Feat Finisher|Task Master)$" alleg_insignia_level = \
     /sys sqlite3 avatar.db 'update char_alleg set level = "%{P1}" where lower(character) = "${world_name}"'
+
+;; Helpers for doing alleg on all available alts
+;; This assumes:
+;;  * all alts parked in a single room
+;;  * a nexus is up to 1w of alleg (meta works)
+;;  * ruby gems have been dropped in room
+; Grab all gems, go to alleg and give ruby
+/alias goa /send get all.gem=enter nexus=w=give ruby alleg
+; Go back to starting room and drop all gems, see who is next, echo alleg item
+/alias gon /send e=enter nexus=dro all.gem=say Alleg: |br|%{allegItem}|n|%;/alleg ready
+; Grab first item on ground (should be alleg item), go give it to alleg
+/alias gog /send get 1.=enter nexus=w=inv=insig

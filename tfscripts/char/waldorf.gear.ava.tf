@@ -2,7 +2,6 @@
 /cleangear
 
 /set main_bag "bodybag body bag loot"
-;/set hit_bag "bullet skin bag"
 
 /set hit_light "sceptre blazing fury"
 /set hit_finger1 "bands diamond obsidian once-sundered ring"
@@ -15,22 +14,22 @@
 /set hit_feet "boots planewalking mithril"
 /set hit_hands "gauntlet clenched fist"
 /set hit_arms "wings superior elegance"
-;/set hit_offhand="sword githyanki gith silver lordgear normal"
-;/set hit_offhand "ant wing chakram normal"
-;/set hit_offhand="ant wing chakram calpchak2b"
-;/set hit_offhand="ant wing chakram jorah1"
-/set hit_offhand="great sword Jaranon jorah1"
-;/set hit_offhand="psi-blade energy pure normal"
+;/set hit_offhand="calpchak2b"
+/set hit_offhand jorah1
 /set hit_about "robe magnificence"
 /set hit_waist "belt souls strap"
 /set hit_wrist1 "broken shackles tyranny"
 /set hit_wrist2 "broken shackles tyranny"
-;/set hit_wield "sword githyanki gith silver lordgear normal"
-;/set hit_wield "sword githyanki gith silver lordgear normal!"
-;/set hit_wield "ant wing chakram jorah1"
-/set hit_wield "great sword Jaranon calpchak2b"
+;/set hit_wield jorah1
+/set hit_wield calpchak2b
 /set hit_held="hand severed githyanki"
 
+/def swapweap = \
+    /let temp_weap=%{hit_wield}%;\
+    /set hit_wield=%{hit_offhand}%;\
+    /set hit_offhand=%{temp_weap}%;\
+    /set wield=%{hit_wield}%;\
+    /set offhand=%{hit_offhand}
 ;;; ---
 ;;; macro to let group know what weapons are
 ;;; --

@@ -31,7 +31,7 @@
 /alias shat /send shatter %1
 
 /def postpush = \
-    /setvar postpush %1%;\
+    /setvar postpush %*%;\
    /echo -pw @{Cred}[CHAR INFO:] After counterpush, you will @{Cwhite}ctr $(/getvar postpush)@{Cred}.@{n}
 
 /def -p1 -mregexp -t'Your counterattack knocks (.*) down!' ctrpushed = \

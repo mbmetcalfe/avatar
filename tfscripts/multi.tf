@@ -8,6 +8,7 @@
 /set background=on
 /set bg_output=off
 /set notify=0
+/set log_auction=0
 /set multi=1
 /def multi = \
     /toggle multi%;\

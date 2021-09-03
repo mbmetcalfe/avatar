@@ -20,6 +20,7 @@
 /def -mglob -t"Sergeant Snapdragon asks 'Cadet, how could you let your armor get into such a state?'" sld_polish = /_echoprestige polish
 /def -mglob -t"Sergeant Snapdragon exclaims 'You must be ready to defend your honor at any moment!'" sld_duel =/_echoprestige duel
 /def -mglob -t"Sergeant Snapdragon exclaims 'It doesn't sound like you are working that hard cadet!'" sld_grunt = /_echoprestige grunt
+/def -mglob -t"Sergeant Snapdragon asks 'Will you let a slight to your honor go unanswered?'" sld_honor = /_echoprestige honor
 
 ; "Your move, cadet"  -- chess
 ; Sergeant Snapdragon exclaims 'You'll never make it as a Soldier with that kind of excess individualism. Cut that hair! Lose the attitude! I want 50 laps around the courtyard by lunch, cadet!' -- desc clear

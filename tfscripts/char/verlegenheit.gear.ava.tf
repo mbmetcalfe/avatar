@@ -4,7 +4,7 @@
 /set main_bag="floating icesphere loot"
 
 /load -q char/lord.hit1.ava.tf
-/set hit_bag="urn black hitgear!"
+/set hit_bag="the town crier skin bag"
 /load -q char/lord.ac6.ava.tf
 /set ac_bag="looter sack acgear!"
 

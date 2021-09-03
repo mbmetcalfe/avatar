@@ -31,6 +31,10 @@
     /def -mglob -ag -t"They aren't here." bot_invig_not_here%;\
     /repeat -0:0:15 1 /undef bot_invig_not_here%;\
     /send tell teacup rc=tell idle rc=tell raiwen rc=tell aset rc
+/def cureme = \
+    /def -mglob -ag -t"They aren't here." bot_cure_not_here%;\
+    /repeat -0:0:15 1 /undef bot_cure_not_here%;\
+    /send tell teacup cp=tell aset cd=tell aern cp=tell raiwen cd=tell martyr cp=tell textual cp
 
 ;;; ----------------------------------------------------------------------------
 ;;; Aliases to view some history
@@ -120,16 +124,37 @@
 
 ;; auto bash when combat starts
 /def -i bash = /auto bash %1
-/def -F -mregexp -t"^You start fighting " autobash=/if /test $(/getvar auto_bash) == 1%;/then bash%;/endif
+/def -i trip = /auto trip %1
+/def -i toss = /auto toss %1
+/def -F -mregexp -t"^You start fighting " autobash=\
+    /if /test $(/getvar auto_bash) == 1%;/then bash%;/endif%;\
+    /if /test $(/getvar auto_trip) == 1%;/then trip%;/endif%;\
+    /if /test $(/getvar auto_toss) == 1%;/then toss%;/endif
 
 ;;; /ki used in the target triggers in targets.tf
+;/def ki = \
+;    /set targetMob=%* %; \
+;    /if ({autokill} == 1 & {mudLag} < 3) \
+;        /eval %{action} %; \
+;    /else \
+;        /echo -pw %%% @{hCgreen}Target: @{nCwhite}%*%; \
+;    /endif
+
+/def kidelay = /setvar killdelay %1
 /def ki = \
-    /set targetMob=%* %; \
-    /if ({autokill} == 1 & {mudLag} < 3) \
-        /eval %{action} %; \
-    /else \
-            /echo -pw %%% @{hCgreen}Target: @{nCwhite}%*%; \
-    /endif
+  /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\
+  /set targetMob=%*%;\
+  /if /test opt_w =~ 'a'%;/then%;\
+    /let this=$[world_info()]%;\
+  /else \
+    /let this=%opt_w%;\
+  /endif%;\
+  /let mbm_v %{this}_auto_stab%;\
+  /let mbm $[expr({mbm_v})]%;\
+  /let delay=$(/getvar -w%this killdelay)%;\
+;  /if /test %{this}_auto_kill == 1 %; /then /repeat -%delay 1 /send -w%{this} kill %1%;/endif
+  /if /test %{autokill} == 1 %; /then /repeat -%delay 1 /send -w%{this} kil %1%;/endif
+
 /def -i targetthis = /eval %{action} 
 /def -b'^K' assisttank = /targetthis %{targetMob}
 
@@ -184,11 +209,11 @@
   /let this=$[world_info()]%;\
   /let auto_tr_v %{this}_auto_cast%;\
   /let auto_tr $[expr({auto_tr_v})]%;\
-  /statusflag %{auto_tr} aCast
+  /statusflagcolour %{auto_tr} Cyellow aC
 
 /def aoe=\
   /autoall aoe %1%;\
-  /statusflag %{auto_aoe} AOE
+  /statusflagcolour %{auto_aoe} hCgreen AOE
 ;;; ----------------------------------------------------------------------------
 ;;; chase fleeing mob and kill it when you press ctrl+F
 ;;; ----------------------------------------------------------------------------
@@ -321,15 +346,15 @@
 /def steel = c 'steel skeleton' %1
 
 /def sanc = \
-    /if /ismacro %{myname}sanc%; /then /%{myname}sanc%; \
+    /if /ismacro %{myname}sanc%; /then /%{myname}sanc %{1}%; \
     /else \
         /if (regmatch({myclass},{monType})) \
         c 'iron monk'%; \
-        /else c sanctuary %; \
+        /else c sanctuary %{1}%; \
         /endif%; \
     /endif
 /def fren = \
-    /if /ismacro %{myname}fren%; /then /%{myname}fren%; \
+    /if /ismacro %{myname}fren%; /then /%{myname}fren %{1}%; \
     /else c frenzy %{1}%;\
     /endif
 
@@ -561,14 +586,14 @@
 /def fport = \
     /toggle folport%;\
     /if ({folport} == 0) \
-        /statusflag %{folport} f_%{followPorter}%;\
+        /statusflagcolour %{folport} hCcyan f%{followPorter}%;\
         /undef folleadport folleaddrink folleadtrickle folleaddrinkfountain%;\
         /undef folleadquaff folleadpentagram folleadshizaga folleadwerredan folleadsunlight folleaddarkpatch%;\
         /undef folleaddimtunnel folleadmemlane folleadmaelstrom folleadvortex folleadshimmeringmirror%;\
         /echo -pw %%% @{Cred}No longer automatically entering portals, etc.@{n}%;\
     /else \
         /set followPorter=%{1}%;\
-        /statusflag %{folport} f_%{followPorter}%;\
+        /statusflag %{folport} f%{followPorter}%;\
         /def -mregexp -p1 -t"^%{followPorter} enters [a|an|the]+ ([a-z ]+)." folleadport = \
             /if ({folport} == 1) /send enter "%%P1"%%;/endif%;\
         /def -mregexp -p3 -t"^%{followPorter} enters a silver pentagram." folleadpentagram = \
@@ -661,6 +686,10 @@
 /def status_rm_brandish = /status_rm displayBranRemaining
 
 /def bra = \
+    /if ({branRemaining} <= 0) \
+        /echo -pw @{Cred}ERROR: No brandish count set.@{n}%;\
+        /return%;\
+    /endif%;\
     get %brandish %{main_bag}%;remove %unbrandish%;wear %brandish%;brandish%;rem %brandish%;wear %unbrandish%; \
     /setBranLeft $[--branRemaining]%; \
     /if ({branRemaining} > 1) \
@@ -866,9 +895,12 @@
 /def noidle = save%;/repeat -0:01:35 1 /noidle
 
 /def eq = \
-    /if ({#} = 0) /send config +condition=eq=inv=config -condition%; \
+    /send config +condition%;\
+    /if ({#} = 0) /send eq=inv%; \
     /else /send look %* eq%; \
-    /endif
+    /endif%;\
+    /send config -condition
+
 /alias eq \
     /if ({#} > 0) /eq %*%; \
     /else /send eq%; \

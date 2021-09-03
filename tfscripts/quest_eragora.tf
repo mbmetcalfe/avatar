@@ -284,3 +284,9 @@
 ;; Spirits of Eragora
 /def -mglob -p50 -F -t"Zurik the Elder Shaman is DEAD!!" spirits_eragora_statuette = /lootcor "relic wooden statuette hunter"
 /def -mglob -p50 -F -t"Captain Tyrana is DEAD!!" spirits_eragora_shawl = /lootcor shawl
+
+;; Animal Handler
+/def -mglob -p50 -F -t"The united army of the remaining fauna is DEAD!!" animal_handler_inno = \
+    /if ({autoquest} == 1) /repeat -0:0:03 1 /send innocence%;\
+    /else /echo -pw @{Cred}[QUEST INFO]: Animal Handler: @{Cyellow}innocence%;\
+    /endif

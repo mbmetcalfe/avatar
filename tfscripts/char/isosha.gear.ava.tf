@@ -5,7 +5,7 @@
 /set quiver_bag "encrusted layer shells quiver"
 
 /load -q char/hero.arc.ava.tf
-;/load -q char/hero.mana4.ava.tf
+/load -q char/hero.mana4.ava.tf
 ;;; Zaffer's aranor on loan
 ;/set arc_wield "bow aranor"
 

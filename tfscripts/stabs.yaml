@@ -1,4 +1,51 @@
+# {10   50} Kasab   Diplomatic Corps
+"A flighty fae named Esseirt'u stands here, looking haughty.": -1
+"A flighty fae stands here, looking haughty.": 0
+"A huge elite guard stands here.": 0
+"A large pile of rocks lies here.": 0
+"A shackled harpy is here.": 0
+"Genizah, disguised as a large pile of rocks, lies here.": -1
+"Something from your nightmares is here! Oh no! It's Lorkimornysy!": 0
+"The Midgaard Beastmaster stands here.": -1
+"The cute little half-demon Azrahrn is here, creating mischief.": -1
+"The mission head of the dwarves, Ljolsafar stands here.": -1
+"Thirsty for blood, an orc stands here waiting.": 0
+
 # %51%51%
+# {51   51} Hamlet  Cavern of the Fates
+"A Guardian ensures the fates will not be disturbed in their work.": 0.05
+"A Guardian of the Fates is here, protecting these sacred caverns.": 0.05
+"A crimson dragon lets out a deep bellow as it prepares to attack!": 0
+"A guard is here, wondering why an intruder like you isn't dead yet.": 0.05
+"A huge, hairy thing is here, growling in your general direction.": 0.05
+"A lost hero wanders around the caverns, looking for a way out.": 0
+"A lost soul has been doomed to wander these caverns forever.": 0
+"A lost soul moans pathetically.": 0
+"A lost soul wanders here, doomed forever by the fates.": 0
+"A three-headed dwarf is a mass of tangled beards.": 0
+"A three-headed lizard man is here, arguing with itself.": 0
+"A three-headed ogre stands here, arguing with itself.": 0
+"A three-headed trog's heads are spitting at one another.": 0
+"A three-headed troll's heads squabble over a bone.": 0
+"One of the Fates' pet lost souls drifts aimlessly.": 0
+"One of this three-headed orc's heads is asleep.": 0
+"Some sort of large, hairy, guardian thing growls at you.": 0
+"The disembodied soul of a lost hero floats sadly along.": 0
+
+# {17   51} Arundel Igecsoz
+"Ajuu the Housewares Vendor stands here selling her wares.": 0
+"Brgyjts the Grocer offers you some plants you can't imagine eating.": 0
+"Ekjuistn the Armorer watches you with a greedy glint in his eye.": 0
+"Hjiuysi the Leather Worker waits for you to buy something.": 0
+"Hlestn the Slaver looks busy hawking his prey.": 0
+"Hlutjhlags the Butcher stands here, offering you his goods.": 0
+"Iovuh stands here, puzzling over some issue.": 0
+"Kinstjlisti the Weaponsmith would like your money VERY much.": 0
+"Siguu stands here in an aura of wisdom.": 0
+"Silup, the oldest of the Trogs alive today, looks at you patiently.": 0
+"The armorer looks at you quickly and bends over for another tool.": 0
+"The weaponsmith sits hard at work, and has little time for you.": 0
+
 # {51   51} Ginta   Exploration Outpost
 "A fairy in a safari outfit is flitting around here.": -1
 "A fairy stands here, welcoming visitors.": -1
@@ -7,15 +54,15 @@
 "A huge, prehistoric shark is swimming here, looking for food.": 0
 "A long eel with a clubbed tail is swimming here.": 0
 "A long fish covered in spines is swimming here.": 0.05
-"A massive shell is lying here.": 0.05
-"A new growth of kelp undulates here.": 0.05
+"A massive shell is lying here.": -1
+"A new growth of kelp undulates here.": -1
 "A pasty-skinned figure ambles about.": 0
 "A pasty-skinned figure stares at the wall.": 0
 "A red shark with needle-like teeth is swimming here, searching for prey.": 0
 "A short goblin with a mop of red hair is standing here.": 0
 "A small turtle with a shimmering shell is swimming here.": 0.05
 "A sturdy little wizard eyes you consideringly.": -1
-"A thick vine of kelp grows here.": 0.05
+"A thick vine of kelp grows here.": -1
 "An enormous bird with a red tail is flying here.": 0.05
 "This short and slight creature chews on some rocks.": -1
 # {51   51} Weedz   Shogun
@@ -476,7 +523,7 @@
 "Three frog-like dwellers are squatting here.": 0
 "Two pairs of claws and glowing eyes hang in the air.": 0
 # {51   51} Izanagi The Fungal Forest
-"A prodigious, brown myconoid squats here, meditating.": 0
+"A prodigious, brown myconoid squats here, meditating.": -1 
 # {51   51} Izanagi The Sphynx Gate
 "     A pair of titanic sphynxes flank the path ahead.": 0
 "The ferryman to Eragora, Charon, guides the ferry.": 0
@@ -717,7 +764,6 @@
 "A strange white dog sits here, watching you intently.": 0
 "A yaksha guard stands here at attention, solemnly watching.": 0
 "An ugly little man chips at the rock with his pick.": 0
-"Ayne quietly casts a spell to charge the air, puffing up her hair.": 0
 "The Stinkin' Human is here, hiding from Aio...": 0
 "The coblynau foreman is here, supervising his workers.": 0
 "The lazy yaksha guard is here, neglecting his duty.": 0
@@ -776,8 +822,8 @@
 "Those boulders balance precariously upon each others edges.": 0
 "Valek : Unstoppable, unless we stop him. is here.": 0
 # {51   51} Chovak  Borley Manor
-"A black crow swoops down on you!": 0
-"A black fly the size of your fist buzzes around your head.": 0
+"A black crow swoops down on you!": 0.05
+"A black fly the size of your fist buzzes around your head.": -1
 "A book rises off a shelf and smites you in the back of the head.": 0
 "A giant Venus Flytrap slowly creeps after you.": 0
 "A giant swarm of mosquitoes engulfs you!": 0
@@ -796,7 +842,7 @@
 "Skeletal drummers clatter out from the pit and attack!": 0
 "Suddenly, a giant spider drops on your head!": 0
 "Suddenly, a piece of rope forms itself into a noose and lashes out at you!": 0
-"The Eater of the Dead hisses in anger at its interrupted meal.": 0
+"The Eater of the Dead hisses in anger at its interrupted meal.": 0.05
 "The cook looks relieved to see you.": 0
 "This painting of a dragon in flight is particularly realistic.": 0
 "This stone gargoyle seems unnaturally lifelike.": 0
@@ -828,7 +874,6 @@
 "An old bum lies on a pile of rags.": 0
 "An old fisherman tips his hat as you pass by.": 0
 "Marcus, a mysterious monk, meditates here.": 0
-"Nalfar tests the weight of his weapon, shuffling it from hand to hand.": -1
 "Sir Michael, leader of the fort, towers over you here.": 0
 "With a grim smile, Teli idly waits to jump into the fray.": -1
 # {51   51} Ducer   Tortuga Cay
@@ -873,12 +918,9 @@
 "A massive guard wearing black armor is here": 0
 # {51   51} Jakkbam Halfling Tunnels
 "A catoblepas charges angrily at you!": 0
-"A catoblepas eats some food before the trainers set it back to work.": 0
-"A catoblepas is angry from being whipped by the trainers.": 0
-"A catoblepas looks like it might revolt against its trainer.": 0
 "A guard stands here silently, making sure the catoblepas do not escape": 0
 "A guard stands here silently, making sure the undead do not escape.": 0
-"A half-orc zombie wanders in its cell, groaning.": 0
+"A halfling attacks you, determined to avenge his comrad!": 0
 "A halfling chef stands here roasting meat.": 0
 "A halfling looks excited for the upcoming attack.": 0
 "A halfling miner chips away at the stone walls.": 0
@@ -890,15 +932,12 @@
 "A halfling screams, \"Show no mercy!\"": 0
 "A halfling server passes out plates of meat to the hungry soldiers.": 0
 "A halfling sits at her desk, and is NOT happy to see you.": 0
-"A halfling sits at his desk, infuriated at the sight of you.": 0
-"A halfling sits at his desk, surprised that you're here.": 0
 "A halfling stands here, watching for intruders.": 0
 "A halfling trainee spars against his opponent with his dagger.": 0
 "A halfling trainee spars against his opponent with his sling.": 0
 "A halfling trainee spars against his opponent with his spear.": 0
 "A halfling trainee spars against his opponent with his sword.": 0
 "A halfling walks around, waiting for orders.": 0
-"A halfling zombie wanders in its cell silently.": 0
 # {51   51} Ginta   Moonbay Village
 "A fearsomely headed fish is swimming here.": 0
 "A female half-orc is prowling the deck and shouting orders.": 0
@@ -1015,8 +1054,32 @@
 "An orc archer let's loose an arrow!": 0
 "Darris, the Arcane watches over the entrance.": 0
 # {51   51} Pulse   The Storm Canyon
+"A barely chest-high but broad ice block blocks the way.": 0
+"A block of ice almost obstructs the narrow canyon with its massive bulk.": 0
+"A dark storm head howls angrily as it rushes forward.": 0
+"A hyperborean gust rips through the otherwise still canyon.": 0
+"A jagged pillar of ice leans heavily to one side.": 0
 "A jagged pillar of ice stands within the entrance to the canyon.": 0
+"A large mass of ice rests beneath the arch.": 0
+"A lightning storm rages in the confines of the canyon.": 0
+"A low ice block stretches broadly across the canyon floor.": 0
+"A pillar of ice looms menacingly up into the sky.": 0
+"A raging whirlwind howls as it reaches out to tear everything apart.": 0
+"A swirl of winds races to and fro between the canyon walls.": 0
+"A tall ice pillar stands close to some others.": 0
+"A twisted assemblage of ice reaches out into the cold sky.": 0
+"An assemblage of tiny ice needles rests stoically beneath the arch.": 0
+"An icy blast of wind howls out its anger.": 0
+"An immense field of storm glows with menace.": 0
+"An immense force of storm is about to pulverize everything.": 0
+"Incessant lightning obliviates the narrow canyon's gloom.": 0
 "Infuriated due to its long entrapment the windblast sweeps along.": 0
+"Lightning tears the canyon's gloom where this gale sweeps past.": 0
+"Some large ice crystals lean against each other.": 0
+"The bulky body of this amalgamation of frost blocks the view onward.": 0
+"This assemblage of ice blocks is tilting over precariously.": 0
+"This assemblage of tiny ice needles pulses rapidly.": 0
+"This toppled over assemblage of frost and ice gleams weakly.": 0
 # {51   51} Snikt   The Alien Hive
 "A BIG Alien is combing through this room when it notices you...": 0
 "A Drow Sentry stands hidden in the shadows, and you see him motion at someone.": 0
@@ -1096,7 +1159,7 @@
 "A scribe looks closely at the statue and its shiny staff.": 0
 "A slow-walking woman leaves deep holes in the sand.": 0
 "A small knot of seaweed drifts along the tunnel.": 0
-"A tall man with a gleaming spear stands silently.": 0
+"A tall man with a gleaming spear stands silently.": -1
 "A warrior hastens through the tunnel, murky water up to her waist.": 0
 "A wounded guard limps across the clearing, staring at the statues.": 0
 "A wounded woman glares up at the statues.": 0
@@ -1176,9 +1239,9 @@
 # {51   51} Arundel The Hunting
 "A giant trog man leaps for your throat!": 0
 "A troglodyte lieutenant slips out from behind a tree!": 0
-"A troglodyte soldier seems to detach himself from a tree!": 0
-"A troglodyte soldier slips out from behind a tree!": 0
-"A troglodyte soldier slips out from behind a tree.": 0
+"A troglodyte soldier seems to detach himself from a tree!": 0.5
+"A troglodyte soldier slips out from behind a tree!": 0.5
+"A troglodyte soldier slips out from behind a tree.": 0.5
 # {51   51} Dev     The Idolatry of Lloth
 "A drider priestess shrieks, \"Come, feed Lloth's rebirth!\"": 0
 "A drider priestess shrieks, \"Fear the Allweaver! She is coming!\"": 0
@@ -1232,7 +1295,7 @@
 "A spirit drifts through the darkness.": 0
 "A troll ghost searches for its body.": 0
 "Aggron fights like a cornered badger is DROWNING!": 0
-"An ailing ent paces nervously at the edge of the cliff.": 0
+"An ailing ent paces nervously at the edge of the cliff.": -1
 "An apparition patrols the caverns.": 0
 "An elf spirit appears to be lost.": 0
 "Boredom the Hardy Bishop is DROWNING!": 0
@@ -1307,7 +1370,7 @@
 "A black knight of the githyanki protects his queen.": 0
 "A gish laughs as flame leaps from his hands towards your face.": 0
 "A githyanki hunter searches for signs of the githzerai.": 0
-"A githzerai plots his escape plan.": 0
+"A githzerai plots his escape plan.": -1
 "A guardian stands at the entrance to the astral plane.": 0
 "A humanoid figure clad in splinted armor blocks your way.": 0
 "A humanoid figure stands here, holding a silvery sword.": 0
@@ -1541,7 +1604,7 @@
 "Excessive heat causes the air to appear hazy.": 0
 "The light filters through a hawk made of mist as it flies overhead.": 0
 "You can barely discern the outline of a man!": 0
-"You can barely discern the outline of a woman!": 0
+"You can barely discern the outline of a woman!": -1
 "You see a disturbance in the airscape.": 0
 # {  LORD } Ctibor  Bo'Vul's Vault
 "A wraithlike devil looks quite bored.": -1
@@ -1768,7 +1831,7 @@
 "A large magma mephit flirts dangerously close to the lava.": 0
 "A menacing lava troll climbs right out of the river.": 0
 "A multi-colored winged terror flies through fire to attack you.": 0
-"A powerful Fire Giant stands before you.": 0
+"A powerful Fire Giant stands before you.": -1
 "A salamander slithers through the fire unscathed.": 0
 "A serpent with a little girl's head swims through the lava fluidly.": 0
 "An Embermage summons meteors to destroy its foes.": 0
@@ -2044,11 +2107,45 @@
 "This golem appears to have not been complete.": 0
 # {  LORD } Mimir   Forsaken Asylum
 "A solemn looking judge regards you sternly.": 0
+"A solitary tumbleweed lazily drifts through town.": 0
+"The wind whispers a haunting tune in your ear.": 0
 "An eerie giggling echoes from just out of sight.": 0
-"One of the residents seems to be in deep conversation with himself.": 0
+"A warrior has been left permanently damaged by the things he's seen and done.": 0
 "The madness of this place has seeped into the soil, affecting the local elementals.": 0
+"One of the residents seems to be in deep conversation with himself.": 0
+"Cydney clambers around in his homemade cyborg costume.": 0
+"Hogan eyes your possessions while jealously guarding his own.": 0
+"This giant causes the ward to quake as she hops around like a bunny.": 0
+"Pat is leading a parade!  Too bad no one else is joining in.": 0
+"This unfortunate woman is under the control of angry ghosts.": 0
+"A huge rat is gnawing on something out of sight.": 0
+"A man stares past you with an unfocused gaze as he doles out the slop.": 0
+"A toothless imbecile cries out, \"Where's my food!?!?\"": -1
+"A slob keeps one crazed eye on you as he wolfs down his food.": 0
+"A brightly dressed clown drips blood from his maniacal grin.": 0
+"As you spend more time in this place you begin to doubt what's real.": 0
+"A voice whispers in your ears, 'Your friends are not who they appear to be.'": 0
+"A deputy bailiff eagerly awaits the next excuse to brutalize the inmates.": 0
+"The asylum bailiff absent-mindedly twirls his baton.": 0
+"This goon has been tasked with enforcing the rules on the rest of the inmates.": 0
+"The warden sits at his desk, doing his best to look busy.": 0
+"Instead of arms this elf has a pair of wild, grasping tentacles.": 0
+"An orc stricken with lycanthrope yearns to see the moon once more.": 0
+"This poor freak has been stiched together from a heap of mismatched corpses.": 0
+"Hideous scars creep from behind the mask covering half of this person's face.": 0
+"This ugly hunchback's body ripples with powerful muscles.": 0
+"A lizardman with oversized lobster claws stalks about the ward.": 0
+"This motherly lady can't seem to wash all the blood off of her hands.": 0
+"A crusader is on a mission from Bhyss to extinguish all life.": 0
+"Zed idly passes time carving new holes in his flesh.": 0
+"You see a pretty young girl hiding a knife in the folds of her dress.": 0
+"A knave is completely engrossed in disemboweling a small woodland animal.": 0
+"A man missing his skin screams a silent scream at you.": 0
+"A woman in a neatly pressed white dress pours over a patient's file.": 0
+"A solemn looking judge regards you sternly.": 0
+"A disciple of Shizaga harnesses the madness here to fuel her own power.": 0
+"This puppet has been embued with the gift of magic.": 0
 # {  LORD } Zahri   The Shunned World
-"": 0
 "A Kzinti lurks, almost completely hidden behind a set of trees.": 0
 "A Kzinti patroller is sustaining a force field.": 0
 "A Kzinti yells, \"Intruder!\" and charges at you!": 0
@@ -2076,7 +2173,7 @@
 "With a bow aimed at your heart, this sniper lets his arrow fly.": 0
 # {  LORD } CC-Ctib Kzinti Spire of Knowledge
 "A flock of ravens fly out of the chaos.": 0
-"A peaceful kzinti sits quietly in the center of the hall.": 0
+"A peaceful kzinti sits quietly in the center of the hall.": -1
 "A rabid kzinti foams at the mouth and slams into the walls!": 0
 "A small imp looks quite flammable, just needs a spark.": -1
 "A swarm of insects forms out of the chaos.": 0
@@ -2141,7 +2238,7 @@
 "A nalfeshnee demon swoops down at you.": 0
 "A strange looking demon leaps at you from the shadows.": 0
 "A tall dog headed demon is about to have you for dinner.": 0
-"A vrock demon is here eating the flesh of an unfortunate human.": 0
+"A vrock demon is here eating the flesh of an unfortunate human.": -1
 "A white horned daemon appears from nowhere.": 0
 "Cloaked in black flames, this demon gazes toward you hungrily.": 0
 "The realm turns black in the presence of this Donderdaemon.": 0
@@ -2182,7 +2279,7 @@
 "A massive ebony statue of a Black Dragon is here.": 0
 "A massive jade statue of a Green Dragon is here.": 0
 "A whipped and beaten Demon tends the garden.": 0
-"The servant of the Six glares at you and deems you unpure!": 0
+"The servant of the Six glares at you and deems you unpure!": -1
 "This statue is made of the broken bodies of Tiamat's victims.": 0
 # {  LORD } Odin    Labyrinth of Bo'vul
 "A demon chisels obscenities about Bo'vul onto the wall.": 0
@@ -2309,6 +2406,82 @@
 "A lizard has grown very large from munching on the plant life.": 0
 "A scarred tropical tree sinks its roots into the ground.": 0
 "A concorde blooms here.": 0
+# { LORD } Draeger Silmavar Lost
+"An undead skeleton clatters its way towards you!": 0
+"A huge guardian statue of a warrior stands here. Its eyes gleam crimson.": 0
+"A dread knight clanks towards you, eyes gleaming crimson!": 0
+"A female human enclave citizen stands here ignoring you.": 0
+"Galafas, Cleric of Bhyss, is dressed like royalty.": -1
+"Saeren the King sits here on his makeshift throne.": 0
+"Regead the mage-priest stands here, making strange arcane signs in the air.": 0
+"A human enclave citizen walks about his business.": 0
+"A goblin skulks about here.": 0
+"Grugnash the bloodgate guard stands here, watching the path.": 0
+"A giant spider scuttles out of the dark towards you!": 0
+"Shhshuk the queen spider prepares its poison mandibles for a strike.": 0
+"Silvak the black dragon flies in the air, waiting to swoop on his prey.": 0
+"Ildriad the green dragon flies about, looking for prey.": 0
+"Viil the ancient red dragon chuckles deeply as your pitiful presence enters.": 0
+"Silmanest, lord of the dragons, looks upon you from his horde.": 0
+"Kalimindroph the blue dragon eyes you evilly.": 0
+"A warrior balrog paces around, flames leaping around him.": 0
+"An elemental of pure fire rises up before you.": 0
+"Andrinia the guard rests against a wall, warily watching the passage.": 0
+"Bondunor the guard stands here, eyeing the bridge.": 0
+"The undead lich of Numenor is here, sliding towards you!": 0
+"A black bat with red spots on its back swerves to attack you!": 0
+"The waters swirl about strangely in a certain location.": 0
+"Sverrecik the great war leader is practicing his stabbing and slashing.": 0
+"Ugruk the great goblin sits upon a throne formed of skulls.": 0
+"The queen's attendant spider looks at you evilly.": 0
+"A servant of the king bustles about, bearing platters of food.": 0
+# {  LORD } DevMal  Stalemate
+"A Bishop stares at you with dead eyes.": 0
+"A carnage reaper inspires terror in all before it.": 0
+"A guard leaps to attack you!": 0
+"A pale horse with a pale rider blocks your path.": 0
+"A pawn has been drafted into service here.": 0
+"A regally dressed devil is irrate that you have ruined the game.": 0
+"An astral reaper feeds off this strange realm.": 0
+"Bhyss's Queen has left the board but retained her power.": 0
+"Galafas, Cleric of Bhyss, is dressed like royalty.": 0
+"Shizaga's Bishop is sprouting gibberish ... again.": 0
+"Shizaga's King is resting here.": 0
+"Shizaga's King wanders the board without concern.": 0
+"Shizaga's Knight roams the battlefield.": 0
+"Shizaga's Pawn aspires to be something greater.": 0
+"Shizaga's Queen bristles with power.": 0
+"Shizaga's Rook scans the horizon alert to danger.": 0
+"This demon serves Kalindor.": 0
+"This reaper wants nothing more than to drain your soul.": 0
+"This rock is Bhyss's castle.": 0
+# {  LORD } Ginta   Eragoran Laylines
+"A laywalker radiates with magical energies.": 0
+"Sadness and regret radiates from this spot.": 0
+"The thoughts of sentient energy babbles indescribably.": 0
+"Wisps of stray energy tug at your soul.": 0
+# {  LORD } Mal     Darkly
+"A bearded snoncking wumperding prepares to attack.": 0
+"A festering pompaloon oozes with contrdictions!": 0
+"A findled wangzer hops here and there.": 0
+"A fluted chisledigger aims its narnta at you.": 0
+"A gazebo lies in wait, ready to attack.": 0
+"A lesser furgaboid searches for fresh meat.": 0
+"A looting scumbag is here.": 0
+"A sacred chao seems content to mu.": 0
+"A small hamster pounces at you!": 0
+"A spotted yurkalow screams with fury.": 0
+"A white haired wizard with crazed eyes is here.": 0
+"A wurgled schneezer glares at you.": 0
+"An agitated angopam prepares to feast on your soul.": 0
+"An enraged heffalump charges at you!": 0
+"Flesh melts off this poxicor.": 0
+"Maurice the Space Dinosaur is here.": 0
+"Spiked and angry, this monster attacks.": 0
+"The precious is here, shining brightly.": 0
+"This animated object has an obvious use.": 0
+"This hikoful burps in your general direction.": 0
+"This howling demon seeks the living.": 0
 
 # unknown area
 "A halfling screams, \"Long live the sun god!\"": 0

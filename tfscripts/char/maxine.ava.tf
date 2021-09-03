@@ -30,15 +30,6 @@
 ;        /aq wear autumn%;\
 ;    /endif
 
-;/def -wmaxine wa = /send wake%;/mana2arc
-
-/def -wmaxine -p9 -ag -mregexp -F -t"\'s attac.* strikes? you [0-9]* (time|times), with .* [a-zA-Z]*(\.|\!)$" archer_aggie_swap_bow = \
-    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-/def -wmaxine -p9 -ag -mregexp -F -t"\'s attacks haven\'t hurt you\!$" archer_nil_aggie_swap_bow = \
-    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-/def -wmaxine -p9 -ag -mregexp -F -t"([a-zA-Z]+) successfully rescues you from the .*\!" archer_rescued_swap_bow = \
-    /if ({xbowon}=1 & {leader} !~ "Self" & {running}=1) bow%;/clrq%;/endif
-
 ;;; ----------------------------------------------------------------------------
 ;;; Autohealing setup
 ;;; ----------------------------------------------------------------------------

@@ -29,10 +29,7 @@
         wear "boots flight feathered"%;\
     /endif
 
-/def tarkaramidround = \
-    /if ({mudLag} <3) \
-        /send vital %avs_spot%;\
-    /endif
+/def tarkarafren = /q 5 c frenzy %1
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState tarkara

@@ -34,7 +34,9 @@
     /send get %P2%;\
     /if ({leader} !~ "Self") /send give "perfect %P2" %{leader}%;/endif
 
-/def -mregexp -ah -t"^The automaton falls to pieces$" mob_bits_drop = /send get bits%;/if ({leader} !~ "Self") /send give bits %{leader}%;/endif
+/def -mregexp -ah -t"^The automaton falls to pieces$" mob_bits_drop = \
+    /send get bits
+;/if ({leader} !~ "Self") /send give bits %{leader}%;/endif
 
 ;;; unlock for leader
 /def -p99 -mregexp -t"^\*?([a-zA-Z]+)\*? tells the group 'unl[ock]* ([neswud]?|north|east|south|west|up|down)'" autounlock_gtell = \
@@ -294,6 +296,7 @@
         /set totnumheal=$[totnumheal+numheal] %; \
         /set healxp=0%;/set numheal=0 %; \
     /endif %; \
+    /clearbrandishcounts%;\
     /echo -p % @{hCyellow}Run stats reset.@{n}
 
 ;;; By running /runreset twice, we clear all variables
@@ -315,13 +318,12 @@
     /echo -p %%% @{hCyellow}All counters reset.@{n}
 
 /def runstart = \
-;;    /send affect%;\
     /set runs=$[++runs]%;\
     /runreset%;\
     /damreset%;\
     /set runStart=$[time()]%;\
     /set running=1%;\
-    /statusflag %running Run%;\
+    /statusflagcolour %running Ccyan R%;\
     /echo -p @{hCyellow}% Run counters reset.@{n} %; \
     /set drone=0%;\
     /if ({leader} !~ "Self") \
@@ -335,6 +337,11 @@
     /if ({myclass} =~ "pal" & {repray} = 0) /repray %; /endif%;\
     /if ({refren} = 0 & {leader} !~ "Self" & {myclass} !~ "bzk") /refren %; /endif%;\
     /if ({autokill} = 0 & {leader} !~ "Self" & {myclass} !~ "prs") /assist %; /endif%;\
+    /if ({mytier} =~ "lord") \
+        /home on%;\
+        /frecall on%;\
+        /if ({myclass} =~ "prs") /healbot on%;/endif%;\
+    /endif%;\
     /def -n1 -mregexp -ag -p2 -t"You need [0-9]+ experience to level and have ([0-9]+) practices\." runstart_worth_pracs = /set max_prac=%%P1%;\
     /def -n1 -ag -p5 -mglob -t"You have * gold coins in hand and * gold coins in the bank\." runstart_gold%;\
     /send worth
@@ -344,7 +351,7 @@
         /set runElapsedTime=$[time() - runStart] %; \
     /endif%;\
     /set running=0%;\
-    /statusflag %running Run%;\
+    /statusflag %running R%;\
     /if ({autobrandish} = 1) /autobran %; /endif%;\
     /if ({autopick} = 1) /autopick %; /endif%;\
     /if ({resanc} = 1) /resanc %; /endif%;\
@@ -357,13 +364,11 @@
     /if ({autowalk} = 1) /autowalk %; /endif%;\
     /if ({atarg} = 1) /atarg %; /endif%;\
     /if ({aslip} == 1) /aslip%;/endif%;\
-    /if ({autols} == 1) /autols%;/endif%;\
     /if ({autokill} = 1) /assist%;/endif%;\
     /if ({autochase} == 1) /chase%;/endif%;\
     /if ({asleep} = 1) /asleep %; /endif%;\
     /if ({autocast} = 1) /acast %; /endif%;\
     /if ({automidround} = 1) /amid%;/endif%;\
-    /if ({autobrandish} = 1) /autobrandish %; /endif%;\
     /if ({drone} = 1) /drone %; /endif%;\
     /if ({autoheal} = 1) /aheal%;/endif%;\
     /if ({autocure} = 1) /autocure%;/endif%;\
@@ -373,6 +378,12 @@
     /if /test $(/getvar auto_drone) == 1%;/then /mydrone off%;/endif%;\
     /if /test $(/getvar auto_tankbot) == 1%;/then /tankbot off%;/endif%;\
     /if /test $(/getvar auto_stab) == 1%;/then /stab off%;/endif%;\
+    /if /test $(/getvar auto_ls) == 1%;/then /autols off%;/endif%;\
+    /if ({mytier} =~ "lord") \
+        /home off%;\
+        /frecall off%;\
+        /if ({myclass} =~ "prs") /healbot off%;/endif%;\
+    /endif%;\
     /edit -c100 gear_misc_coins
 
 ;;; ----------------------------------------------------------------------------
@@ -513,7 +524,7 @@
 /def asleep = \
     /toggle asleep%;\
     /echoflag %asleep Auto-@{hCblue}Sleep/Wake@{n}%;\
-    /statusflag %asleep aSleep
+    /statusflagcolour %asleep Cyellow aSleep
 
 /def -mregexp -t"(You sleep\.|You are already sleeping\.)" position_sleep = /set position=sleeping
 /def -mregexp -t"(You stand up and face your attacker.|You wake and stand up.|You are already standing.)" position_standing = /set position=standing
@@ -575,4 +586,94 @@
   /let do_autotank $(/getvar auto_tankbot)%;\
   /if /test do_autotank == 1%;\
     /python_call gmcp.autotank %this%;\
+  /endif
+
+;; Go 2s when leader asks in Aculeata Jatha-La
+/def -p99 -F -mregexp -t'^\*?([a-zA-Z]+)\*? tell[s]* the group \'2[sS]\'' aculeata_go2s = \
+    /if (({P1} =~ {leader}) & ($(/getvar zone) =~ "{*HERO*}  Ibn     Aculeata Jatha-La")) /send s=s%;/endif
+    
+;; ----------------------------------------------------------------
+;; Run brandish counter
+;; ----------------------------------------------------------------
+/def -i resetbrancounts = /set %1 0
+;; brandish count variables are all xxx_count (e.g. foobar_brandish_count, foobar_recite_count, etc) 
+;; set it to 0 to indicate that it is not active on character
+/def -i clearbrandishcounts = \
+  /let brand_vars=$(/listvar -s *recite_count) $(/listvar -s *brandish_count)%;\
+  /mapcar /resetbrancounts %{brand_vars}
+
+/def -i getbrancount = \
+    /let rv=%{1}_brandish_count%;\
+    /let bcount=$[expr(%rv)]%;\
+    /if ({bcount} > 0) /echo |bg|$[strcat(toupper(substr({1}, 0, 1)), substr({1}, 1))]|n|: |w|%bcount|n|%;/endif
+/def -i getrecitecount = \
+    /let rv=%{1}_recite_count%;\
+    /let bcount=$[expr(%rv)]%;\
+    /if ({bcount} > 0) /echo |by|$[strcat(toupper(substr({1}, 0, 1)), substr({1}, 1))]|n|: |w|%bcount|n|%;/endif
+
+;; /brancount [-pPLAYERNAME] [channel] - brandish count for all (visible) groupies.
+/def brancount = \
+    /if (!getopts("p:", "")) /let echochan=/echo%;/endif%;\
+    /let echochan=/echo%;\
+    /if ({#} > 0) /let echochan=%*%;/endif%;\
+    /if ({opt_p} !~ '') /let blist=%{opt_p}%;\
+    /else /let blist=%{grouplist}%;\
+    /endif%;\
+    /let brandmsg=$(/mapcar /getbrancount %{blist})%;\
+    /let recitemsg=$(/mapcar /getrecitecount %{blist})%;\
+    /if ({echochan} =~ "/echo") \
+        /if (strlen({brandmsg}) > 0) /chgcolor Brandishes: %{brandmsg}%;/endif%;\
+        /if (strlen({recitemsg}) > 0) /chgcolor Reciting: %{recitemsg}%;/endif%;\
+    /else \
+        /if (strlen({brandmsg}) > 0) /eval %echochan Brandishes: %brandmsg%;/endif%;\
+        /if (strlen({recitemsg}) > 0) /eval %echochan Reciting: %recitemsg%;/endif%;\
+    /endif
+
+/def -F -p100 -mregexp -ah -t"^([a-zA-Z]+) recites (a crumbling scroll|a mysterious scroll|a crumpled scroll)\." other_recite = \
+  /if ({P1} =~ "Someone") /return%;/endif%;\
+  /let recitetemp=<%P1<%;\
+  /let t1=$[tolower({P1})]%;/let t2=%P2%;\
+  /if ( regmatch(tolower({recitetemp}),{groupies}) ) \
+    /let rv=%{t1}_recite_count%;\
+    /let rcount=$[expr(%rv)]%;\
+    /set %{t1}_recite_count=$[{rcount}+1]%;\
+  /endif
+
+/def -F -p100 -mregexp -ah -t"^([a-zA-Z]+) brandishes (the emerald sceptre of light|gold Dragon Orb|(black|corrupted) staff of Typhus|the Black Staff of Typhus)\." other_brandish = \
+  /if ({P1} =~ "Someone") /return%;/endif%;\
+  /let brantemp=<%P1<%;\
+  /let t1=$[tolower({P1})]%;/let t2=%P2%;\
+  /if ( regmatch(tolower({brantemp}),{groupies}) ) \
+    /let rv=%{t1}_brandish_count%;\
+    /let bcount=$[expr(%rv)]%;\
+    /set %{t1}_brandish_count=$[{bcount}+1]%;\
+  /endif
+
+;                     Katya's the emerald sceptre of light brandishes itself all of its own!
+/def -F -p100 -ah -t"^([a-zA-Z]+)'s (the emerald sceptre of light|gold Dragon Orb|(black|corrupted) staff of Typhus|the Black Staff of Typhus) brandishes itself all of its own\!" other_druid_brandish = \
+    /if ({P1} =~ "Someone") /return%;/endif%;\
+    /let brantemp=<%P1<%;\
+    /let t1=$[tolower({P1})]%;/let t2=%P2%;\
+    /if ( regmatch(tolower({brantemp}),{groupies}) ) \
+      /let rv=%{t1}_brandish_count%;\
+      /let bcount=$[expr(%rv)]%;\
+      /set %{t1}_brandish_count=$[{bcount}+1]%;\
+    /endif
+
+; could combine the next two to above, but I'm lazy.
+/def -F -p100 -mregexp -ah -t"^You recite (a crumpled scroll|a crumbling scroll|a mysterious scroll)\." you_recite = \
+  /let recitetemp=<$[world_info()]<%;\
+  /let t1=$[world_info()]%;/let t2=%P1%;\
+  /if ( regmatch(tolower({recitetemp}),{groupies}) ) \
+    /let rv=%{t1}_recite_count%;\
+    /let rcount=$[expr(%rv)]%;\
+    /set %{t1}_recite_count=$[{rcount}+1]%;\
+  /endif
+/def -F -p100 -mregexp -ah -t"^You brandish (the emerald sceptre of light|gold Dragon Orb|(black|corrupted) staff of Typhus)\." you_brandish = \
+  /let brantemp=<$[world_info()]<%;\
+  /let t1=$[world_info()]%;/let t2=%P1%;\
+  /if ( regmatch(tolower({brantemp}),{groupies}) ) \
+    /let rv=%{t1}_brandish_count%;\
+    /let bcount=$[expr(%rv)]%;\
+    /set %{t1}_brandish_count=$[{bcount}+1]%;\
   /endif

@@ -4,12 +4,11 @@
 
 /set main_bag "jumpsuit white loot"
 
-/load -q char/hero.ac2.ava.tf
-;/load -q char/hero.mana4.ava.tf
-/load -q char/hero.lightmana.ava.tf
-
-/load -q char/hero.hit3.ava.tf
-/set hit_bag="bodybag body bag hitgear!"
+/load -q char/hero.hit1.ava.tf
+/load -q char/hero.ac3.ava.tf
+/set ac_bag="bodybag body bag tankgear!"
+/set ac_wield="crimson spellshard shard spell"
+/load -q char/hero.mana4.ava.tf
 
 ;/def -wfalrim mana_post_on = \
 ;    /def -wfalrim falrimlvl = /send get all.levelgear %{main_bag}=rem all.talisman=rem %{mana_head}=wear all.levelgear%; \

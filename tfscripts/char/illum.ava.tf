@@ -55,7 +55,9 @@
         /if ({multi} == 1) /send gtell Mana low, turning surge off%;/endif
 
 /def -willum runcast = /auto runcast %1
-/def -willum -F -mregexp -t"^You start fighting " illum_auto_runcast_toggle = /if /test $(/getvar auto_runcast) == 1%;/then /repeat -0:00:3 1 /cast on%%;/aq /cast off%;/endif
+/def -willum -i togglecast = /if /test ($(/getvar pos) =~ "fight")%;/then /cast on%;/aq /cast off%;/else /echo -pw Position: $(/getvar pos)%;/endif 
+;/def -willum -F -mregexp -t"^You start fighting " illum_auto_runcast_toggle = /if /test $(/getvar auto_runcast) == 1%;/then /repeat -0:00:3 1 /cast on%%;/aq /cast off%;/endif
+/def -willum -F -mregexp -t"^You start fighting " illum_auto_runcast_toggle = /if /test $(/getvar auto_runcast) == 1%;/then /repeat -0:00:3 1 /togglecast%;/endif
 
 ;-------------------------------------------------------------------------------
 /alias ratt get rattle %main_bag%;wear rattle%;zap %1%;wear %unbrandish%;put rattle %main_bag

@@ -31,15 +31,6 @@
     /endif%;
 /alias ls /send longshot %1 %2
 
-;; bow/xbow swapping when aggied
-;/def -wmaggot -p9 -ag -mregexp -F -t"\'s attac.* strikes? you [0-9]* (time|times), with .* [a-zA-Z]*(\.|\!)$" maggot_aggie_swap_bow = \
-;    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-;/def -wmaggot -p9 -ag -mregexp -F -t"\'s attacks haven\'t hurt you\!$" maggot_nil_aggie_swap_bow = \
-;    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-;/def -wmaggot -p9 -ag -mregexp -F -t"([a-zA-Z]+) successfully rescues you from the .*\!" maggot_rescued_swap_bow = \
-;    /if ({xbowon}=1 & {leader} !~ "Self" & {running}=1) bow%;/clrq%;/endif
-;/def -p10 -mglob -au -t"You have the wrong kind of ammo!" maggot_wrong_ammo = /swap %{boltType}
-
 ;; Stance triggers
 /set maggot_off_stance=square
 /def -mglob -au -p1 -wmaggot -t"One of your Exhaust timers has elapsed. (echelon)" maggot_echelon_exhaust_up = \

@@ -29,11 +29,6 @@
 /def -mglob -ahb -t"A giantkin club carried by A hill giant." high_serpweyr
 /def -mglob -ahb -t"The dark blade of kra carried by the dwarf assassin." high_divide
 
-;; Heartwood
-/def -mglob -ahb -t"A wide strip of vallenwood bark in Deep in the forest." high_heartwood_bark
-/def -mglob -ahb -t"A goose feather in Deep in the forest." high_heartwood_goose_feather
-/def -mglob -ahb -t"A handful of berries in Deep in the forest." high_heartwood_berries
-
 ;;; ----------------------------------------------------------------------------
 ;;; Channel highlights
 ;;; ----------------------------------------------------------------------------
@@ -491,14 +486,14 @@
 /def -ag -Ph -F -t"a QuestPoint Token \(([0-9]+)QP\)" highlight_qp_tokens_001 = /test $[echoGearItem({PL}, strcat("a ", {P1}, " QP Token"), "quest", "", {PR})]
 
 ;;; Gearbox items
-/def -ag -Ph -F -t"a book on machinery" highlight_gearbox_001 = /test $[echoGearItem({PL}, "book on machinery",  "token-exp", strcat({P1}, " (1000XP)"), {PR})]
+/def -ag -Ph -F -t"a book on machinery" highlight_gearbox_001 = /test $[echoGearItem({PL}, "book on machinery",  "token-xp", strcat({P1}, " (1000XP)"), {PR})]
 /def -ag -Ph -F -t"a page about animation" highlight_gearbox_002 = /test $[echoGearItem({PL}, "a page about animation",  "misc", strcat({P1}, " (orbit)"), {PR})]
 /def -ag -Ph -F -t"a page about shielding" highlight_gearbox_003 = /test $[echoGearItem({PL}, "a page about shielding",  "misc", strcat({P1}, " (werrebocler)"), {PR})]
 /def -ag -Ph -F -t"a page about imbuing" highlight_gearbox_004 = /test $[echoGearItem({PL}, "a page about imbuing",  "misc", strcat({P1}, " (spiritlink)"), {PR})]
 /def -ag -Ph -F -t"a page about repairing" highlight_gearbox_005 = /test $[echoGearItem({PL}, "a page about repairing",  "misc", strcat({P1}, " (mass comfort)"), {PR})]
 /def -ag -Ph -F -t"a page about cleansing" highlight_gearbox_006 = /test $[echoGearItem({PL}, "a page about cleansing",  "misc", strcat({P1}, " (ablution)"), {PR})]
 /def -ag -Ph -F -t"a page about divinity" highlight_gearbox_007 = /test $[echoGearItem({PL}, "a page about divinity",  "misc", strcat({P1}, " (intervention)"), {PR})]
-/def -ag -Ph -F -t"broken bits" highlight_gearbox_008 = /test $[echoGearItem({PL}, "broken bits",  "token-exp", strcat({P1}, " (100XP)"), {PR})]
+/def -ag -Ph -F -t"broken bits" highlight_gearbox_008 = /test $[echoGearItem({PL}, "broken bits",  "token-xp", strcat({P1}, " (100XP)"), {PR})]
 /def -ag -Ph -F -t"a sulfurous shooter" highlight_gearbox_009 = /test $[echoGearItem({PL}, "a sulfurous shooter",  "misc", strcat({P1}, " (30day 5% mana insignia)"), {PR})]
 
 ;;; ----------------------------------------------------------------------------
@@ -555,10 +550,3 @@
     /if ({leader} =~ "Self") /send linkrefresh group%;/endif
 
 /def -ag -mregexp -t"^The mountaintop" summoning_safe_room_01=/test $[echoRoomFlags({P0},  "Safe")]
-;;;
-;; Auction highlighting
-/def -ag -mregexp -p999 -t"^([0-9 ]+)\|([0-9\, ]+)\|([0-9 ]+)\|([0-9 ]+)\|([0-9\, ]+)" highlight_auction_list = \
-    /let auctionMins=%{P3}%;\
-    /let auctionHours=$[{P3}/60]%;\
-    /if ({auctionHours} > 1) /let auctionTime=%{auctionHours}h%;/else /let auctionTime=%{auctionMins}m%;/endif%;\
-    /echo -pw @{hCwhite}%{P1}@{n}|@{Cyellow}%{P2}@{n}| @{Ccyan}$[pad({auctionTime}, -4)]@{n} |@{Cwhite}%{P4}@{n}|@{Cyellow}%{P5}@{n}

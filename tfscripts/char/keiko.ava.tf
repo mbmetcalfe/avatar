@@ -17,10 +17,9 @@
 
 /set monkHandMod=dagger hand
 
-/def vamp = /send stance vampire fang
-/def -wkeiko -p9 -F -t"You adopt vampire fang." keiko_vamp_up = /postpush crush
-/def -wkeiko -p9 -F -t"You adopt emu stance." keiko_emu_up = /postpush kick
-/def -wkeiko -p9 -F -t"You stop using vampire fang." keiko_vamp_down = /postpush kick
+/def -wkeiko -p9 -F -t"You adopt vampire fang." keiko_vamp_up = /postpush full crush
+/def -wkeiko -p9 -F -t"You adopt emu stance." keiko_emu_up = /postpush full crush
+/def -wkeiko -p9 -F -t"You stop using vampire fang." keiko_vamp_down = /postpush full crush
 
 ;; Add mon qi status items in manually
 /status_add_mon

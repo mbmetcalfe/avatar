@@ -10,13 +10,13 @@
 /load -q char/dhaatu.gear.ava.tf
 /set lootContainer=loot
 
-/def -wdhaatu -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" dhaatu_poke_resc = /if ({dhaatu_auto_rescue} == 1) /send rescue %{P1}%;/endif
+/def -wdhaatu -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" dhaatu_poke_resc = /if ({dhaatu_auto_rescue} == 2) /send rescue %{P1}%;/endif
 
 ;; Wear seneca robe to bipass curse on the ofcol rings
 /def -wdhaatu -p0 -mglob -ag -h'SEND wear all' hook_dhaatu_wear_all = /send wear all=get "robes sustainment" %{main_bag}=wear "robes sustainment"=wear "robe greatness"=put "robes sustainment" %{main_bag}
 
-;Kra's presence disappears.
 ;/set dhaatu_prayer_boon=Precision
+/def boon = /setvar prayer_boon %*
 /def -wdhaatu -au -mregexp -p10 -F -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears\.$" dhaatu_prayer_drop = \
     /if ({repray} == 1) /refreshSkill c prayer %{dhaatu_prayer_boon}%;/endif
 

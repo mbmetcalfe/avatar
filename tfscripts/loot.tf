@@ -174,11 +174,11 @@
 
 ;;; Deepways
 ;; In deepways, the caravan drops a treasure -- pretty heavy:
-/def -mglob -t"As you wreak the caravan, a large amount" gear_misc_deepways_caravan = /if ({autoloot} = 1) /send get treasure%;/endif
-/def -mglob -t"A large amount of coinage lies spilled across the floor." gear_misc_deepways_gold = /if ({autoloot} = 1) /send get treasure%;/endif
-/def -mglob -t"*A pile of cash has spilled out over the floor." gear_misc_deepways_gold2 = /if ({autoloot} = 1) /send get cash%;/endif
-/def -mglob -p1 -t"*A large amount of coinage lies spilled across the floor." gear_misc_deepways_gold3 = /if ({autoloot} == 1) /send get coin%;/endif
-/def -mglob -p1 -t"The coins the mimic was using to lure" gear_misc_deepways_gold4 = /if ({autoloot} == 1) /send get coin%;/endif
+;/def -mglob -t"As you wreak the caravan, a large amount" gear_misc_deepways_caravan = /if ({autoloot} = 1) /send get treasure%;/endif
+;/def -mglob -t"A large amount of coinage lies spilled across the floor." gear_misc_deepways_gold = /if ({autoloot} = 1) /send get treasure%;/endif
+;/def -mglob -t"*A pile of cash has spilled out over the floor." gear_misc_deepways_gold2 = /if ({autoloot} = 1) /send get cash%;/endif
+;/def -mglob -p1 -t"*A large amount of coinage lies spilled across the floor." gear_misc_deepways_gold3 = /if ({autoloot} == 1) /send get coin%;/endif
+;/def -mglob -p1 -t"The coins the mimic was using to lure" gear_misc_deepways_gold4 = /if ({autoloot} == 1) /send get coin%;/endif
 
 ;;; Storm Canyon gemstones
 /def -mglob -t"Leaving nothing but silence the wind dies down." gem_storm_canyon1 = /if ({autoloot} = 1) get gem%;/endif
@@ -187,11 +187,15 @@
 
 ;;; Necropolis
 /def -mglob -t"The General Commander for Veyah L'Aturii is DEAD!!" necropolis_loot_general_command = /lootcor ashe
-/def -mglob -t"Golem guardian is DEAD!!" necropolis_loot_golem_guardian = /lootcor blade
+;/def -mglob -t"Golem guardian is DEAD!!" necropolis_loot_golem_guardian = /lootcor blade
 
 ;;; EHA
 /def -mglob -t"Groundskeeper Chalmers is DEAD!!" Aculeata_loot_chalmers = /lootcor talisman
 /def -mglob -t"The hydra's body is DEAD!!" sem_vida_loot_death = /lootcor decay
+/def -mglob -t"The draugr is DEAD!!" sem_vida_draugr = /if ({autoloot} == 1) /send get all corpse%;/endif
+/def -mglob -t"A crawling arm is DEAD!!" sem_vida_crawlingarm = /if ({autoloot} == 1) /send get ulna corpse%;/endif
+/def -mglob -t"The animated crab shell is DEAD!!" sem_vida_anim_crab = /if ({autoloot} == 1) /send get corpse%;/endif
+/def -mglob -t"The lich Ludvik is DEAD!!" sem_vida_ludvik = /if ({autoloot} == 1) /send get all corpse%;/endif
 
 ;;; Poisons
 /def -mglob -t"A trapdoor spider is DEAD!!" gear_poison_trapspider = /lootcor venom
@@ -207,6 +211,12 @@
 /def -mglob -t"Corpse of a glimmering starshark falls to the ground." gear_therim_skin_orb2 = /if ({autoloot} = 1) /send get corpse%;/endif
 /def -mglob -t"The storm wyrm Oeheliu is DEAD!!" gear_therim_spearhead = /lootcor spearhead%;/lootcor orb
 
+;; Amorphous Orb
+/def -mglob -p50 -F -t"The changeling is DEAD!!" amorb_orb = /lootcor orb
+/def -mglob -p50 -F -t"The beholder is DEAD!!" amorb_float_key = /send get key cor
+/def -mglob -p50 -F -t"The ghostly giant is DEAD!!" amorb_translucent_key = /send get key cor
+/def -mglob -p50 -F -t"The warrior is DEAD!!" amorb_sword_key = /send get key cor
+
 ;; Gear in Glyntaff Pass
 ;;; skin item for snow leopardskin
 /def -mglob -t"A snow leopard is DEAD!!" gear_glyntaff_snow_leopard = /if ({autoloot} = 1) /send get corpse%;/endif
@@ -217,6 +227,14 @@
 
 ;; Gear in Veil of Ecstasy
 /def -mglob -t"Baccarrel is DEAD!!" g_veil_golden = /lootcor golden
+
+;; Heartwood
+/def -mglob -ahb -t"A wide strip of vallenwood bark in Deep in the forest." high_heartwood_bark = /if ({autoloot}=1) /send get bark%;/endif
+/def -mglob -ahb -t"A goose feather in Deep in the forest." high_heartwood_goose_feather = /if ({autoloot}=1) /send get feather%;/endif
+/def -mglob -ahb -t"A handful of berries in Deep in the forest." high_heartwood_berries = /if ({autoloot}=1) /send get all bush%;/endif
+
+;; DC
+/def -mglob -t"Stinkin' Human is DEAD!!" gear_dc_human = /send get all corpse
 
 ;;; Silly aliases to tell self how to get Orosca
 /alias oros \
@@ -252,4 +270,5 @@
 /def -mglob -p1 -t"* leaves behind * ashes!" gear_misc_ashes = /if ({autoloot} == 1) /send get ashes%;/endif
 /def -mglob -p1 -t"A gith thief is DEAD!!" gear_lord_thief_corpse = \
     /if ({autoloot} == 1) /send get corpse%;/endif
-
+/def -mglob -p1 -t"A Chimerical griffon is DEAD!!" g_arc_chim_grif = \
+    /if (({autoloot} == 1) & ($(/getvar zone) =~ "{  LORD } Dev     The Fantasy Forest")) /send get corpse%;/endif

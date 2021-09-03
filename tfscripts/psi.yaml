@@ -139,6 +139,10 @@ drdeath:
   weapons:
   - tinydancer
   - drsdamage
+eanruig:
+  weapon_name: maelstrom, sword of the Balrog
+  weapons:
+  - maelstrom
 ebonkeir:
   weapon_name: "Ebonkeir's unconscious L56 10/10 +3 kdr"
   weapons:
@@ -293,10 +297,10 @@ kinetik:
   - kinwield
   - kinoffhand
 kiron:
-  weapon_name: The sword of ascension
+  weapon_name: " Islene's Fury"
   weapons:
-  - hitdj
-  - ascension
+  - islene
+  - loradon
 koko:
   weapon_name: Dagger
   weapons:
@@ -328,6 +332,15 @@ kyzrathe:
   weapons:
   - kyzw
   - kyzo
+language:
+  weapon_name: a blindingly annoying stick of death!!
+  weapons:
+  - mandelstick
+  - offhandstick
+libertas:
+    weapon_name: A regular baron sword (libwield)
+    weapons:
+    - libwield
 luftblad:
   weapon_name: Sith Inquisitor
   weapons:
@@ -394,6 +407,10 @@ mithr:
   weapons:
   - rogw
   - rogo
+mizuho:
+  weapon_name: Mizuho's bright red drum stick
+  weapons:
+  - all.mizuho
 momentum:
   weapon_name: Due Diligence
   weapons:
@@ -440,6 +457,10 @@ opa:
   weapons:
   - psiwield1
   - psiwield2
+ore:
+  weapon_name: Ore's stone circle
+  weapons:
+  - all.oreweap
 owari:
   weapon_name: A raging pyro flame
   weapons:
@@ -477,9 +498,9 @@ psychotia:
   - psycho
   - schizo
 purgatory:
-  weapon_name: a black dragon shaped knife L56 wt10 m54 13/13
+  weapon_name: calpchak
   weapons:
-  - knife
+  - all.calpchak
 qukumber:
   weapon_name: Louisa's Paw
   weapons:
@@ -499,6 +520,10 @@ rancor:
   weapons:
   - extirp
   - malev
+rhaegal:
+  weapon_name: The Demon Tourach's Sword
+  weapons:
+  - tourach
 riven:
   weapon_name: MEKRiTH's ambiguity
   weapons:
@@ -558,6 +583,10 @@ sticks:
   weapons:
   - stix
   - pepper
+taffy:
+  weapon_name: Saltwater Taffy
+  weapons:
+  - all.taffy
 tavoli:
   weapon_name: Intinn
   weapons:
@@ -603,6 +632,14 @@ visete:
   weapon_name: a beehive
   weapons:
   - all.visete
+volarys:
+  weapon_name: "<Blue<>Dragon<>Scales<>"
+  weapons:
+  - saber
+volary:
+  weapon_name: "Azlaroc's Infectious Bite"
+  weapons:
+  - azlaroc
 wako:
   weapon_name: wako-wim
   weapons:

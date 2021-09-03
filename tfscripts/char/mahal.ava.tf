@@ -63,7 +63,7 @@
 
 ;; Racial refresh stuff
 
-/def -mglob -au -p1 -wmahal -t"You feel drained as your heat fades." mahal_innervate_ready = /if ({refreshmisc} == 1) /send racial innervate%;/endif
+/def -mglob -au -p1 -wmahal -t"You feel drained as your heat fades." mahal_innervate_ready = /send racial innervate
 /def fireaura = /auto fireaura %1
 /def -mglob -au -p1 -wmahal -t"You feel less fatigued. (fireaura)" mahal_fireaura_refresh = /if /test $(/getvar auto_fireaura) == 1%;/then /send racial fireaura%;/endif
 

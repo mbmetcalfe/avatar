@@ -2,7 +2,7 @@
 ;;
 /cleangear
 
-/set main_bag "jumpsuit white loot"
+/set main_bag "floating icesphere loot"
 
 /load -q char/lord.mana2.ava.tf
 /set mana_body="empty adamantine shell"

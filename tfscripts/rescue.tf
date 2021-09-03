@@ -8,119 +8,8 @@
 ;;; /lresc -- show s list of defined macroes for people to be rescued.
 ;;; ----------------------------------------------------------------------------
 
-/def clrresOld = /maplist /rmres %rescueList%;/unset rescueList
-
-/def rmresOld = \
-    /if /ismacro resc_stab_trig_%1 %; /then \
-        /echo -p %%% @{Ccyan}Removing @{Cwhite}%1 @{Ccyan}from stabber rescue list.%; \
-        /set rescueList=$(/remove %{1} %{rescueList})%; \
-        /undef resc_stab_trig_%1 %; \
-        /if /ismacro rescue_%1 %; /then \
-            /undef rescue_%1 %; \
-        /endif %; \
-    /endif%;\
-    /if /ismacro resc_flash_trig_%1 %; /then \
-        /echo -p %%% @{Ccyan}Removing @{Cwhite}%1 @{Ccyan}from flasher rescue list.%; \
-        /set rescueList=$(/remove %{1} %{rescueList})%; \
-        /undef resc_flash_trig_%1 %; \
-        /if /ismacro rescue_%1 %; /then \
-            /undef rescue_%1 %; \
-        /endif %; \
-    /endif%;\
-    /if /ismacro resc_trig_%1 %; /then \
-        /set rescueList=$(/remove %{1} %{rescueList})%; \
-        /echo -p %%% @{Ccyan}Removing @{Cwhite}%1 @{Ccyan}from rescue list.%; \
-        /undef resc_trig_%1 %; \
-        /undef resc_trig_2_%1 %; \
-        /if /ismacro rescue_%1 %; /then \
-            /undef rescue_%1 %; \
-        /endif %; \
-    /else \
-        /echo -p %%% @{Cwhite}%1 @{Ccyan}was not in rescue list.%; \
-    /endif
-;A ghastly wasp turns to attack Irlihk!
-/def -i addsingleres = \
-    /if /!ismacro resc_trig_%1 %; /then \
-        /set rescueList=%{rescueList} %{*}%; \
-        /echo -p %%% @{Ccyan}Adding @{Cwhite}%1 @{Ccyan}to rescue list.%; \
-        /def -mregexp -p7 -ag -F -t"^[-',A-Za-z ]+'s attack[s]* strike[s]* %1 [0-9]+ time[s]*, with [A-Za-z*]+ [a-z!.]+" resc_trig_%1 = \
-            /do_rescue %1 %; \
-        /def -mregexp -p7 -ag -t"^[-',A-Za-z ]+'s attack[s]* haven't hurt %1!" resc_trig_2_%1 = \
-            /do_rescue %1 %; \
-    /else \
-        /echo -p %%% @{CWhite}%1 @{Ccyan}is already in rescue list.%; \
-    /endif
-
-/def -p1 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" poke_resc = \
-    /let resc_target=%{P1}%;\
-    /if /test $(/getvar auto_rescue) == 1%;/then /send res %{resc_targe}%;/endif
-
-/def addresOld = /while ({#}) /addsingleres %{1}%;/shift%;/done
-
-/def -i addsinglestabres = \
-    /if /!ismacro resc_stab_trig_%1 %; /then \
-        /set rescueList=%{rescueList} %{*}%; \
-        /echo -p %%% @{Ccyan}Adding @{Cwhite}%1 @{Ccyan}to stabber rescue list.%; \
-        /def -mregexp -p7 -ag -F -t"^%1's (backstab|pierce) strikes.*!" resc_stab_trig_%1 = \
-            /do_rescue %1 %; \
-    /else \
-        /echo -p %%% @{CWhite}%1 @{Ccyan}is already in stabber rescue list.%; \
-    /endif
-/def addstabres = /while ({#}) /addsinglestabres %{1}%;/shift%;/done
-
-/def -i addsingleflashres = \
-    /if /!ismacro resc_flash_trig_%1 %; /then \
-        /set rescueList=%{rescueList} %{*}%;\
-        /echo -p %%% @{Ccyan}Adding @{Cwhite}%1 @{Ccyan}to flashers rescue list.%; \
-        /def -mregexp -p7 -F -t"^%1 emits a flash of unholy light!" resc_flash_trig_%1 = \
-            /do_rescue %1%;\
-    /else \
-        /echo -p %%% @{CWhite}%1 @{Ccyan}is already in flashers rescue list.%; \
-    /endif
-/def addflashres = /while ({#}) /addsingleflashres %{1}%;/shift%;/done
-
-;; /showres [channel] -- echo rescue list to [channel] if blank /echo.
-/def showresOld = \
-    /let echochan=/echo %; \
-    /if ({#} > 0) /let echochan=%*%; /endif %; \
-    /let rescmsg=|c|Rescue list: |w|%rescueList%; \
-    /if ({echochan} =~ "/echo") \
-        /let rescmsg=$[replace("|c|", "@{Ccyan}", {rescmsg})] %; \
-        /let rescmsg=$[replace("|w|", "@{Cwhite}", {rescmsg})] %; \
-        /echo -p %%% %rescmsg %; \
-    /else \
-        /eval %echochan %rescmsg %; \
-    /endif
-
-; Leaving this in here in case clear or remove doesn't work to see defined rescue trigs.
-/def lresc = /list -s resc_trig_2_*
-
-/def -i do_rescue = \
-    /if /!ismacro rescue_%1 %; /then \
-        /send resc %1 %; \
-        /def rescue_%1 = 1 %; \
-    /else \
-        /echo -p %%% @{Ccyan}Still trying to rescue @{Cwhite}%1@{n} %; \
-    /endif
-
-/def -mregexp -F -p4 -t"You successfully rescue ([A-Za-z]+) from [-'A-Za-z ]+!" unresc_trig_1 = \
-	/if /ismacro rescue_%{P1}%; /then /undef rescue_%{P1}%; /endif
-
-/def -mregexp -F -p4 -t"You fail to rescue ([A-Za-z]+) from [-'A-Za-z ]+!" unresc_trig_2 = \
-    /if /ismacro rescue_%{P1}%; /then /undef rescue_%{P1}%; /endif
-
-/def -mregexp -F -p4 -t"([A-Za-z]+) doesn't NEED rescuing!" unresc_trig_3 = \
-    /if /ismacro rescue_%{P1}%; /then /undef rescue_%{P1}%; /endif
-
-/def -mregexp -F -p4 -t"[A-Za-z]+ rescues ([A-Za-z]+) from [-'A-Za-z ]+." unresc_trig_4 = \
-    /if /ismacro rescue_%{P2}%; /then /undef rescue_%{P2}%; /endif
-
-;todo: fix
-/def -mregexp -F -p9 -t"([a-zA-Z]+) successfully rescues you from .*" unresc_trig_5 = \
-    /if /ismacro resc_trig_%{P1}%; /then /rmres %{P1}%; /endif
-
-/def -mregexp -F -p4 -t"([A-Za-z]+) doesn't need your help\." unresc_trig_6 = \
-    /if /ismacro rescue_%{P1}%; /then /undef rescue_%{P1}%; /endif
+/def -wdhaatu -p99 -au -mregexp -t"^([a-zA-Z]+) pokes you in the ribs\.$" poke_resc = \
+    /if /test $(/getvar auto_rescue) == 1%;/then resc %{P1}%;/endif
 
 ;; -- if changes in damage-new.tf work, this triggers are no longer required
 ;; /undef autores1
@@ -153,12 +42,8 @@
     /else \
         /echootherdam @{Cyellow}%T1 %T2! %; \
     /endif
-;;; covered in damage-new.tf I think
-/undef autores1
-/undef autores2
 
 ;;; ----------------------------------------------------------------------------
-;;; New rescue code from Ebin, works with multiple sessions
 ;;; Usage, case does not matter with alt names. world specific
 ;;; /clrres -- Clear rescue list.
 ;;; /rmres char -- remove "char" from rescue list.
@@ -184,7 +69,7 @@
     /echo -p @{Ccyan}%{this} Rescuing: @{Cwhite}%resclist@{n}%;\
     /def -w%{this} -mregexp -p7 -F -t"attack(s?) (strike|strikes|haven't hurt) ((?i)%resclist)" %{this}resc = /eval resc %%P3%%;/edit -c0 %{this}resc%%;/repeat -00:00:01 1 /edit -c100 %{this}resc%;\
     /def -w%{this} -mregexp -p7 -F -t" (turns to shoot|stands up and faces) ((?i)%resclist)" %{this}resc1 = /eval resc %%P2%;\
-    /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s pierce" %{this}resc2 = /eval resc %%P1%;\
+    /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist)'s (backstab|pierce)" %{this}resc2 = /eval resc %%P1%;\
     /def -w%{this} -mregexp -p7 -F -t"((?i)%resclist) successfully rescues you from .*!" %{this}resc3 = /rmres -w%{this} %%P1
 
 ;/if /test ((%{this}_cast == 1) & ({currentPosition} =~ "fight") & ({mudLag} == 0) & (%{this}_auto_cast == 1))%;/then /castdmg%;/set %{this}_cast 2%;/endif
@@ -201,7 +86,8 @@
         /edit -c100 %{this}resc1%;\
         /edit -c100 %{this}resc2%;\
         /edit -c100 %{this}resc3%;\
-    /endif
+    /endif%;\
+    /statusflagcolour $(/getvar auto_rescue) hCyellow AR
  
 /def rmres = \
     /if (!getopts("w:", "a")) /let this=$[world_info()]%;/endif%;\

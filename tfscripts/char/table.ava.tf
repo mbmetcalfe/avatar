@@ -8,9 +8,10 @@
 ;/load -q char/hero.lightmana.ava.tf
 
 ;; Wear seneca robe to bipass curse on the ofcol rings
-/def -wtable -p1 -mglob -ag -h'SEND wear all' hook_table_wear_all = /send wear all=get "robes sustainment" %{main_bag}=wear "robes sustainment"=wear "robe greatness"=put "robes sustainment" %{main_bag}
+;/def -wtable -p1 -mglob -ag -h'SEND wear all' hook_table_wear_all = /send wear all=get "robes sustainment" %{main_bag}=wear "robes sustainment"=wear "robe greatness"=put "robes sustainment" %{main_bag}
 
-/set table_prayer_boon=precision
+;/set table_prayer_boon=precision
+/def boon = /setvar prayer_boon %*
 /def -wtable -au -mregexp -p10 -F -t"^(Werredan|Bhyss|Shizaga|Gorn|Kra|Tul\-Sith|Quixoltan)\'s presence disappears\.$" table_prayer_drop = \
   /if ({repray} == 1) /refreshSkill c prayer %{table_prayer_boon}%;/endif
 

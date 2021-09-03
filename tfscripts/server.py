@@ -142,24 +142,49 @@ def handleData(msg, curs):
       return '\n'.join(rets)
     elif prefix == 'dmgclr':
       curs.execute("delete from damage_others")
+    elif prefix == 'auctionclr':
+      curs.execute("delete from auction;")
+    elif prefix == 'auctiondel':
+      data = parts[1].split('|')
+      itemnum = int(data[0])
+      itemname = data[1].strip()
+      stmt = """delete from auction where item_number = ? and item = ?;"""
+      try:
+        curs.execute(stmt, (itemnum, itemname ))
+      except Exception as e:
+        print "Could not delete auction item #%d: %s" % (itemnum, e)
+        pass
+    elif prefix == 'auctionupd':
+      data = parts[1].split('|')
+      itemnum = int(data[0])
+      itemname = data[1].strip()
+      currentbid = int(data[2].replace(',', ''))
+      
+      stmt = """update auction set current_bid = ? where item_number = ? and item = ?;"""
+      try:
+        res = curs.execute(stmt, (currentbid, itemnum, itemname))
+      except Exception as e:
+        print "Could not update bid on item %d: %s" % (itemnum, e)
 
-#    elif prefix == "groupres":
-#        rescuer = parts[1]
-#        # thresh = parts[2]
-#        
-#        stmt = "select name from groupies where hpmax <= %d;" % 20000
-#        needsRescue = []
-#        curs.execute(stmt)
-#        for row in curs.fetchall():
-#            name = row[0]
-#            needsRescue.append(name)
-#
-#        if len(needsRescue) > 0:
-#            ret = ''
-#            for nh in needsRescue:
-#                ret += "%s:/echo -p Rescue: @{Cwhite}%s@{n}\n" % (rescuer, nh)
-#                return '\n'.join(ret)
-#                #return ret.rstrip()
+    elif prefix == 'auction':
+      data = parts[1].split('|')
+      itemnum = data[0]
+      itemname = data[1].strip()
+      currentbid = int(data[2].replace(',', ''))
+      mins = data[3]
+      itelevel = data[4]
+      minbid = int(data[5].replace(',', ''))
+      seller = data[6]
+
+      stmt = """insert into auction(item_number, item, current_bid, current_mins, level, min_bid, seller) values(?,?,?,?,?,?,?);"""
+      try:
+        curs.execute(stmt, (itemnum, itemname, currentbid, mins, itelevel, minbid, seller))
+      except:
+        stmt = """update auction set current_bid = ?, current_mins = ?, level = ?, min_bid = ?, updated = datetime('now') where item_number = ? and item = ? and current_bid <> ?;"""
+        try:
+          curs.execute(stmt, (currentbid, mins, itelevel, minbid, itemnum, itemname, currentbid))
+        except Exception as e:
+          print "Could not insert or update auction item #%d: %s" % (itemnum, e)
 
     elif prefix == 'mobile':
       data = parts[1].split('|')
@@ -216,11 +241,14 @@ class TCPHandler(SocketServer.BaseRequestHandler):
       except:
         pass
     
-#      try:
-#        db.execute('CREATE TABLE mobiles(area_name text, mob_short text)')
-#        db.execute('CREATE UNIQUE INDEX mobile_area_short on mobiles(area_name, mob_short)')
-#      except:
-#        pass
+      try:
+        db.execute('CREATE TABLE auction(item_number integer, item text, current_bid integer, current_mins integer, level integer, min_bid integer, seller text, updated DATE default current_timestamp)')
+      except:
+        pass
+      try:
+        db.execute('CREATE UNIQUE INDEX auction_item_number on auction(item_number, item)')
+      except:
+        pass
       db.commit()
 
       #mdb = sqlite3.connect(":memory:", isolation_level=None)

@@ -19,8 +19,6 @@
 ;;; ----------------------------------------------------------------------------
 /load -q char/paxon.gear.ava.tf
 ; Misc other triggers/aliases
-;/def -wpaxon paxonlvl = get all.levelgear %lootContainer%;rem %{ac_head}%;rem %{ac_neck1}%;wear all.levelgear
-;/def -wpaxon paxonunlvl = rem all.levelgear%;put all.levelgear %lootContainer%;wear %{ac_head}%;wear %{ac_neck1} 
 /def -wpaxon paxonSetMySpell = \
     /let newSpell=='%{*}'%;\
     /if ({newSpell} !/ {paxonMidSpell}) \
@@ -55,32 +53,6 @@
 ;/def -wpaxon -p9 -ag -mregexp -F -t"\'s attacks haven\'t hurt you\!$" paxon_nil_aggie_flash = \
 ;    /if ({running}==1) /q 6 c flash%;/endif
 
-;;; ----------------------------------------------------------------------------
-;;; Hero spell aliases
-;;; ----------------------------------------------------------------------------
-/alias di \
-    /if ({#} > 1 | {1} > 0) surge %1%;/endif%;\
-    c disintegrate %2%;\
-    /if ({#} > 1 | {1} > 0) surge off%;/endif
-/alias rain \
-    /if ({#} > 1 | {1} > 0) surge %1%;/endif%;\
-    c 'acid rain'%;\
-    /if ({#} > 1 | {1} > 0) surge off%;/endif
-/alias fs \
-    /if ({#} > 1 | {1} > 0) surge %1%;/endif%;\
-    c 'firestorm'%;\
-    /if ({#} > 1 | {1} > 0) surge off%;/endif
-
-;;; ----------------------------------------------------------------------------
-;;; Lord spell aliases
-;;; ----------------------------------------------------------------------------
-/alias met /if ({#} > 1 | {1} > 0) surge %1%;/endif%;c 'meteor swarm'%;/if ({#} > 1 | {1} > 0) surge off%;/endif
-
-/def -wpaxon tmae = \
-    /if ({autocast}=1) \
-    	c mae%;inv%;\
-    	/repeat -0:00:35 1 /tmae%; \
-    /endif
 
 /def -wpaxon -mregexp -t"^Your innate mental strength defeats ([a-zA-Z]+)'s frenzy spell\!" paxon_tranquil_frenzy = /send emote is filled with rage!
 
@@ -89,6 +61,17 @@
 ;; refresh sneak if running
 /def -p9 -t"You feel less fatigued. (sneak)" paxon_refresh_sneak = /if ({running}==1) /send racial sneak%;/endif
 
+;; auto-wall
+/alias wall c 'wall of thorns' %{*}
+/def wall = /auto wall %1
+/def -wpaxon -p9 -F -mregexp -t"\*?([a-zA-Z]+)\*? tells the group 'wall (n[orth]+|e[ast]+|s[outh]+|w[est]+)'" paxon_wall_bot =\
+  /if /test ($(/getvar auto_wall) == 1 & {P1} =~ {leader})%;/then c 'wall of thorns' %{P2}%;/endif
+
+;; Auto create anchor
+/def -wpaxon -p9 -F -mglob -t"* begins to summon the Planar Anchor!" paxon_auto_anchor = /send c planar summon
+
+;; Ether Link refresh
+/def -wpaxon -p9 -mglob -t"You no are no longer linked to others through the Ether." paxon_auto_ether = /if ({refreshmisc} == 1) /refreshSpell 'ether link'%;/endif
 ;; Load in the variables saved from previous state.
 /loadCharacterState paxon
 

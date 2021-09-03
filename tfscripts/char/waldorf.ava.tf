@@ -36,6 +36,8 @@
   /if ({newSpell} !/ {waldorfAOESpell}) \
     /send a 2=a 2 c '%{*}'%;\
   /endif
+/def waldorffren = /q 5 c frenzy %1
+
 ;;; ----------------------------------------------------------------------------
 ;;; waldorfPromptHookCheck is called from the prompt_hook via /promptHookCheck
 ;;; What we want to do here is just cast dancing weapon if autocast is on

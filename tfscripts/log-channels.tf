@@ -62,3 +62,12 @@
 
 /def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats? \'!stats ([a-zA-Z]+)\'$" buddylist_charstats = /charstat %{P1} buddy
 /def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats 'No altlist found for ([a-zA-Z]+).'$" buddylist_altlist = /altlist %{P1} buddy
+/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats 'moron ?list'" buddylist_moronlist = \
+  /let qryalt=$[strip_attr({P1})]%;\
+  /quote -S buddy !sqlite3 avatar.db "select 'Current list of morons: ' || main_alt" from alt_list where lower(name) = lower('%{qryalt}')"
+/def -F -p50 -mregexp -t"^[a-zA-Z\\ \\-\\,\\.]+ buddychats '([a-zA-Z]+) is not one of my active characters or no gains recorded\.'$" buddylist_stats = /charstat %{P1} buddy
+
+/def -mregexp -ag -t"^\[BUDDY INFO\]\: ([a-zA-Z]+) has logged out\.$" buddy_logout = \
+      /let qryalt=$[strip_attr({P1})]%;\
+        /quote -S /echo -pw @{Cred}[BUDDY INFO]: !sqlite3 avatar.db "select '@{Cwhite}' || main_alt || '@{Cred} has logged out of @{Cwhite}%{P1}@{Cred}.@{n}' from alt_list where lower(name) = lower('%{qryalt}')"
+

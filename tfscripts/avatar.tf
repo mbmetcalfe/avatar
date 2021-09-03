@@ -70,7 +70,12 @@
 /load -q resistance.tf
 /load -q archer.tf
 /load -q rogue.tf
+/load -q monk.tf
+/load -q healer.tf
 /load -q repair.tf
+
+;; Auction capturing
+/load -q auction.tf
 
 ;;; char 'state' saving stuff
 /load -q state.tf
@@ -80,6 +85,8 @@
 
 ;;; Auto charge
 /load -q autocharge.tf
+;; Auto-enchanting
+/load -q enchant.tf
 
 ;;;  Logging stuff
 /load -q gear-logging.tf

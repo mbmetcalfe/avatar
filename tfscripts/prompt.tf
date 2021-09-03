@@ -282,30 +282,6 @@
 /def status_rm_world = /status_rm @world
 /def status_edit_world = /status_edit -r1 @world:%{1}:Cred
 
-;; Add/remove monitored people to status line 3.
-/set numMonitors=0
-/def addmon = \
-    /if ({#} != 2) /echo -pw /addmon [name] [HP|MN|MV]@{n}%;\
-    /else \
-        /if ({status_height} < 3) /set status_height=3%;/endif%;\
-        /let _lcname=$[tolower({1})]%;\
-        /let _ucstat=$[toupper({2})]%;\
-        /let _tmsg=$(/listvar -vmglob displayMonitor%{_ucstat}_%{_lcname}) %; \
-        /let _msgLen=$[strlen({_tmsg})]%;\
-        /status_add -x -r2 -A displayMonitor%{_ucstat}_%{_lcname}:%{_msgLen}:Cgreen%;\
-        /set numMonitors=$[++numMonitors]%;\
-    /endif
-/def rmmon = \
-    /if ({#} != 2) /echo -pw /rmmon [name] [HP|MN|MV]@{n}%;\
-    /else \
-        /let _lcname=$[tolower({1})]%;\
-        /let _ucstat=$[toupper({2})]%;\
-        /status_rm displayMonitor%{_ucstat}_%{_lcname}%;\
-        /unset displayMonitor%{_ucstat}_%{_lcname}%;\
-        /set numMonitors=$[--numMonitors]%;\
-        /if ({numMonitors} == 0) /set status_height=2%;/endif%;\
-    /endif
-
 ;; Configure the prompt display
 /def my_default_prompt = \
     /status_defaults%;\

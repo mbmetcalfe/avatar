@@ -1,4 +1,4 @@
-#!/opt/php/bin/php
+#!/usr/bin/php
 <?php
  $passed=$argv[1];
  $fname = "damages.dat";

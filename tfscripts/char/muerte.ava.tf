@@ -5,6 +5,11 @@
 /require archer.tf
 
 /unalias ls
+/def muertefren = /q 5 c frenzy %1
+
+; wear ebonies after mob death to get faster stabs when moving rooms
+;/def -wmuerte -F -au -p6 -mregexp -t'^You receive ([0-9]+) experience points.$' muerte_prep_stab = /send wear "ebony arrows"
+
 ;/def -mglob -wmuerte -p0 -t"You feel less fatigued\." racial_frenzy_fatigue = \
 ;    /if ({refren} = 1) /send racial frenzy %; /endif
 /def -mglob -wmuerte -p0 -t"You feel less fatigued. (frenzy)" racial_frenzy_fatigue = \
@@ -22,22 +27,8 @@
     /if ({leader} !~ "Self") ls south arc%;ls south grant%;/endif
 /def -mglob -p1 -wmuerte -t"The family graveyard" autols_eater = \
     /if ({leader} !~ "Self") ls north eater%;/endif
-/def -wmuerte muertelvl = /send get all.levelgear %lootContainer=wear hat=wear crucifix
-/def -wmuerte muerteunlvl = /send rem all.levelgear=put all.levelgear %lootContainer=wear crescent=wear circlet
-
-
-;; bow/xbow swapping when aggied
-/def -wmuerte -p9 -ag -mregexp -F -t"\'s attac.* strikes? you [0-9]* (time|times), with .* [a-zA-Z]*(\.|\!)$" archer_aggie_swap_bow = \
-    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-/def -wmuerte -p9 -ag -mregexp -F -t"\'s attacks haven\'t hurt you\!$" archer_nil_aggie_swap_bow = \
-    /if ({xbowon}=0 & {leader} !~ "Self" & {running}=1) xbow%;/aq bow%;/endif
-/def -wmuerte -p9 -ag -mregexp -F -t"([a-zA-Z]+) successfully rescues you from the .*\!" archer_rescued_swap_bow = \
-    /if ({xbowon}=1 & {leader} !~ "Self" & {running}=1) bow%;/clrq%;/endif
-
-;;; Macro to hold actions to try and perform mid-round.
-;;; Use /amid to toggle this macro firing mid-round.
-/def muertemidround = /send -wmuerte aim
-/def mue = /send -wmuerte %{*}
+;/def -wmuerte muertelvl = /send get all.levelgear %lootContainer=wear hat=wear crucifix
+;/def -wmuerte muerteunlvl = /send rem all.levelgear=put all.levelgear %lootContainer=wear crescent=wear circlet
 
 ;; Load in the variables saved from previous state.
 /loadCharacterState muerte
